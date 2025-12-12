@@ -1,0 +1,48 @@
+.container {
+    background-color: black;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8px 1rem;
+}
+
+.movie-poster {
+    max-width: 300px;
+    border: 4px solid white;
+    border-radius: 5px;
+    display: flex; /* Enables Flexbox layout */
+    justify-content: center; /* Centers the image horizontally */
+    align-items: center; /* Centers the image vertically */
+    height: 100%;
+}
+
+.movie-title {
+    font-size: 2rem;
+    color: #d4aa11;
+    text-align: center;
+}
+
+.movie-info {
+    text-align: left;
+    color: white;
+}
+
+b {
+    color: #d4aa11;
+    font-style: italic;
+}
+
+p{
+    font-size: large;
+}
+
+.plot {
+    font-size: 0.8rem;
+    max-width: 400px;
+    margin-left: 1rem;
+}
+
+.movie-poster img {
+    max-width: 100%; /* Ensures the image fits within the container */
+    max-height: 300px; /* Optional: Restrict max height */
+    object-fit: contain; /* Maintains the aspect ratio */
+}

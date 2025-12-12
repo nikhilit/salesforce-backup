@@ -1,0 +1,112 @@
+<template>
+    <lightning-card title="Calculator" icon-name="custom:custom14">
+        <!-- Embedded CSS inside the HTML template -->
+        
+
+        <div class="slds-var-p-around_small">
+            <!-- Inputs Section -->
+            <lightning-input label="Enter Number 1" 
+                name="number1" 
+                type="number" 
+                onchange={handleNumberChangeOne} 
+                class="input-field" 
+                placeholder="Enter Number 1">
+            </lightning-input>
+
+            <lightning-input label="Enter Number 2" 
+                name="number2" 
+                type="number" 
+                onchange={handleNumberChangeTwo} 
+                class="input-field" 
+                placeholder="Enter Number 2">
+            </lightning-input>
+        </div>
+
+        <!-- Operations Buttons Section -->
+        <div class="slds-var-p-around_small" style="text-align: center;">
+            <lightning-button label="Add (+)" 
+                onclick={handleAddition} 
+                variant="brand" 
+                class="operation-button">
+            </lightning-button>
+
+            <lightning-button label="Subtract (-)" 
+                onclick={handleSubtraction} 
+                variant="brand" 
+                class="operation-button">
+            </lightning-button>
+
+            <lightning-button label="Multiply (*)" 
+                onclick={handleMultiplication} 
+                variant="brand" 
+                class="operation-button">
+            </lightning-button>
+
+            <lightning-button label="Divide (/)" 
+                onclick={handleDivision} 
+                variant="brand" 
+                class="operation-button">
+            </lightning-button>
+        </div>
+
+        <!-- Result Display -->
+        <div class="result-container">
+            <p>Result: {result}</p>
+        </div>
+    </lightning-card>
+</template>
+
+
+<!-- <template> 
+    <lightning-card style="text-align:center" title="Calculator" icon-name="custom:custom14">
+       <div class="slds-var-p-around_small">
+        
+        <lightning-input  label="Number 1"
+        name="number1"  
+        onchange={changeHandlerNumberOne} 
+        placeholder="Enter Number 1">
+    </lightning-input>
+
+        <lightning-input  
+        label="Number 2"
+        name="number2"  
+        onchange={changeHandlerNumberTwo} 
+        placeholder="Enter Number 1">
+        
+    </lightning-input>
+
+       </div> 
+       
+       <div class="slds-var-p-around_small">
+
+        <lightning-button label="add"
+        onclick={addHandler}
+        variant="brand"
+        class="slds-var-m-left_x-small">
+        </lightning-button>
+
+        <lightning-button label="mul"
+        onclick={subHandler}
+        variant="brand"
+        class="slds-var-m-left_x-small">
+        </lightning-button>
+
+        <lightning-button label="div"
+        onclick={mulHandler}
+        variant="brand"
+        class="slds-var-m-left_x-small">
+        </lightning-button>
+
+        <lightning-button label="sub"
+        onclick={divHandler}
+        variant="brand"
+        class="slds-var-m-left_x-small">
+        </lightning-button>
+
+        
+       </div>
+       <div class="slds-var-m-left_x-small">
+        <p>Output : {result} </p>
+       </div>
+    </lightning-card>
+</template> -->

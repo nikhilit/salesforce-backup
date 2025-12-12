@@ -1,0 +1,23 @@
+.icon-container {
+    display: flex;              /* To create a flexible layout */
+    justify-content: center;    /* Align icons in the center horizontally */
+    align-items: center;        /* Align icons in the center vertically */
+    gap: 20px;                  /* Space between the icons */
+    margin-top: 20px; 
+    padding: 30px;
+
+}
+
+.heart:hover {
+    transform: scale(2.0);
+    transition: transform 0.2s;
+}
+.water:hover {
+    transform: scale(2.0);
+    transition: transform 0.2s;
+}
+
+.star:hover {
+    transform: scale(2.0);
+    transition: transform 0.2s;
+}

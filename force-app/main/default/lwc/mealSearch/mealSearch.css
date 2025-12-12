@@ -1,0 +1,31 @@
+.hero-section{
+    /*background-image: url('/resource/mealDB');*/
+    background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/disp/e5182829090891.55e19f6bbb6aa.jpg');
+    background-size:cover;
+    background-position:center;
+    background-repeat: no-repeat;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: white;
+
+}
+
+.hero-content{
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+    width: 500px;
+    max-width: 600px;
+    border-radius: 8px;
+    text-align:center;
+    color: black;
+}
+
+.hero-heading{
+    font-size: 36px;
+    font-weight:bold;
+    margin-bottom: 20px;
+    color: white;
+}

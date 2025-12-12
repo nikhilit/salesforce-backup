@@ -1,0 +1,34 @@
+<template>
+    <lightning-card 
+    title="Contact Destails" icon-name="custom:custom14">
+    <lightning-layout class="slds-var-m-around_small">
+        <lightning-layout-item>
+            <template lwc:if={contacts.data} >
+                <template for:each={contact.data} for:item="Contact">
+                <c-contact-item
+                contact={contact}
+                key={contact.id}
+                onselection={selectionHandler}>
+               </c-contact-item>
+              </template>
+            </template>
+        </lightning-layout-item>
+        
+        <lightning-layout-item class="slds-var-m-around_small">
+                <template lwc:if={selectedContact} >
+                    <img src ={selectedContact.PhotoUrl}/>
+                    <p>{selectedContact.Name}</p>
+                    <p>{selectedContact.Title}</p>
+                    <p>
+                        <lightning-formatted-phone  value ={selectedContact.Phone}>  
+                        </lightning-formatted-phone>
+                    </p>
+                    <p>
+                        <lightning-formatted-phone  value ={selectedContact.Email}>  
+                        </lightning-formatted-phone>
+                    </p>
+                    </template>
+                    </lightning-layout-item>
+    </lightning-layout>
+ </lightning-card>
+</template>

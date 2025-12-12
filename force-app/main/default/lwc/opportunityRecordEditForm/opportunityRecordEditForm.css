@@ -1,0 +1,7 @@
+.scrollable-container {
+    max-height: 900x; /* Set the desired max height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 1rem; /* Add some padding around the content */
+    border: 1px solid #dcdcdc; /* Optional: Add a border for better visibility */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+}

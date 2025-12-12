@@ -1,0 +1,27 @@
+<template>
+    <!-- Conditional rendering for displaying account information -->
+    <template if:true={accountinfo}>
+        <div>
+            <h2>Account Information</h2>
+            <p><strong>Label:</strong> {accountinfo.label}</p>
+            <p><strong>Plural Label:</strong> {accountinfo.labelPlural}</p>
+            <p><strong>Record Type Id:</strong> {accountinfo.defaultRecordTypeId}</p>
+            <p><strong>API Name:</strong> {accountinfo.apiName}</p>
+        </div>
+    </template>
+    
+    <!-- Conditional rendering for displaying errors -->
+    <template if:true={accounterror}>
+        <div class="slds-text-color_error">
+            <h2>Error Retrieving Account Information</h2>
+            <p>{accounterror.message}</p>
+        </div>
+    </template>
+
+    <!-- Default message when no data or error -->
+    <template if:true={isLoading}>
+        <div>
+            <p>Loading Account Information...</p>
+        </div>
+    </template>
+</template>

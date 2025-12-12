@@ -1,0 +1,43 @@
+<template>
+  <div class="slds-box slds-theme_default">
+      <!-- Search section -->
+      <div class="slds-grid slds-gutters">
+          <div class="slds-col slds-size_2-of-3">
+              <lightning-input
+                  variant="label-hidden"
+                  placeholder="Enter track to search"
+                  onchange={changeHandler}
+                  required="true"
+                  message-when-value-missing="Please enter a track to search">
+              </lightning-input>
+          </div>
+          <div class="slds-col slds-size_1-of-3">
+              <lightning-button
+                  label="Search" 
+                  onclick={searchHandler}>
+              </lightning-button>
+          </div>
+      </div>
+      
+      <!-- Results section (only shows if results are found) -->
+      <template lwc:if={displyResult}>
+          <div class="track-container">
+              <!-- Album cover -->
+              <img src={trackUrl} alt="Album Cover" class="album-cover" />
+              
+              <!-- Track details -->
+              <div class="track-details">
+                  <a href={trackData.external_urls.spotify} target="_blank" class="track-name">
+                      {trackData.name}
+                  </a>
+                  <p class="artist-name">Artists: {artistName}</p>
+                  <p class="popularity">Popularity: {trackData.popularity}</p>
+                  <a href={trackData.album.external_urls.spotify} target="_blank" class="album-link">
+                      {trackData.album.name}
+                  </a>
+                  <p class="release-date">Release Date: {trackData.album.release_date}</p>
+              </div>
+          </div>
+      </template>
+  </div>
+</template>

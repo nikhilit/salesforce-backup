@@ -1,0 +1,25 @@
+<template>
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-heading">Search Your Food Recepie</h1>
+            <div class="slds-grid slds-wrap  slds-grid_align-center">
+                <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12">
+                  <lightning-input 
+                  label="Enter Your Search Item"
+                  placeholder="Enter Meal for Search"
+                  onchange={changeHandler}
+                  variant="label-hidden"
+                  type="search">
+                 </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
+                  <lightning-button 
+                  label="Search Recepie" 
+                  variant="destructive" 
+                  onclick={clickHandler}>
+                 </lightning-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

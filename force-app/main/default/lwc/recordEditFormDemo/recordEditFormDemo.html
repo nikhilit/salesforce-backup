@@ -1,0 +1,25 @@
+<template>
+    <lightning-card title="Record Edit Form - Create Mode">
+        <lightning-record-edit-form
+            object-api-name={objectApiName}
+            record-id={recordId}
+            onsuccess={handleSuccessAndNavigate}>  <!-- Call handleSuccess on success -->
+            
+            <div class="slds-var-p-around_small">
+                <lightning-input-field field-name={fieldList.name.fieldApiName}></lightning-input-field>
+                <lightning-input-field field-name={fieldList.industry.fieldApiName}></lightning-input-field>
+                <lightning-input-field field-name={fieldList.rating.fieldApiName}></lightning-input-field>
+                <lightning-input-field field-name={fieldList.revenue.fieldApiName}></lightning-input-field>
+            </div>
+
+            <div>
+                <lightning-button 
+                    variant="brand" 
+                    type="submit" 
+                    label="Create Account">
+                </lightning-button>
+            </div>
+
+        </lightning-record-edit-form>
+    </lightning-card>
+</template>
