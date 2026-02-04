@@ -1,0 +1,19 @@
+<template>
+    <lightning-card style="text-align:center">
+    Hey!! {fullName} Welcome  to my first lwc project.
+
+    <lightning-input label="Enter First Name" value={firstName} onchange={handlechange}> </lightning-input>
+
+    <lightning-input label="Enter Last Name" value={lastName} onchange={handlechange}> </lightning-input>
+
+
+    <lightning-button variant="brand" title="Click Me" label="Click Me" onclick={handleClick}> </lightning-button>
+
+
+    <p>{fullName}</p>
+    
+
+    </lightning-card>
+
+    
+</template>

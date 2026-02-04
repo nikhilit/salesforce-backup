@@ -1,0 +1,41 @@
+<template>
+    <lightning-card title="Record Form Demo - create the record">
+        <lightning-record-form  
+            object-api-name={objectApiName}
+            fields={fieldList}
+            columns="2"
+            onsuccess={navigateToRecordPage}>
+        </lightning-record-form>
+    </lightning-card>
+
+    <lightning-card title="Record Form Demo - view the record only">
+        <lightning-record-form  
+            object-api-name={objectApiName}
+            record-id={recordId}
+            fields={fieldList}
+            columns="2"
+            mode="view">
+        </lightning-record-form>
+    </lightning-card>
+
+    <lightning-card title="Record Form Demo - Readonly the record">
+        <lightning-record-form  
+            object-api-name={objectApiName}
+            record-id={recordId}
+            fields={fieldList}
+            columns="2"
+            mode="readonly">
+        </lightning-record-form>
+    </lightning-card>
+
+    <lightning-card title="Record Form Demo - Edit the record">
+        <lightning-record-form  
+            object-api-name={objectApiName}
+            record-id={recordId}
+            fields={fieldList}
+            columns="2"
+            mode="edit"
+            onsuccess={showToast}>
+        </lightning-record-form>
+    </lightning-card>
+</template>

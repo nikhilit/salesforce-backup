@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AuraDefinitionBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+<<<<<<< HEAD
     <apiVersion>65.0</apiVersion>
+=======
+    <apiVersion>62.0</apiVersion>
+>>>>>>> e604021b64f33882bfed07c2bfed265ad53326cf
     <description>Sample Event for setExpId</description>
 </AuraDefinitionBundle>

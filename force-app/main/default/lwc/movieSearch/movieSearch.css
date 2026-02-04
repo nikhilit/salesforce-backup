@@ -1,0 +1,11 @@
+.filterstyle {
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: whitesmoke;
+}
+
+.displayStyle {
+    height: 600px;
+    background-color: #171717;
+    overflow-y: auto;
+}

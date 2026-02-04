@@ -1,0 +1,38 @@
+<template>
+    <lightning-card title="Wire Decorator With Property">
+
+        <div class="icon-container">
+        <lightning-icon icon-name="custom:custom1"
+        alternative-text="Approved"
+        title="Approved"
+         onclick={handleHotButtonClick}
+         class="heart">
+        </lightning-icon> 
+
+        <lightning-icon  
+        icon-name="custom:custom10"  
+        alternative-text="New note" 
+        title="New note" 
+        onclick={handleWarmButtonClick} 
+        class="water"> 
+        </lightning-icon> 
+
+        <lightning-icon  
+        icon-name="custom:custom11"  
+        alternative-text="Preview"  
+        title="Preview"  
+        onclick={handleColdButtonClick} 
+        class="star"> 
+        </lightning-icon> 
+
+        </div> 
+        <div style="height: 300px;"> 
+            <lightning-datatable 
+                key-field="Id" 
+                data={filteredAccounts}  
+                columns={columns}> 
+            </lightning-datatable> 
+        </div>   
+    </lightning-card> 
+
+</template>

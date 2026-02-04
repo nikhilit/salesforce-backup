@@ -1,0 +1,149 @@
+<template>
+    <lightning-card title="New Opportunity">
+        <div class="scrollable-container">
+            <lightning-record-edit-form
+                object-api-name="Opportunity"
+                onsuccess={handleSuccess}
+                onerror={handleError}>
+
+
+                <!-- Customer Details Section -->
+                <div class="slds-var-p-around_small">
+                    <h2 class="slds-text-heading_small">Customer Details</h2>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="AccountId" ></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Name" required></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="OwnerId" required></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Phone" required></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Email" required></lightning-input-field>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Opportunity Details Section -->
+                <div class="slds-var-p-around_small">
+                    <h2 class="slds-text-heading_small">Opportunity Details</h2>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="CloseDate" required></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="StageName" required></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Type"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="LeadSource"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Probability"></lightning-input-field>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Financial Details Section -->
+                <div class="slds-var-p-around_small">
+                    <h2 class="slds-text-heading_small">Financial Details</h2>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Amount" required></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="ExpectedRevenue"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Discount_Percentage__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="OrderNumber__c"></lightning-input-field>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Status and Approval Section -->
+                <div class="slds-var-p-around_small">
+                    <h2 class="slds-text-heading_small">Status and Approval</h2>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="IsPrivate"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Approval_Status__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Closed_Lost_Reason__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="DeliveryInstallationStatus__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Show_Confetti__c"></lightning-input-field>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Additional Details Section -->
+                <div class="slds-var-p-around_small">
+                    <h2 class="slds-text-heading_small">Additional Details</h2>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="CampaignId"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="TrackingNumber__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="MainCompetitors__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="CurrentGenerators__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Description"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Email__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="demo__c"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="CreatedById"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="LastModifiedById"></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="NextStep"></lightning-input-field>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Submit Button -->
+                <div class="slds-m-top_medium slds-grid slds-grid_align-center">
+                    <lightning-button type="submit" label="Save" variant="brand" class="slds-p-right_small"></lightning-button>
+                    <lightning-button type="reset" label="Cancel" variant="neutral" onclick={handleCancel} class="slds-p-left_small"></lightning-button>
+                </div>
+            </lightning-record-edit-form>
+        </div>
+    </lightning-card>
+    <div slot="footer">
+        <br>
+    </div>
+
+</template>

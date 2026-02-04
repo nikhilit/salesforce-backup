@@ -1,0 +1,106 @@
+<!-- <apex:page standardController="Account" renderAs="pdf">
+    <h1>Account Details</h1>
+
+    <apex:outputText value="Account Name: {!Account.Name}"/>
+    <br/>
+    
+    <apex:outputText value="Industry: {!Account.Industry}"/>
+    <br/>
+
+    <apex:outputText value="Phone: {!Account.Phone}"/>
+    <br/>
+
+    <apex:outputText value="Website: {!Account.Website}"/>
+</apex:page> -->
+
+
+<apex:page standardController="Account" renderAs="pdf" applyBodyTag="false" showHeader="false">
+    <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 20px;
+                    line-height: 1.6;
+                }
+                .header {
+                    text-align: center;
+                    margin-bottom: 30px;
+                }
+                .header img {
+                    max-height: 80px;
+                }
+                .header h1 {
+                    color: #2c3e50;
+                    font-size: 24px;
+                    margin: 10px 0;
+                }
+                .content {
+                    margin-top: 20px;
+                }
+                .content h2 {
+                    color: #2980b9;
+                    font-size: 18px;
+                    margin-bottom: 10px;
+                }
+                .details-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 10px;
+                }
+                .details-table th, .details-table td {
+                    border: 1px solid #ddd;
+                    padding: 10px;
+                    text-align: left;
+                }
+                .details-table th {
+                    background-color: #f4f6f7;
+                    color: #333;
+                }
+                .details-table tr:nth-child(even) {
+                    background-color: #f9f9f9;
+                }
+                .footer {
+                    margin-top: 40px;
+                    text-align: center;
+                    font-size: 12px;
+                    color: #7f8c8d;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <img src="https://via.placeholder.com/150x80?text=Company+Logo" alt="Company Logo"/>
+                <h1>Account Details</h1>
+            </div>
+            <div class="content">
+                <h2>Summary</h2>
+                <table class="details-table">
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>Account Name</td>
+                        <td><apex:outputText value="{!Account.Name}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Industry</td>
+                        <td><apex:outputText value="{!Account.Industry}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td><apex:outputText value="{!Account.Phone}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Website</td>
+                        <td><apex:outputText value="{!Account.Website}"/></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="footer">
+                <p>This document was generated on {!NOW()}. Please contact support for any questions.</p>
+            </div>
+        </body>
+    </html>
+</apex:page>

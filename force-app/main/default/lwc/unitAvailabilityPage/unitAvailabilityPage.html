@@ -1,0 +1,133 @@
+<template>
+    <lightning-card class="slds-card-align_center" onmouseleave={hideModal}>
+        <div class="slds-col slds-size_12-of-12" onmouseenter={hideModal}>
+            <h1 class="slds-card__header-title slds-p-around_small">
+                <span> UNIT AVAILABILITY</span>
+            </h1>
+        </div>
+        <div class="slds-grid slds-wrap slds-gutters_x-small slds-p-around_small slds-align_absolute-center" onmouseenter={hideModal}>
+            <div class="slds-col slds-size_2-of-12">
+                <lightning-combobox class="custom-label-style" data-id="projectCombobox" label="Project:" options={projectListOptions} value={selectedProject} placeholder="-Select-" onchange={handleProjectChange}>
+                </lightning-combobox>
+            </div>
+  
+            <div class="slds-col slds-size_2-of-12">
+                <lightning-combobox class="custom-label-style" label="Phase:" options={phaseListOptions} value={selectedPhase} placeholder="-Select-" onchange={handlePhaseChange}>
+                </lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_2-of-12">
+                <lightning-combobox label="Block:" class="custom-label-style" options={blockListOptions} value={selectedBlock} placeholder="-Select-" onchange={handleBlockChange}>
+                </lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_2-of-12">
+                <lightning-combobox label="Floor:" class="custom-label-style" options={floorListOptions} value={selectedFloor} placeholder="All" onchange={handleFloorChange}>
+                </lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_2-of-12">
+                <lightning-combobox label="Unit:" class="custom-label-style" options={unitListOptions} value={selectedUnit} placeholder="All" onchange={handleUnitChange}>
+                </lightning-combobox>
+            </div>
+        </div>
+        <!--LENGEND COLORS SECTION Option 1-->
+        <div class="slds-col slds-size_12-of-12" style="border-top: 2px Solid #000000; margin-top: 20px" onmouseenter={hideModal}></div>
+  
+        <div class="slds-grid slds-wrap slds-p-around_small slds-align_absolute-center" onmouseenter={hideModal}>
+            <div class="slds-col slds-large-size_1-of-12 slds-text-align_center">
+                <!--div class="legend-circle builder"></div-->
+                <lightning-icon class="legend-circle builder" style="margin: 10px auto" data-id="Builder" onclick={handleBookingStatusIconClick}></lightning-icon>
+                <div class="text-style">Builder</div>
+            </div>
+            <div class="slds-col slds-large-size_1-of-12 slds-text-align_center">
+                <!--div class="circle landowner"></div-->
+                <lightning-icon class="circle landowner" style="margin: 10px auto" data-id="Land Owner" onclick={handleBookingStatusIconClick}></lightning-icon>
+                <div class="text-style">Land Owner</div>
+            </div>
+            <div class="slds-col slds-large-size_1-of-12 slds-text-align_center">
+                <!--div class="legend-circle no-unit"></div-->
+                <lightning-icon class="legend-circle no-unit" style="margin: 10px auto" data-id="No Unit" onclick={handleBookingStatusIconClick}></lightning-icon>
+                <div class="text-style">No Unit</div>
+            </div>
+            <div class="slds-col slds-large-size_1-of-12 slds-text-align_center">
+                <div>
+                    <lightning-icon icon-name="utility:home" alternative-text="Home" class="available" style="margin: 10px auto" data-id="Available" onclick={handleBookingStatusIconClick}></lightning-icon>
+                </div>
+  
+                <div class="text-style">Available</div>
+            </div>
+            <div class="slds-col slds-large-size_1-of-12 slds-text-align_center">
+                <div>
+                    <lightning-icon icon-name="utility:home" alternative-text="Home" class="booked" style="margin: 10px auto" data-id="Booked" onclick={handleBookingStatusIconClick}></lightning-icon>
+                </div>
+  
+                <div class="text-style">Booked</div>
+            </div>
+            <div class="slds-col slds-large-size_1-of-12 slds-text-align_center">
+                <div>
+                    <lightning-icon icon-name="utility:home" alternative-text="Home" class="blocked" style="margin: 10px auto" data-id="Blocked" onclick={handleBookingStatusIconClick}></lightning-icon>
+                </div>
+  
+                <div class="text-style">Blocked</div>
+            </div>
+  
+            <div class="slds-col slds-large-size_1-of-12 slds-text-align_center">
+                <div>
+                    <lightning-icon icon-name="utility:home" alternative-text="Home" class="not-Open" style="margin: 10px auto" data-id="Not Open" onclick={handleBookingStatusIconClick}></lightning-icon>
+                </div>
+  
+                <div class="text-style">Not Open</div>
+            </div>
+        </div>
+  
+        <!-- Changes: Border color is changed to black -->
+        <div class="slds-col slds-size_12-of-12" style="border-top: 2px Solid #000000; margin-top: 2px" onmouseenter={hideModal}></div>
+        <!--LENGEND COLOR CODE ENDS HERE Option 1 Ends-->
+        <template if:true={floorWrapperList}>
+            <div style="overflow-x: auto">
+                <template for:each={floorWrapperList} for:item="floorWrapper">
+                    <div key={floorWrapper.floor.Id}>
+                        <!-- Hover event -->
+                        <lightning-layout style="padding: 10px">
+                            <lightning-layout-item>
+                                <h2 style="
+                                  font-size: 20px;
+                                  font-weight: 500;
+                                  color: #121212;
+                                  padding: 10px;
+                                  height: 50px;
+                                  width: 80px;
+                                ">
+                                    {floorWrapper.floor.FloorCodes__c}
+                                </h2>
+                            </lightning-layout-item>
+  
+                            <template for:each={floorWrapper.uniqueUnits} for:item="unitsRecord">
+                                <div key={unitsRecord.Id}>
+                                    <lightning-layout-item style="padding: 30px; height: 50px; width: 50px" size="12" small-device-size="1" medium-device-size="4">
+                                        <lightning-icon icon-name="utility:home" alternative-text="Home" class={unitsRecord.iconClass} data-id={unitsRecord.Id} onclick={showOppRecord}></lightning-icon>
+                                          <!--  <div>
+                                            <lightning-helptext
+                                              content={unitsRecord.popoverContent}
+                                              class="custom-popover"
+                                            ></lightning-helptext>
+                                          </div> -->
+                                        <div style="text-align: end">{unitsRecord.Name}</div>
+                                    </lightning-layout-item>
+                                </div>
+                            </template>
+                        </lightning-layout>
+                    </div>
+                </template>
+            </div>
+        </template>
+        <!-- Modal popup -->
+        <!-- <div if:true={isUnitDetailsVisible}>
+            <c-unitdetpopup unit-id={unitId} oncloseevent={hideModal}></c-unitdetpopup>
+  
+        </div> -->
+  
+        <template if:true={floorWrapperList.error}>
+            <p>Error fetching data</p>
+        </template>
+  
+    </lightning-card>
+  </template>

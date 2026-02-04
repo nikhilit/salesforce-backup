@@ -1,0 +1,42 @@
+<template>
+    <lightning-card title="Lead Details" icon-name="standard:lead">
+        <div class="slds-m-around_medium">
+            <lightning-accordion allow-multiple-sections-open>
+
+                <!-- Customer Details Section -->
+                <lightning-accordion-section name="customerDetails" label="Customer Details">
+                    <lightning-record-form
+                        record-id={recordId}
+                        object-api-name="Lead"
+                        fields={customerFields}
+                        columns="2"
+                        mode="edit">
+                    </lightning-record-form>
+                </lightning-accordion-section>
+
+                <!-- Primary Lead Source Section -->
+                <lightning-accordion-section name="primaryLeadSource" label="Primary Lead Source">
+                    <lightning-record-form
+                        record-id={recordId}
+                        object-api-name="Lead"
+                        fields={primaryLeadSourceFields}
+                        columns="2"
+                        mode="edit">
+                    </lightning-record-form>
+                </lightning-accordion-section>
+
+                <!-- Active Lead Source Section -->
+                <lightning-accordion-section name="activeLeadSource" label="Active Lead Source">
+                    <lightning-record-form
+                        record-id={recordId}
+                        object-api-name="Lead"
+                        fields={activeLeadSourceFields}
+                        columns="2"
+                        mode="edit">
+                    </lightning-record-form>
+                </lightning-accordion-section>
+
+            </lightning-accordion>
+        </div>
+    </lightning-card>
+</template>

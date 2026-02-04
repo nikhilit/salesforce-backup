@@ -1,4 +1,5 @@
 public class CaseTriggerHandler {
+<<<<<<< HEAD
     private static Boolean hasAlreadyExecuted = false;
     private static Boolean smsAlreadyExecuted = false;
 
@@ -490,10 +491,41 @@ public static void updatemilestone(List<Case> newCases, Map<Id,Case> oldValues) 
                 c.Existing_Middle_Name__c = acc.Middle_Name__c;
                 c.Existing_email_id__c = acc.Account_Email__c;
                 c.Existing_Salutation__c = acc.Person_Title__c;
+=======
+    public static void populateCaseNumber(List<Case> caseList)
+    {
+        List<Account> accList= new  List<Account>();
+        for(Case cs : caseList)
+        {
+            if(cs.AccountId!=null)
+            {
+                Account acc = new Account();
+                acc.id=cs.AccountId;
+                acc.Latest_Case_Number__c=cs.CaseNumber;
+                accList.add(acc);
+            }
+        }
+        if(!accList.isEmpty())
+        {
+            update accList;
+        }
+    }
+    
+    public static void CaseDeletionByAdmin(List<Case> caseList)
+    {
+        Profile p=[select id from profile WHERE Name = 'System Administrator'];
+        
+        for(case c : caseList)
+        {
+            if(Userinfo.getprofileid() != p.Id)
+            {
+                c.adderror('only system adminsitrator can delete case');
+>>>>>>> e604021b64f33882bfed07c2bfed265ad53326cf
             }
         }
     }
 
+<<<<<<< HEAD
         }
     }
    
@@ -2292,4 +2324,6 @@ public static void captureViolationTimestamps(
     
 
 
+=======
+>>>>>>> e604021b64f33882bfed07c2bfed265ad53326cf
 }

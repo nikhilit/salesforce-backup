@@ -1,0 +1,36 @@
+<template>
+    <!-- Card Layout for WhatsApp Integration -->
+    <lightning-card 
+        title="WhatsApp Integration" 
+        icon-name="standard:messaging_user" 
+        class="whatsapp-card" 
+        onclose={closeCard}>
+
+        <!-- Instructions Section -->
+        <div class="whatsapp-instructions">
+            <p class="slds-text-heading_medium">Enter your message and click "Send" to send it via WhatsApp.</p>
+        </div>
+
+        <!-- Textarea Section for User Input -->
+        <div class="whatsapp-textarea">
+            <lightning-textarea
+                label="Your Message"
+                placeholder="Type your message here..."
+                value={message}
+                onchange={handleMessageChange}
+                class="whatsapp-textarea_input"
+            ></lightning-textarea>
+        </div>
+
+        <!-- Button Section to Send Message -->
+        <div slot="footer">
+            <lightning-button
+                label="Send"
+                variant="brand"
+                onclick={handleSendWhatsApp}
+                style="text-align:center"
+            ></lightning-button>
+        </div>
+        
+    </lightning-card>
+</template>

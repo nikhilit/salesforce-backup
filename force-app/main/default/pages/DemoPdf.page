@@ -1,0 +1,196 @@
+<apex:page standardController="Account" renderAs="pdf">
+    <head>
+        <style>
+            integer counter = 0; 
+            @page { 
+            size: portrait; 
+            @bottom-right { 
+            content: "Page " counter(page) " of " counter(pages); 
+            } 
+            } 
+        </style>
+    </head>
+    
+    <body>
+        <table style="font-family:sans-serif; padding-bottom:30px;">
+            <tr>
+                <td>
+                    <apex:image id="Logo1" value="{!$Resource.Logo1}" width="60" height="60"></apex:image>
+                </td>
+                <td style="font:24pt; padding-left:10px; padding-right:250px;">Salesforce Atlas</td>
+                <td style="font:24pt;">INVOICE</td>
+            </tr>
+        </table>
+        
+        <table style="border:0.5px solid #fff; font-family:sans-serif;">
+            <tr>
+                <td style="padding-right:450px;"><apex:outputField value="{!Account.BillingStreet}"/></td>
+                <td style="test-align:right; padding-right:20px;">Date</td>
+                <td style="text-align:right;"><apex:outputText value="{!DAY(TODAY())}-{!MONTH(TODAY())}-{!YEAR(TODAY())}"></apex:outputText> </td>
+            </tr>
+            <tr>
+                <td style="padding-right:450px;"><apex:outputField value="{!Account.BillingCity}"/>, <span/><apex:outputField value="{!Account.BillingPostalCode}"/></td>
+                <td style="test-align:right; padding-right:20px;">Invoice no. </td>
+                <td style="text-align:right;"><apex:outputField value="{!Account.Sic}"/></td>
+            </tr>
+            <tr>
+                <td style="padding-right:450px;"><apex:outputField value="{!Account.Phone}"/></td>
+                <td style="test-align:right; padding-right:20px;">Due Date:</td>
+                <td style="text-align:right;"><apex:outputField value="{!Account.SLAExpirationDate__c}"/></td>
+            </tr>
+            <tr>
+                <td><apex:outputField value="{!Account.Website}"/></td>
+            </tr>
+            <br/>
+        </table>
+        
+        
+        <table style="border:0.5px solid #fff; font-family:sans-serif;">
+            <tr>
+                <th style="padding-left:5px; padding-right:170px; color:#fff; background-color:#97824c;">BILL TO</th>
+                <th style="background-color:#fff;  color:#fff; ">BLANK COLUMN</th>
+                <th style="padding-left:5px; padding-right:170px; color:#fff; background-color:#97824c;">SHIP TO</th>
+            </tr>
+            <tr >
+                <td style="padding-left:5px;">Katheryn Marcone</td>
+                <td></td>
+                <td style="padding-left:5px;">Katheryn Marcone</td>
+            </tr>
+            <tr >
+                <td style="padding-left:5px;">Bluejam</td>
+                <td></td>
+                <td style="padding-left:5px;">Bluejam</td>
+            </tr>
+            <tr >
+                <td style="padding-left:5px;">123 Red St</td>
+                <td></td>
+                <td style="padding-left:5px;">123 Red St</td>
+            </tr>
+            <tr >
+                <td style="padding-left:5px;">London, L1 2DN</td>
+                <td></td>
+                <td style="padding-left:5px;">London, L1 2DN</td>
+            </tr>
+            <tr >
+                <td style="padding-left:5px;">2433912457</td>
+                <td></td>
+                <td style="padding-left:5px;">2433912457</td>
+            </tr>
+        </table>
+        
+        <br/>
+        <table style="border:0.5px solid #fff; font-family:sans-serif;">
+            <tr style=" color:#fff; background-color:#97824c;">
+                <th style="padding-left:10px; padding-right:350px; ">Description</th>
+                <th style="padding-left:10px; padding-right:10px; ">Qty</th>
+                <th style="padding-left:10px; padding-right:10px; ">Unit Price</th>
+                <th style="padding-left:10px; padding-right:10px; ">Amount</th>
+            </tr>
+            <tr>
+                <td style="padding-left:10px; ">Product 1</td>
+                <td style="text-align: center;">2</td>
+                <td style="text-align: right; padding-right:5px">Rs.2,000/-</td>
+                <td style="text-align: right; padding-right:5px">Rs.4,000/-</td>
+            </tr>
+            <tr style="background-color:#dcdcdc;">
+                <td style="padding-left:10px; ">Product 2</td>
+                <td style="text-align: center; ">3</td>
+                <td style="text-align: right; padding-right:5px">Rs.3,000/-</td>
+                <td style="text-align: right; padding-right:5px">Rs.9,000/-</td>
+            </tr>
+            <tr>
+                <td style="padding-left:10px; ">Labor</td>
+                <td style="text-align: center; ">14</td>
+                <td style="text-align: right; padding-right:5px">Rs.1,000/-</td>
+                <td style="text-align: right; padding-right:5px">Rs.14,000/-</td>
+            </tr>
+            <tr style="background-color:#dcdcdc;">
+                <td style="padding-left:10px; "><br/></td>
+                <td style="text-align: center;"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+            </tr>
+            <tr>
+                <td style="padding-left:10px; "><br/></td>
+                <td style="text-align: center;"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+            </tr>
+            <tr style="background-color:#dcdcdc;">
+                <td style="padding-left:10px; "><br/></td>
+                <td style="text-align: center;"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+            </tr>
+            <tr>
+                <td style="padding-left:10px; "><br/></td>
+                <td style="text-align: center;"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+            </tr>
+            <tr style="background-color:#dcdcdc;">
+                <td style="padding-left:10px; "><br/></td>
+                <td style="text-align: center;"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+            </tr>
+            <tr>
+                <td style="padding-left:10px; "><br/></td>
+                <td style="text-align: center;"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+            </tr>
+            <tr style="background-color:#dcdcdc;">
+                <td style="padding-left:10px; "><br/></td>
+                <td style="text-align: center;"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+                <td style="text-align: right; padding-right:5px"><br/></td>
+            </tr>
+        </table>
+        <br/>
+        
+        <table style="border:solid 0.5px #000; border-top:none; font-family: sans-serif; padding-bottom: 100px;">
+            <tr>
+                <th style="padding-left:5px; padding-right:400px; color:#fff; background-color:#97824c;">COMMENTS</th>
+            </tr>
+            <tr>
+                <td style="padding-left: 5px;">1. Payment due in 30 days</td>
+            </tr>
+            <tr>
+                <td style="padding-left: 5px;">2. Please note the invoice number in your payment methods</td>
+            </tr>
+            <tr>
+                <td>
+                    <br/>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-left: 5px;">Banking and wire transfer information may also be included here</td>
+            </tr>
+        </table>
+        
+        <table style="margin-left: 530px; margin-top: -220px; z-index: 1; font-family: sans-serif;">
+            <tr>
+                <td style="padding-right:20px">Subtotal</td>
+                <td style="text-align: right;">Rs.27,000/-</td>
+            </tr>
+            <tr>
+                <td style="padding-right:20px">Discounts</td>
+                <td style="text-align: right;">Rs.1,500/-</td>
+            </tr>
+            <tr>
+                <td style="padding-right:20px">Taxes</td>
+                <td style="text-align: right;">Rs.490/-</td>
+            </tr>
+            <tr>
+                <td style="padding-right:20px">Total</td>
+                <td style="text-align: right;">Rs.25,010/-</td>
+            </tr>
+        </table>
+        <table style="margin-left: 570px; margin-top: 40px; z-index: 1; font-family: sans-serif;">
+            <tr>
+                <td style="color:#97824c;">Thank you for your Business!</td>
+            </tr>
+        </table>
+    </body>
+</apex:page>

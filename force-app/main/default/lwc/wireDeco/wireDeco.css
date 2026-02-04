@@ -1,0 +1,21 @@
+.slds-p-around_medium {
+    padding: 1rem;
+}
+
+.slds-m-bottom_medium {
+    margin-bottom: 1rem;
+}
+
+.slds-button_neutral {
+    margin-right: 0.5rem;
+}
+
+.slds-grid_align-spread {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slds-text-align_center {
+    text-align: center;
+}

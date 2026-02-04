@@ -1,0 +1,391 @@
+.custom-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px;
+}
+
+.custom-label-style {
+    color: #444;
+    font-weight: 400;
+    font-size: 14px;
+    --slds-form-element__label: #1e1c1c;
+
+}
+
+/*.slds-col {
+    width: 16.66%; /* To display 6 columns in a row 
+    padding: 10px;
+    box-sizing: border-box;
+}*/
+
+.record-wrapper {
+    margin-bottom: 20px;
+    /* Margin below each record */
+    padding: 10px;
+    border: 1px solid #d3d3d3;
+    background-color: #f9f9f9;
+}
+
+.icon-wrapper {
+    margin-right: 10px;
+    align-self: center;
+}
+
+.slds-button {
+    margin-top: 20px;
+    margin-left: 5px;
+    --sds-c-button-brand-color-background: rgb(14, 162, 216);
+    --sds-c-button-text-color: #f4f7f9;
+    --slds-c-button-brand-color-border: rgb(14, 162, 216);
+
+}
+
+/*BUILDER & STATUS CSS TYPE here*/
+.default-style {
+    --slds-c-icon-color-foreground-default: #ffffff;
+    --slds-c-icon-color-background: #00a8f3;
+
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+.Box-builder-booked {
+    width: 50px;
+    height: 50px;
+    border-radius: 2%;
+    margin: 10px auto;
+    background: linear-gradient(180deg, #00a8f3 50%, #ffdc2c 50%);
+}
+
+.builder-booked {
+    --slds-c-icon-color-foreground-default: #ffdc2c;
+    --slds-c-icon-color-background: #00a8f3;
+
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+.builder-available {
+    --slds-c-icon-color-foreground-default: #5EB82E;
+    --slds-c-icon-color-background: #00a8f3;
+
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+.builder-blocked {
+    --slds-c-icon-color-foreground-default: #ec1c24;
+    --slds-c-icon-color-background: #00a8f3;
+
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+/* .builder-mortgage{
+    --slds-c-icon-color-foreground-default: #b97a56;
+    --slds-c-icon-color-background: #00a8f3;
+    
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;padding: 0.5rem;
+} */
+/* .builder-mortgageblock{
+    --slds-c-icon-color-foreground-default: #000000;
+    --slds-c-icon-color-background: #00a8f3;
+    
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;padding: 0.5rem;
+} */
+.builder-notopen {
+    --slds-c-icon-color-foreground-default: #c3c3c3;
+    --slds-c-icon-color-background: #00a8f3;
+
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+
+/*-----LAND OWNER & STATUS CSS TYPE here---*/
+.landowner-available {
+    --slds-c-icon-color-foreground-default: #5EB82E;
+    --slds-c-icon-color-background: #3f48cc;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+.landowner-booked {
+    --slds-c-icon-color-foreground-default: #ffdc2c;
+    --slds-c-icon-color-background: #3f48cc;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+.landowner-blocked {
+    --slds-c-icon-color-foreground-default: #ec1c24;
+    --slds-c-icon-color-background: #3f48cc;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+/* .landowner-mortgage{
+    --slds-c-icon-color-foreground-default: #b97a56;
+    --slds-c-icon-color-background: #3f48cc;  
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;padding: 0.5rem;
+} */
+/* .landowner-mortgageblock{
+    --slds-c-icon-color-foreground-default: #000000;
+    --slds-c-icon-color-background: #3f48cc;  
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;padding: 0.5rem;
+} */
+.landowner-notopen {
+    --slds-c-icon-color-foreground-default: #c3c3c3;
+    --slds-c-icon-color-background: #3f48cc;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+/*---THIRD PARTY & STATUS CSS TYPE here---*/
+.thirdparty-available {
+    --slds-c-icon-color-foreground-default: #5EB82E;
+    --slds-c-icon-color-background: #963fcc;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+.thirdparty-booked {
+    --slds-c-icon-color-foreground-default: #ffdc2c;
+    --slds-c-icon-color-background: #963fcc;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+.thirdparty-blocked {
+    --slds-c-icon-color-foreground-default: #ec1c24;
+    --slds-c-icon-color-background: #963fcc;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+/* .thirdparty-mortgage{
+    --slds-c-icon-color-foreground-default: #b97a56;
+    --slds-c-icon-color-background: #963fcc;  
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;padding: 0.5rem;
+} */
+/* .thirdparty-mortgageblock{
+    --slds-c-icon-color-foreground-default: #000000;
+    --slds-c-icon-color-background: #963fcc;  
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;padding: 0.5rem;
+} */
+.thirdparty-notopen {
+    --slds-c-icon-color-foreground-default: #c3c3c3;
+    --slds-c-icon-color-background: #963fcc;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+.other-other {
+    --slds-c-icon-color-foreground-default: darkgrey;
+    --slds-c-icon-color-background: lightgrey;
+
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    padding: 0.5rem;
+}
+
+
+.circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: 10px auto;
+}
+
+.builder {
+    background-color: #00a8f3;
+    /* Red color */
+}
+
+.builder:hover {
+    transform: scale(1.2);
+    /* Increase size by 1.5 times on hover */
+}
+
+.landowner {
+    background-color: #3f48cc;
+    /* Blue color */
+}
+
+.landowner:hover {
+    transform: scale(1.2);
+    /* Increase size by 1.5 times on hover */
+}
+
+.no-unit {
+    background-color: lightgrey;
+}
+
+.no-unit:hover {
+    transform: scale(1.2);
+    /* Increase size by 1.5 times on hover */
+}
+
+/*LENGEN BOOKING STATUS COLORS*/
+
+.available {
+    --slds-c-icon-color-foreground-default: #5EB82E;
+}
+
+.available:hover {
+    transform: scale(1.2);
+    /* Increase size by 1.5 times on hover */
+}
+
+.blocked {
+    --slds-c-icon-color-foreground-default: #ec1c24;
+}
+
+.blocked:hover {
+    transform: scale(1.2);
+    /* Increase size by 1.5 times on hover */
+}
+
+.booked {
+    --slds-c-icon-color-foreground-default: #ffdc2c;
+}
+
+.booked:hover {
+    transform: scale(1.2);
+    /* Increase size by 1.5 times on hover */
+}
+
+.not-Open {
+    --slds-c-icon-color-foreground-default: #c3c3c3;
+}
+
+.not-Open:hover {
+    transform: scale(1.2);
+    /* Increase size by 1.5 times on hover */
+}
+
+/*.custom-helptext{
+
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.custom-popover {
+    background-color: #f5f5f5 !important;
+    border: 1px solid #ccc !important;
+    padding: 10px !important;
+    border-radius: 5px !important;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1) !important;
+}*/
+
+/* Style the text inside the popover */
+/*.custom-popover p {
+    font-size: 14px !important;
+    color: #333 !important;
+    line-height: 1.5 !important;
+}*/
+.popover-hover {
+    position: relative !important;
+}
+
+.popover-hover:hover lightning-helptext {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.popover-hover lightning-helptext {
+    position: absolute !important;
+    top: -30px !important;
+    left: 0 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    transition: visibility 0s, opacity 0.2s linear !important;
+    background-color: #f4f6f9 !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    padding: 6px !important;
+    width: 180px !important;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3) !important;
+    z-index: 999 !important;
+}
+
+.legend-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin: 10px auto;
+}
+
+.text-style {
+    font-family: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Modal overlay styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(251, 248, 248, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    /* Adjust this value if needed */
+}
+
+/* Modal content styles */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    max-width: 80%;
+    /* Adjust this value as needed */
+}

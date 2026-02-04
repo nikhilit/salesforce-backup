@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { LightningElement, track, api, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import searchAccounts from '@salesforce/apex/AccountSearchController.searchAccounts';
@@ -831,5 +832,13 @@ export default class AccountSearch extends NavigationMixin(LightningElement) {
             mode: 'dismissable'
         });
         this.dispatchEvent(event);
+=======
+import { LightningElement, track } from 'lwc';
+
+export default class AccountSearch extends LightningElement {
+    @track searchText = '';
+    searchAccountContactHander(event) {
+        this.searchText = event.detail;
+>>>>>>> e604021b64f33882bfed07c2bfed265ad53326cf
     }
 }

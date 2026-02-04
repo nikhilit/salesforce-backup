@@ -1,0 +1,91 @@
+/* Styling for the entire container */
+.slds-box {
+    background-color: #fff; /* White background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+/* Container for the search bar and button */
+.slds-grid {
+    margin-bottom: 20px;
+}
+
+/* Styling for the album cover image */
+.album-cover {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+/* Container for track details */
+.track-details {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styling for the track name (link to Spotify) */
+.track-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1db954;
+    text-decoration: none;
+}
+
+/* Styling for the artist name */
+.artist-name {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* Styling for the popularity information */
+.popularity {
+    font-size: 1rem;
+    color: #444;
+    margin-top: 10px;
+}
+
+/* Styling for the album name link */
+.album-link {
+    font-size: 1rem;
+    color: #1db954;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+/* Styling for the release date */
+.release-date {
+    font-size: 0.9rem;
+    color: #444;
+    margin-top: 10px;
+}
+
+/* Ensure the container for search and results is clean and spaced out */
+.track-container {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+}
+
+/* Remove unnecessary spacing from the input and button */
+.slds-col {
+    padding: 0;
+}
+
+.slds-input {
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.slds-button {
+    background-color: #1db954;
+    color: white;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 1rem;
+}

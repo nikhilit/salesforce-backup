@@ -5,7 +5,11 @@
       "default": true
     }
   ],
+<<<<<<< HEAD
   "name": "MGL",
+=======
+  "name": "PersonalORG",
+>>>>>>> e604021b64f33882bfed07c2bfed265ad53326cf
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "65.0"

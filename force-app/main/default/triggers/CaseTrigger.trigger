@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 trigger CaseTrigger on Case (after insert,before insert,before update,after update) {
     if (!TriggerController.isTriggerActive('CaseTrigger')) {
         return;
@@ -72,4 +73,9 @@ trigger CaseTrigger on Case (after insert,before insert,before update,after upda
         OMCaseWorkOrderTriggerHandler.updateOMWorkOrderAndAccount(Trigger.new, Trigger.oldMap);
 
     }   
+=======
+trigger CaseTrigger on Case (before delete) {
+    CaseTriggerHandler.CaseDeletionByAdmin(Trigger.old);
+
+>>>>>>> e604021b64f33882bfed07c2bfed265ad53326cf
 }

@@ -1,0 +1,30 @@
+.tile {
+    display: block;
+    background-color: black;
+    cursor: pointer;
+    position: relative; /* To support absolute positioning of child elements */
+}
+
+.innerTile {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    position: inherit;
+}
+
+.lower-third {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    background-color: black;
+    padding: 6px 8px;
+    text-align: center;
+}
+
+.tile.selected {
+    border: 5px solid red;
+}

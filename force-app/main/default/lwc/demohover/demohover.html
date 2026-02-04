@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="Get Account Record">
+    <div class="hover-container">
+        <div class="hover-target" onmouseover={handleMouseOver} onmouseout={handleMouseOut}>
+            <!-- This is the element you hover over -->
+            <span>{accountName}</span>
+        </div>
+
+        <div class="mini-layout" if:true={showDetails}>
+            <!-- Mini layout content -->
+            <div class="card">
+                <h3>Account Details</h3>
+                <p>Account Name: {accountName}</p>
+                <p>Industry: {industry}</p>
+                <p>Annual Revenue: {annualRevenue}</p>
+            </div>
+        </div>
+    </div>
+</lightning-card>
+</template>
