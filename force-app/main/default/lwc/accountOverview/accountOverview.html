@@ -1,0 +1,243 @@
+<template>
+    <div class="card">
+        <h2 class="slds-text-align_center slds-text-heading_medium slds-p-around_small">
+            Payment History
+        </h2>
+
+        <div class="receivables-tabs">
+            <div class="tab-header">
+                <div class={receivablesTabClass} onclick={selectReceivablesTab}>Receivables</div>
+                <!--<div class={downPaymentsTabClass} onclick={selectDownPaymentsTab}>Down payments</div>
+                <div class={totalsTabClass} onclick={selectTotalsTab}>Totals</div>-->
+                <div class={chronologyTabClass} onclick={selectChronologyTab}>Chronology</div>
+            </div>
+            <div class="tab-content">
+                <template if:true={isReceivablesTabActive}>
+                    <div class="sap-table-container">
+                        <table class="sap-table">
+                            <thead>
+                                <tr>
+                                    <th>Doc Number</th>
+                                    <th>Amount</th>
+                                    <th>Business Partner</th>
+                                    <th>Contract Account</th>
+                                    <th>Currency</th>
+                                    <th>Net Due Date</th>
+                                    <th>Text</th>
+                                    <th>Document Date</th>
+                                    <th>Posting Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={receivableRows} for:item="row">
+                                    <tr key={row.Id}>
+                                        <td>{row.Doc_Number__c}</td>
+                                        <td>{row.Amount__c}</td>
+                                        <td>{row.businessPartnerName}</td>
+                                        <td>{row.Contract_Account__c}</td>
+                                        <td>{row.Currency__c}</td>
+                                        <td>
+                                            <lightning-formatted-date-time value={row.Net_Due_date__c} year="numeric"
+                                                month="2-digit" day="2-digit">
+                                            </lightning-formatted-date-time>
+                                        </td>
+                                        <td>{row.Text__c}</td>
+                                        <td>
+                                            <lightning-formatted-date-time value={row.Document_Date__c} year="numeric"
+                                                month="2-digit" day="2-digit">
+                                            </lightning-formatted-date-time>
+                                        </td>
+                                        <td>
+                                            <lightning-formatted-date-time value={row.Posting_Date__c} year="numeric"
+                                                month="2-digit" day="2-digit">
+                                            </lightning-formatted-date-time>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="1" style="background:#fff9b0; font-weight:bold;">Receivables Total INR
+                                    </td>
+                                    <td style="background:#fff9b0; font-weight:bold; text-align:right;">
+                                        {receivablesTotalFormatted}
+                                    </td>
+                                    <td colspan="7"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </template>
+
+               <!-- <template if:true={isDownPaymentsTabActive}>
+                    <div class="sap-table-container">
+                        <table class="sap-table">
+                            <thead>
+                                <tr>
+                                    <th>Start Date</th>
+                                    <th>Security Deposit Number</th>
+                                    <th>Return Date</th>
+                                    <th>Status</th>
+                                    <th>Cash Amount</th>
+                                    <th>Request Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={downPaymentRows} for:item="row">
+                                    <tr key={row.Id}>
+                                        <td>
+                                            <lightning-formatted-date-time value={row.Start_Date__c} year="numeric"
+                                                month="2-digit" day="2-digit">
+                                            </lightning-formatted-date-time>
+                                        </td>
+                                        <td>{row.Security_Number__c}</td>
+                                        <td>
+                                            <lightning-formatted-date-time value={row.Return_Date__c} year="numeric"
+                                                month="2-digit" day="2-digit">
+                                            </lightning-formatted-date-time>
+                                        </td>
+                                        <td>{row.Status__c}</td>
+                                        <td>{row.Cash_Amount__c}</td>
+                                        <td>{row.Req_Amount__c}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" style="background:#fff9b0; font-weight:bold;">Cash sec.
+                                        deposits&nbsp;&nbsp;INR</td>
+                                    <td style="background:#fff9b0; font-weight:bold; text-align:right;">
+                                        {downPaymentsTotalFormatted}
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </template>
+
+                <template if:true={isTotalsTabActive}>
+                    <div class="sap-totals-table-container">
+                        <table class="sap-totals-table">
+                            <tr>
+                                <td colspan="4" class="sap-totals-header">
+                                    <span class="sap-totals-bold">
+                        Business Partner {businessPartnerName}&nbsp;&nbsp;
+                        <template if:true={dueDate}>
+                            &nbsp;&nbsp;Due Date {dueDate}
+                        </template>
+                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sap-totals-label">INR</td>
+                                <td class="sap-totals-label">Total</td>
+                                <td class="sap-totals-label">Due</td>
+                            </tr>
+                            <tr>
+                                <td class="sap-totals-row-label">Cash Sec. Dep. Pymts</td>
+                                <td class="sap-totals-value">{downPaymentsTotalFormatted}</td>
+                                <td class="sap-totals-value">{downPaymentsTotalFormatted}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </template>-->
+
+               <template if:true={isChronologyTabActive}>
+    <div class="sap-table-container">
+        <table class="sap-table">
+            <thead>
+                <tr>
+                    <th>Due date</th>
+                    <th>Text</th>
+                    <th>Cur</th>
+                    <th>Debit</th>
+                    <th>CreditMemo</th>
+                    <th>Current Balance</th>
+                    <th>Down Pymt</th>
+                    <th>Posting Date</th>
+                    <th>Document Date</th>
+                </tr>
+            </thead>
+
+            <!-- PAST RECORDS -->
+            <tbody>
+                <template for:each={pastChronologyRows} for:item="row">
+                    <tr key={row.Id}>
+                        <td>
+                            <lightning-formatted-date-time value={row.Net_Due_Date__c} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>{row.Text__c}</td>
+                        <td>{row.Currency__c}</td>
+                        <td>{row.Debit_Amt__c}</td>
+                        <td>{row.Credit_Amt__c}</td>
+                        <td>{row.Current_Balance__c}</td>
+                        <td>{row.Down_Payment__c}</td>
+                        <td>
+                            <lightning-formatted-date-time value={row.Posting_Date__c} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>
+                            <lightning-formatted-date-time value={row.Document_Date__c} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+<tbody>
+                <tr>
+                    <td></td>
+                    <td style="font-weight:bold;">As on {todayFormatted}</td>
+                    <td>INR</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyPastDebitTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyPastCreditTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyPastBalanceTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyPastDownPymtTotalFormatted}</td>
+                </tr>
+</tbody>
+            <!-- FUTURE RECORDS -->
+            <tbody>
+                <template for:each={futureChronologyRows} for:item="row">
+                    <tr key={row.Id}>
+                        <td>
+                            <lightning-formatted-date-time value={row.Net_Due_Date__c} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>{row.Text__c}</td>
+                        <td>{row.Currency__c}</td>
+                        <td>{row.Debit_Amt__c}</td>
+                        <td>{row.Credit_Amt__c}</td>
+                        <td>{row.Current_Balance__c}</td>
+                        <td>{row.Down_Payment__c}</td>
+                        <td>
+                            <lightning-formatted-date-time value={row.Posting_Date__c} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>
+                            <lightning-formatted-date-time value={row.Document_Date__c} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+
+            <!-- OVERALL TOTAL -->
+            <tfoot>
+                <tr>
+                    <td style="font-weight:bold;">*</td>
+                    <td></td>
+                    <td>INR</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyDebitTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyCreditTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyBalanceTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyDownPymtTotalFormatted}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</template>
+
+            </div>
+        </div>
+    </div>
+</template>

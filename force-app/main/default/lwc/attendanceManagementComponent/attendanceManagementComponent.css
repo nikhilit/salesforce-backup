@@ -1,0 +1,185 @@
+/* agentAttendance.css */
+.welcome-text {
+    font-size: 1.3rem;
+    color: #1b5297;
+    font-weight: bold;
+}
+.displaytime{
+    text-align:right;
+     font-size: 1.3rem;
+    color: #1b5297;
+    font-weight: bold;
+}
+
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.button-group {
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.info-card {
+    background-color: #f3f6fb;
+    border-radius: 0.5rem;
+    border: 1px solid #d9e6f2;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-height: 80px;
+}
+
+.info-card p {
+    margin: 0.3rem 0;
+    font-size: 0.95rem;
+}
+.custom-button {
+    width: 100%;
+    text-align: center;
+    padding: 7%;
+    border-radius: 0.5rem;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    font-size: 1rem;
+}
+
+.checkin-bg {
+    background-color: #077e05; /* Blue */
+}
+
+.checkout-bg {
+    background-color: #ba0517; /* Red */
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}/* Header Text Styling */
+.welcome-text,
+.displaytime {
+    font-size: 17px;
+    color: #1b5297;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Header Row Layout */
+.header-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+/* Ensure proper alignment of date text */
+.displaytime {
+    text-align: right;
+}
+
+/* Combobox Styling */
+.custom-combobox {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    display: block;
+}
+
+/* Button Styling */
+.custom-button {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+/* Check-In & Check-Out Colors */
+.checkin-bg {
+    background-color: #077e05;
+}
+
+.checkout-bg {
+    background-color: #ba0517;
+}
+
+/* Disabled state */
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Optional styling for info card if used elsewhere */
+.info-card {
+    background-color: #f3f6fb;
+    border-radius: 0.5rem;
+    border: 1px solid #d9e6f2;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-height: 80px;
+}
+
+.info-card p {
+    margin: 0.3rem 0;
+    font-size: 0.95rem;
+}
+
+/* Button column centering */
+.slds-col.slds-medium-size_1-of-4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive tweaks for smaller screens */
+@media screen and (max-width: 768px) {
+    .header-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .displaytime {
+        text-align: left;
+        margin-top: 0.5rem;
+    }
+
+    .slds-col.slds-medium-size_1-of-4 {
+        justify-content: flex-start;
+        margin-top: 1rem;
+    }
+
+    .custom-button {
+        padding: 0.6rem;
+    }
+}
+/* Add this to your agentAttendance.css file */
+/* This will disable scrolling while showing all options */
+lightning-combobox .slds-dropdown {
+    max-height: none !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    transform: none !important;
+    width: 100% !important;
+    top: 100% !important;
+    left: 0 !important;
+    z-index: 9000 !important;
+}
+
+/* Prevent the dropdown from being cut off */
+.slds-dropdown {
+    will-change: transform !important;
+    box-sizing: border-box !important;
+}

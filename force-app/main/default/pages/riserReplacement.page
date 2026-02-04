@@ -1,0 +1,497 @@
+<apex:page renderAs="pdf" controller="RiserReplacementContr">
+
+<div style="border: 1px solid black;">
+
+<div>
+
+   <img src="{!URLFOR($Resource.MglLogo)}" width="20px" alt="MGL Logo" style="margin-top:-11px; margin-left:26px;"/>
+        <p style="margin-top:4px; margin-left:7px; font-size:12px;">Mahanagar<br/> <span style="margin-left:20px;">Gas</span></P>
+        <h3 style="text-align:center; margin-top:-60px;">MAHANAGAR GAS LIMITED</h3><br/>
+        <p style="margin-left:240px; margin-top:-30px;">QUALITY SYSTEM RECORD</p>
+        
+   </div>
+   
+   <div style="border-top:1px solid black; margin-top:-16px;" >  
+   
+   <p style="margin-left:4px; font-size:14px;"><b>RECORD NO:</b> {!wONumber}</p> 
+   
+        
+<p style="margin-left:4px; font-size:14px;"><b>TITLE :</b> GI RISER TESTING REPORT</p> 
+
+<p style="text-align:right; margin-top:-62px; font-size:14px; margin-right:90px;"><b>ISSUE NO:</b> 5</p>
+<p style="text-align:right; margin-top:-12px; font-size:14px; margin-right:15px;"><b>ISSUE DATE:{!issuedDate} </b> </p>
+<p style="text-align:right; margin-top:-12px; font-size:14px; margin-right:90px;"><b>PAGE: </b> 1 of 1</p>
+
+
+</div>
+
+<div style="border-top:1px solid black; margin-top:-13px;">
+
+<p style="text-align:center; font-size:14px; margin-top:3px;"><b>GI RISER TESTING REPORT</b></p>
+
+<table style="width:70%;">
+
+<tr style="font-size:12px;">
+
+<td><b>CLIENT </b> <span style="margin-left:100px;">: MAHANAGAR GAS LTD.</span></td>
+<td><b>DRS No.</b> : {!drsNo}</td>
+
+</tr>
+
+<tr style="font-size:12px;">
+
+<td><b>CONTRACTOR</b> <span style="margin-left:60px;">:  {!contractorName}</span></td>
+<td><b>CO Number</b> : {!coNumber} </td>
+
+</tr>
+
+<br/>
+
+
+<tr style="font-size:12px;">
+
+<td><b>BUILDING/LOCATION  </b><span style="margin-left:20px; font-size:13px;">:{!buildingName}</span></td>
+<div style="border-bottom:1px solid black; margin-left:155px; margin-right:10px;"></div>
+</tr>
+
+
+
+</table>
+
+</div>
+
+<div style="margin-top:12px;">
+
+<h5 style="margin-left:5px;">INSTRUMENT CALIBRATION DETAILS: (as applicable)</h5>
+
+<table style="border:1px solid black; border-collapse: collapse; width:90%; margin-left:30px; margin-top:-17px;"  border="1">
+
+<tr>
+
+<td style="width:20%; font-size:13px;">Instrument Type &amp; Range </td>
+<td style="width:20%; font-size:13px;">{!instrumentTypeAndRange}</td>
+<td style="width:20%; font-size:13px;">Calibration Date </td>
+<td style="width:20%; font-size:13px;">{!calibrationDate}</td>
+
+</tr>
+
+<tr>
+
+<td style="width:20%; font-size:13px;">Calibration Certificate No.</td>
+<td style="width:20%; font-size:13px;">{!calibrationCertificateNo}</td>
+<td style="width:20%; font-size:13px;">Calibration Due Date</td>
+<td style="width:20%; font-size:13px;">{!calibrationDueDate}</td>
+
+
+</tr>
+
+
+
+</table>
+
+
+</div>
+
+<div style="margin-top:-17px;">
+
+<h5 style="margin-left:5px;">OPERATING PRESSURE: 100 mbar</h5>
+
+</div>
+
+<div style="margin-top:-8px;">
+
+<h5 style="margin-left:5px;">INSPECTION DETAILS OF RISERS:</h5>
+
+<table style="border:1px solid black; border-collapse: collapse; width:100%; margin-top:-1px; margin-left:1px;" border="1">
+                <tr>
+                   
+                          
+                          <th style="font-size:14px; width:9%; text-align:center;">Riser No </th>
+                          
+                           <apex:repeat value="{!lstWOLItemDayWiseAdded}" var="item">
+                    <td style="font-size:12px; width:9%; text-align:center;">
+                        {!IF(ISBLANK(item.Work_Order_Line_Item__r.Riser_Name__c), '', item.Work_Order_Line_Item__r.Riser_Name__c)}
+                        </td>
+                        </apex:repeat>
+                          
+                        
+                </tr>
+                <tr>
+                
+                          <th style="font-size:12px; width:9%; text-align:center;">Date</th>
+                          
+                           <apex:repeat value="{!lstWOLItemDayWiseAdded}" var="item">
+                    <td style="font-size:12px; width:9%; text-align:center;">
+                        {!IF(ISBLANK(item.CreatedDate), '',  LPAD(TEXT(DAY(DATEVALUE(item.CreatedDate))),2,'0') & '-' &
+                                                            LPAD(TEXT(MONTH(DATEVALUE(item.CreatedDate))),2,'0') & '-' &
+                                                                TEXT(YEAR(DATEVALUE(item.CreatedDate)))
+                                                                                                            )}
+                        </td>
+                        </apex:repeat>
+                
+                
+               
+                </tr>
+                <tr>
+                
+                            <th style="font-size:12px; width:9%; text-align:center;">Test Pressure</th>
+                            
+                             <apex:repeat value="{!lstWOLItemDayWiseAdded}" var="item">
+                    <td style="font-size:12px; width:9%; text-align:center;">
+                        {!IF(ISBLANK(item.Test_Pressure__c), '', item.Test_Pressure__c)}
+                        </td>
+                        </apex:repeat>
+
+                  
+                
+                
+               
+                </tr>
+                <tr>
+                
+                  <th style="font-size:12px; width:9%; text-align:center;">Duration</th>
+                  
+                   <apex:repeat value="{!lstWOLItemDayWiseAdded}" var="item">
+                    <td style="font-size:12px; width:9%; text-align:center;">
+                        {!IF(ISBLANK(item.Duration__c), '', item.Duration__c)}
+                        </td>
+                        </apex:repeat>
+
+                
+                   
+                   
+                   
+                  
+                </tr>
+                <tr>
+                
+                  <th style="font-size:12px; width:9%; text-align:center;">No. of leakages</th>
+
+                     <apex:repeat value="{!lstWOLItemDayWiseAdded}" var="item">
+                    <td style="font-size:12px; width:9%; text-align:center;">
+                   
+                    
+                    
+                     <!--  {!IF(ISBLANK(item.Number_of_Leakages__c), '', item.Number_of_Leakages__c)} -->
+                        </td>
+                        </apex:repeat>
+                   
+                   
+                   <!-- <th style="border:1px solid #000; padding:4px;">No. of leakages</th>
+                    <apex:repeat value="{!risers}" var="r">
+                        <td style="border:1px solid #000; width:12%; padding:4px;">{!r.noOfLeakages}</td>
+                    </apex:repeat> -->
+                </tr>
+                <tr>
+                
+                  <th style="font-size:12px; width:9%; text-align:center;">Result(OK)</th>
+
+                      <apex:repeat value="{!lstWOLItemDayWiseAdded}" var="item">
+                    <td style="font-size:12px; width:9%; text-align:center;">
+                        {!IF(ISBLANK(item.Riser_Tested_Status__c), '', item.Riser_Tested_Status__c)}
+                        </td>
+                        </apex:repeat>
+                
+                
+                <!--    <th style="border:1px solid #000; padding:4px;">Result(OK/Not OK)</th>
+                    <apex:repeat value="{!risers}" var="r">
+                        <td style="border:1px solid #000; width:12%; padding:4px;"></td>
+                    </apex:repeat> -->
+                </tr>
+                <tr>
+                
+                  <th style="font-size:12px; width:9%; text-align:center;">No. of Connections</th>
+
+                      <apex:repeat value="{!lstWOLItemDayWiseAdded}" var="item">
+                    <td style="font-size:12px; width:9%; text-align:center;">
+                        {!IF(ISBLANK(item.No_of_active_customers__c), '', item.No_of_active_customers__c)}
+                        </td>
+                        </apex:repeat>
+                          
+                          
+                                     <!--  <th style="border:1px solid #000; padding:4px;">No. of Connections</th>
+                                 <apex:repeat value="{!risers}" var="r">
+                        <td style="border:1px solid #000; width:12%; padding:4px;"></td>
+                    </apex:repeat> -->
+                </tr>
+                <tr>
+                
+                  <th style="font-size:12px; width:9%; text-align:center;">Remark</th>
+
+                      <apex:repeat value="{!lstWOLItemDayWiseAdded}" var="item">
+                    <td style="font-size:12px; width:9%; text-align:center;">
+                        {!IF(ISBLANK(item.Remark__c), '', item.Remark__c)}
+                        </td>
+                        </apex:repeat>
+                     
+                
+                </tr>
+            </table>
+
+            <br/>
+            <b style="font-size:12px;">Leakage detection and rectification details:</b>
+            <table style="width:100%; border-collapse:collapse; margin-top:6px; font-size:11px;">
+                <tr>
+                    <th style="border:1px solid black; padding:4px;">Leak number</th>
+                    <th style="border:1px solid black; padding:4px;">Riser number</th>
+                    <th style="border:1px solid black; padding:4px;">Leak location</th>
+                    <th style="border:1px solid black; padding:4px;">Leak nature</th>
+                    <th style="border:1px solid black; padding:4px;">Material used</th>
+                </tr>
+                
+               <!--  <apex:repeat value="{!leakList}" var="lk">
+        <tr>
+            <td style="border:1px solid black; padding:4px;">{!lk.leakNumber}</td>
+            <td style="border:1px solid black; padding:4px;">{!lk.riserNumber}</td>
+            <td style="border:1px solid black; padding:4px;">{!lk.leakLocation}</td>
+            <td style="border:1px solid black; padding:4px;">
+                <apex:outputText value="{!lk.leakNature}" rendered="{!NOT(ISBLANK(lk.leakNature))}" />
+            </td>
+            <td style="border:1px solid black; padding:4px;">
+            <apex:repeat value="{!lk.materialList}" var="mat">
+          {!mat.Item_Code_Riser_Activity__c} - {!mat.Item_Description_Riser_Activity__c} (Qty: {!mat.Quantity__c})<br/>
+      </apex:repeat>
+            </td>
+        </tr>
+    </apex:repeat> -->
+               <!-- <apex:repeat value="{!risers}" var="item"> -->
+                   <!-- <tr>
+                        <td style="border:1px solid black; padding:4px;height:23px">1</td>
+                        <td style="border:1px solid black; padding:4px;height:23px">2</td>
+                        <td style="border:1px solid black; padding:4px;height:23px"></td>
+                        <td style="border:1px solid black; padding:4px;height:23px"></td>
+                        <td style="border:1px solid black; padding:4px;height:23px"></td>
+                    </tr> -->
+               <!-- </apex:repeat> -->
+            </table>
+
+
+<!--<table style="border:1px solid black; border-collapse: collapse; width:100%;" border="1">
+    
+    
+     
+
+    <tr>
+
+        <td>Riser No</td>
+        <apex:repeat value="{!mainDetails}" var="item">
+            <td>{!item.Riser_Number__c}</td>
+        </apex:repeat>
+    </tr>
+
+    <tr>
+        <td>Date</td>
+        <apex:repeat value="{!mainDetails}" var="item">
+            <td>{!item.RM_SR_Date__c}</td>
+        </apex:repeat>
+    </tr>
+
+    <tr>
+        <td>Test Pressure</td>
+        <apex:repeat value="{!mainDetails}" var="item">
+            <td>{!item.Test_Pressure__c}</td>
+        </apex:repeat>
+    </tr>
+
+    <tr>
+        <td>Duration</td>
+        <apex:repeat value="{!mainDetails}" var="item">
+            <td>{!item.Duration__c}</td>
+        </apex:repeat>
+    </tr>
+
+    <tr>
+        <td>Result (OK/Not OK)</td>
+        <apex:repeat value="{!mainDetails}" var="item">
+            <td>{!item.Result__c}</td>
+        </apex:repeat>
+    </tr>
+
+    <tr>
+        <td>No Of Customers</td>
+        <apex:repeat value="{!mainDetails}" var="item">
+            <td>{!item.No_of_Customers__c}</td>
+        </apex:repeat>
+    </tr>
+
+    <tr>
+        <td>Remark</td>
+        <apex:repeat value="{!mainDetails}" var="item">
+            <td>{!item.Remark__c}</td>
+        </apex:repeat>
+    </tr>
+</table>  -->
+
+
+<!--
+<table style="border:1px solid black; border-collapse: collapse; width:90%; margin-top:-12px; margin-left:30px;"  border="1">
+
+
+
+<tr style="font-size:12px;">
+
+<td>Riser No</td>
+<td>Date</td>
+<td>Test Pressure</td>
+<td>Duration</td>
+<td>No. of leakages</td>
+<td>Result(OK/NOT OK)</td>
+<td>No Of Connections</td>
+<td>Remark</td>
+
+</tr>
+
+ <apex:repeat value="{!mainDetails}" var="item">
+
+
+<tr style="font-size:12px;">
+
+
+
+</td>
+<td >{!item.Test_Pressure__c}</td>
+<td >{!item.Duration__c}</td>
+<td>3</td>
+<td >{!item.Result__c}</td>
+<td >{!item.No_of_Customers__c}</td>
+<td >{!item.Remark__c}</td>
+
+</tr>
+
+</apex:repeat>
+
+
+
+
+
+
+</table> -->
+
+
+</div>
+
+
+
+<div style="margin-top:-17px;">
+
+<p style="margin-left:5px; font-size:13px;"><b>I certify that riser is safe to charge the gas.</b></p>
+
+<!--
+<p><b>MATERIAL USED </b>:
+
+ <table style="border:1px solid black; border-collapse: collapse; width:70%;"  border="1">
+ 
+ <tr>
+ <td>Code </td>
+  <td>Description</td>
+   <td>Unit</td>
+ <td>Quantity</td>
+
+ 
+ </tr>
+               <apex:repeat value="{!materialConsuption}" var="item">
+
+     <tr style="height:16px; text-align:center;">
+     
+        <td style="width:10%;">{!item.Item_Code__c}</td>
+        <td style="width:60%;">{!item.Item_description__c}</td>
+        <td style="width:10%;">{!item.Unit__c}</td>
+        <td style="width:10%;">{!item.Quantity__c}</td>
+    
+    
+    </tr>
+    
+    
+               </apex:repeat>
+
+    </table>
+
+</p>
+
+</div>
+
+<div style="margin-top:33px;">
+<p><b>COMMENTS</b> (If any) : {!comments}</p>
+
+-->
+<p style="font-size:12px; margin-top:-17px; margin-left:5px;"><b>Witnessed by</b></p>
+</div> 
+<div style="margin-top:4px; margin-left:5px;">
+
+<table style="width:100%;">
+
+<tr>
+
+<td>MGL TPE</td>
+
+<td>Contractors Supervisor : </td>
+
+</tr>
+
+<tr>
+
+<td>Name : Ratnesh{!fieldAgent}</td>
+
+<td> Name : {!contractorName} </td>
+
+</tr>
+
+<tr>
+
+<td>Signature : </td>
+
+<td>Signature : </td>
+
+</tr>
+
+
+
+</table>
+
+
+</div>
+
+
+
+
+<div style="border-top:1px solid black; margin-top:52px;">
+
+<table style="width:100%;">
+
+<tr>
+
+<td>
+Approved by :
+
+</td>
+
+<td>
+
+Issued by :
+
+</td>
+
+
+</tr>
+
+
+
+<tr style="margin-top:122px;">
+
+<td>HOD (PNG Maint. &amp; Online Const.)</td>
+
+<td>ISO REPRESENTATIVE (O&amp;M)</td>
+
+
+</tr>
+
+
+</table>
+
+
+</div>
+
+</div>
+
+
+</apex:page>

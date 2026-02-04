@@ -1,0 +1,40 @@
+<!--
+  @description       : 
+  @author            : Shashank.shekhar@appstrail.com
+  @group             : 
+  @last modified on  : 07-03-2025
+  @last modified by  : Shashank.shekhar@appstrail.com
+-->
+<template>
+
+
+    <div class="step-container slds-grid slds-wrap slds-align--absolute-center">
+        <template for:each={steps} for:item="step">
+            <div class="step slds-col slds-size_1-of-2 slds-p-horizontal--x-small" key={step}>
+                <div class="step-content">
+                    <div class="step-label">{step.label}</div>
+
+                    <label class="upload-placeholder">
+                        <template if:true={step.uploaded}>
+                            <img src={step.previewUrl} alt="Uploaded Image" class="image-preview" />
+                            <button class="remove-button" onclick={removeImage} data-id={step.id}>
+                                <!-- <lightning-icon icon-name='action:delete' alternative-text='delete' size='x-small'
+                                    title='delete'>
+                                </lightning-icon> -->
+                            </button>
+                        </template>
+
+                        <template if:false={step.uploaded}>
+                            <input type="file" accept="image/*" capture="environment" onchange={handleImageUpload}
+                                data-id={step.id} disabled={disabled}/>
+                            <!-- <span class="camera-icon">📸</span> -->
+                            <lightning-icon icon-name='utility:photo' alternative-text='photo' size='medium'
+                                title='photo' class="camera-icon">
+                            </lightning-icon>
+                        </template>
+                    </label>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

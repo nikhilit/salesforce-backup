@@ -1,0 +1,169 @@
+<template>
+    <!-- Spinner overlay -->
+    <template if:true={showSpinner}>
+        <div class="spinner-overlay slds-p-around_small">
+            <lightning-spinner alternative-text="Loading..." size="small"></lightning-spinner>
+        </div>
+    </template>
+
+    <!-- Offline indicator -->
+    <template if:false={isOnline}>
+        <div class="slds-notify slds-notify_alert slds-alert_warning slds-m-bottom_small">
+            <span class="slds-icon_container slds-icon-utility-warning slds-m-right_x-small" title="Offline">
+                <lightning-icon icon-name="utility:warning" size="x-small"></lightning-icon>
+            </span>
+            You are currently offline
+        </div>
+    </template>
+
+    <!-- Dashboard (main page) -->
+    <template if:true={showDashboard}>
+        <div class="dashboard-wrapper slds-p-around_medium">
+            <div class="header slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                <div>
+                    <p class="slds-text-title_bold">{currentDate}</p>
+                    <p class="slds-text-body_regular">{currentTime}</p>
+                    <p class="slds-text-heading_small slds-m-top_x-small">{greeting}</p>
+                </div>
+                <div>
+                    <template if:true={isOnline}>
+                        <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" title="Refresh"
+                            onclick={refreshAllData} class="slds-m-left_x-small"></lightning-button-icon>
+                    </template>
+                </div>
+            </div>
+
+            <div class="slds-m-top_medium">
+                <div class="slds-grid slds-wrap">
+                    <!-- Total card -->
+                    <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                        <div class="card total-card slds-box" onclick={onTotalClick} style="cursor:pointer">
+                            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                                <div>
+                                    <span>Total</span>
+                                    <div class="slds-text-heading_large">{kpis.total}</div>
+                                </div>
+                                <div>
+                                    <lightning-icon icon-name="utility:locker_service_api_viewer" size="small"></lightning-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI cards -->
+                    <template for:each={kpisResult} for:item="kpi">
+                        <div key={kpi.label} class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                            <div class="card kpi-card slds-box" 
+                                 data-card={kpi.label} 
+                                 onclick={onCardClick} 
+                                 style={kpi.styleString}>
+                                <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                                    <div>
+                                        <div class="slds-text-heading_medium">{kpi.count}</div>
+                                        <div class="slds-text-body_small">{kpi.label}</div>
+                                    </div>
+                                    <div>
+                                        <template if:true={kpi.iconUrl}>
+                                            <lightning-icon icon-name={kpi.iconUrl} size="small"></lightning-icon>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- No data -->
+                    <template if:true={hasNoData}>
+                        <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                            <div class="slds-box slds-text-align_center">
+                                <lightning-icon icon-name="utility:info" size="small"></lightning-icon>
+                                <p>No appointments found.</p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- List view / datatable area (second page) -->
+    <template if:true={secondPage}>
+        <div class="work-order-list-container slds-p-around_medium">
+            <!-- Header -->
+            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center slds-p-bottom_small"
+                 style="background-color:#0170bc; padding:0.5rem; border-radius:4px;">
+                <div>
+                    <lightning-icon icon-name="utility:back" size="small" class="custom-white-icon"
+                                    style="--slds-c-icon-color-foreground-default: white; cursor: pointer;"
+                                    onclick={handleBackFromList}>
+                    </lightning-icon>
+                </div>
+
+                <div class="slds-text-heading_small slds-text-color_inverse">
+                    <template if:true={showOfflineListView}>
+                        <span>Offline • </span>
+                    </template>
+                    <span>{visibleListFilter} Work Orders</span>
+                    <div class="slds-text-body_small slds-text-color_inverse-weak">
+                        {filteredWorkOrders.length} records
+                    </div>
+                </div>
+
+                <div>
+                    <lightning-button-icon icon-name="utility:refresh" variant="bare" alternative-text="Refresh"
+                        title="Refresh" onclick={refreshAllData} disabled={isNavigating}></lightning-button-icon>
+                </div>
+            </div>
+
+            <!-- If offline: show datatable -->
+            <template if:true={showOfflineListView}>
+                <template if:true={isLoading}>
+                    <div class="slds-text-align_center slds-p-around_large">
+                        <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+                    </div>
+                </template>
+
+                <template if:false={isLoading}>
+                    <template if:true={filteredWorkOrders.length}>
+                        <div class="slds-card slds-p-around_small slds-m-top_small">
+                            <lightning-datatable
+                                key-field="id"
+                                data={filteredWorkOrders}
+                                columns={columns}
+                                hide-checkbox-column
+                                show-row-number-column
+                                wrap-text-max-lines="3"
+                                class="work-order-datatable">
+                            </lightning-datatable>
+                        </div>
+                    </template>
+                    <template if:false={filteredWorkOrders.length}>
+                        <div class="slds-notify slds-notify_alert slds-alert_info slds-m-top_medium">
+                            <span class="slds-icon_container slds-icon-utility-info slds-m-right_x-small">
+                                <lightning-icon icon-name="utility:info" size="small"></lightning-icon>
+                            </span>
+                            <div>
+                                <h2>No cached Work Orders</h2>
+                                <p>Please go online to load the list view and cache it for offline access.</p>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+            </template>
+
+            <!-- If online: show message + attempt navigation -->
+            <template if:false={showOfflineListView}>
+                <div class="slds-text-align_center slds-p-around_large">
+                    <lightning-icon icon-name="action:list" size="large" class="slds-m-bottom_small"></lightning-icon>
+                    <h2 class="slds-text-heading_medium slds-m-bottom_small">Opening Work Order List View</h2>
+                    <p class="slds-text-body_regular slds-m-bottom_medium">
+                        You are being redirected to the standard Salesforce list view for {visibleListFilter} Work Orders.
+                    </p>
+                    <p class="slds-text-body_small slds-text-color_weak">
+                        If redirection doesn't happen automatically, <a href="javascript:void(0);" onclick={refreshAllData} class="slds-text-link">click here to try again</a>.
+                    </p>
+                </div>
+            </template>
+        </div>
+    </template>
+</template>

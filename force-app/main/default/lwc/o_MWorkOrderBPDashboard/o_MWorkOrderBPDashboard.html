@@ -1,0 +1,164 @@
+<!--
+  @description       : 
+  @author            : Shashank.shekhar@appstrail.com
+  @group             : 
+  @last modified on  : 07-23-2025
+  @last modified by  : Shashank.shekhar@appstrail.com
+-->
+ 
+<template>
+    <template if:true={showSpinner}>
+        <lightning-spinner alternative-text="Loading..." size="small"></lightning-spinner>
+    </template>
+
+    <!-- <template if:true={openMainPage}>
+        <div style="background-color: white;">
+            <div style="height: 170px;">
+                <div class="backgroundImage" style={backgroundStyle}>
+                    <span class="slds-align_absolute-center" style="padding-top: 25px;">
+                        <div class="smallcircle">
+                            <img src={Logo} alt="User Logo" style="border-radius: 50%; height: 70px; width: 70px;" class="slds-align_absolute-center" />
+                        </div>
+                    </span>
+                    <div></div>
+                    <p style="color: rgb(0, 0, 0); font-weight: 500; font-size: 16px; margin-top: 6px;" class="slds-align_absolute-center">{greeting}</p>
+                    <p style="color: rgb(0, 0, 0); font-weight: 400; font-size: 14px; margin-top: -4px;" class="slds-align_absolute-center">Let's get started!</p>
+                </div>
+            </div>
+        </div>
+       
+        <div class="header-bar">
+            <h2 class="left-title">My KPI</h2>
+            <h2 class="right-title">I&amp;C</h2>
+        </div>
+
+        <div class="slds-border_bottom slds-grid" onclick={onTotalClick} style="border-bottom:1px solid lightgrey; background-color: white;">
+                <div class="slds-col slds-size_1-of-7  slds-align_absolute-center slds-var-m-around_small">
+                    <div>
+                    <lightning-icon icon-name="utility:locker_service_api_viewer" alternative-text="Total" size="small"></lightning-icon>
+                    </div>
+                </div>
+            <div class="slds-col slds-size_4-of-7 slds-var-p-around_x-small slds-align-middle">
+                <p style="color: black;font-size:15px;">Total</p>
+            </div>
+            <div class="slds-col slds-size_2-of-7  slds-var-p-around_x-small slds-align_absolute-center" >
+                <div class="round slds-align--absolute-center"> <b>{kpis.total}</b></div>
+            </div>
+        </div> 
+
+        <template for:each={kpisResult} for:item="kpi">
+            <div key={kpi.label} data-card={kpi.label} class="slds-border_bottom slds-grid" onclick={onCardCLick} style="border-bottom:1px solid lightgrey;">
+                <div class="slds-col slds-size_1-of-7  slds-align_absolute-center slds-var-m-around_small">
+                    <div>
+                    <lightning-icon icon-name={kpi.iconUrl} alternative-text={kpi.label} size="small"></lightning-icon>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_4-of-7 slds-var-p-around_x-small slds-align-middle">
+                <p style="color: black;font-size:15px;">{kpi.label}</p>
+                </div>
+                <div class="slds-col slds-size_2-of-7  slds-var-p-around_x-small slds-align_absolute-center" >
+                <div class="round slds-align--absolute-center"> <b>{kpi.count}</b></div>
+                </div>
+            </div>
+        </template>
+
+        <div class="slds-border_bottom slds-grid" onclick={onFollowUpClick} style="border-bottom:1px solid lightgrey; background-color: white;">
+                <div class="slds-col slds-size_1-of-7  slds-align_absolute-center slds-var-m-around_small">
+                    <div>
+                    <lightning-icon icon-name="utility:add" alternative-text="Total" size="small"></lightning-icon>
+                    </div>
+                </div>
+            <div class="slds-col slds-size_4-of-7 slds-var-p-around_x-small slds-align-middle">
+                <p style="color: black;font-size:15px;">Follow-Up Visits</p>
+            </div>
+            <div class="slds-col slds-size_2-of-7  slds-var-p-around_x-small slds-align_absolute-center" >
+                <div class="round slds-align--absolute-center"> <b>{kpis.followup}</b></div>
+            </div>
+        </div> 
+    </template> -->
+
+     <template if:true={showSpinner}>
+        <lightning-spinner alternative-text="Loading..." size="small"></lightning-spinner>
+    </template>
+
+    <template if:true={openMainPage}>
+        <div class="main-container">
+            <div class="greeting-card">
+                <p class="greeting-line">{currentDate}</p>
+                <p class="greeting-line">{currentTime}</p>
+                <p class="greeting-line" style="margin-top: 10px;">{greeting}</p>
+                <p class="greeting-line">Let's get started!</p>
+            </div>
+        </div>
+    </template>
+
+    <!-- Dashboard Section -->
+    <template if:true={showDashboard}>
+        <div class="dashboard-wrapper">
+              <div class="header-bar">
+                <h2 class="left-title">My KPI</h2>
+                <h2 class="right-title">O&amp;M</h2>
+            </div>
+           <!-- <div class="header-bar">
+            <h2 class="slds-card__header-title slds-p-around_small slds-border_bottom header-section">
+                My Today's KPI &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 O&amp;M
+           </div> -->
+
+            <div class="dashboard-list">
+
+                <div class="slds-p-around_small">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-1">
+                            <div class="card" onclick={onTotalClick}>
+                                <div class="icon-section">
+                                    <!-- <img src={kpi.iconUrl} style="height: 50px;"/> -->
+                                    <lightning-icon icon-name="utility:locker_service_api_viewer"
+                                        alternative-text="Total" size="small" variant="inverse">
+                                    </lightning-icon>
+                                </div>
+                                <div>
+                                    <span>Total</span>
+                                </div>
+                                <div>
+                                    <strong>{kpis.total}</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <template for:each={kpisResult} for:item="kpi">
+                            <div class="slds-col slds-size_1-of-1" key={kpi.label}>
+                                <div class="card" data-card={kpi.label} onclick={onCardCLick}>
+                                    <div class="icon-section">
+                                        <!-- <img src={kpi.iconUrl} style="height: 50px;"/> -->
+                                        <lightning-icon icon-name={kpi.iconUrl} alternative-text={kpi.label}
+                                            size="small" variant="inverse">
+                                        </lightning-icon>
+                                    </div>
+                                    <div>
+                                        <strong style="text-align: end;">{kpi.count}</strong>
+                                        <span style="margin-right:7rem; margin-top:-2rem;">{kpi.label}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </template>
+
+
+    <!-- Child Component -->
+    <template if:true={showChild}>
+        <c-ic-appointment-list-view 
+            selected-status={selectedStatus} 
+            second-page={secondPage} 
+            onchildevent={handleChildEvent} 
+            selected-type={selectedType}>
+        </c-ic-appointment-list-view>
+    </template>
+
+</template>

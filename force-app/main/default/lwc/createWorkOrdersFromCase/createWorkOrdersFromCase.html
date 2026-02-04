@@ -1,0 +1,45 @@
+<template>
+
+    <div class="slds-p-around_medium">
+
+     <lightning-combobox
+                name="workType"
+                label="Select WorkType"
+                value={selectedWorkTypeId}
+                options={worktypeOptions}
+                onchange={handleWorkTypeChange}
+                placeholder="Choose an WorkType"
+                required>
+            </lightning-combobox>
+
+    </div>
+
+     <div class="slds-m-top_medium">
+            <template if:true={assignButton}>
+            <lightning-button variant="brand" label="Create WorkOrder" onclick={handleAssignWorkType}>
+            </lightning-button>
+            </template>
+            <template if:true={showMessage}>
+            <b>{showMessage}</b>
+            </template>
+        </div>
+
+        <!-- //bd -->
+        <!-- ✅ Child component appears ONLY for demolition scenario -->
+<template if:true={showDemolitionComponent}>
+    <c-create-demolition-work-orders
+               case-ids={demolitionCaseIds}>
+    </c-create-demolition-work-orders>
+</template>
+
+ <!-- case-id={primaryCaseId} -->
+
+<!-- //bd -->
+
+         <template if:true={isLoading}>
+                <div class="slds-m-top_medium">
+                    <lightning-spinner alternative-text="Processing"></lightning-spinner>
+                </div>
+            </template>
+
+</template>

@@ -1,0 +1,291 @@
+<template>
+<div class="content-wrapper">
+     <lightning-card title="Rubber Hose Details">
+
+        <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+        <template if:true={showRubberHoseField}>
+
+         <div class="slds-grid slds-wrap">
+
+            <template if:true={showMeterNumber}>
+
+                 <div class="slds-col slds-size_1-of-1">
+                               
+                                <div>
+                                    <c-o_-m-camera-upload-comp image-list={installationPhotoUploadSlots} onchange={handleInstallationPhotoFile}>
+                                    </c-o_-m-camera-upload-comp>
+                                </div>
+
+                 </div>               
+
+                             
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+            <lightning-input type="text" label="Meter Number" name="meterNumber"
+                value={rubberHose.meterNumber} onchange={handleRubberHoseDetail} ></lightning-input>
+                     </div>
+
+              <lightning-button label="Validate" title="Validate" onclick={handleMeterNumberValidate}
+                       class="slds-m-top_medium" variant="brand" style="margin-left:9rem;">
+                            </lightning-button>
+
+
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+            <lightning-input type="text" label="Meter Reading" name="meterReading"
+                value={rubberHose.meterReading} onchange={handleRubberHoseDetail}></lightning-input>
+        </div>
+
+         <div class="slds-col slds-size_1-of-1">
+                               
+                                <div>
+                                    <c-o_-m-camera-upload-comp image-list={meterPhotoUploadSlots} onchange={handleMeterPhotoFile}>
+                                    </c-o_-m-camera-upload-comp>
+                                </div>
+
+                 </div>  
+
+
+
+         <lightning-button label="Next" title="Next" onclick={handleMeterNumberPage}
+                                class="slds-m-top_medium" variant="brand" style="margin-left:9rem;">
+                            </lightning-button>
+
+
+
+                    </template>
+
+
+
+        <template if:true={showOldAndNewExpDate}>                      
+
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+            <lightning-input type="date" label="Old Rubber Hose Expiry" name="oldHoseExpiry" required
+                value={rubberHose.oldHoseExpiry} onchange={handleRubberHoseDetail}></lightning-input>
+        </div>
+
+         <div class="slds-col slds-size_1-of-1">
+                               
+                                <div>
+                                    <c-o_-m-camera-upload-comp image-list={oldRubberHosePhotoUploadSlots} onchange={handleOldRubberHosePhotoFile}>
+                                    </c-o_-m-camera-upload-comp>
+                                </div>
+
+                 </div>    
+
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+            <lightning-input type="date" label="New Rubber Hose Expiry" name="newHoseExpiry" required
+                value={rubberHose.newHoseExpiry} onchange={handleRubberHoseDetail}></lightning-input>
+        </div>
+
+          <div class="slds-col slds-size_1-of-1">
+                               
+                                <div>
+                                    <c-o_-m-camera-upload-comp image-list={newRubberHosePhotoUploadSlots} onchange={handleNewRubberHosePhotoFile}>
+                                    </c-o_-m-camera-upload-comp>
+                                </div>
+
+                 </div>  
+
+
+                  <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                     <lightning-combobox label="Length of new RH installed" name="rhLength"
+                                    value={rubberHose.rhLength} options={rhLengthOptions}
+                                    onchange={handleRubberHoseDetail}>
+                                </lightning-combobox>
+            <!-- <lightning-input type="text" label="Length of new RH installed" name="rhLength"
+                value={rubberHose.rhLength} onchange={handleRubberHoseDetail}></lightning-input> -->
+        </div>
+
+
+         <lightning-button label="Previous" title="Previous" onclick={handleOldAndNewExpDatePagePrevious}
+                                class="slds-m-top_medium" variant="brand" style="margin-left:7rem;">
+                            </lightning-button>
+
+                            &nbsp;&nbsp;
+
+         <lightning-button label="Next" title="Next" onclick={handleOldAndNewExpDatePage}
+                                class="slds-m-top_medium" variant="brand">
+                            </lightning-button> 
+
+           
+                           
+
+        </template>
+
+        <template if:true={showLeftFields}>
+
+       
+
+        
+
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+               <lightning-combobox label="Number Of Leakage Observed" name="numberOfleakageObserved"
+                                    value={rubberHose.numberOfleakageObserved} options={numberofLeakagesOptions}
+                                    onchange={handleRubberHoseDetail}>
+                                </lightning-combobox>
+            <!-- <lightning-input type="text" label="Number Of Leakage Observed" name="numberOfleakageObserved"
+                value={rubberHose.numberOfleakageObserved} onchange={handleRubberHoseDetail}></lightning-input> -->
+        </div>
+
+        <template if:true={rubberHose.numberOfleakageObserved}>
+                 <template for:each={rubberHose.leakagelocations} for:item="leakLocation" for:index="index">
+                <div key={leakLocation.index} class="slds-box slds-m-bottom_small slds-size_1-of-1">
+                                 <!-- <lightning-input type="text" label={leakLocation.label}  value={handleRubberHoseDetail.value}
+                                    onchange={handleRubberHoseDetail}  ></lightning-input>  -->
+                                     <lightning-combobox label={leakLocation.label} 
+                                    value={handleRubberHoseDetail.value} options={leakLocationOptions}
+                                    onchange={handleRubberHoseDetail}>
+                                </lightning-combobox>
+              </div>
+               </template>
+            </template> 
+
+         <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+            <lightning-input type="text" label="Leakage location" name="leakagelocations"
+                value={rubberHose.leakagelocations} onchange={handleRubberHoseDetail}></lightning-input>
+        </div> -->
+
+        <!-- </template> -->
+        
+<template if:true={showMaterialSection}>
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+    <h3 class="slds-text-heading_small slds-m-bottom_small">Material Consumption Report</h3>
+
+    <template for:each={materialList} for:item="material" for:index="index">
+        <div key={material.itemCode} class="slds-box slds-m-bottom_small">
+
+            <div class="slds-grid slds-wrap slds-gutters">
+                <!-- Item Code -->
+                <!-- <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Item Code" name="itemCode" data-index={index}
+                        value={material.itemCode} onchange={handleMaterialChange}>
+                    </lightning-input>
+                </div> -->
+                <!--Item code -->
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning-combobox label="Item Code" name="itemCode" data-index={index}
+                        value={material.itemCode} options={itemCodeOptions}
+                        onchange={handleMaterialChange}>
+                    </lightning-combobox>
+                </div>
+
+                <!-- Item Description -->
+
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning-combobox label="Item Description" name="itemDescription" data-index={index}
+                        value={material.itemDescription} options={itemDescriptionOptions}
+                        onchange={handleMaterialChange}>
+                    </lightning-combobox>
+                </div>
+
+                <!-- Unit -->
+                <!-- <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Unit" name="unit" data-index={index}
+                        value={material.unit} onchange={handleMaterialChange}>
+                    </lightning-input>
+                </div> -->
+
+                <!-- Quantity -->
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Quantity" name="quantity" type="number" data-index={index}
+                        value={material.quantity} onchange={handleMaterialChange}>
+                    </lightning-input>
+                </div>
+
+                <!-- Delete Icon -->
+                <div class="slds-col slds-size_1-of-2 slds-text-align_right" style="margin-top:1.5rem;">
+                    <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove"
+                        data-index={index} onclick={removeMaterialRow} class="slds-m-top_small">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <lightning-button icon-name="utility:add" label="Add Material" onclick={addMaterialRow}
+        class="slds-m-top_medium">
+    </lightning-button>
+</div>
+</template>
+
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+            <h2><b>RH Replaced Service Note</b></h2>
+
+<lightning-input type="file" label="Select File" accept="*/*"
+                     onchange={handleFileChange}></lightning-input>
+ 
+    <template if:true={fileName}>
+        <p style="margin-left: 20px;">File Name: {fileName}</p>
+       </template>  
+
+        </div>
+
+
+         <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-combobox name="picklist" label="Closer Remark" value={afterImageCloserRemark}
+                     options={closerRemarkOptions} onchange={handleRemarkChange} required="true">
+                </lightning-combobox>
+
+                                   </div>
+       
+
+<div class="slds-p-around_medium" > <!-- style="margin-left:7.3rem;" -->
+
+                
+
+            <lightning-button label="Previous" title="Next" onclick={handleShowExpDatePage}
+                                class="slds-m-top_medium" variant="brand" style="margin-left:7rem;">
+                            </lightning-button>
+
+                                    &nbsp;&nbsp;
+
+
+                  <lightning-button label="Save" variant="brand" onclick={handleFinalSave}
+                   ></lightning-button>          
+            </div>  
+
+                 </template>
+
+         </div>   
+
+
+
+           
+
+
+                </template>
+
+
+             <!-- <div class="slds-grid slds-wrap" if:true={imageUploadPage}>
+                            <div class="slds-col slds-size_1-of-1">
+                               
+                                <div>
+                                    <c-o_-m-camera-upload-comp image-list={photoUploadSlots} onchange={handleFile}>
+                                    </c-o_-m-camera-upload-comp>
+                                </div>
+
+                                   <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-combobox name="picklist" label="Closer Remark" value={afterImageCloserRemark}
+                     options={closerRemarkOptions} onchange={handleRemarkChange} required="true">
+                </lightning-combobox>
+
+                                   </div>
+
+                                <div class="slds-m-top_medium slds-align_absolute-center">
+                                  
+
+            
+
+
+                                    <lightning-button variant="brand" label="Save" onclick={handleFinalSave}>
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </div>               -->
+     </lightning-card>
+</div>
+</template>

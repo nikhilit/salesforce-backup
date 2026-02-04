@@ -1,0 +1,74 @@
+<apex:page controller="DisconnectionNoticeForDomesticController" renderAs="pdf" contentType="application/pdf">
+
+    <div style="font-family: Arial, sans-serif; font-size: 13px; line-height: 1.6;">
+
+        <div style="margin-bottom: 20px;">
+        <p>
+        <strong>Date:</strong> 
+        <span style="background-color: yellow;">{!todayDate}</span><br/>
+    
+        <strong>CA No.:</strong> 
+        <span style="background-color: yellow;">{!caNumber}</span><br/><br/>
+            <strong>Ref. No:</strong> R&amp;T/DISC/REMINDER/{!referenceNumber}
+        </p>
+        </div>
+
+        <div>
+            <p>
+                <strong>BP No:</strong> {!bpNumber}<br/>
+                <strong>Name:</strong> {!customerName}<br/>
+                <strong>Address:</strong><br/>
+                {!flat}, {!floor}, {!building}<br/>
+                {!street}<br/>
+                {!city}<br/>
+                Pin Code: {!postalCode}
+            </p>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <p style="font-weight: bold; font-size: 15px; margin: 20px 0 10px; text-decoration: underline;">
+                Disconnection Notice Reminder for Domestic Customer
+            </p>
+
+            <p>Dear Sir/Madam,</p>
+
+            <p>
+                We would like to inform you that, effective April 2025, Mahanagar Gas Ltd. (MGL) has transitioned to a fully digital billing system. 
+                Bills are now sent via email, WhatsApp, and SMS only.
+            </p>
+
+            <p>
+                To ensure uninterrupted receipt of your gas bills, we kindly request you to update your latest mobile number and email ID with us at your earliest convenience.
+            </p>
+
+            <p>
+                As per our records, the payment for your last bill is still pending, and the current outstanding amount on your account is 
+                <strong style="background-color: yellow;">Rs. {!pendingAmount}</strong>. We kindly request you to clear the dues to avoid any disruption in your gas service.  
+            </p>
+
+            <p>
+                If the payment has already been made, kindly disregard this reminder.
+            </p>
+
+            <p>
+                However, we request you to please ensure your latest contact details are updated with us, if not done already.
+            </p>
+
+            <p>
+                For payment and updating contact details, you may:
+            </p>
+            <ul style="margin-left: 20px;">
+                <li>Visit our website: <a href="https://www.mahanagargas.com">www.mahanagargas.com</a></li>
+                <li>Download the <strong>MGL CONNECT app</strong></li>
+                <li>Call MGL Customer Care at <strong>022 6867 4500</strong></li>
+                <li>Or write to us at <strong>support@mahanagargas.com</strong></li>
+            </ul>
+
+            <p>We truly appreciate your cooperation and look forward to your continued support.</p>
+
+          <p style="color: red;"><br/><strong>FOR MAHANAGAR GAS LTD</strong><br/>Authorized Signatory</p>
+         </div>
+
+    </div>
+
+</apex:page>

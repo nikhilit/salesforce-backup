@@ -1,0 +1,38 @@
+<template>
+    <lightning-card title="Riser Material Lookup Test">
+        <div class="slds-m-around_medium">
+            
+            <!-- Search bar -->
+            <lightning-input
+                type="search"
+                label="Item Description"
+                placeholder="Type to search description..."
+                value={searchKey}
+                onchange={handleKeyChange}>
+            </lightning-input>
+
+            <!-- Dropdown (only visible when there are matches) -->
+            <template if:true={showDropdown}>
+                <div class="slds-box slds-m-top_small slds-scrollable_y" style="max-height: 200px;">
+                    <template for:each={filteredMaterials} for:item="mat">
+                        <div
+                            key={mat.code}
+                            class="slds-p-around_x-small slds-border_bottom hoverable"
+                            data-code={mat.code}
+                            data-description={mat.description}
+                            onclick={handleSelect}>
+                            {mat.description}
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Selected item code -->
+            <lightning-input
+                label="Item Code"
+                value={selectedItemCode}
+                disabled>
+            </lightning-input>
+        </div>
+    </lightning-card>
+</template>

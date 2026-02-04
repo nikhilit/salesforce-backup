@@ -1,0 +1,818 @@
+<apex:page renderAs="pdf" applyBodyTag="false" standardStylesheets="false" lightningStylesheets="false" applyHtmlTag="false"
+           showHeader="false">
+    <head>
+        <style>
+            @page {
+                size: A4;
+                margin-top: 3cm;
+                margin-bottom: 3cm;
+                margin-left: 1cm;
+                margin-right: 1cm;
+            }
+            
+            @page {
+            @bottom-left {
+                content: element(pageFooter);
+            }
+             @top-center {
+        content: element(pageHeader);
+    }
+        }
+
+        #pageFooter {
+            position: running(pageFooter);    
+            text-align: left;
+            font-size: 12px;
+        }
+         #pageHeader {
+            position: running(pageHeader);    
+            text-align: left;
+            font-size: 12px;
+        }
+
+            .pagenumber:before {
+                content: counter(page);
+            }
+           table {
+    		width: 95%;
+    		border-collapse: collapse;
+    		margin: 0 auto;
+    		font-size: 15px;
+            border-spacing: 0;
+            -fs-table-paginate: paginate;
+			}
+
+            tr {
+                  page-break-inside: avoid; 
+                            break-inside: avoid;
+            }
+
+
+            td,th {
+                border: 1px solid #000;
+                text-align: center;
+                height: 35px;
+                border-collapse: collapse;
+                    vertical-align: middle;
+                         padding-bottom:0px;
+            }
+            
+            th {
+                font-weight: bold;
+            }
+            
+            .title-page {
+                page-break-after: always;
+            }
+                        
+             .table-wrapper {
+                page-break-inside: avoid;
+            }
+           .note {
+                        margin: 10px auto 0 auto;
+                        font-family: Arial, sans-serif;
+                        font-size: 11pt;
+            }
+            .note b {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+       <div id="pageFooter">
+            <p>
+                <span class="pagenumber"></span> | Page <br/>
+             DRS Meter Installation
+            </p>
+        </div>
+    
+    <div id="pageHeader">
+    <table style="width:100%;">
+        <tr>
+            <td style="text-align:left; font-weight:bold; border:none;">
+                Title: Non-Routine Operation
+            </td>
+            <td style="text-align:right; font-weight:bold; border:none;">
+                Record No.: AIQ RE 134
+            </td>
+        </tr>
+    </table>
+</div>
+
+    <body>
+                  <div  class="title-page">
+          
+            <p style="text-align:center;font-weight:bold;">Index</p>
+              <table cellpadding="15">
+            <tr>
+                <th>Sr. No.</th>
+                <th>Particulars</th>
+                <th>Page No.</th>
+            </tr>
+            <tr><td>A</td><td>Non Routine Operation</td><td>2</td></tr>
+            <tr><td>B</td><td>Communication List</td><td>3</td></tr>
+            <tr><td>C</td><td>Preparatory Steps</td><td>4-5</td></tr>
+            <tr><td>D</td><td>Network Sustainability Test</td><td>6-7</td></tr>
+            <tr><td>E</td><td>Normal Operation Procedure</td><td>8-9</td></tr>
+            <tr><td>F</td><td>Status of valves after operation</td><td>10-11</td></tr>
+            <tr><td>G</td><td>Contingency Action Plan</td><td>12</td></tr>
+            <tr><td>H</td><td>Annexures</td><td>13</td></tr>
+            <tr><td>I</td><td>References</td><td>14</td></tr>
+            <tr><td>J</td><td>Review/Comments</td><td>15</td></tr>
+            <tr><td>K</td><td>Schematic Sketch</td><td>16</td></tr>
+        </table>
+        </div>
+        
+                    <div  class="title-page">
+      
+            <p style="text-align:left;font-weight:bold;text-decoration:underline;"> (A) Non-Routine Operation</p>
+                 <table cellpadding="1">
+    <tr>
+        <th style="width:30%;">Non-Routine Operation No.</th>
+        <td colspan="3"> O&amp;M / 2025-2026 / 16</td>
+    </tr>
+    <tr>
+        <th>Brief Description of Work</th>
+        <td colspan="3">
+           8"NB Steel Pipeline diversion (Approx.Length- 186 mtrs.) due to CP Under protection issue near Grant Road Metro Station <br/> and replacement 6"NB &amp; 4" NB
+               valve assemblies Opp. Navjeevan Society  </td>
+    </tr>
+    <tr>
+        <th>Location</th>
+        <td colspan="3">Grant Road East</td>
+    </tr>
+    <tr>
+        <th style="border:none;border-left:1px solid #000;">Responsible Engineers:</th>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;"  colspan="3"></td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;">Authorizing Engineer (Line Manager):</td>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;"  colspan="3">Ranjit Shelke / Hemant Awate</td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;">Competent Engineer (Engineer In-Charge):</td>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;" colspan="3">Kalpak Harname / Vinayak Mhamane</td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;" >Other Engineers at Site:</td>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;"  colspan="3">Nitin Pednekar / Akshay Katkar</td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;" >Competent Technician at Site:</td>
+        <td style="border-top:none;border-right:1px solid #000;" colspan="3">Jaydeep Kesarkar</td>
+    </tr><tr>
+            <th > Prepared by:</th>
+            <td ><br/>Sign: ....................... <br/>Name: Kalpak Harname<br/>DM(O&amp;M) </td>
+            <td colspan="2"><br/>Sign: ....................... <br/>Name: Ranjit Shelke <br/>DM(O&amp;M) </td>
+        </tr>
+
+        <tr>
+            <th rowspan="3">Checked by:</th>
+            <td ><br/>Sign: .......................<br/>Name: Deepak Kumar <br/> Manager-(O&amp;M)</td>
+            <td colspan="2"><br/>Sign: ....................... <br/>Name: Hemant Awate <br/> (CM - O&amp;M)</td>
+        </tr>
+             <tr>
+             <td ><br/>Sign: .......................<br/>Name: Vinayak Mhamane <br/> DGM-(O&amp;M)</td>
+            <td colspan="2"><br/>Sign: ....................... <br/>Name: Viraj Kulkarni <br/> (CM - GIS)</td>   
+             </tr>
+           <tr>
+              <td><br/>Sign: ....................... <br/>Name: Sanjay Gawde <br/>DGM-O&amp;M </td>
+              <td colspan="2" ><br/>Sign: ....................... <br/>Name: Sachin Ghuge <br/> DGM-HSE </td>
+        </tr>
+           
+        <tr>
+            <th  rowspan="2"> Reviewed by</th>
+             <td ><br/>Sign: .......................<br/>Name: Pratap Ayarekar<br/> (GM - O&amp;M) </td>
+            <td colspan="2" ><br/>Sign: ....................... <br/>Name: Ajay Patki <br/> (HOD - HSE) </td>
+        </tr>
+     
+         <tr>
+ 		<td  colspan="3"><br/>Sign: .......................  <br/> (AVP - AI&amp;GIS) </td>
+        </tr>
+          <tr>
+               <th >Authorized by:</th>
+             <td colspan="3"><br/>Sign: ...................... <br/> (VP - O&amp;M )</td>
+        </tr>
+             <tr>
+               <th >Circulation list</th>
+              <td style="border: 1px solid #000;padding-left:4px;width:30%;text-align:center;" colspan="1"><br/>• HSE <br/>• DIC </td>
+      		 <td style="border: 1px solid #000;padding-left:4px;width:40%;text-align:center;" colspan="2"><br/>• Asset Integrity <br/>• Control Room </td>
+      
+        </tr>
+
+          </table>
+             
+        </div>
+        <div  class="title-page">
+  
+         <p>(B) <b style="border-bottom: 1px solid #000; font-weight: bold;">Communication List:</b></p>
+ <table>
+        <tr>
+            <th style="width:8%;">Sr. No.</th>
+            <th style="width:52%;">Contact Person</th>
+            <th style="width:40%;">Phone Number</th>
+        </tr>
+
+        <tr ><td style="height: 25px;">1</td><td style="height: 25px;">Sitanshu Roy Chowdhury</td><td style="height: 25px;">8657112265</td></tr>
+        <tr><td style="height: 25px;">2</td><td style="height: 25px;">Pratap Ayarekar</td><td style="height: 25px;">9324941208</td></tr>
+        <tr><td style="height: 25px;">3</td><td style="height: 25px;">Vinayak Mhamane</td><td style="height: 25px;">8424030148</td></tr>
+        <tr><td style="height: 25px;">4</td><td style="height: 25px;">Hemant Awate</td><td style="height: 25px;">9324905019</td></tr>
+        <tr><td style="height: 25px;">5</td><td style="height: 25px;">Amrut Chaugule</td><td style="height: 25px;">9167910587</td></tr>
+        <tr><td style="height: 25px;">6</td><td style="height: 25px;">Nitin Pednekar</td><td style="height: 25px;">9167910587</td></tr>
+       <tr><td style="height: 25px;">7</td><td style="height: 25px;">Ranjit Shelke</td><td style="height: 25px;">9769581129</td></tr>
+        <tr><td style="height: 25px;">8</td><td style="height: 25px;">Kalpak Harname</td><td style="height: 25px;">9324941142</td></tr>
+        <tr><td style="height: 25px;">9</td><td style="height: 25px;">Akshay Katkar</td><td style="height: 25px;">8691091320</td></tr>
+        <tr><td style="height: 25px;">10</td><td style="height: 25px;">Jaydeep Kesarkar</td><td style="height: 25px;">9167910590</td></tr>
+            <tr><td style="height: 25px;">11</td><td style="height: 25px;">Emergency Control Room</td><td style="height: 25px;">02224012400/<br/> 18002669944</td></tr>
+            <tr><td style="height: 25px;">12</td><td style="height: 25px;">Emergency Response Services(BesideU Ambulance Service)</td><td style="height: 25px;">7304442525/1800220777</td></tr>
+                <tr><td style="height: 25px;">13</td><td style="height: 25px;">Nearest Hospital Number:Bhatia Hosiptal</td><td style="height: 25px;">022 6666 0000</td></tr>
+            <tr><td style="height: 25px;">14</td><td style="height: 25px;">Nearest Fire station Number: Gowalia Tank Fire Station</td><td style="height: 25px;">022 2380 6001</td></tr>
+  
+            </table>
+            <p><b>MGL personnel at Site</b></p>
+            <ul>
+        <li>Nitin Pednekar</li>
+        <li>Kalpak Harname</li>
+        <li>Akshay Katkar</li>
+        <li>Pratap Parab</li>
+        <li>Jaydeep Kesarkar</li>
+    </ul>
+        </div>
+        
+                <div  class="title-page">
+ 
+      <p>(C) <b style="border-bottom: 1px solid #000; font-weight: bold;text-decoration:underline;">Preparatory Steps:</b></p>
+  <table cellpadding="1">
+
+        <tr style="font-weight:bold; text-align:center;">
+      <th style="width:6%;">Sr. No.</th>
+            <th style="width:68%;">Preparatory Work</th>
+            <th style="width:11%;">Action by</th>
+            <th style="width:10%;">Check</th>
+        </tr>
+
+        <tr>
+            <td align="center">1</td>
+            <td>
+                Ensure compliance to all MGL Life Saving Rules &amp; COP requirements.
+                Conduct Site specific HIRA at site. Ensure all the valves are operating
+                correctly and accessible to be operated and in correct position at
+                the start of NRO.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">2</td>
+            <td>
+                Ensure that all personnel involved in the shutdown operations are
+                briefed regarding the sequence of the operation and are aware of
+                the valve positions.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">3</td>
+            <td>
+                Ensure No smoking / No Naked flames signs are on site.
+                Ensure compliance with all MGL Life Saving Rules and COP requirements.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">4</td>
+            <td>
+                Ensure that new Steel Pipeline laid between point “A” &amp; “B”
+                has been duly tested and kept ready for commissioning.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+		 <tr>
+            <td align="center">5</td>
+            <td>
+               Ensure that new valve assembly to be installed between point "C","D" &amp; "E" has been duly tested and kept ready for commissioning
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td align="center">6</td>
+            <td>
+                Ensure that a duly calibrated Gas leak detector and Oxygen meter
+                is available on site &amp; are in proper working condition.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">7</td>
+            <td>
+                Ensure appropriate 5 nos. of fire extinguishers (9 Kgs. each) and
+                non-sparking tools are available at Site.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">8</td>
+            <td>
+                Ensure the fabrication &amp; testing of pipe/valves is completed in
+                all respects. <b>Refer COP: Section 051 &amp; 054.</b>
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">9</td>
+            <td>
+                Ensure all emergency fittings are available on site.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">10</td>
+            <td>
+                Ensure lock out and tag out (LOTO) for valves to be closed during
+                the NRO. Also ensure application of clamp as suitable before
+                operation of valve.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">11</td>
+            <td>
+                Ensure proper earthing of the vent hose during the venting operation.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">12</td>
+            <td>
+                Ensure switch off TR unit before hot work on Steel Pipeline.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">13</td>
+            <td>
+                Ensure that all personnel involved in hot work are with their
+                recommended PPE’s.<b> Refer COP: Section 01 (Clause no. 6 –
+                Personal Protective Equipment).</b>
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">14</td>
+            <td>
+                Ensure usage of fire-retardant suits for personnel involved in
+                welding and cutting operation.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+      
+       <tr>
+            <td align="center">15</td>
+            <td>
+               Intimation to all commercial customers of DRS 32 &amp; DRS 33 regarding shutdown </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">16</td>
+            <td>
+                Ensure CTV-PRS connectivity at DRS 32 &amp; DRS 33 as per <b>Annexure II</b>
+            </td>
+            <td align="center">O&amp;M DIC</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">17</td>
+            <td>
+                Intimate all MRS customer mentioned in <b>Annexure III</b> regarding closure of gas supply incase of Normal Operation &amp; Contingency operation
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+       <tr>
+            <td align="center">18</td>
+            <td>
+                Intimate all CNG Stations mentioned in <b>Annexure I &amp; IV</b> regarding closure of gas supply in case of Normal Operation &amp; Contingency operation.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+    </table>
+           <p><b>Note:</b>
+               All from Valve V01 to valve V13 was inspected on 11/10/2025 and found to be OK.<br/>
+               Valve V21,V22 &amp; V29 was inspected on 17/10/2025 and found to be ok.<br/>
+               Valve V20 was inspected on 22/10/2025 and found to be ok.
+</p>
+
+                    <p><b>Valve operation:<br/>
+
+MGL trained technicians will operate the valves. First anti-rust WD - 40 will be applied on the valves and after that valves will be carefully operated by the technicians after application of clamp as suitale.Refer:WI:O&amp; WI 105</b></p>         
+        </div>
+        
+    <div  class="title-page">
+               <p>(D) <b style="border-bottom: 1px solid #000; font-weight: bold;">Status Before operation:</b></p>
+       <table>
+		
+        <tr>
+            <th>Sr. No.</th>
+            <th>Valve No.</th>
+            <th>Status</th>
+            <th>Check</th>
+        </tr>
+
+        <tr><td align="center">1</td><td align="center">V1</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">2</td><td align="center">V2</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">3</td><td align="center">V3</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">4</td><td align="center">V4</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">5</td><td align="center">V5</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">6</td><td align="center">V6</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">7</td><td align="center">V7</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">8</td><td align="center">V8</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">9</td><td align="center">V9</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">10</td><td align="center">V10</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">11</td><td align="center">V11</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">12</td><td align="center">V12</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">13</td><td align="center">V13</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">14</td><td align="center">V14</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">15</td><td align="center">V15</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">16</td><td align="center">V16</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">17</td><td align="center">V17</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">18</td><td align="center">V18</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">19</td><td align="center">V19</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">20</td><td align="center">V20</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">21</td><td align="center">V21</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">22</td><td align="center">V22</td><td align="center">CLOSE</td><td></td></tr>
+	 <tr><td align="center">23</td><td align="center">V23</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">24</td><td align="center">V24</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">25</td><td align="center">V25</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">26</td><td align="center">V26</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">27</td><td align="center">V27</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">28</td><td align="center">V28</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">29</td><td align="center">V29</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">30</td><td align="center">V30</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">31</td><td align="center">V31</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">32</td><td align="center">V32</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">33</td><td align="center">V33</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">34</td><td align="center">V34</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">35</td><td align="center">V35</td><td align="center">CLOSE</td><td></td></tr>
+        </table>
+        </div>
+        
+          <div  class="title-page">
+               <p>(E) <b style="border-bottom: 1px solid #000; font-weight: bold;">Normal Operation Procedure:</b></p>
+              <table cellpadding="2">
+                
+    <tr>
+         <th style="width:6%;">Sr. No.</th>
+            <th style="width:68%;">Operation Procedure</th>
+            <th style="width:11%;">Action by</th>
+            <th style="width:10%;">Check</th>
+    </tr>
+
+    <tr>
+        <td>1</td>
+        <td>
+            Ensure compliance with MGL Life Saving Rules and COP requirements.
+            Conduct site specific HIRA.
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>2</td>
+        <td>
+            Inform Emergency control room about commencement of NRO.
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>3</td>
+        <td>
+            Issue work permit for confined space entry for entering steel valve
+            chambers.
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>4</td>
+        <td>
+           Close the valve V03 (Size 6”) &amp; V04 (Size 6”) completely and all allow all CNG Stations mentioned in Annexure-I to consume the line pack and trip at low suction pressure. Then allow the DRS 32, DRS 33 &amp; DRS 40 to run till 6 Bar inlet pressure and then close both stream inlet valve of DRS 32, DRS 33 &amp; DRS 40
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>5</td>
+        <td>
+            Check for any potential sources of ignition in the vicinity of valve V13 (Size 3/4”), V20 (Size 3/4”), V29 (Size 3/4”) &amp; V35 (Size 3/4”)  and remove if found.
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>6</td>
+        <td>
+            Connect vent stack and flame arrestor at Valve V13, V20, V29 &amp; V35. Open Valve V13, V20, V29 &amp; V35 and vent the residual gas in the pipeline using a vent stack and flame arrestor.<b> Refer COP: Section 08 (Clause no. 3- Purging &amp; commissioning of mains)</b>
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>7</td>
+        <td>
+       Close Valve V09, V21. Also, Close Valve V29 &amp; put blind flange.
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>8</td>
+        <td>
+           Disconnect the suction inlet flange of all CNG stations (mentioned in Annexure-I) compressors and positive isolation to be done.
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>9</td>
+        <td>
+            Issue Testing, Commissioning and Purging permit. Connect the Nitrogen hose at Valve V22 and start Nitrogen purging from valve V13, V20 &amp; V35 using a vent stack and flame arrestor.<b> Refer: PTW System’</b>
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>10</td>
+        <td>
+            Check % of gas at Valve V13, V20 &amp; V35 and stop nitrogen purging when the level falls below the safe limit (Ensure – 0PPM)<b> Refer COP: Section 08 (Clause no. 3- Purging &amp; commissioning of mains)</b>
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>11</td>
+        <td>
+            Issue hot and cold work permit, allow the construction team to cut the pipe at point ‘A’ &amp; point ‘B’ for Hook up of newly laid 6” NB Steel pipeline between point A &amp; B. Also, Issue Hot work and cold work permit allow construction team to cut the pipe at Point ‘C’ , ‘D’ &amp; ‘E’ for replacement of existing valve assembly with newly fabricated (duly tested) valve assembly. (Cutting to be done from Hacksaw)<b>Refer: PTW System</b>
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>12</td>
+        <td>
+            Complete the Connectivity at Point A &amp; Point B with Existing
+            Pipeline &amp; Newly laid pipeline.Also, complete the connectivity at Point ‘C’ , ‘D’ &amp; ‘E’ and replace valve assembly.
+        </td>
+        <td>Contractor Team</td>
+        <td></td>
+    </tr>
+      <tr>
+            <td>13</td>
+            <td>
+                Ensure quality of joints by reviewing NDT reports of the welds.
+                <b> Refer COP: Section 52 (Clause No. 8 - NDT)</b>
+            </td>
+            <td>
+                O&amp;M Engineer &amp;<br/>
+                MGL QA Engineer &amp;<br/>
+                NDT Agency
+            </td>
+          <td></td>
+        </tr>
+
+        <tr>
+            <td>14</td>
+            <td>
+               Open Valve V09 &amp; V21 completely. Close Check for any potential sources of ignition around valve V13, V20, V35, inlet vent of DRS 32 , inlet vent of DRS 33 &amp; Inlet vent of DRS 40 and remove if any before venting. Also, Close Valve V22 and put blind flange. 
+            </td>
+            <td>O&amp;M Technician</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td >15</td>
+            <td >
+                Issue Charging and commissioning permit and then open Valve V03 slowly and start venting from Valve V13, V20, V35, Inlet vent DRS 32, Inlet vent of DRS 33, &amp; inlet vent of DRS 40 by using vent stack and flame arrestor. <b>(Refer: PTW System)</b>
+            </td>
+            <td >O&amp;M Technician</td>
+            <td ></td>
+        </tr>
+
+        <tr>
+            <td >16</td>
+            <td >
+                Continue venting till 95% GIA is achieved at Valve V13, V20, V35, Inlet vent DRS 32, Inlet vent of DRS 33, &amp; inlet vent of DRS 40 and then close valve V13, V20, V35 and put blind flange. Then open Valve V04. Also, check 95% GIA is achieved at the inlet of all CNG stations mentioned in Annexure-I. Re-connect compressor suction inlet flange of at all CNG stations mentioned in Annexure-I and then open Compressors inlet valve and restart compressors <b>(Refer: WI: O &amp; M WI 102)</b>
+            </td>
+            <td >O&amp;M Engineer</td>
+            <td ></td>
+        </tr>
+
+        <tr>
+            <td>17</td>
+            <td>
+                Open inlet valve of DRS 32, DRS 33 &amp; DRS 40 both stream &amp; take DRS 32, DRS 33 &amp; DRS 40 online. (Refer: WI: O &amp; M WI 110)
+            </td>
+            <td>O&amp;M Technician</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>18</td>
+            <td>
+           Check 95% GIA at inlet vent valve at Trident MRS. Then take Trident MRS online.
+            </td>
+            <td>O&amp;M Engineer/Technician</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>19</td>
+            <td>
+                Check all flanged joint for leakages with soap solution &amp; Gascoseeker.
+            </td>
+            <td>O&amp;M Technician</td><td></td>
+        </tr>
+
+        <tr>
+            <td>20</td>
+            <td>
+                Close all work permits and Inform Emergency control room about the completion of NRO.
+            </td>
+            <td>O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+</table>
+        </div>
+         <div  class="title-page">
+               <p>(F) <b style="border-bottom: 1px solid #000; font-weight: bold;">Status After operation:</b></p>
+            <table>
+		
+        <tr>
+            <th>Sr. No.</th>
+            <th>Valve No.</th>
+            <th>Status</th>
+            <th>Check</th>
+        </tr>
+
+        <tr><td align="center">1</td><td align="center">V1</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">2</td><td align="center">V2</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">3</td><td align="center">V3</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">4</td><td align="center">V4</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">5</td><td align="center">V5</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">6</td><td align="center">V6</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">7</td><td align="center">V7</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">8</td><td align="center">V8</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">9</td><td align="center">V9</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">10</td><td align="center">V10</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">11</td><td align="center">V11</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">12</td><td align="center">V12</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">13</td><td align="center">V13</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">14</td><td align="center">V14</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">15</td><td align="center">V15</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">16</td><td align="center">V16</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">17</td><td align="center">V17</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">18</td><td align="center">V18</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">19</td><td align="center">V19</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">20</td><td align="center">V20</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">21</td><td align="center">V21</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">22</td><td align="center">V22</td><td align="center">CLOSE</td><td></td></tr>
+	 <tr><td align="center">23</td><td align="center">V23</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">24</td><td align="center">V24</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">25</td><td align="center">V25</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">26</td><td align="center">V26</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">27</td><td align="center">V27</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">28</td><td align="center">V28</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">29</td><td align="center">V29</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">30</td><td align="center">V30</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">31</td><td align="center">V31</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">32</td><td align="center">V32</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">33</td><td align="center">V33</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">34</td><td align="center">V34</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">35</td><td align="center">V35</td><td align="center">CLOSE</td><td></td></tr>
+        </table>     
+        </div>
+        
+         <div  class="title-page">
+               <p> <b style="border-bottom: 1px solid #000; font-weight: bold;">(G) Contingency Action Plan:</b></p>
+            
+                 
+             <p><b style="text-decoration:underline;color:red"> In case of Passing of Valve V04:</b> </p>
+ <table>	
+        <tr>
+            <th>Sr. No.</th>
+            <th>Description of work</th>
+            <th>Responsibility</th>
+        </tr>
+     <tr><td rowspan="3" style="background-color:gray;"><b>Action Steps in case f Contingency</b></td></tr>
+        <tr><td>1</td><td> Give information to the Emergency control room about the Passing of Valve V04.</td><td >O&amp;M Engineer </td></tr>
+     <tr><td>2</td><td> Inform CNG stations regarding shutdown as <b>per Annexure - IV</b></td><td>O&amp;M Engineer </td></tr>
+		<tr><td>3</td><td>Check for any potential sources of ignition in the vicinity of valve V08 (Size 2”) and remove if found. </td><td>O&amp;M Engineer </td></tr>
+     <tr><td>4</td><td> Close valve V02 &amp; open valve V07</td><td>O&amp;M Technician </td></tr>
+     <tr><td>5</td><td>Connect vent stack and flame arrestor at Valve V08. Open Valve V08 and vent the residual gas in the pipeline using a vent stack and flame arrestor. If still gas is found passing, then abandon the NRO and inform the emergency control room. <b>Refer COP: Section 08 (Clause no. 3- Purging &amp; commissioning of mains)</b> </td><td>O&amp;M Technician &amp; O&amp;M Engineer </td></tr>
+     <tr><td>6</td><td>If gas is not passing then carry out the work as per the normal operation procedure, ensuring pre and post purging as per the sections isolated in conformance with COP <b>Section 08 (Clause no. 3- Purging &amp; commissioning of mains)</b> </td><td>O&amp;M Engineer </td></tr>
+     <tr><td>7</td><td> Restore the valves to its original positions that are prior to the start of the NRO. </td><td>O&amp;M Engineer </td></tr>
+     <tr><td>8</td><td> Inform Emergency control Room about completion of NRO.</td><td>O&amp;M Engineer </td></tr>
+        </table> 
+             
+              <p><b style="text-decoration:underline;color:red"> In case of Passing of Valve V03:</b> </p>
+      
+      <table>	
+        <tr>
+            <th>Sr. No.</th>
+            <th>Description of work</th>
+            <th>Responsibility</th>
+        </tr>
+     <tr><td rowspan="3" style="background-color:gray;"><b>Action Steps in case f Contingency</b></td></tr>
+        <tr><td>1</td><td> If Valve V03 is found passing, then abandon the NRO and inform the emergency control room .</td><td >O&amp;M Engineer </td></tr>
+        </table>     
+    
+        </div>
+       <div  class="title-page">
+               <p>(H) <b style="border-bottom: 1px solid #000; font-weight: bold;">ANNEXURES:</b></p>
+             <p style="text-decoration:underline; font-weight: bold;"> Annexure I: CNG Stations to be affected due to Normal operation during NRO Activity</p>
+           <table>	
+        <tr>
+            <th style="background-color:gray;">Sr. No.</th>
+            <th style="background-color:gray;">Retail Outlet Name</th>
+            <th style="background-color:gray;">Action Point</th>
+        </tr>
+  <tr><td>1</td><td> Mumbai Central Depot </td><td colspan="7">Prior Intimation regarding shutdown will be given by Mktg Department to respective CNG pump dealers. </td></tr>
+     <tr><td>2</td><td> Royal Auto, Bhendi Bazar </td><td> </td></tr>
+		<tr><td>3</td><td>Chhagan Mitha CNG Station </td><td> </td></tr>
+     <tr><td>4</td><td> Kausar Auto, Agripada</td><td> </td></tr>
+     <tr><td>5</td><td>Patel Brothers, Byculla </td><td> </td></tr>
+     <tr><td>6</td><td>New Modern CNG Station </td><td> </td></tr>
+     <tr><td>7</td><td>AD Adjania CNG Station </td><td> </td></tr>
+  </table>     
+    
+
+        <div class="note">
+            All above-mentioned CNG Outlets are SCADA Enabled. Same can be shut down from SCADA Control Room
+        </div>
+
+     
+        </div>
+       
+         <div  class="title-page">
+               <p>(I) <b style="border-bottom: 1px solid #000; font-weight: bold;">REFERENCE:</b></p>
+             <p style="font-weight: bold;"> Applicable MGL Standard/SOP's</p>
+                    <ol>
+        <li>COP Section 01: Safety Specific requirement</li>
+        <li>COP Section 03: Excavation &amp; Deep Excavation</li>
+        <li>COP Section 08: Purging &amp; commissioning</li>
+        <li>COP Section 051: Steel pipeline laying works</li>
+        <li>COP Section 52: Welding &amp; Associated works</li>
+        <li>COP Section 53: Protective Coating on steel pipeline</li>
+        <li>COP Section 54: Hydro testing of Steel Pipeline and Valve Assembly</li>
+        <li>SCO: Procedure for Non routine operations</li>
+        <li>HIRA Format- ISO 45001</li>              
+        <li>SCO 02: Permit to Work</li>
+                        <li>WI:O&amp;M WI 102</li>
+    </ol>
+             
+        </div>
+         <p>(J) <b style="border-bottom: 1px solid #000; font-weight: bold;">Review by HSE,AI,Planning etc. as applicable</b></p>
+        <p>In case of urgencies,comments may be given telephonically; A "NIL RETURN" to be sent in case of no comments i.e mention "No Comments" in the space below and return)</p>
+        
+    </body>
+</apex:page>

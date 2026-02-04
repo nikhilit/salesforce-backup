@@ -1,0 +1,43 @@
+<!--
+  @description       : 
+  @author            : Shashank.shekhar@appstrail.com
+  @group             : 
+  @last modified on  : 07-26-2025
+  @last modified by  : Shashank.shekhar@appstrail.com
+-->
+<template>
+
+    <template if:true={requestInProgress}>
+        <lightning-spinner alternative-text="Getting location..." size="medium">
+        </lightning-spinner>
+    </template>
+
+    <div class="slds-modal__header">
+        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Check In/Out</h1>
+    </div>
+
+    <div class="slds-modal__content   slds-is-relative" id="modal-content-id-1" style="font-size: larger;">
+
+        <!-- <template if:true={showMap}>
+            <lightning-map map-markers={lstMarkers} zoom-level="15" markers-title="Current Location"></lightning-map>
+        </template> -->
+
+        <template if:true={showEnableMessage}>
+            <h1 style="text-align:center;">Already Checked In. Please refresh the WorkOrder page and continue.</h1>
+        </template>
+        
+    </div>
+
+    <div class="slds-modal__footer" style="border-radius:0px;text-align: center;">
+        <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>&nbsp;&nbsp;&nbsp;
+
+        <template if:true={checkIn}>
+            <lightning-button label="Check In" onclick={handleCheckIn}></lightning-button>
+        </template>
+        
+        <template if:true={checkOut}>
+            <lightning-button label="Check Out" onclick={handleCheckOut}></lightning-button>
+        </template>
+    </div>
+
+</template>

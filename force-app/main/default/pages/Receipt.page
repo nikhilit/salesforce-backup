@@ -1,0 +1,170 @@
+<apex:page controller="AS_WorkOrderReceiptController" renderAs="pdf" applyBodyTag="false" applyHtmlTag="false" showHeader="false"
+    sidebar="false">
+
+    <apex:stylesheet value="{!URLFOR($Resource.ReceiptCSS)}" />
+
+    <apex:variable var="rowNum" value="{!0}" />
+
+    <apex:repeat value="{!receiptList}" var="r">
+        <!-- Full receipt block -->
+        <div class="page-container">
+            <div class="header-logo">
+                <apex:image url="{!URLFOR($Resource.MGL_Logo)}" width="50" height="50" />
+            </div>
+
+            <div class="company-info">
+                MGL House, Block G-33,
+                <br/> Bandra – Kurla Complex,
+                <br/> Bandra (E), Mumbai-400 051
+            </div>
+
+            <div class="receipt-details">
+                <table class="receipt-table">
+                    <tr>
+                        <td class="label">Receipt Number</td>
+                        <td class="colon">:</td>
+                        <td class="value">{!r.receiptNo}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Customer Name</td>
+                        <td class="colon">:</td>
+                        <td class="value">{!r.customerName}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">CA Number</td>
+                        <td class="colon">:</td>
+                        <td class="value">{!r.caNumber}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">BP Number</td>
+                        <td class="colon">:</td>
+                        <td class="value">{!r.bpNumber}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Payment Type</td>
+                        <td class="colon">:</td>
+                        <td class="value">{!r.paymentMode}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Payment Date</td>
+                        <td class="colon">:</td>
+                        <td class="value">{!r.paymentDate}</td>
+                    </tr>
+
+                    <!-- Transaction vs Cheque -->
+                    <apex:outputPanel rendered="{!r.mode != 'Cheque'}" layout="none">
+                        <tr>
+                            <td class="label">Transaction Id</td>
+                            <td class="colon">:</td>
+                            <td class="value">{!r.transactionId}</td>
+                        </tr>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel rendered="{!r.mode = 'Cheque'}" layout="none">
+                        <tr>
+                            <td class="label">Cheque Number</td>
+                            <td class="colon">:</td>
+                            <td class="value">{!r.chequeNumber}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Cheque Date</td>
+                            <td class="colon">:</td>
+                            <td class="value">
+                                <apex:outputText value="{0,date,dd/MM/yyyy}">
+                                    <apex:param value="{!r.chequeDate}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">Bank Name</td>
+                            <td class="colon">:</td>
+                            <td class="value">{!r.bankName}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Branch Name</td>
+                            <td class="colon">:</td>
+                            <td class="value">{!r.branchName}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Cheque Amount</td>
+                            <td class="colon">:</td>
+                            <td class="value">{!r.chequeAmt}</td>
+                        </tr>
+                    </apex:outputPanel>
+
+                    <!-- Cancelled Cheque Details -->
+                    <apex:outputPanel rendered="{!r.isCancelledPage}" layout="none">
+                        <tr>
+                            <td class="label">Can Receipt No.</td>
+                            <td class="colon">:</td>
+                            <td class="value">{!r.cancellationReceiptNo}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Cancelled Date</td>
+                            <td class="colon">:</td>
+                            <td class="value">
+                                <apex:outputText value="{0,date,dd/MM/yyyy}">
+                                    <apex:param value="{!r.cancelledDate}" />
+                                </apex:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">Cancelled Reason</td>
+                            <td class="colon">:</td>
+                            <td class="value">{!r.cancelledReason}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="label">Cancelled By</td>
+                            <td class="colon">:</td>
+                            <td class="value">{!r.cancelledBy}</td>
+                        </tr>
+                    </apex:outputPanel>
+
+                    <tr>
+                        <td class="label">Total Dues</td>
+                        <td class="colon">:</td>
+                        <td class="value">{!r.dueAmount}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Agent Name</td>
+                        <td class="colon">:</td>
+                        <td class="value">{!r.agentName}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Agency Name</td>
+                        <td class="colon">:</td>
+                        <td class="value">{!r.agencyName}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">Amount Paid</td>
+                        <td class="colon">:</td>
+                        <td class="value">{!r.amountReceived}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="footer-note">
+                please note that payment are subject to realisation
+            </div>
+
+            <div class="footer-warning">
+                MGL does not accept cash transaction
+                <br/>
+                <span>Not against full and final settlement</span>
+                <br/>
+                <span>Without Prejudice</span>
+                <br/> XXXXXXX Customer Copy XXXXXXX
+            </div>
+        </div>
+
+        <!-- Page break only if not last record -->
+        <apex:outputPanel rendered="{!rowNum < receiptList.size - 1}" layout="none">
+            <div style="page-break-after:always;"></div>
+        </apex:outputPanel>
+
+        <!-- increment counter -->
+        <apex:variable var="rowNum" value="{!rowNum + 1}" />
+    </apex:repeat>
+</apex:page>

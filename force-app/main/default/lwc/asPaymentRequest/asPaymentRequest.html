@@ -1,0 +1,149 @@
+<template>
+
+    <lightning-card>
+
+        <div class="slds-p-around_medium">
+
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Processing..."></lightning-spinner>
+                <p class="slds-text-heading_small">Processing...</p>
+            </template>
+
+            <template if:true={showPaidMessage}>
+                <p class="slds-text-heading_medium slds-text-color_success">
+                    Payment received.
+                </p>
+                <p class="slds-text-body_regular">
+                    <strong>Transaction ID:</strong> {transactionId}
+                </p>
+                <p class="slds-text-body_regular">
+                    <strong>Amount Paid:</strong> ₹{amountPaid}
+                </p>
+                <template if:true={pdfReceiptUrl}>
+                    <lightning-formatted-url
+                        value={pdfReceiptUrl}
+                        label="Tap here to view Receipt"
+                        target="_blank">
+                    </lightning-formatted-url>
+                </template>
+                <div>
+                    <lightning-input 
+                        type="text" 
+                        value={accountAlternatePhone} 
+                        onkeydown={handleKeyDown} 
+                        onchange={handleInput} 
+                        style="margin-top: 14px;"
+                        label="Alternate Mobile no">
+                    </lightning-input>
+                    </br>
+                    <lightning-button label="Send SMS To Customer" onclick={sendPayMsg} varaiant="brand"></lightning-button>
+                </div>
+            </template>
+
+            <template if:true={showQRcode}>
+
+                <!-- <template if:true={isFieldSense}> -->
+                    <div class="slds-text-align_center slds-m-bottom_small">
+                        <img src={logo} alt="MGL Logo" style="max-height:40px;" />
+                    </div>
+                    <div class="slds-m-bottom_small slds-text-align_center">
+                        <p><strong>{customerName}</strong></p>
+                        <template if:true={isGoCollect}>
+                            <p>BP No: {bpNumber}</p>
+                        </template>
+                        <p>CA No: {caNumber}</p>
+                        <p>Amount to be paid: <strong>{amountTotal}</strong></p>
+                        <!-- <lightning-input 
+                            label="Amount" 
+                            type="number"
+                            value={amountTotal}
+                            onchange={handleAmountChange}
+                            class="slds-m-bottom_medium">
+                        </lightning-input> -->
+                    </div>
+                <!-- </template> -->
+                
+
+                <div class="qr-container" style="text-align: center; margin-top: 1rem;">
+                    <p style="font-weight: bold; font-size: 1.2rem;">Scan here to Pay</p>
+                    <template if:true={isGoCollect}>
+                        <template if:true={qrCodeURI}>
+                            <img src={qrCodeURI} alt="QR Code" style="max-width:200px; max-height:200px;" />
+                        </template>
+                        <template if:false={qrCodeURI}>
+                            <p>No QR code available</p>
+                        </template>
+                    </template>
+                    <template if:false={isGoCollect}>
+                        <div class="qrcode2" lwc:dom="manual"></div>
+                    </template>
+                </div> 
+            </template>
+
+            <template if:true={isPolling}>
+                <div class="slds-text-align_center slds-m-top_medium">
+                    <lightning-spinner alternative-text="Waiting for payment..."></lightning-spinner>
+                    <p class="slds-text-heading_small slds-m-top_small">Waiting for payment confirmation...</p>
+                </div>
+            </template>
+
+            <template if:true={showPayButton}>
+                <div class="slds-m-bottom_small slds-text-align_center">
+
+                    <template if:true={isValidationDisabled}>
+                        <lightning-input 
+                            label="Amount to be paid" 
+                            type="number"
+                            value={amountTotal}
+                            onchange={handleAmountChange}
+                            class="slds-m-bottom_medium">
+                        </lightning-input>
+                    </template>
+
+                    <template if:false={isValidationDisabled}>
+                        <lightning-input 
+                            label="Amount to be paid" 
+                            type="number"
+                            value={amountTotal}
+                            min={amountTotal}
+                            onchange={handleAmountChange}
+                            class="slds-m-bottom_medium">
+                        </lightning-input>
+                    </template>
+
+                    <lightning-combobox
+                        label="Payment Type"
+                        value={payTypeSelectedValue}
+                        options={payTypeOptions}
+                        onchange={handlePayTypeChange}
+                        required="true"
+                        class="slds-m-bottom_medium">
+                    </lightning-combobox>
+
+                    <lightning-textarea 
+                        label="Payment Remark" 
+                        value={payRemark} 
+                        onchange={handlePayRemark}
+                        class="slds-m-bottom_medium">
+                    </lightning-textarea>
+
+                </div>
+                <div class="slds-grid slds-grid_align-center">
+                    <lightning-button label="Pay" variant="brand" onclick={handlePay} disabled={isPayDisabled}></lightning-button>
+                </div>
+            </template>
+
+            <template if:true={showCheckStatusButton}>
+
+                <div class="slds-grid slds-grid_align-center">
+                    <lightning-button label="Check Payment Status" variant="success" onclick={handleCheckStatus}></lightning-button>
+                </div>
+
+                <div class="slds-grid slds-grid_align-center">
+                    <lightning-button label="Reset Payment" variant="destructive-text" onclick={handleResetPayment} style="margin-top: 10px;"></lightning-button>
+                </div>
+
+            </template>
+        </div>
+    </lightning-card>
+</template>

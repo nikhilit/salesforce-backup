@@ -1,0 +1,222 @@
+<template>
+    <lightning-card title="Back Office Daily Case Tracking" icon-name="standard:report">
+        
+        <!-- Error Message -->
+        <template if:true={error}>
+            <div class="slds-notify slds-notify_alert slds-theme_error slds-m-around_medium" role="alert">
+                <span class="slds-assistive-text">Error</span>
+                <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small">
+                    <lightning-icon icon-name="utility:error" size="small"></lightning-icon>
+                </span>
+                <h2>Error loading data: {error.body.message}</h2>
+            </div>
+        </template>
+
+        <!-- REPORT LIST VIEW -->
+        <template if:false={selectedReport}>
+            <div class="slds-p-around_medium">
+                <h3 class="slds-text-heading_medium slds-m-bottom_medium">Select a Report:</h3>
+                <div class="slds-grid slds-wrap">
+                    <template for:each={reports} for:item="rep">
+                        <div key={rep} class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                            <lightning-button
+                                label={rep}
+                                variant="brand"
+                                class="slds-size_full"
+                                onclick={handleSelect}>
+                            </lightning-button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+
+        <!-- REPORT DETAIL VIEW -->
+        <template if:true={selectedReport}>
+            <div class="slds-p-around_medium">
+                
+                <!-- Back Button and Report Title -->
+                <div class="slds-grid slds-grid_align-spread slds-m-bottom_medium">
+                    <lightning-button
+                        label="Back to Reports"
+                        icon-name="utility:back"
+                        variant="neutral"
+                        onclick={handleBack}>
+                    </lightning-button>
+                    
+                    <h2 class="slds-text-heading_medium slds-align_absolute-center">
+                        {selectedReport} - Real-time Tracking
+                    </h2>
+                    
+                    <div style="width: 140px;"></div> <!-- Spacer for alignment -->
+                </div>
+
+                <!-- Show loading spinner -->
+                <template if:true={isLoading}>
+                    <div class="slds-text-align_center slds-p-vertical_large">
+                        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                        <p class="slds-m-top_small">Loading data...</p>
+                    </div>
+                </template>
+
+                <!-- BACK OFFICE REPORT TABLE -->
+                <template if:true={showBackOfficeColumns}>
+                    <template if:true={hasData}>
+                        <div class="slds-card slds-m-top_medium">
+                            <div class="slds-card__header slds-grid">
+                                <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                                    <div class="slds-media__figure">
+                                        <lightning-icon icon-name="standard:dashboard" size="small"></lightning-icon>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h3 class="slds-card__header-title slds-text-heading_small">Daily Case Tracking</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-card__body">
+                                <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered">
+                                    <thead>
+                                        <tr class="slds-text-title_caps">
+                                            <th class="slds-text-align_center" scope="col">Opening</th>
+                                            <th class="slds-text-align_center" scope="col">Old Received</th>
+                                            <th class="slds-text-align_center" scope="col">New Received</th>
+                                            <th class="slds-text-align_center" scope="col">CR Received</th>
+                                            <th class="slds-text-align_center" scope="col">
+                                                <div>Done</div>
+                                                <div class="slds-grid slds-grid_vertical-align-center">
+                                                    <div class="slds-col slds-size_1-of-2 slds-border_right">
+                                                        <div class="slds-text-title_caps slds-text-color_weak slds-text-font_monospace" style="font-size: 0.75rem;">Categorized</div>
+                                                    </div>
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <div class="slds-text-title_caps slds-text-color_weak slds-text-font_monospace" style="font-size: 0.75rem;">CR</div>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th class="slds-text-align_center" scope="col">Pending</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <!-- Opening Cell -->
+                                            <td class="slds-text-align_center clickable-cell" onclick={handleCellClick} data-type="Opening">
+                                                <strong>{currentReportData.opening}</strong>
+                                            </td>
+                                            
+                                            <!-- Old Received Cell -->
+                                            <td class="slds-text-align_center clickable-cell" onclick={handleCellClick} data-type="Old Received">
+                                                <strong>{currentReportData.oldReceived}</strong>
+                                            </td>
+                                            
+                                            <!-- New Received Cell -->
+                                            <td class="slds-text-align_center clickable-cell" onclick={handleCellClick} data-type="New Received">
+                                                <strong>{currentReportData.newReceived}</strong>
+                                            </td>
+                                            
+                                            <!-- CR Received Cell -->
+                                            <td class="slds-text-align_center clickable-cell" onclick={handleCellClick} data-type="CR Received">
+                                                <strong>{currentReportData.crReceived}</strong>
+                                            </td>
+                                            
+                                            <!-- Done Column with two sub-cells -->
+                                            <td class="slds-text-align_center slds-border_left slds-border_right">
+                                                <div class="slds-grid slds-grid_vertical-align-center">
+                                                    <!-- Done Categorized Cell -->
+                                                    <div class="slds-col slds-size_1-of-2 slds-border_right slds-p-around_xx-small clickable-cell" onclick={handleCellClick} data-type="Done Categorized">
+                                                        <div class="slds-text-color_success slds-text-title_caps">
+                                                            {currentReportData.doneCategorized}
+                                                        </div>
+                                                    </div>
+                                                    <!-- Done CR Cell -->
+                                                    <div class="slds-col slds-size_1-of-2 slds-p-around_xx-small clickable-cell" onclick={handleCellClick} data-type="Done CR">
+                                                        <div class="slds-text-color_success slds-text-title_caps">
+                                                            {currentReportData.doneCR}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-border_top slds-m-top_xx-small slds-p-top_xx-small">
+                                                    <strong>Total: {currentReportData.totalDone}</strong>
+                                                </div>
+                                            </td>
+                                            
+                                            <!-- Pending Cell -->
+                                            <td class="slds-text-align_center clickable-cell" onclick={handleCellClick} data-type="Pending">
+                                                <strong class="slds-text-color_warning">{currentReportData.pending}</strong>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+
+                <!-- SIMPLE REPORT TABLE -->
+                <template if:true={showSimpleColumns}>
+                    <template if:true={hasData}>
+                        <div class="slds-card slds-m-top_medium">
+                            <div class="slds-card__header slds-grid">
+                                <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                                    <div class="slds-media__figure">
+                                        <lightning-icon icon-name="standard:dashboard" size="small"></lightning-icon>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h3 class="slds-card__header-title slds-text-heading_small">Daily FRL/Letter Tracking</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-card__body">
+                                <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered">
+                                    <thead>
+                                        <tr class="slds-text-title_caps">
+                                            <th class="slds-text-align_center" scope="col">Opening</th>
+                                            <th class="slds-text-align_center" scope="col">Received</th>
+                                            <th class="slds-text-align_center" scope="col">Done</th>
+                                            <th class="slds-text-align_center" scope="col">Pending</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <!-- Opening Cell -->
+                                            <td class="slds-text-align_center clickable-cell" onclick={handleCellClick} data-type="Opening">
+                                                <strong>{currentReportData.opening}</strong>
+                                            </td>
+                                            
+                                            <!-- Received Cell -->
+                                            <td class="slds-text-align_center clickable-cell" onclick={handleCellClick} data-type="Received">
+                                                <strong>{currentReportData.received}</strong>
+                                            </td>
+                                            
+                                            <!-- Done Cell -->
+                                            <td class="slds-text-align_center clickable-cell" onclick={handleCellClick} data-type="Done">
+                                                <strong class="slds-text-color_success">{currentReportData.totalDone}</strong>
+                                            </td>
+                                            
+                                            <!-- Pending Cell -->
+                                            <td class="slds-text-align_center clickable-cell" onclick={handleCellClick} data-type="Pending">
+                                                <strong class="slds-text-color_warning">{currentReportData.pending}</strong>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+
+                <!-- Show message when no data -->
+                <template if:true={selectedReport}>
+                    <template if:false={isLoading}>
+                        <template if:false={hasData}>
+                            <div class="slds-text-align_center slds-p-vertical_large">
+                                <lightning-icon icon-name="utility:warning" size="large" class="slds-text-color_warning"></lightning-icon>
+                                <p class="slds-m-top_small">No data available for this report.</p>
+                            </div>
+                        </template>
+                    </template>
+                </template>
+
+            </div>
+        </template>
+
+    </lightning-card>
+</template>

@@ -1,0 +1,37 @@
+<template>
+    <lightning-card title="Bulk CSV Upload" icon-name="utility:upload">
+        <div class="slds-m-around_medium">
+
+            <!-- Object name input -->
+            <lightning-input
+                label="Target Object API Name"
+                value={targetObject}
+                onchange={handleObjectChange}>
+            </lightning-input>
+
+            <!-- CSV File Upload -->
+            <lightning-file-upload
+                label="Upload CSV File"
+                name="csvUpload"
+                accept=".csv"
+                record-id={recordId}
+                onuploadfinished={handleUploadFinished}>
+            </lightning-file-upload>
+
+            <!-- Job Status -->
+            <template if:true={jobMessage}>
+                <div class="slds-m-top_medium">
+                    <lightning-formatted-text value={jobMessage}></lightning-formatted-text>
+                </div>
+            </template>
+
+            <!-- Loading spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-m-top_medium">
+                    <lightning-spinner alternative-text="Processing..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

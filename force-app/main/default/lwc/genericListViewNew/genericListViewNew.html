@@ -1,0 +1,37 @@
+<template>
+    <lightning-card title="Generic List View">
+        <!-- Action Buttons -->
+        <div class="slds-m-around_small">
+            <lightning-button-group>
+                <lightning-button label="Approve" data-action="approve" onclick={handleAction}></lightning-button>
+                <lightning-button label="Re-Assign" data-action="reassign" onclick={handleAction}></lightning-button>
+                <lightning-button label="Export" data-action="export" onclick={handleAction}></lightning-button>
+                <lightning-button label="Assign To Agent" data-action="assign" onclick={handleAction}></lightning-button>
+            </lightning-button-group>
+        </div>
+
+        <!-- Search -->
+        <div class="slds-m-around_small">
+            <lightning-input
+                type="search"
+                placeholder="Search this list..."
+                onchange={handleSearch}
+            ></lightning-input>
+        </div>
+
+        <!-- Data Table -->
+        <lightning-datatable
+            key-field="Id"
+            data={data}
+            columns={columns}
+            hide-checkbox-column="false"
+            show-row-number-column="true"
+        ></lightning-datatable>
+
+        <!-- Pagination -->
+        <div class="slds-m-around_small slds-align_absolute-center">
+            <lightning-button label="Previous" onclick={handlePrev} disabled={isPrevDisabled}></lightning-button>
+            <lightning-button label="Next" onclick={handleNext} disabled={isNextDisabled}></lightning-button>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,5 @@
+<aura:component implements="lightning:isUrlAddressable,force:hasSObjectName" access="global" >
+	   
+   <c:asOMCaseCSVUploader objectApiName="{!v.pageReference.state.c__sObjectName}"></c:asOMCaseCSVUploader>
+
+</aura:component>

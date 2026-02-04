@@ -1,0 +1,160 @@
+<!--
+  @description       : 
+  @author            : Neeraj dalal Appstrail
+  @group             : 
+  @last modified on  : 19-05-2025
+  @last modified by  : Neeraj dalal, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   16-05-2025   Neeraj dalal, Appstrail   Initial Version
+-->
+<template>
+
+    <template if:true={showSpinner}>
+        <lightning-spinner alternative-text="Loading..." size="small"></lightning-spinner>
+    </template>
+
+    <!-- Offline Indicator -->
+    <template if:false={isOnline}>
+        <div class="offline-indicator slds-notify slds-notify_alert slds-alert_warning" role="alert">
+            <span class="slds-assistive-text">Warning</span>
+            <span class="slds-icon-container slds-icon-utility-warning slds-m-right_x-small" title="Warning">
+                <lightning-icon icon-name="utility:warning" size="x-small"></lightning-icon>
+            </span>
+            <h2>You are currently offline</h2>
+        </div>
+    </template>
+
+    <template if:true={openMainPage}>
+        <div class="main-container">
+            <div class="greeting-card">
+                <p class="greeting-line">{currentDate}</p>
+                <p class="greeting-line">{currentTime}</p>
+                <p class="greeting-line" style="margin-top: 10px;">{greeting}</p>
+                <p class="greeting-line">Let's get started!</p>
+            </div>
+        </div>
+    </template>
+
+    <!-- Dashboard Section -->
+    <template if:true={showDashboard}>
+        <div class="dashboard-wrapper">
+            <div class="header-bar">
+                <h2 class="left-title">My KPI</h2>
+                <div class="right-section">
+                    <h2 class="right-title">O&amp;M</h2>
+                    
+                    Online State: Show Refresh Button
+                    <template if:true={isOnline}>
+                        <button class="refresh-btn" title="Refresh" onclick={refreshAllData}>
+                            <lightning-icon icon-name="utility:refresh" size="small"></lightning-icon>
+                            Refresh
+                        </button>
+                    </template>
+                    
+                    <!-- Offline State: Show Offline Badge -->
+                    <template if:false={isOnline}>
+                        <div class="offline-badge">
+                            <lightning-icon icon-name="utility:offline" size="x-small"></lightning-icon>
+                            Offline
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="dashboard-list">
+                <div class="slds-p-around_small">
+                    <div class="slds-grid slds-wrap">
+                        <!-- Total Card -->
+                        <div class="slds-col slds-size_1-of-1">
+                            <div class="card total-card" onclick={onTotalClick}>
+                                <div class="icon-section">
+                                    <lightning-icon icon-name="utility:locker_service_api_viewer"
+                                        alternative-text="Total" size="small" variant="inverse">
+                                    </lightning-icon>
+                                </div>
+                                <div class="card-content">
+                                    <span>Total</span>
+                                    <strong>{kpis.total}</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic KPI Cards -->
+                        <template for:each={kpisResult} for:item="kpi">
+                            <div class="slds-col slds-size_1-of-1" key={kpi.label}>
+                                <div class="card kpi-card" data-card={kpi.label} onclick={onCardCLick}
+                                     style={kpi.styleString}>
+                                    <div class="icon-section">
+                                        <lightning-icon icon-name={kpi.iconUrl}
+                                            alternative-text={kpi.label}
+                                            size="small" variant="inverse">
+                                        </lightning-icon>
+                                    </div>
+                                    <div class="card-content">
+                                        <strong class="count">{kpi.count}</strong>
+                                        <span class="label">{kpi.label}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- No Data Message -->
+                        <template if:true={hasNoData}>
+                            <div class="slds-col slds-size_1-of-1">
+                                <div class="no-data-card">
+                                    <lightning-icon icon-name="utility:info" size="small"></lightning-icon>
+                                    <p>No appointments found. 
+                                       <template if:true={isOnline}>Try refreshing.</template>
+                                       <template if:false={isOnline}>Connect to sync data.</template>
+                                    </p>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Service Appointment Child Component -->
+    <!-- <template if:true={showChild}>
+        <c-o-m-work-order-acc-list-view-det 
+            selected-status={selectedStatus} 
+            second-page={secondPage} 
+            onchildevent={handleChildEvent} 
+            selected-type={selectedType}>
+        </c-o-m-work-order-acc-list-view-det>
+    </template> -->
+
+    <!-- Completed Work Order List Component -->
+     <template if:true={showCompleteWorkOrderList}>
+        <c-o_-m-riser-complete-work-order
+            selected-status={selectedStatus}
+            onback={handleCompleteWorkOrderListBack}>
+        </c-o_-m-riser-complete-work-order>
+    </template>
+
+    <template if:true={showWorkOrderList}>
+        <c-o_-m-riser-all-work-order
+            selected-status={selectedStatus}
+            onback={handleWorkOrderListBack}>
+        </c-o_-m-riser-all-work-order>
+    </template>
+
+    <!-- NEW: Incomplete Work Order List Component -->
+    <template if:true={showIncompleteWorkOrderList}>
+        <c-o_-m-riser-incomplete-work-order
+            selected-status={selectedStatus}
+            onback={handleIncompleteWorkOrderListBack}>
+        </c-o_-m-riser-incomplete-work-order>
+    </template>  
+
+    <template if:true={showUnattemptedWorkOrderList}>
+        <c-o_-m-riser-unattempted-work-order
+            selected-status={selectedStatus}
+            onback={handleUnattemptedWorkOrderListBack}>
+        </c-o_-m-riser-unattempted-work-order>
+    </template>
+
+</template>

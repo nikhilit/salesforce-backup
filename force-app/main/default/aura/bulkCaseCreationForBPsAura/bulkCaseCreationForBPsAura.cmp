@@ -1,0 +1,8 @@
+<aura:component
+    access="global"
+    implements="flexipage:availableForAllPageTypes,force:appHostable,lightning:isUrlAddressable">
+
+    <aura:attribute name="sObjectName" type="String" default="Case"/>
+
+    <c:bulkCaseCreationForBPs />
+</aura:component>

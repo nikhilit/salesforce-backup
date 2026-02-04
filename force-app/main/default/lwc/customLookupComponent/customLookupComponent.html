@@ -1,0 +1,89 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 09-03-2023
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   10-11-2022   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <div>
+        <div class="input-box" style="position: relative;">
+            <!--class="slds-form-element"-->
+            <!-- <label if:true={inputLabel} class="slds-form-element__label" for="text-input-id-1" style="font-size:13px;">
+                <abbr class="slds-required" if:true={required}>*</abbr>{inputLabel}</label> -->
+            <label class="input-label" title={inputLabel} if:true={inputLabel} style="z-index: 1;">
+                <abbr class="slds-required" if:true={required}>*</abbr>
+                {inputLabel}
+            </label>
+            <!-- <div class="slds-form-element__control">
+                <div class="slds-combobox_container">
+                    <div id="box" class={boxClass}>
+                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                            role="none"> -->
+            <template if:true={isValueSelected}>
+                <div id="lookup-pill" class="input-box">
+                    <!--style="line-height:15px; width: 100%;"-->
+                    <!---class="slds-pill-container"-->
+                    <span class="input-1 slds-pill">
+                        <!--slds-theme_shade" style="padding:2px 4px 2px 4px;"-->
+                        <!-- <span class="slds-pill__icon_container">
+                            <span class="slds-icon_container" title={objName}>
+                                <lightning-icon icon-name={iconName} alternative-text={objName}>
+                                </lightning-icon>
+                                <span class="slds-assistive-text">{objName}</span>
+                            </span>
+                        </span> -->
+                        <span class="slds-pill__label" style="width: 85%;">{selectedName}</span>
+                        <button class="slds-button slds-button_icon slds-button_icon slds-pill__remove" title="Remove"
+                            name={selectedName} onclick={handleRemovePill} if:false={disabled}>
+                            <lightning-icon icon-name="utility:close" alternative-text="Remove">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Remove</span>
+                        </button>
+                    </span>
+                </div>
+            </template>
+
+            <template if:false={isValueSelected}>
+                <!-- <div class="slds-p-top_none" style="width: 100%;"> -->
+                <!-- <lightning-input class={inputClass} type="search" id="input" value={searchTerm}
+                                        onclick={handleClick} onblur={onBlur} onchange={onChange} variant="label-hidden"
+                                        autocomplete="off" placeholder={searchPlaceholder}
+                                        style="line-height: var(--lwc-lineHeightButton,1.875rem);min-height: calc(2.125rem + 2px);"
+                                        disabled={disabled}>
+                                    </lightning-input> -->
+                <input type={inputType} class="input-1 field" onfocus={setFocusTrue} disabled={disabled} onblur={onBlur}
+                    onkeyup={onChange} />
+                <!--onclick={handleClick} -->
+                <div style="position: absolute; right: 10px; top: 7px;" if:false={disabled}>
+                    <lightning-icon icon-name="utility:search" size="x-small"></lightning-icon>
+                </div>
+                <!--value={inputValue}-->
+                <!-- </div> -->
+            </template>
+            <!-- </div> -->
+            <div if:true={showDropdown} style="left: 50%;" class="slds-dropdown slds-dropdown_fluid">
+                <!--if:false={disabled}-->
+                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                    <template for:each={records} for:item="record">
+                        <li key={record.Id} onclick={onSelect} data-id={record.Id} role="presentation"
+                            data-name={record.Name}>
+                            <span class="slds-lookup__item-action slds-lookup__item-action--label" role="option">
+                                <!-- <lightning-icon class="slds-icon slds-icon--small"
+                                    icon-name={iconName} alternative-text={objName} size="small">
+                                </lightning-icon> -->
+                                <span class="slds-truncate">{record.Name}</span>
+                            </span>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+            <!-- </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</template>

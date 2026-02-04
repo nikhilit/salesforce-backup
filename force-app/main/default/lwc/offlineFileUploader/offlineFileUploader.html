@@ -1,0 +1,25 @@
+<template>
+    <lightning-card title="Offline File Uploader" icon-name="utility:upload">
+        <div class="slds-m-around_medium">
+
+            <lightning-input
+                type="file"
+                label="Select a file to upload"
+                accept=".pdf,.png,.jpg,.jpeg,.xlsx"
+                onchange={handleFileChange}>
+            </lightning-input>
+
+            <lightning-button
+                class="slds-m-top_medium"
+                label="Upload & Continue"
+                variant="brand"
+                onclick={handleUpload}>
+            </lightning-button>
+
+            <template if:true={uploadMessage}>
+                <p class="slds-m-top_medium">{uploadMessage}</p>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

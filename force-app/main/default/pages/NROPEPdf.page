@@ -1,0 +1,1191 @@
+<apex:page renderAs="pdf" applyBodyTag="false" standardStylesheets="false" lightningStylesheets="false" applyHtmlTag="false"
+           showHeader="false">
+    <head>
+        <style>
+            @page {
+                size: A4;
+                margin-top: 5cm;
+                margin-bottom: 3cm;
+                margin-left: 1cm;
+                margin-right: 1cm;
+            }
+            
+            @page {
+            @bottom-center {
+                content: element(pageFooter);
+            }
+             @top-center {
+       		 content: element(pageHeader);
+   		 }
+        }
+
+        #pageFooter {
+            position: running(pageFooter);    
+            text-align: center;
+            font-size: 12px;
+        }
+         #pageHeader {
+            position: running(pageHeader);    
+            text-align: center;
+            font-size: 12px;
+        }
+
+            .pagenumber:before {
+                content: counter(page);
+            }
+           table {
+    		width: 95%;
+    		border-collapse: collapse;
+    		margin: 0 auto;
+    		font-size: 15px;
+            border-spacing: 0;
+            -fs-table-paginate: paginate;
+			}
+
+            tr {
+                  page-break-inside: avoid; 
+                            break-inside: avoid;
+            }
+
+
+            td,th {
+                border: 1px solid #000;
+                text-align: center;
+                height: 35px;
+                border-collapse: collapse;
+                vertical-align: middle;
+                padding-bottom:0px;
+            }
+            
+            th {
+                font-weight: bold;
+            }
+            
+            .title-page {
+                page-break-after: always;
+            }
+                        
+             .table-wrapper {
+                page-break-inside: avoid;
+            }
+           .note {
+                        margin: 10px auto 0 auto;
+                        font-family: Arial, sans-serif;
+                        font-size: 11pt;
+            }
+            .note b {
+                font-weight: bold;
+            }
+            
+        </style>
+    </head>
+       <div id="pageFooter">
+            <p>
+                <span class="pagenumber"></span></p>
+        </div>
+    
+ <div id="pageHeader">
+ <table style="border:none;">
+        <tr>
+            <td width="15%" style=" border: none;
+            vertical-align: middle;">
+        <apex:image value="{!$Resource.MGL_Logo}" width="50" />
+          </td>
+
+            <td width="70%" class="title" style="   font-size: 20px;
+            text-align: center;border:none;">
+                <b style="border-bottom:1px solid black;">   MAHANAGAR GAS LIMITED</b>
+            </td>
+            <td style="border:none;"></td>
+        </tr>
+
+        <!-- Row 2 -->
+        <tr>
+            <td style="border:none;"></td>
+            <td class="subtitle" style=" font-size: 14px;
+            font-weight: bold;
+            text-align: center;border:none;">
+                <b style="border-bottom:1px solid black;">    Non-Routine Operation</b>
+            </td>
+            <td width="15%" class="right" style="text-align: right;
+            font-size: 12px;border:none;  font-weight: bold;">   Record No.: AIQ RE 134</td>
+        </tr>
+
+        <!-- Row 3 -->
+        <tr>
+            <td colspan="3" class="normal" style="font-size: 13px;
+            text-align: center;border:none;">
+               <b> COMMISSIONING OF 2625.60 METERS OF 125 MM &amp; 90 MM 4 BAR MDPE PIPELINE INSIDE LODHA PREMIER PALAVA
+                </b> </td>
+        </tr>
+
+        <!-- Row 4 -->
+        <tr>
+            <td colspan="3" class="right" style="text-align: right;
+            font-size: 12px;border:none;  font-weight: bold;border-bottom:1px solid black;">
+                NRO no: MGL/TPS/PE-LODHA/2024-25/01
+            </td>
+        </tr>
+
+    </table>
+
+	</div>
+    
+    <body>
+      <div  class="title-page">
+          
+            <p style="text-align:center;font-weight:bold;">Index</p>
+              <table cellpadding="15">
+            <tr>
+                <th>Sr. No.</th>
+                <th>Particulars</th>
+                <th>Page No.</th>
+            </tr>
+            <tr><td>A</td><td>Non Routine Operation</td><td>2-3</td></tr>
+            <tr><td>B</td><td>Communication List</td><td>4</td></tr>
+            <tr><td>C</td><td>Preparatory Steps</td><td>5</td></tr>
+            <tr><td>D</td><td>Status of Valves before (NRO) operation &amp; Purging</td><td>6</td></tr>
+            <tr><td>E</td><td>Normal Operation Procedure</td><td>7-9</td></tr>
+            <tr><td>F</td><td>Status of Valves After (NRO) Operation</td><td>10</td></tr>
+            <tr><td>G</td><td>Contingency Action Plan</td><td>10</td></tr>
+             <tr><td>H</td><td>List of affected customers in case of contingency</td><td>10</td></tr>
+            <tr><td>I</td><td>Schematic Sketch</td><td>11</td></tr>
+            <tr><td>J</td><td>Review /Comments</td><td>12</td></tr>
+             <tr><td>K</td><td>Annexure-Applicable MGL Standards/SOPs</td><td>13</td></tr>
+             <tr><td>L</td><td>Risk Assessment</td><td>14</td></tr>
+        </table>
+        </div>
+        
+        
+        <div class="title-page">
+            <p style="text-align:left;font-weight:bold;"><b style="border-bottom:1px solid black;">(A) Non-Routine Operation</b></p>
+            
+     <table cellpadding="10">
+                <tr>
+                    <th style="width:30%;font-weight:bold;">Non-Routine Operation No.</th>
+                    <td style="font-weight:bold;">MGL/TPS/PE/2024-25/01</td>
+                </tr>
+            
+                <tr>
+                    <th >Brief Description of Work</th>
+                    <td style="text-align:left;">
+                        COMMISSIONING OF 2625.60 METRES OF 125 MM &amp; 90 MM 4 BAR MDPE PIPELINE
+                        INSIDE LODHA PREMIER PALAVA
+                    </td>
+                </tr>
+            
+                <tr>
+                    <th style="font-weight:bold;">Location</th>
+                    <td style="text-align:left;">
+                        PROJECT AREA DRS 153B, LODHA PREMIER, PALAVA, DOMBIVALI (E)
+                    </td>
+                </tr>
+            
+                <!-- RESPONSIBLE ENGINEERS -->
+                <tr>
+                    <th style="font-weight:bold;" >Responsible Engineers</th>
+                    <td style="text-align:left;">
+                        Amol Bhandare (AIC) / Nitin Patil (DIC)
+                    </td>
+                </tr>
+            
+                <tr>
+                            <th style="font-weight:bold;" rowspan="2">Prepared by</th>
+                    <td style="text-align:left;">
+                       Amol Bhandare (Manager-Projects)
+                        <br/><br/>
+                        Sign: ....................... &nbsp;&nbsp; Date: 
+                        
+                    </td>
+               
+                </tr>
+            
+                <!-- PREPARED BY -->
+                <tr>
+            
+                    <td style="text-align:left;">
+                        Nitin Patil (Asst. Manager - O&amp;M)<br/><br/>
+                        Sign: ................  &nbsp;&nbsp; Date: 
+                     
+                    </td>
+                    
+                </tr>
+            
+                <!-- CHECKED BY -->
+                <tr>
+                    <th style="font-weight:bold;" rowspan="6">Checked by</th>
+                    <td style="text-align:left;">
+                        Manoj Kumar Pandey (Sr. Manager - Projects)<br/><br/>
+                        Sign: .................... &nbsp;&nbsp; Date: 
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td style="text-align:left;">
+                        Amrut Chaugule (Manager - AI)<br/><br/>
+                        Sign: ....................... &nbsp;&nbsp; Date:
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td style="text-align:left;">
+                        Hemant Awate (Ch. Manager - O&amp;M)<br/><br/>
+                        Sign: ....................... &nbsp;&nbsp; Date:
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td style="text-align:left;">
+                        Viraj Kulkarni (Ch. Manager - GIS)<br/><br/>
+                        Sign: ........................ &nbsp;&nbsp; Date:
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td style="text-align:left;">
+                        Sachin Ghugue (DGM - HSE)<br/><br/>
+                        Sign: ..................... &nbsp;&nbsp; Date: 
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td style="text-align:left;">
+                        Dilip Martha (DGM - O&amp;M)<br/><br/>
+                        Sign: .................... &nbsp;&nbsp; Date: 
+                    </td>
+                </tr>
+                  <tr>
+                    <th style="font-weight:bold;">Checked by</th>
+                    <td style="text-align:left;">
+                        Sanjay Gwade (DGM - AI &amp; GIS)<br/><br/><br/>
+                        Sign: .................... &nbsp;&nbsp; Date: 
+                    </td>
+                </tr>
+                     <tr>
+                    <th style="font-weight:bold;">Reviewed by</th>
+                    <td style="text-align:left;">
+                        Devendra Shastry(GM- Projects)<br/><br/><br/>
+                        Sign: .................... &nbsp;&nbsp; Date: 
+                    </td>
+                </tr>
+                       <tr>
+                    <th style="font-weight:bold;">Reviewed by</th>
+                    <td style="text-align:left;">
+                        Pratap Ayarekar(GM- O&amp;M)<br/><br/><br/>
+                        Sign: .................... &nbsp;&nbsp; Date: 
+                    </td>
+                </tr>
+                      <tr>
+                    <th style="font-weight:bold;">Reviewed by</th>
+                    <td style="text-align:left;">
+                        Ajay Patki (GM -  HSE)<br/><br/><br/>
+                        Sign: .................... &nbsp;&nbsp; Date: 
+                    </td>
+                </tr>
+                       <tr>
+                    <th style="font-weight:bold;">Reviewed by</th>
+                    <td style="text-align:left;">
+                        Vivek Sonar (AVP-Projects)<br/><br/><br/>
+                        Sign: .................... &nbsp;&nbsp; Date: 
+                    </td>
+                </tr>
+                        <tr>
+                    <th style="font-weight:bold;">Reviewed by</th>
+                    <td style="text-align:left;">
+                        Naveen Gupta (AVP - AI&amp;GIS)<br/><br/><br/>
+                        Sign: .................... &nbsp;&nbsp; Date: 
+                    </td>
+                </tr>
+                        <tr>
+                    <th style="font-weight:bold;">Reviewed by</th>
+                    <td style="text-align:left;">
+                      Gurvinder Singh(VP- Projects)<br/><br/><br/>
+                        Sign: .................... &nbsp;&nbsp; Date: 
+                    </td>
+                </tr>
+                        <tr>
+                    <th style="font-weight:bold;">Reviewed by</th>
+                    <td style="text-align:left;">
+                       Sitanshu Roy chowdhury (VP- O&amp;M)<br/><br/><br/>
+                        Sign: .................... &nbsp;&nbsp; Date: 
+                    </td>
+                </tr>
+                     
+                        <tr>
+                    <th style="font-weight:bold;">Authorized by</th>
+                    <td style="text-align:left;">
+                        Sanjay Shende(Dy.Managing Director)<br/><br/><br/>
+                        Sign: .................... &nbsp;&nbsp; Date: 
+                    </td>
+                </tr>
+                        <tr>
+                    <th style="font-weight:bold;">Circulation list</th>
+                    <td style="text-align:left;">
+                        HSE<br/>Asset Integrity<br/>Control room <br/>DIC,Engineers at Site
+                    </td>
+                </tr>
+            
+            </table>
+        </div>
+        
+          <div  class="title-page">
+  
+         <p>(B) <b style="border-bottom: 1px solid #000; font-weight: bold;">Communication List:</b></p>
+ <table>
+        <tr>
+            <th style="width:8%;">Sr. No.</th>
+            <th style="width:52%;">Contact Person</th>
+            <th style="width:40%;">Phone Number</th>
+        </tr>
+
+  <tr>
+        <td style="height: 25px;">1</td>
+        <td style="height: 25px;">Gurvinder Singh</td>
+        <td style="height: 25px;">8699644000</td>
+    </tr>
+
+    <tr>
+        <td style="height: 25px;">2</td>
+        <td style="height: 25px;">Sitanshu Raychowdhury</td>
+        <td style="height: 25px;">8657112265</td>
+    </tr>
+
+    <tr>
+        <td style="height: 25px;">3</td>
+        <td style="height: 25px;">Naveen Gupta</td>
+        <td style="height: 25px;">9324941237</td>
+    </tr>
+
+    <tr>
+        <td style="height: 25px;">4</td>
+        <td style="height: 25px;">Vivek Sonar</td>
+        <td style="height: 25px;">8657880661</td>
+    </tr>
+
+    <tr>
+        <td style="height: 25px;">5</td>
+        <td style="height: 25px;">Ajay Patki</td>
+        <td style="height: 25px;">8657792302</td>
+    </tr>
+
+    <tr>
+        <td style="height: 25px;">6</td>
+        <td style="height: 25px;">Devendra Shastry</td>
+        <td style="height: 25px;">9324941211</td>
+    </tr>
+
+    <tr>
+        <td style="height: 25px;">7</td>
+        <td style="height: 25px;">Pratap Ayanekar</td>
+        <td style="height: 25px;">9324941208</td>
+    </tr>
+
+    <tr>
+        <td style="height: 25px;">8</td>
+        <td style="height: 25px;">Sanjay Gawde</td>
+        <td style="height: 25px;">9324941131</td>
+    </tr>
+
+    <tr>
+        <td style="height: 25px;">9</td>
+        <td style="height: 25px;">Dilip Martha</td>
+        <td style="height: 25px;">9324941225</td>
+    </tr>
+
+    <tr>
+        <td style="height: 25px;">10</td>
+        <td style="height: 25px;">Sachin Ghugue</td>
+        <td style="height: 25px;">9324060377</td>
+    </tr>
+
+    <tr>
+        <td style="height: 25px;">11</td>
+        <td style="height: 25px;">Hemant Awate</td>
+        <td style="height: 25px;">9324950819</td>
+    </tr>
+
+    <tr>
+        <td style="height: 25px;">12</td>
+        <td style="height: 25px;">Manoj Kumar Pandey</td>
+        <td style="height: 25px;">8879590019</td>
+    </tr>
+
+    <tr>
+        <td style="height: 25px;">13</td>
+        <td style="height: 25px;">Amrut Chaugule</td>
+        <td style="height: 25px;">9167950587</td>
+    </tr>
+
+    <tr>
+        <td style="height: 25px;">14</td>
+        <td style="height: 25px;">Mahesh Kore</td>
+        <td style="height: 25px;">9167997939</td>
+    </tr>
+
+      <tr>
+        <td style="height: 25px;">15</td>
+        <td style="height: 25px;">Dattatray Jadhav</td>
+        <td style="height: 25px;">9324682482</td>
+    </tr>
+        <tr><td style="height: 25px;">16</td><td style="height: 25px;">Amol Bhandare</td><td style="height: 25px;">8691091318</td></tr>
+             <tr><td style="height: 25px;">17</td><td style="height: 25px;">Nitin Patil</td><td style="height: 25px;">8291816587</td></tr>
+            <tr><td style="height: 25px;">18</td><td style="height: 25px;">Emergency Control Room</td><td style="height: 25px;">022-24012400</td></tr>
+            <tr><td style="height: 25px;">19</td><td style="height: 25px;">BsideU Ambulance Service</td><td style="height: 25px;">7304442525/18002200777</td></tr>
+                <tr><td style="height: 25px;">20</td><td style="height: 25px;">Nearest Hospital Number:Sai Hospital &amp; ICU</td><td style="height: 25px;">07400464468</td></tr>
+            <tr><td style="height: 25px;">21</td><td style="height: 25px;">Nearest Fire station Number: Dombivil MIDC</td><td style="height: 25px;">0251-2470357</td></tr>
+  
+            </table>
+            <p><b>MGL personnel at Site</b></p>
+             <ol>
+        <li>Amol Bhandare</li>
+        <li>Nitin Patil</li>
+        <li>Manoj Kumar Pandey</li>
+
+    </ol>
+         </div>
+        
+                <div  class="title-page">
+  
+         <p>(C) <b style="border-bottom: 1px solid #000; font-weight: bold;">Preparatory Steps:</b></p>
+         <table cellpadding="3">
+            <tr>
+          <th style="width:6%;">Sr. No.</th>
+            <th style="width:66%;">Preparatory Work</th>
+            <th style="width:13%;">Action by</th>
+            <th style="width:10%;">Check</th>
+            </tr>
+      
+            <tr>
+                <td>1</td>
+                <td>Ensure compliance to all MGL Life Saving Rule &amp; COP requirements. Conduct Site specific HIRA is prepared for NRO and briefed to all concerned at site 
+                    <b>(Refer COP section 03 - Excavation &amp; Deep Excavation)</b>.</td>
+                <td>Project Engineer</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Ensure all the valves are accessible to be operated and in correct position at the start of NRO.</td>
+                <td>Project/O&amp;M Engineer</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Ensure NRO procedure is approved by competent authority and issued to concerned personnel at site.</td>
+                <td>Project/O&amp;M Engineer</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Ensure that all the personnel involved in the gas venting operation are briefed regarding the sequence of the operation and are aware of the valve positions.</td>
+                <td>Project/O&amp;M Engineer</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Ensure proper earthing of the vent hose during the venting operation.</td>
+                <td>Project Engineer</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Ensure No smoking / No Naked Flame sign boards and barricading are available at site.</td>
+                <td>Project Engineer</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Ensure Leak Surveyor (Gasco-seeker) &amp; O2 meters are available at site with Valid Calibration.</td>
+                <td>Project Engineer</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Ensure appropriate nos. of Fire Extinguishers (9 kg-4 nos) and appropriate non sparking tools are available at site.</td>
+                <td>Project Engineer</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Ensure all emergency fittings are available at site.</td>
+                <td>Project Engineer</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Ensure that pipeline construction and testing are completed.</td>
+                <td>Project Engineer</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Ensure all personnel involved in NRO are wearing their recommended PPE as per COP section 01 - Safety specific requirement (clause no. 6.0 - Personal Protective Equipment).</td>
+                <td>Project/O&amp;M Engineer</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Ensure tag out of valve SOV1 and continuous barricading &amp; monitoring during NRO as per SCO - 03 Procedure for Non routine operations.</td>
+                <td>Project/O&amp;M Engineer</td>
+                <td></td>
+            </tr>
+    </table>
+        </div>
+        
+        <div  class="title-page">
+  
+         <p>(D) <b style="border-bottom: 1px solid #000; font-weight: bold;">Status of valves before NRO:</b></p>
+            
+         <table>
+        <tr>
+            <th>Sr. No.</th>
+            <th>Valve No</th>
+            <th>Size</th>
+            <th>Status</th>
+            <th>Check</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>SOV1</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>SOV2</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>SOV3</td>
+            <td>125 MM</td>
+            <td>Close</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>SOV4</td>
+            <td>125 MM</td>
+            <td>Close</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>SOV5</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>SOV6</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>SOV7</td>
+            <td>125 MM</td>
+            <td>Close</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>SOV8</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>SOV9</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>SOV10</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td></td>
+        </tr>
+    </table>
+
+    <!-- Purging Points -->
+            <p><b style="border-bottom:1px solid black;"> Details of Purging Points :</b></p>
+
+    <table>
+        <tr>
+            <th>Sr. No.</th>
+            <th>Description</th>
+            <th>Valve No</th>
+            <th>Location</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td class="left">Purging Point No. 01 (PP1)</td>
+            <td>V1</td>
+            <td class="left">Near Foresta D</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td class="left">Purging Point No. 02 (PP2)</td>
+            <td>V2</td>
+            <td class="left">Near Liana B</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td class="left">Purging Point No. 03 (PP3)</td>
+            <td>V3</td>
+            <td class="left">Near Foresta H</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td class="left">Purging Point No. 04 (PP4)</td>
+            <td>V4</td>
+            <td class="left">Near Belvedere E</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td class="left">Purging Point No. 05 (PP5)</td>
+            <td>V5</td>
+            <td class="left">Near Signet</td>
+        </tr>
+    </table>
+
+        </div>
+        
+               <div  class="title-page">
+  
+         <p>(E) <b style="border-bottom: 1px solid #000; font-weight: bold;">Normal Operation Procedure:</b></p>
+        
+                   <table>
+        <tr>
+             <th style="width:10%;">Sr. No.</th>
+            <th style="width:66%;">Operation Procedure</th>
+            <th style="width:11%;">Action by</th>
+            <th style="width:10%;">Check</th>
+        </tr>
+
+        <tr>
+            <td >1</td>
+            <td>Inform HOD (O&amp;M) &amp; Emergency control room about commencement of NRO.</td>
+            <td >DIC</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td >2</td>
+            <td>
+                Ensure positive pressure (AIR) of 2 bar at all purging points.
+                Check positive pressure at PP1, PP2, PP3, PP4, PP5.
+            </td>
+            <td >AIC / DIC</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td >3</td>
+            <td>Ensure fire extinguishers (10 kgs – 2 nos.) are in place.</td>
+            <td >AIC</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td >4</td>
+            <td>
+                Depressurize the line by operating purge points valve at
+                PP1, PP3, PP4 &amp; PP5.
+            </td>
+            <td >AIC</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td >5</td>
+            <td>Close all the purge point valves after Depressurizing.</td>
+            <td >AIC</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td >6</td>
+            <td>
+                Raise self-authorization permit to carry out hook-up activity
+                with existing gasified pipeline.<br/>
+                Ensure Zero PPM of Gas at A-A location.<br/>
+                Close the Valve SOV1 &amp; SOV2.
+            </td>
+            <td >AIC / DIC</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td >7</td>
+            <td>
+                Ensure no naked flame / ignition source in the vicinity of trench.
+                Make a small cut of approx. 2–3 cms at the top of the gasified pipeline
+                at the downstream of SOV1 at location A-A and release the gas slowly.
+            </td>
+            <td >AIC</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td >8</td>
+            <td>
+                Ensure all gas is released from the section A-A.
+                Check for zero PPM with Gascoseeker.
+            </td>
+            <td >AIC</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td >9</td>
+            <td>
+                Cut the End Cap on both sides of pipeline and complete
+                electrofusion of coupler 125 DMM as per COP
+                (Refer COP 04 PE Mains and Service Laying) and allow for cooling of joint.
+            </td>
+            <td >AIC</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td >10</td>
+            <td>Check that Coupler’s fusion indicators have risen.</td>
+            <td >AIC</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td >11</td>
+            <td>
+                After completion of cooling time, crack open SOV1,
+                allow gas to pass to Coupler and perform leak test of all PE fittings.
+            </td>
+            <td >AIC</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td >12</td>
+            <td>
+                After satisfactory leak test, proceed further for
+                Commissioning of network segment wise as tabulated below.
+            </td>
+            <td >AIC / DIC</td>
+            <td></td>
+        </tr>
+
+    </table>
+             
+
+        </div>
+        <div  class="title-page">
+                   <table>
+        <tr>
+            <th style="width:8%">Sr. No.</th>
+            <th>Segment 1 - From Lodha Sales Office to Foresta D/Liana B</th>
+            <th style="width:15%">Action by</th>
+        </tr>
+        <tr>
+            <td class="center">1</td>
+            <td>Ensure air pressure is zero at Purging Point No. PP1 &amp; PP2.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">2</td>
+            <td>Check and remove sources of ignition (if any) in the vicinity of Purging Points.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">3</td>
+            <td>Install Vent Stacks at Purging Points at PP1 &amp; PP2.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">4</td>
+            <td>Ensure Vent Stack is earthed using wet cloth.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">5</td>
+            <td>Ensure fire extinguishers are in place.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">6</td>
+            <td>Crack open the valve SOV2.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">7</td>
+            <td>Purge the gas at PP1 &amp; PP2 Purging Points of this segment through Vent Stack in a controlled way.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">8</td>
+            <td>Check the gas percentage with Gasco-seeker at Purging Points PP1 &amp; PP2 as per COP.</td>
+            <td class="center">AIC / DIC</td>
+        </tr>
+        <tr>
+            <td class="center">9</td>
+            <td>
+                Check pressure with pressure gauge by help of fixing testing tee arrangement at
+                crimp and ensure 4 bar pressure at Purging Points PP1 &amp; PP2 sequentially.
+            </td>
+            <td class="center">AIC / DIC</td>
+        </tr>
+        <tr>
+            <td class="center">10</td>
+            <td>
+                Squeeze pipe near the Purging Points No. PP1 &amp; PP2 and plug with end cap at a
+                depth of 1m as per COP. Release squeezer and perform leak test and ensure there is no leakage.
+            </td>
+            <td class="center">AIC</td>
+        </tr>
+    </table>
+            <br/>
+    <!-- Segment 2 -->
+    <table>
+        <tr>
+            <th style="width:8%">Sr. No.</th>
+            <th>Segment 2 - From Foresta I to Foresta H</th>
+            <th style="width:15%">Action by</th>
+        </tr>
+        <tr>
+            <td class="center">1</td>
+            <td>Ensure air pressure is zero at Purging Point No. 03 (PP3).</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">2</td>
+            <td>Check and remove sources of ignition (if any) in the vicinity of Purging Points.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">3</td>
+            <td>Install Vent Stacks at PP3 Purging Point.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">4</td>
+            <td>Ensure Vent Stack is earthed using wet cloth.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">5</td>
+            <td>Ensure fire extinguishers are in place.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">6</td>
+            <td>Crack open the valve SOV7.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">7</td>
+            <td>Purge the gas from PP3 Purging Points of this segment through Vent Stack in a controlled way.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">8</td>
+            <td>Check the gas percentage with gas co-seeker at Purging Point PP3 as per COP.</td>
+            <td class="center">AIC / DIC</td>
+        </tr>
+        <tr>
+            <td class="center">9</td>
+            <td>
+                Check pressure with pressure gauge by help of fixing testing tee arrangement at crimp
+                and ensure 4 bar pressure at Purging Points PP3.
+            </td>
+            <td class="center">AIC / DIC</td>
+        </tr>
+        <tr>
+            <td class="center">10</td>
+            <td>
+                Squeeze pipe near the Purging Points No. PP3 and plug with end cap at a depth of 1m as per COP.
+                Release squeezer and perform leak test and ensure there is no leakage.
+            </td>
+            <td class="center">AIC</td>
+        </tr>
+    </table>
+            
+            <br/>
+             <!-- Segment 3 -->
+    <table>
+        <tr>
+            <th style="width:8%">Sr. No.</th>
+            <th>Segment 3 - From Club House to Belvedere</th>
+            <th style="width:15%">Action by</th>
+        </tr>
+        <tr>
+            <td class="center">1</td>
+            <td>Ensure air pressure is zero at Purging Point No. 04 (PP4).</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">2</td>
+            <td>Check and remove sources of ignition (if any) in the vicinity of Purging Points.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">3</td>
+            <td>Install Vent Stacks at PP4 Purging Point.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">4</td>
+            <td>Ensure Vent Stack is earthed using wet cloth.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">5</td>
+            <td>Ensure fire extinguishers are in place.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">6</td>
+            <td>Crack open the valve SOV4.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">7</td>
+            <td>
+                Purge the gas from PP4 Purging Points of this segment through Vent Stack
+                in a controlled way.
+            </td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">8</td>
+            <td>Check the gas percentage with gas co-seeker at PP4 Purging Points as per COP.</td>
+            <td class="center">AIC / DIC</td>
+        </tr>
+        <tr>
+            <td class="center">9</td>
+            <td>
+                Check pressure with pressure gauge by help of fixing testing tee arrangement at crimp
+                and ensure 4 bar pressure at Purging Points PP4.
+            </td>
+            <td class="center">AIC / DIC</td>
+        </tr>
+        <tr>
+            <td class="center">10</td>
+            <td>
+                Squeeze pipe near the Purging Points No. PP4 and plug with end cap at a depth of 1m
+                as per COP. Release squeezer and perform leak test and ensure there is no leakage.
+            </td>
+            <td class="center">AIC</td>
+        </tr>
+    </table>
+            <br/>
+    <!-- Segment 4 -->
+    <table>
+        <tr>
+            <th style="width:8%">Sr. No.</th>
+            <th>Segment 4 - From Premier Sales Office to Signet</th>
+            <th style="width:15%">Action by</th>
+        </tr>
+        <tr>
+            <td class="center">1</td>
+            <td>Ensure air pressure is zero at Purging Point No. 05 (PP5).</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">2</td>
+            <td>Check and remove sources of ignition (if any) in the vicinity of Purging Points.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">3</td>
+            <td>Install Vent Stacks at PP5 Purging Point.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">4</td>
+            <td>Ensure Vent Stack is earthed using wet cloth.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">5</td>
+            <td>Ensure fire extinguishers are in place.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">6</td>
+            <td>Crack open the valve SOV3.</td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">7</td>
+            <td>
+                Purge the gas from PP5 Purging Points of this segment through Vent Stack
+                in a controlled way.
+            </td>
+            <td class="center">AIC</td>
+        </tr>
+        <tr>
+            <td class="center">8</td>
+            <td>Check the gas percentage with gas co-seeker at PP5 Purging Point as per COP.</td>
+            <td class="center">AIC / DIC</td>
+        </tr>
+        <tr>
+            <td class="center">9</td>
+            <td>
+                Check pressure with pressure gauge by help of fixing testing tee arrangement at crimp
+                and ensure 4 bar pressure at Purging Points PP5.
+            </td>
+            <td class="center">AIC / DIC</td>
+        </tr>
+        <tr>
+            <td class="center">10</td>
+            <td>
+                Squeeze pipe near the Purging Points No. PP5 and plug with end cap at a depth of 1m
+                as per COP. Release squeezer and perform leak test and ensure there is no leakage.
+            </td>
+            <td class="center">AIC</td>
+        </tr>
+    </table>
+            
+        </div>
+        
+           <div  class="title-page">
+  
+         <p>(F) <b style="border-bottom: 1px solid #000; font-weight: bold;">Status of valves after (NRO) Operation:</b></p>
+           <table>
+        <tr>
+            <th>Sr. No.</th>
+            <th>Valve No</th>
+            <th>Size</th>
+            <th>Status</th>
+            <th>Action by</th>
+            <th>Check</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>SOV1</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td>DIC</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>SOV2</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td>DIC</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>SOV3</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td>DIC</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>SOV4</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td>DIC</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>SOV5</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td>DIC</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>SOV6</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td>DIC</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>SOV7</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td>DIC</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>SOV8</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td>DIC</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>SOV9</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td>DIC</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>SOV10</td>
+            <td>125 MM</td>
+            <td>Open</td>
+            <td>DIC</td>
+            <td></td>
+        </tr>
+    </table>
+               <br/>         
+     <p> (G)<b style="border-bottom: 1px solid #000; font-weight: bold;"> Contingency Action Plan:</b></p>  
+               <p>In case of joint failure at Location A-A and at purging points:</p>
+               <table>
+                   <tr>
+                   <th width="20%">Sr. no</th>
+                   <th>Action Plan</th>
+                    <th width="20%">Responsibility</th>
+                   </tr>
+                   <tr><td>1</td><td>Close the immediate upstream Stop Off Valve.Squeeze the pipe and recification to be carried out as per COP Section4.</td><td>AIC</td></tr>
+                   
+                   <tr><td>2</td><td>Inform HOD(O&amp;M) about the contingency.</td><td>DIC</td></tr>
+               </table>
+               <br/>
+                <p> (H)<b style="border-bottom: 1px solid #000; font-weight: bold;"> List of affected customers in case of above contingency</b></p>
+                    <p> <b>- No Customers are affected in case of contingency plan.</b></p>  
+        </div>
+        
+        <div  class="title-page">
+                <p> (I)<b style="border-bottom: 1px solid #000; font-weight: bold;"> Schematic Sketch:</b></p>   
+        </div>
+         <div  class="title-page">
+                <p> (J).<b style="border-bottom: 1px solid #000; font-weight: bold;"> Review by HSE,AI,Planning atc. as applicable.</b></p>   
+                <p>In case of urgencies,comments may be given telephonically; A "NIL RETURN" to be sent in case of no comments i.e mention "No Comments" in the space below and return)</p>
+        
+        </div>
+           
+               <p>(K) <b style="border-bottom: 1px solid #000; font-weight: bold;">Annexure-: Applicable MGL Standard/SOP's</b></p>
+                    <ol>
+        <li>COP Section 01: Safety Specific requirement</li>
+        <li>COP Section 03: Excavation &amp; Deep Excavation</li>
+        <li>COP Section 04: PE Mains &amp; Services Laying Upto 4 Bar</li>
+        <li>COP Section 08: Purging &amp; commissioning</li>
+        <li>SCO: Procedure for Non routine operations</li>
+        <li>HIRA Format- ISO 45001</li>              
+        <li>SCO 02: Permit to Work</li>
+    </ol>
+             
+    </body>
+</apex:page>

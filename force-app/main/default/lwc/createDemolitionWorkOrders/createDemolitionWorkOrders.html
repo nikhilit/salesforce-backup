@@ -1,0 +1,31 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+
+    <!-- Accounts Table -->
+    <template if:true={accounts.length}>
+        <lightning-datatable
+            key-field="Id"
+            data={accounts}
+            columns={columns}
+            show-row-number-column="true">
+        </lightning-datatable>
+
+        <br>
+        <br>
+
+        <lightning-button 
+            class="slds-m-top_medium"
+            label="Create Demolition Work Orders"
+            variant="brand"
+            onclick={handleCreateWO}>
+        </lightning-button>
+    </template>
+
+    <!-- Messages -->
+    <template if:true={message}>
+        <p style="font-weight:bold">{message}</p>
+    </template>
+
+</template>

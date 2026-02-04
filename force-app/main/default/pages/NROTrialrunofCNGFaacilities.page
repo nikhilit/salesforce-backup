@@ -1,0 +1,780 @@
+<apex:page renderAs="pdf" applyBodyTag="false" standardStylesheets="false" lightningStylesheets="false" applyHtmlTag="false"
+           showHeader="false">
+    <head>
+        <style>
+            @page {
+                size: A4;
+                margin-bottom: 3cm;
+                margin-left: 1cm;
+                margin-right: 1cm;
+            }
+            
+            @page {
+            @bottom-left {
+                content: element(pageFooter);
+            }
+             @top-center {
+        content: element(pageHeader);
+    }
+        }
+
+        #pageFooter {
+            position: running(pageFooter);    
+            text-align: left;
+            font-size: 12px;
+        }
+         #pageHeader {
+            position: running(pageHeader);    
+            text-align: left;
+            font-size: 12px;
+        }
+
+            .pagenumber:before {
+                content: counter(page);
+            }
+           table {
+    		width: 95%;
+    		border-collapse: collapse;
+    		margin: 0 auto;
+    		font-size: 15px;
+            border-spacing: 0;
+            -fs-table-paginate: paginate;
+			}
+
+            tr {
+                  page-break-inside: avoid; 
+                            break-inside: avoid;
+            }
+
+
+            td,th {
+                border: 1px solid #000;
+                text-align: center;
+                height: 35px;
+                border-collapse: collapse;
+                    vertical-align: middle;
+                         padding-bottom:0px;
+            }
+            
+            th {
+                font-weight: bold;
+            }
+            
+            .title-page {
+                page-break-after: always;
+            }
+                        
+             .table-wrapper {
+                page-break-inside: avoid;
+            }
+           .note {
+                        margin: 10px auto 0 auto;
+                        font-family: Arial, sans-serif;
+                        font-size: 11pt;
+            }
+            .note b {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+       <div id="pageFooter">
+            <p>
+                <span class="pagenumber"></span> | Page
+            </p>
+        </div>
+
+    <body>
+                  
+        
+                    <div>
+      
+            <p style="text-align:left;font-weight:bold;text-decoration:underline;"> A) Non-Routine Operation</p>
+                 <table cellpadding="1">
+    <tr>
+        <th style="width:45%;text-align:left;">Non-Routine Operation No.</th>
+        <td colspan="3" style="text-align:left;padding-left:10px;"> O&amp;M/2024-25/GA-3/01</td>
+    </tr>
+    <tr>
+        <th style="text-align:left;">Brief Description of Work</th>
+        <td colspan="3" style="text-align:left;padding-left:10px;">
+            Trial run of CNG facilities at M/s. VICKY &amp; TEJAS AUTOMOBILE,Survey No, 4, H.NO.1(PART),Village Lodhivali, Khalapur, Distt. Raigad, Mumbai Pune Road,Village Lodhivali,Taluka: Khalapur,District: RAIGAD, State: Maharashtra, Pin : 410222  </td>
+    </tr>
+    <tr>
+        <th style="text-align:left;">Location</th>
+        <td colspan="3" style="text-align:left;padding-left:10px;">On Mumbai – Pune Road (N.H.No 4)</td>
+    </tr>
+    <tr>
+        <th style="border:none;border-left:1px solid #000;text-align:left;">Site Engineers:</th>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;text-align:left;padding-left:10px;"  colspan="3">Vishal Gangani</td>
+    </tr>
+    <tr>
+        <th style="border:none;border-left:1px solid #000;text-align:left;">Site In-charge:</th>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;text-align:left;padding-left:10px;"  colspan="3">Vishal Gangani</td>
+    </tr>
+    <tr>
+               <th style="border:none;border-left:1px solid #000;text-align:left;">HOD (O&amp;M-CNG Upgradation &amp; Scada):</th>
+
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;text-align:left;padding-left:10px;" colspan="3">Sachin Gusmaste</td>
+    </tr>
+    
+  <tr>
+    <th style="text-align:left; padding-left:10px; padding-bottom:10px;"> Prepared by: </th>
+    <td colspan="3" style="text-align:left; padding-left:10px; padding-bottom:10px;"><br/>
+        Sign: ....................... Date:<br/>
+        Name: Vishal Gangani (Asst-Mgr. - O&amp;M)<br/>
+    </td>
+</tr>
+  <tr>
+    <th style="text-align:left; padding-left:10px; padding-bottom:10px;"> Checked by: </th>
+    <td colspan="3" style="text-align:left; padding-left:10px; padding-bottom:10px;"><br/>
+        Sign: ....................... Date:<br/>
+        Name: Sachin Gumaste (GM – O&amp;M)<br/>
+    </td>
+</tr>
+             
+   <tr>
+             <th style="text-align:left; padding-left:10px; padding-bottom:10px;">Reviewed By:</th>
+              <td colspan="3" style="text-align:left; padding-left:10px; padding-bottom:10px;"><br/>Sign: ......................Date:<br/>Name:Amrut Chaugule (Manager – AI)<br/>
+                  <br/>Sign: ......................Date:<br/>Name: Nirmal Kumar Mishra (Manager – AI)<br/>
+                  <br/>Sign: ......................Date:<br/>Name: Sachin Ghuge (DGM – HSE)<br/>
+                  <br/>Sign: ......................Date:<br/>Name: Sanjay Gawde (DGM – AI &amp; GIS)<br/>
+                  <br/>Sign: ......................Date:<br/>Name: Ajay Patki (GM - HSE)<br/>
+                  <br/>Sign: ......................Date:<br/>Name: K Selvam (CM – O&amp;M)<br/>
+                  <br/>Sign: ......................Date:<br/>Name: Pratap Ayarekar (AVP - O&amp;M)<br/>
+                  <br/>Sign: ......................Date:<br/>Name: Naveen Gupta (AVP – AI &amp; GIS)
+              </td>
+        </tr>
+              <tr>
+    <th style="text-align:left; padding-left:10px; padding-bottom:10px;"> Authorized By: </th>
+    <td colspan="3" style="text-align:left; padding-left:10px; padding-bottom:10px;"><br/>
+        Sign: ....................... Date:<br/>
+        Name: S. Roychowdhury (VP – O&amp;M))<br/>
+    </td>
+</tr>
+                     <tr>
+    <th style="text-align:left; padding-left:10px; padding-bottom:10px;">
+        Circular List
+    </th>
+    <td colspan="3" style="text-align:left; padding-left:10px; padding-bottom:10px;">
+        <ul style="margin: 0; padding-left: 20px;">
+            <li>Control room</li>
+            <li>HSE</li>
+            <li>Asset Integrity</li>
+            <li>Security &amp; Vigilance</li>
+            <li>O&amp;M ZIC</li>
+            <li>Engineer at site</li>
+        </ul>
+    </td>
+</tr>
+
+
+          </table>
+             
+        </div>
+        <div  class="title-page">
+  
+         <p>(B) <b style="border-bottom: 1px solid #000; font-weight: bold;">Communication List:</b></p>
+ <table>
+        <tr>
+            <th style="width:8%;">Sr. No.</th>
+            <th style="width:52%;">Contact Person</th>
+            <th style="width:40%;">Phone Number</th>
+        </tr>
+
+        <tr ><td style="height: 25px;">1</td><td style="height: 25px;">S. Roychowdhury</td><td style="height: 25px;">8657112265</td></tr>
+        <tr><td style="height: 25px;">2</td><td style="height: 25px;">Naveen Gupta</td><td style="height: 25px;">9324941237</td></tr>
+        <tr><td style="height: 25px;">3</td><td style="height: 25px;">Pratap Ayarekar</td><td style="height: 25px;">9324941208</td></tr>
+        <tr><td style="height: 25px;">4</td><td style="height: 25px;">Sachin Gumaste</td><td style="height: 25px;">9833941206</td></tr>
+        <tr><td style="height: 25px;">5</td><td style="height: 25px;">Dinkar Atkari</td><td style="height: 25px;">9167841217</td></tr>
+        <tr><td style="height: 25px;">6</td><td style="height: 25px;">Selvam K</td><td style="height: 25px;">9322862733</td></tr>
+       <tr><td style="height: 25px;">7</td><td style="height: 25px;">Hemant Awate</td><td style="height: 25px;">9324905019</td></tr>
+        <tr><td style="height: 25px;">8</td><td style="height: 25px;">Vinayak Mhamane</td><td style="height: 25px;">8424030148</td></tr>
+        <tr><td style="height: 25px;">9</td><td style="height: 25px;">Ajay Patki</td><td style="height: 25px;">8657792302</td></tr>
+        <tr><td style="height: 25px;">10</td><td style="height: 25px;">Sachin Ghuge</td><td style="height: 25px;">9324060377</td></tr>
+        <tr><td style="height: 25px;">11</td><td style="height: 25px;">Dalbir Singh</td><td style="height: 25px;">8657982578</td></tr>
+        <tr><td style="height: 25px;">12</td><td style="height: 25px;">Mahesh Kore</td><td style="height: 25px;">9167997939</td></tr>
+        <tr><td style="height: 25px;">13</td><td style="height: 25px;">Amrut Chaugule</td><td style="height: 25px;">9167910587</td></tr>
+        <tr><td style="height: 25px;">14</td><td style="height: 25px;">Vishal Gangani</td><td style="height: 25px;">8657790324</td></tr>
+        <tr><td style="height: 25px;">15</td><td style="height: 25px;">Yogesh Joshi</td><td style="height: 25px;">8422995648</td></tr>
+        <tr><td style="height: 25px;">16</td><td style="height: 25px;">Control Room</td><td style="height: 25px;">8879021949</td></tr>
+     <tr><td style="height: 25px;">17</td><td style="height: 25px;">Emergency Response/TOPSLINE</td><td style="height: 25px;">8108437005 &amp; 8976147440</td></tr>
+  
+            </table>
+            <p><b>MGL personnel at Site</b></p>
+            <ul>
+        <li>Vishal Gangani</li>
+        <li>Sachin Gumaste</li>
+        <li>O&amp;M Zonal Coordinator</li>
+        <li>AI Engineer</li>
+        <li>HSE Engineer</li>
+    </ul>
+        </div>
+        
+                <div  class="title-page">
+ 
+      <p>(C) <b style="border-bottom: 1px solid #000; font-weight: bold;text-decoration:underline;">Preparatory Steps:</b></p>
+  <table cellpadding="1">
+
+        <tr style="font-weight:bold; text-align:center;">
+      <th style="width:6%;">Sr. No.</th>
+            <th style="width:65%;">Preparatory Work</th>
+            <th style="width:15%;">Action by</th>
+            <th style="width:8%;">Check</th>
+        </tr>
+<tr>
+    <td colspan="4" style="text-align:left;font-weight:bold;">General</td>
+</tr>
+
+        <tr>
+            <td align="center">1</td>
+            <td style="text-align:left;">
+                Specific site risk assessment to be done prior to commencement of job. Tool box talk to be conducted. Compliance to MGL Life Saving Rules.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">2</td>
+            <td style="text-align:left;">
+                Ensure the suction valve before &amp; after filter is operating correctly and accessible to be operated and in correct position at the start of NRO.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">3</td>
+            <td style="text-align:left;">
+                Ensure No smoking / No Open flames signs are on site.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">4</td>
+            <td style="text-align:left;">
+              Ensure two fire extinguishers- DCP and CO2 type (10 Kgs.) and appropriate tools are at site.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+		 <tr>
+            <td align="center">5</td>
+            <td style="text-align:left;">
+Ensure connection of ESD switches are proper            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td align="center">6</td>
+            <td style="text-align:left;">
+                Ensure availability of Power supply up to Electrical panel
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">7</td>
+            <td style="text-align:left;">
+               Ensure Pre-commissioning audit of the CNG station is complete
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">8</td>
+            <td style="text-align:left;">
+               All the required PPE’s are available with the personnel involved in the operation.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>  
+      <tr>
+    <td colspan="4" style="text-align:left;font-weight:bold;">Compressor</td>
+</tr>
+      
+        <tr>
+            <td align="center">1</td>
+            <td style="text-align:left;">
+Alignment &amp; Levelling            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">2</td>
+            <td style="text-align:left;">
+                Grouting of foundation bolts
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">3</td>
+            <td style="text-align:left;">
+CO2 flooding system installation &amp; its piping, cabling            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">4</td>
+            <td style="text-align:left;">
+Filter skid &amp; suction hose installation            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+		 <tr>
+            <td align="center">5</td>
+            <td style="text-align:left;">
+Installation of air compressor, air receiver &amp; interconnection piping           </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td align="center">6</td>
+            <td style="text-align:left;">
+                Connection sequence of SS tubing to respective bank
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">7</td>
+            <td style="text-align:left;">
+              Tightness check of all Compressor Bolts, Fittings &amp; Connections
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">8</td>
+            <td style="text-align:left;">
+Clamping of SS tubing at required locations            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+              <tr>
+            <td align="center">9</td>
+            <td style="text-align:left;">
+Required Oil level maintained            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>  
+              <tr>
+            <td align="center">10</td>
+            <td style="text-align:left;">
+Calibration of all instruments            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>  
+              <tr>
+            <td align="center">11</td>
+            <td style="text-align:left;">
+Earthing connection at respective locations            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>  
+              <tr>
+            <td align="center">12</td>
+            <td style="text-align:left;">
+Verify all electrical cabling &amp; connections &amp; ensure supply through UPS            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>  
+      <tr>
+ <td colspan="4" style="text-align:left;font-weight:bold;">Stationary Cascade</td>
+</tr>
+      
+        <tr>
+            <td align="center">1</td>
+            <td style="text-align:left;">
+Anchor fastening done (if placed on ground)           </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">2</td>
+            <td style="text-align:left;">
+                Connection sequence of SS tubing to respective bank
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+       <tr>
+            <td align="center">3</td>
+            <td style="text-align:left;">
+Tightness check of all Fittings &amp; Connections            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+       <tr>
+            <td align="center">4</td>
+            <td style="text-align:left;">
+                Clamping of SS tubing at required locations
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+       <tr>
+            <td align="center">5</td>
+            <td style="text-align:left;">
+                Earthing connection at respective location
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+      <tr>
+ <td colspan="4" style="text-align:left;"></td>
+</tr>
+      <tr style="font-weight:bold; text-align:center;">
+      <th style="width:6%;">Sr. No.</th>
+            <th style="width:65%;">Preparatory Work</th>
+            <th style="width:15%;">Action by</th>
+            <th style="width:8%;">Check</th>
+        </tr>
+      <tr>
+ <td colspan="4" style="text-align:left;font-weight:bold;">Priority Panel</td>
+</tr>
+        <tr>
+            <td align="center">1</td>
+            <td style="text-align:left;">
+Connection sequence of SS tubing to the respective bank            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">2</td>
+            <td style="text-align:left;">
+Smooth Operation of 2-way isolation valves            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">3</td>
+            <td style="text-align:left;">
+Tightness check of all Fittings and Connections            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">4</td>
+            <td style="text-align:left;">
+NRV direction to be checked            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+       <tr>
+ <td colspan="4" style="text-align:left;font-weight:bold;">SS tubing</td>
+</tr>
+        <tr>
+            <td align="center">1</td>
+            <td style="text-align:left;">
+                Connection sequence of SS tubing to respective bank </td><td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">2</td>
+            <td style="text-align:left;">
+Tightness check of all Fittings &amp; Connections     </td>       <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">3</td>
+            <td style="text-align:left;">
+Clamping at 1 mtr. interval inside trench       </td>        <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">4</td>
+            <td style="text-align:left;">
+Additional clamping as may be required             </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+       <tr>
+ <td colspan="4" style="text-align:left;font-weight:bold;">Dispensers</td>
+</tr>
+        <tr>
+            <td align="center">1</td>
+            <td style="text-align:left;">
+               Bolts fastened between dispenser &amp; base frame</td><td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">2</td>
+            <td style="text-align:left;">
+Tightness check of all Fittings &amp; Connections     </td>       <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">3</td>
+            <td style="text-align:left;">
+Ensure breakaway coupling for main line &amp; vent line are connected       </td>        <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">4</td>
+            <td style="text-align:left;">
+Earthing connection at respective location             </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td align="center">5</td>
+            <td style="text-align:left;">
+All electrical cabling &amp; connections checked &amp; verified &amp; supply through UPS            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+    </table>
+          
+
+        </div>
+        
+    <div  class="title-page">
+               <p>(D) <b style="border-bottom: 1px solid #000; font-weight: bold;">Normal Operation Procedure</b></p>
+       <table cellpadding="2">
+           
+       
+		 <tr>
+         <th style="width:6%;">Sr. No.</th>
+            <th style="width:65%;">Operation Procedure</th>
+            <th style="width:15%;">Action by</th>
+            <th style="width:8%;">Check</th>
+    </tr>
+
+    <tr>
+        <td>1</td>
+        <td style="text-align:left;">
+            Inform Control room about commencement of NRO
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+        <tr>
+        <td>2</td>
+        <td style="text-align:left;">
+            Compliance to MGL Life Saving Rules
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+        <tr>
+        <td>3</td>
+        <td style="text-align:left;">
+            Charge power up to Compressor panel
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+        <tr>
+        <td>4</td>
+        <td style="text-align:left;">
+            Check availability of correct supply voltage
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+            <tr>
+        <td>5</td>
+        <td style="text-align:left;">
+           Check functioning of all safety interlocks
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+        <tr>
+        <td>6</td>
+        <td style="text-align:left;">
+            Clear all alarms on PLC pane
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+        <tr>
+        <td>7</td>
+        <td style="text-align:left;">
+            Charge gas in Compressor by opening valve before filter skid and check joints for leakages
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+        <tr>
+        <td>8</td>
+        <td style="text-align:left;">
+            Gas compression for 1st stage and check joints for leakages
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+            <tr>
+        <td>9</td>
+        <td style="text-align:left;">
+           Gas compression for 2nd stage and check joints for leakage
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+        <tr>
+        <td>10</td>
+        <td style="text-align:left;">
+            Gas compression for 3rd stage and check joints for leakages
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+        <tr>
+        <td>11</td>
+        <td style="text-align:left;">
+            Ensure Compressed gas up to priority panel and check joints for leakages in intervals of 50, 100, 150, 200, 250 bar
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+        <tr>
+        <td>12</td>
+        <td style="text-align:left;">
+            Open priority panel valves connecting to cascade &amp; charge gas for 1 no. cascade cylinder of each bank (low, medium, high) Check joints for leakages in intervals of 50, 100, 150, 200, 250 bar
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+            <tr>
+        <td>13</td>
+        <td style="text-align:left;">
+            Open priority panel valves connecting to dispensers &amp; charge gas into SS tubing. Check joints for leakages in intervals of 50, 100, 150, 200, 250 bar
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+        <tr>
+        <td>14</td>
+        <td style="text-align:left;">
+            If leakage found in any of the joints, depressurize the respective tubing completely. Check the joint and re-connect (Replace the fitting with a new one, if required)<br/> Check the joint again for leakages.
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+        <tr>
+        <td>15</td>
+        <td style="text-align:left;">
+            On successful completion of SS tubing test up to inlet valve of dispensers, charge gas in each of the dispensers by operating each dispenser inlet valve one by one and check joints for leakages.
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+        <tr>
+        <td>16</td>
+        <td style="text-align:left;">
+            Carry out fill test for dispensing points
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+<tr>
+    <td>17</td>
+    <td style="text-align:left;">
+        On successful completion of all joint test with pressurized gas: <br />
+        (a) De-pressurize the entire SS tubing, <br />
+        (b) De-pressurize the gas from inter-stages of Compressor, <br />
+        (c) Distribute the pressure in the filled cascade cylinder onto other cylinders, <br />
+        (d) Close all open valves. Shut off the power supply to Compressor panel &amp; Electrical panel
+    </td>
+    <td>O&amp;M Engineer</td>
+    <td></td>
+</tr>
+
+        <tr>
+        <td>18</td>
+        <td style="text-align:left;">
+            Inform Control room about the completion of NRO.
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>  
+        </table>
+        </div>
+        
+          
+               <p>(E) <b style="border-bottom: 1px solid #000; font-weight: bold;">Contingency Action Plan</b></p>
+              <table cellpadding="2">
+                
+    <tr>
+            <th style="width:6%;">Sr. No.</th>
+            <th style="width:61%;">Action Plan</th>
+            <th style="width:18%;">Responsibility</th>
+           
+    </tr>
+
+    <tr>
+        <td>1</td>
+        <td style="text-align:left;">
+            In case of gas leakage (from suction pipeline network):<br/>
+            (a) Close suction valves inside the Compressor,<br/>
+            (b) Also, if required; close the upstream valve in valve chamber outside RO<br/>
+            (c) Inform to control room<br/>
+        </td>
+        <td>O&amp;M Engineer</td>
+        
+    </tr>
+
+    <tr>
+        <td>2</td>
+        <td style="text-align:left;">
+            In case of continuous gas leakage (from CNG Network):<br/>
+            (a) Press ESD switch.<br/>
+            (b) Close main suction valve (steel line) and discharge valve on priority panel &amp; Cascade.<br/>
+            (c) Shut-off main power supply to all CNG equipment’s. (d) Inform to control room<br/>
+        </td>
+        <td>O&amp;M Engineer</td>
+        
+    </tr>
+              </table>
+       <div>
+ <p style="text-align:center;">
+        <b style="border-bottom: 1px solid #000; font-weight: bold;">
+            DOCUMENTS CHECKLIST
+        </b>
+    </p>               <table>
+		
+        <tr>
+            <th>Sr. No.</th>
+            <th>Documents to be submitted</th>
+            <th>Yes</th>
+            <th>No</th>
+        </tr>
+
+        <tr><td align="center">1</td><td align="center">Hazard Identification and Risk Assessment</td><td align="center"></td><td></td></tr>
+        <tr><td align="center">2</td><td align="center">PESO Basic / Final</td><td align="center"></td><td></td></tr>
+        <tr><td align="center">3</td><td align="center">Factory Acceptance Test Report</td><td align="center"></td><td></td></tr>
+        <tr><td align="center">4</td><td align="center">SS Tubing Completion Report</td><td align="center"></td><td></td></tr>
+        <tr><td align="center">5</td><td align="center">Earth pit Test Report</td><td align="center"></td><td></td></tr>
+        <tr><td align="center">6</td><td align="center">Joint Pre-commissioning audit report</td><td align="center"></td><td></td></tr>
+        <tr><td align="center">7</td><td align="center">Priority Panel Factory Test Report</td><td align="center"></td><td></td></tr>
+        
+    </table>
+        </div>  
+        
+        
+        
+                
+    </body>
+</apex:page>

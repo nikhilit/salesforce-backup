@@ -1,0 +1,107 @@
+<!-- <template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+
+   
+    <template if:true={accounts.length}>
+        <lightning-datatable
+            key-field="Id"
+            data={accounts}
+            columns={columns}
+            show-row-number-column="true">
+        </lightning-datatable>
+
+        <br>
+        <br>
+
+        <lightning-button 
+            class="slds-m-top_medium"
+            label="Create Demolition Work Orders"
+            variant="brand"
+            onclick={handleCreateWO}>
+        </lightning-button>
+    </template>
+
+    
+    <template if:true={message}>
+        <p style="font-weight:bold">{message}</p>
+    </template>
+
+</template> -->
+
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+
+    <template if:true={accounts.length}>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Select</th>
+                    <th>BP Number</th>
+                    <th>Full Name</th>
+                    <th>Move Out Date</th>
+                    <th>Active</th>
+                    <th>Connection</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <template for:each={accounts} for:item="acc">
+                    <tr key={acc.Id}>
+                        <td>{acc.rowIndex}</td>
+
+                        <td>
+                            <lightning-input
+                                type="checkbox"
+                                data-id={acc.Id}
+                                onchange={handleRowSelection}>
+                            </lightning-input>
+                        </td>
+
+                        <td>{acc.BP_Number__c}</td>
+                        <td>{acc.Full_Name__c}</td>
+                        <td>{acc.Move_Out_Date__c}</td>
+                        <td>{acc.sharinpix__Active__c}</td>
+                        <td>{acc.Connection_Object__c}</td>
+
+                        <td>
+                            <lightning-input
+                                type="datetime"
+                                data-id={acc.Id}
+                                data-field="startDate"
+                                onchange={handleDateChange}>
+                            </lightning-input>
+                        </td>
+
+                        <td>
+                            <lightning-input
+                                type="datetime"
+                                data-id={acc.Id}
+                                data-field="endDate"
+                                onchange={handleDateChange}>
+                            </lightning-input>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+        <br/>
+
+        <lightning-button
+            variant="brand"
+            label="Create Demolition Work Orders"
+            onclick={handleCreateWO}>
+        </lightning-button>
+    </template>
+
+    <template if:true={message}>
+        <p class="slds-text-color_success slds-m-top_small">{message}</p>
+    </template>
+</template>

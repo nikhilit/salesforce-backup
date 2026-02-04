@@ -1,0 +1,19 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 27-11-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   15-10-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <div class="html-cell">
+        <template if:true={value}>
+            <div class="img-btn" onclick={handleClick}>
+                <img src={value} alt="Image" class="clickable-img" style="height: 300px;max-width: 300px;cursor:pointer;" />
+            </div>
+        </template>
+    </div>
+</template>

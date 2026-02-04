@@ -1,0 +1,25 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 27-06-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   27-06-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+	<div class="slds-is-relative">
+		<!--SPINNER SECTION-->
+		<template if:true={load}>
+			<lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+		</template>
+
+		<div class="slds-card__body slds-card__body_inner">
+			<c-illustration-component message="MRS Approval Scheduled. Go Back and Refresh!!"></c-illustration-component>
+		</div>
+		<footer class="slds-card__footer">
+			<lightning-button variant="brand" label="Go Back" onclick={handleGoBack}></lightning-button>
+		</footer>
+	</div>
+</template>

@@ -1,0 +1,75 @@
+<!--
+  @description       : 
+  @author            : Neeraj Dalal
+  @group             : 
+  @last modified on  : 04-22-2025
+  @last modified by  : Neeraj Dalal
+-->
+<template>
+    <lightning-card>
+
+        <template if:true={showFileUpload}>
+
+            <template for:each={documentTypes} for:item="types">
+                <div key={types.label} class="slds-p-around_small" data-label={types.label}>
+                    <div class="slds-grid" >
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <p class="slds-text-heading_small">{types.label}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-8 slds-col_bump-left slds-p-around_small slds-text-align_right">
+
+                     <label class="upload-placeholder">
+
+                       
+                        <!-- <input type="file"  accept="image/*" multiple onchange={handleFileChange} data-label={types.label} disabled={isUploadDisabled} /> -->
+                    <input type="file"  accept="image/*,application/pdf" multiple onchange={handleFileChange} data-label={types.label} disabled={isUploadDisabled} />
+                         
+                            <lightning-icon icon-name="utility:upload" alternative-text="Upload"
+                                title="Upload Files" 
+                                size="small"  ></lightning-icon>
+
+                        </label>
+                    </div>
+                </div>
+                       <div class="slds-grid slds-box slds-m-bottom_medium"
+                        style="height: auto; display: block;">
+
+                     
+                        <template if:true={types.fileName}>
+                                <template for:each={types.fileName} for:item="name">
+
+                            <div key={name}
+                                style="font-size:12px; word-wrap: break-word; word-break: break-all; white-space: normal; margin-bottom: 4px;">{name}
+                            <lightning-button-icon icon-name="utility:close" alternative-text="Clear"
+                                class="slds-m-left_x-small" onclick={handleClearFile} data-label={types.label} data-name={name}
+                                variant="bare" size="small" disabled={isClearFile} >
+                            </lightning-button-icon>
+                        </div>
+                        </template>
+                        </template>
+                     
+                    </div>
+                </div>
+            </template>
+
+            <template if:true={approvalStatus}>
+                <h2 style="margin-left: 1rem; font-size:1rem;">Approval Status : {approvalStatus}</h2>
+
+                <h2 style="margin-left: 1rem; font-size:1rem;">   {approvalComment}</h2>
+
+            </template>
+
+            <div class="slds-p-around_medium" style="margin-left:5.8rem;">
+
+                <lightning-spinner if:true={isLoading} alternative-text="Uploading..."></lightning-spinner>
+                <lightning-button label="Submit For Approval" variant="brand" onclick={handleUpload} disabled={isSubmitDisabled}></lightning-button>
+            </div>
+
+        </template>
+
+        
+
+    </lightning-card>
+
+
+</template>

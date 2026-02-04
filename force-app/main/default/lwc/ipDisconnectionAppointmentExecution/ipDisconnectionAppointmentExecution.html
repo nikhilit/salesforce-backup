@@ -1,0 +1,174 @@
+<template>
+
+     <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+    <!-- Page 1: Disconnection Form -->
+    <template if:false={showMaterialScreen}>
+        <lightning-card title=" ">
+            
+            <!-- Plug From (checkbox group) -->
+            <div class="slds-m-top_medium">
+                <label class="slds-form-element__label">Plug From</label>
+                <lightning-checkbox-group
+                    name="plugFrom"
+                    options={plugFromOptions}
+                    value={plugFromValue}
+                    onchange={handlePlugFromChange}>
+                </lightning-checkbox-group>
+            </div>
+
+            
+
+            <p style="margin-top:1.5rem;"><b>Meter Number : {bpMeterNumber}</b></P>
+
+            <!-- Meter Number -->
+            <lightning-input 
+                name="meterNumber" 
+                label="Meter Number" 
+                value={meterNumber} 
+                onchange={handleInputChange} required="true">
+            </lightning-input>
+
+            <!-- <lightning-input 
+    label="Meter Make" 
+    value={meterMake} 
+    onchange={handleMeterMakeChange}>
+</lightning-input> -->
+
+  <lightning-combobox
+    name="meterMake"
+    label="Meter Make"
+    value={meterMake}
+    options={meterMakeOptions}
+    onchange={handleMeterMakeChange}>
+</lightning-combobox>
+
+
+
+            <!-- Final Reading -->
+            <lightning-input
+                type="text"
+                name="finalReading"
+                label="Final Reading"
+                value={finalReading}
+                onchange={handleFinalReadingChange}
+                pattern="\d{1,5}(\.\d{0,3})?" required="true">
+
+            </lightning-input>
+
+           
+
+            <lightning-card title="Capture Required Images">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-1">
+                            <c-o_-m-camera-upload-comp 
+                                image-list={photoUploadSlots} 
+                                onchange={handleFile}>
+                            </c-o_-m-camera-upload-comp>
+                        </div>
+                    </div>
+                    
+                </lightning-card>
+
+                 <lightning-combobox
+    name="gasLeakageStatus"
+    label="Ensure No Gas Leakage Before Leaving Site"
+    value={gasLeakageStatus}
+    options={gasLeakageOptions}
+    onchange={handleGasLeakageChange}>
+</lightning-combobox>
+
+
+                 <lightning-combobox
+                name="finalRemarks"
+                label="Final Remarks"
+                value={finalRemarks}
+                options={finalRemarksOptions}
+                onchange={handleInputChange}>
+            </lightning-combobox>
+            
+
+            <!-- Next button if not House lock -->
+            <div style="margin-top:1.5rem; margin-left:7rem;">
+            <template if:true={showNextButton}>
+    <lightning-button 
+        label="Next" 
+        variant="brand"
+        class="slds-m-top_medium"
+        onclick={goToNextPage} >
+    </lightning-button>
+</template>
+            </div>
+
+        </lightning-card>
+    </template>
+
+    
+    <!-- Page 2: Material Entry -->
+<template if:true={showMaterialScreen}>
+    <lightning-card title="Materials Recovered Entry">
+        <div class="slds-grid slds-wrap">
+            <template for:each={materialItems} for:item="item">
+                <div key={item.name} class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                    <lightning-input 
+                        type="number" 
+                        label={item.label} 
+                        value={item.value} 
+                        data-name={item.name}
+                        onchange={handleMaterialChange}>
+                    </lightning-input>
+                </div>
+            </template>
+        </div>
+
+        <!-- Final Remarks -->
+            <!-- <lightning-combobox
+                name="finalRemarks"
+                label="Final Remarks"
+                value={finalRemarks}
+                options={finalRemarksOptions}
+                onchange={handleInputChange}>
+            </lightning-combobox> -->
+
+             <!-- Remarks field (only for 'Other') -->
+            <template if:true={showRemarksField}>
+                <lightning-input
+                    name="remarksText"
+                    label="Remarks"
+                    value={remarksText}
+                    onchange={handleInputChange}>
+                </lightning-input>
+            </template>
+
+
+           
+
+
+        <!-- Button row -->
+        <div class="slds-grid slds-p-top_medium slds-p-horizontal_medium slds-align_absolute-center">
+    <!-- Back button on left -->
+    <div class="slds-col slds-size_1-of-1">
+        <lightning-button 
+            label="Back" 
+            onclick={handleBack}
+            variant="neutral">
+        </lightning-button> &nbsp;&nbsp;
+    <!-- </div> -->
+
+    <!-- Submit button on right with extra spacing -->
+    <!-- <div class="slds-col slds-size_1-of-2 "> -->
+        <lightning-button 
+            variant="brand" 
+            label="Submit" 
+            onclick={handleSubmit}
+            style="margin-right: 1rem;">
+        </lightning-button>
+    </div>
+</div>
+
+    </lightning-card>
+</template>
+
+
+</template>

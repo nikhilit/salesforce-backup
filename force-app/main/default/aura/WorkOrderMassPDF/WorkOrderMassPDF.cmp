@@ -1,0 +1,4 @@
+<aura:component implements="force:lightningQuickAction,force:hasRecordId" access="global">
+    <aura:attribute name="recordIds" type="List" />
+    <c:WorkOrderMassPDF recordIds="{!v.recordIds}" />
+</aura:component>

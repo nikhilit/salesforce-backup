@@ -1,0 +1,16 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 16-10-2025
+  @last modified by  : Kartik Patkar Appstrail 
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   16-10-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<apex:page controller="ExcelVFController"
+           contentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+           showHeader="false"
+           sidebar="false">
+    <apex:outputText value="{!excelBlob}" escape="false"/>
+</apex:page>

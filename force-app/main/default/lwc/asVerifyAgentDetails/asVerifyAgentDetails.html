@@ -1,0 +1,30 @@
+<template>
+  <template if:true={fields}>
+    <section class="public-wrapper" style={backgroundStyle}>
+      <div class="agent-card">
+        <h2 class="card-title">Agent Details</h2>
+        <p class="agent-name">{agentName}</p>
+
+        <template for:each={fields} for:item="field">
+          <div class="agent-field row" key={field.apiName}>
+            <div class="field-label">
+              <strong>{field.label}:</strong>
+            </div>
+            <div class="field-value">
+              <p>{field.value}</p>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+  </template>
+
+  <template if:false={fields}>
+    <section class="public-wrapper">
+      <div class="agent-card">
+        <h2 class="card-title">Agent Details</h2>
+        <p class="loading-text">Loading agent details...</p>
+      </div>
+    </section>
+  </template>
+</template>

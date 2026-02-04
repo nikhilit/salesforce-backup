@@ -1,0 +1,103 @@
+<template>
+      <div class="slds-grid slds-grid_align-end slds-m-top_small">
+    <lightning-button
+        label="New"
+        variant="brand"
+        onclick={openModal}>
+    </lightning-button>
+</div>
+ <template if:true={isModalOpen}>
+        <section
+            role="dialog"
+            tabindex="-1"
+            aria-modal="true"
+            class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                <div class="slds-modal__content slds-p-around_medium">
+    <section class="sf-container">
+
+        <!-- Header -->
+        <div class="sf-header">
+            <span>Retail Outlet Compliance Form</span>
+        </div>
+
+        <div class="sf-divider"></div>
+
+        <!-- Required Info -->
+        <div class="sf-required-info">
+            <abbr title="required">*</abbr> = Required Information
+        </div>
+
+        <!-- Section -->
+        <div class="sf-section-header">Compliance Details</div>
+
+        <div class="sf-section-body">
+
+            <!-- Document Name -->
+            <div class="sf-row">
+                <label class="sf-label required">Document Name</label>
+                <div class="sf-control">
+                    <lightning-combobox
+                        placeholder="Select Document Name"
+                        options={documentOptions}
+                        value={documentName}
+                        onchange={handleChange}
+                        data-field="documentName">
+                    </lightning-combobox>
+                </div>
+            </div>
+
+            <!-- Start Date -->
+            <div class="sf-row">
+                <label class="sf-label required">Start Date</label>
+                <div class="sf-control">
+                    <lightning-input
+                        type="date"
+                        value={startDate}
+                        onchange={handleChange}
+                        data-field="startDate">
+                    </lightning-input>
+                </div>
+            </div>
+
+            <!-- Expiry Date -->
+            <div class="sf-row">
+                <label class="sf-label required">Expiry Date</label>
+                <div class="sf-control">
+                    <lightning-input
+                        type="date"
+                        value={expiryDate}
+                        onchange={handleChange}
+                        data-field="expiryDate">
+                    </lightning-input>
+                </div>
+            </div>
+
+            <!-- File Upload -->
+            <div class="sf-row">
+                <label class="sf-label required">Select File</label>
+                <div class="sf-control">
+                    <lightning-file-upload
+                        name="complianceFile"
+                        accept=".pdf,.docx,.jpg,.png,.xls,.xlsx"
+                        onuploadfinished={handleUploadFinished}
+                        multiple="false">
+                    </lightning-file-upload>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+             <div class="sf-footer">
+            <lightning-button label="Cancel" variant="neutral" onclick={closeModal}></lightning-button>
+            <lightning-button label="Save & New" variant="neutral" class="slds-m-left_small" onclick={handleSubmit}></lightning-button>
+            <lightning-button label="Save" variant="brand" class="slds-m-left_small" onclick={handleSubmit}></lightning-button>
+        </div>
+
+    </section>
+     </div>
+                        </div>
+        </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

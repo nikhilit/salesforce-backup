@@ -1,0 +1,152 @@
+<template>
+
+
+     <lightning-card>
+        <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+       <template if:true={showCheckBox}> 
+
+                        <div class="slds-m-bottom_medium" style="margin-top:-12px;">
+
+               
+             <!-- <lightning-combobox name="picklist" label="Activity" value={boardAvailable}
+                    placeholder="Choose an option" options={typeOfBoard} onchange={handleboardAvailableChange} required="true">
+                </lightning-combobox> -->
+
+                             <!-- <template if:true={checkOut}> -->
+                                 <lightning-button
+                                  label="Checkout"
+                                  variant="brand"
+                                  onclick={handleCheckOut}
+                                 class="slds-m-top_medium">
+                               </lightning-button>
+                             <!-- </template> -->
+
+                            <lightning-radio-group name="customerAvailability"
+                                label="Is the customer available in location?" options={availabilityOptions}
+                                value={customerAvailability} type="radio" onchange={handleAvailabilityChange}
+                                style="margin-left:1rem;">
+                            </lightning-radio-group>
+
+                            <!-- <template if:true={customerAvilable}>
+
+                              <div class="button-container" style="margin-top:1rem; margin-left:7rem;">
+                            <lightning-button label="Save" onclick={handleCusAvilSave}
+                                class="slds-m-right_small" variant="brand"></lightning-button>
+                        </div>  
+
+                            </template> -->
+
+                           
+                        </div>
+
+                     </template> 
+
+                      <template if:true={ReasonForUnavailability}>
+                       <div class="slds-grid slds-wrap slds-p-around_medium">
+                            <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+                                <lightning-combobox name="reason" label="Reason for Unavailability"
+                                    value={unavailability} options={reasonUnavailability}
+                                    onchange={handlereasonForUnavailability}>
+                                </lightning-combobox>
+
+                            </div>
+
+                            
+
+                            <template if:true={showChildWOStartEndDate}>
+
+                 <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+
+             <lightning-input type="datetime" name="startDate" label="Follow Up Date" value={selectedDateTime} onchange={handleDateTimeChange} required >
+           
+                                     </lightning-input>
+
+              <!-- <lightning-input type="datetime" name="endDate" label="End Date" value={selectedEndDateTime} onchange={handleEndDateTimeChange} >
+
+                                </lightning-input> -->
+
+
+                 </div>
+
+
+                            </template>
+
+                             <template if:true={otherRemarkSelected}>
+
+                              <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+                                <lightning-input type="Text" label="Remark"
+                                    value={otherRemarkValue} onchange={handleOtherRemark} required="true">
+                                </lightning-input>
+
+                            </div>
+
+                            </template>
+
+
+                        </div>
+                        <template if:true={showNext}>
+                            <lightning-button label="Next" title="Next" onclick={handleImageCapturePage}
+                                class="slds-m-top_medium" variant="brand" style="margin-left:9rem;">
+                            </lightning-button>
+                        </template>
+
+
+                        <div class="slds-grid slds-wrap" if:true={imageUploadPage}>
+                            <div class="slds-col slds-size_1-of-1">
+                                <!-- <template for:each={photoUploadSlots} for:item="slot">
+                            <div key={slot.id}
+                                class="slds-m-bottom_small custom-upload-slot slds-grid slds-align-center">
+                                <div class="slds-grid slds-grid_vertical-align-center slds-wrap">
+                                    <lightning-file-upload name={slot.name} accept=".jpg,.jpeg,.png"
+                                        record-id={serviceAppointmentId} onuploadfinished={handleUploadFinished}
+                                        class="custom-file-upload" label={slot.label}>
+                                    </lightning-file-upload>
+                                </div>
+                            </div>
+                        </template> -->
+
+                                <div>
+                                    <c-o_-m-camera-upload-comp image-list={photoUploadSlots} onchange={handleFile}>
+                                    </c-o_-m-camera-upload-comp>
+                                </div>
+
+                                  <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+                                <!-- <lightning-input type="Text" label="Closer Remark"
+                                    value={rMCloserRemark} onchange={handleRMCloserRemark} required="true">
+                                </lightning-input> -->
+
+                            </div>
+
+                                <!-- Buttons -->
+                                <div class="slds-m-top_medium slds-align_absolute-center">
+                                    <!-- <lightning-button variant="neutral" label="Back" onclick={handleCancelPhotoUpload}
+                                class="slds-m-right_small">
+                            </lightning-button> -->
+                                    <!-- <lightning-button variant="brand" label="Preview" onclick={handlePreview}>
+                            </lightning-button> -->
+                                    <lightning-button variant="brand" label="Save" onclick={handleFinalSave}>
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </div>
+
+                        </template>
+
+
+      <template if:true={showRubberHose}>
+
+     <c-o_-m-rubber-hose-detail-comp record-id={recordId} oncancel={handleCancel}> </c-o_-m-rubber-hose-detail-comp>
+
+                </template>
+     
+
+     </lightning-card>
+
+</template>

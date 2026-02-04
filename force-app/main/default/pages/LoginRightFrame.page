@@ -1,0 +1,18 @@
+<apex:page showHeader="false" sidebar="false" cache="false" contentType="text/html">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+        .img {
+            height: 100vh;   /* always fit height */
+            width: 100vw;    /* always fit width */
+            object-fit: fill; /* stretch both directions */
+            display: block;
+        }
+    </style>
+
+    <img src="{!URLFOR($Resource.RightFrameURL)}" class="img"/>
+</apex:page>

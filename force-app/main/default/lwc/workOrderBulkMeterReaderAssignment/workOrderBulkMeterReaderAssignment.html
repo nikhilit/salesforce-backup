@@ -1,0 +1,139 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 04-08-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   22-07-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small slds-is-relative">
+        <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+                    onclick={handleBack}>
+                    <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                        <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close">
+                        </use>
+                    </svg>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Work Orders Assignment</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" style="overflow: unset;">
+                <div class="body-section">
+                    <template if:true={isProfileAllowed}>
+                        <p class="slds-text-title_bold">
+                            Selected Work Order Records: {recordCounts}
+                        </p>
+                        <div class="slds-grid slds-wrap" style="width: 100%;" if:false={showError}>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around--small">
+                                <c-custom-lookup-component obj-name="ServiceTerritory" input-label="Select Agency"
+                                    filter={agencyFilter} onlookupselected={handleAgencyChange}
+                                    onnolookupselected={handleAgencyChange} default-name={agencyName}>
+                                </c-custom-lookup-component>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around--small">
+                                <c-custom-lookup-component obj-name="ServiceTerritoryMember" input-label="Select Agent"
+                                    search-field-name="ServiceResourceName__c" required="true" data-field-name="agent"
+                                    onlookupselected={handleAgentChange} onnolookupselected={handleAgentChange}
+                                    filter={agentFilter}>
+                                </c-custom-lookup-component>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around--small">
+                                <c-custom-lookup-component obj-name="Meter_Reading_Schedule__c"
+                                    input-label="Select Schedule" onlookupselected={handleMRSChange}
+                                    onnolookupselected={handleMRSChange} data-field-name="schedule" filter={mrsFilter}
+                                    search-field-name="MRS_Custom_Name__c" disabled={disableMRS} default-name={mrsName}>
+                                </c-custom-lookup-component>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-around--small slds-align_absolute-center">
+                                <div class="slds-media slds-media_center">
+                                    <div class="slds-media__figure">
+                                        <lightning-input type="checkbox-button" label="New Schedule" name="input1"
+                                            onchange={handleNewSchedule}>
+                                        </lightning-input>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h2>New Schedule</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <template if:true={newSchedule}>
+                                <div class="slds-col slds-size_1-of-2 slds-p-around--small">
+                                    <c-custom-input-field-component input-label="Start Date" input-type="date"
+                                        input-active=true data-field-name="startDate" required=true
+                                        onchange={handleFieldChange} min-date={minDate}>
+                                    </c-custom-input-field-component>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-p-around--small">
+                                    <c-custom-input-field-component input-label="End Date" input-type="date"
+                                        input-active=true data-field-name="endDate" required=true
+                                        onchange={handleFieldChange} min-date={minDate}>
+                                    </c-custom-input-field-component>
+                                </div>
+                            </template>
+                            <div class="slds-col slds-size_1-of-1 slds-p-around--small slds-align_absolute-center">
+                                <p class="slds-text-color_error">{errorMessage}</p>
+                            </div>
+                        </div>
+                        <p class="slds-p-top--x-small slds-text-color--error slds-text-heading--small"
+                            if:true={showError}>
+                            No Work Order Records Selected
+                        </p>
+                    </template>
+                    <template if:false={isProfileAllowed}>
+                        <p class="slds-p-top--x-small slds-text-color--error slds-text-heading--small">
+                            You are not allowed to approve Work Orders
+                        </p>
+                    </template>
+                </div>
+            </div>
+            <footer class="slds-modal__footer slds-is-relative">
+                <section
+                    class="slds-popover slds-popover_error slds-nubbin_bottom-right slds-text-align--left slds-is-absolute"
+                    role="dialog" if:true={saveErrorMessage} style="bottom: 55px;right: 22px;">
+                    <button
+                        class="slds-button slds-button_icon slds-button_icon-small slds-float_right slds-popover__close slds-button_icon-inverse"
+                        title="Close dialog" onclick={handleCloseMessage}>
+                        <svg class="slds-button__icon" aria-hidden="true">
+                            <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close">
+                            </use>
+                        </svg>
+                        <span class="slds-assistive-text">Close dialog</span>
+                    </button>
+                    <header class="slds-popover__header">
+                        <div class="slds-media slds-media_center slds-has-flexi-truncate ">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-utility-error">
+                                    <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                                        <use
+                                            xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#error">
+                                        </use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-truncate slds-text-heading_medium" id="dialog-heading-id-1"
+                                    title="We hit a snag.">We hit a snag.</h2>
+                            </div>
+                        </div>
+                    </header>
+                    <div class="slds-popover__body" id="dialog-body-id-109">
+                        <p>{saveErrorMessage}</p>
+                    </div>
+                </section>
+                <button class="slds-button slds-button_neutral" onclick={handleBack}>Cancel</button>
+                <button class="slds-button slds-button_brand" disabled={disableSubmit} onclick={handleSubmit}>
+                    Save
+                </button>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

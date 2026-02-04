@@ -1,0 +1,42 @@
+<template>
+  <template if:true={isLoading}>
+    <div class="spinner-container">
+      <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+    </div>
+  </template>
+
+  <template if:false={isLoading}>
+    <template if:false={startVisit}>
+      <lightning-card title="Information" icon-name="standard:account">
+        <div class="account-container slds-p-around_small">
+          <!-- Render from LDS-backed header so it works offline -->
+          <template if:true={workOrderHeader}>
+            <div class="section">
+              <h3>Outlet Details</h3>
+              <div class="row"><span class="label">Customer Name:</span> <span class="value">{workOrderHeader.customerName}</span></div>
+              <div class="row"><span class="label">Contact:</span> <span class="value">{workOrderHeader.phone}</span></div>
+              <div class="row"><span class="label">Location:</span> <span class="value">{workOrderHeader.location}</span></div>
+              <div class="row"><span class="label">Zone:</span> <span class="value">{workOrderHeader.zone}</span></div>
+              <div class="row"><span class="label">Representative Company:</span> <span class="value">{workOrderHeader.repComp}</span></div>
+            </div>
+          </template>
+
+          <div class="button-container">
+            <lightning-button label="Start Visit" onclick={handleStartVisit} class="slds-m-right_small" variant="brand"></lightning-button>
+          </div>
+        </div>
+      </lightning-card>
+    </template>
+  </template>
+
+  <template if:true={startVisit}>
+    <c-start-visit
+      profile-data={profileData}
+      work-order={workOrderHeader}
+      latitude={lat}
+      longitude={long}
+      work-order-id={recordId}
+      onclose={handleClose}>
+    </c-start-visit>
+  </template>
+</template>

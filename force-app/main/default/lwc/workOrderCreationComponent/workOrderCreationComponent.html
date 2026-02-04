@@ -1,0 +1,157 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 23-01-2026
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   08-07-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <div class="custom-container slds-is-relative">
+
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+
+        <!-- Header -->
+        <div class="section-header slds-grid slds-grid_align-spread slds-grid_vertical-align-center"
+            style="background-color: #57c062;">
+
+            <div class="header-title">
+                Select Customer
+            </div>
+
+            <lightning-icon style="--slds-c-icon-color-foreground-default: white;" icon-name="utility:search"
+                size="small" class="custom-white-icon" if:false={searchToggle} onclick={handleSearchToggle}>
+            </lightning-icon>
+            <lightning-icon style="--slds-c-icon-color-foreground-default: white;" icon-name="utility:close"
+                size="small" class="custom-white-icon" if:true={searchToggle} onclick={handleSearchToggle}>
+            </lightning-icon>
+        </div>
+        <div class="slds-border_bottom slds-p-around_x-small" if:true={searchToggle}>
+            <div class="slds-grid slds-wrap">
+                <template if:true={showCNGModal}>
+                    <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                        <c-custom-input-field-component input-type="option" input-label="Search by Location"
+                            options={locationOptions} data-field-name="location" onchange={filterGroups}
+                            input-value={filters.location}>
+                        </c-custom-input-field-component>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                        <c-custom-input-field-component input-type="option" input-label="Search by Zone..."
+                            options={zoneOptions} data-field-name="zone" onchange={filterGroups}
+                            input-value={filters.zone}>
+                        </c-custom-input-field-component>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                        <c-custom-input-field-component input-type="option" data-field-name="representativeCompany"
+                            input-label="Search by Representative Company..." onchange={filterGroups}
+                            options={representativeCompanyOptions} input-value={filters.representativeCompany}>
+                        </c-custom-input-field-component>
+                    </div>
+                </template>
+                <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                    <c-custom-input-field-component onchange={filterGroups} input-type="search" data-field-name="search"
+                        placeholder="Search this list...">
+                    </c-custom-input-field-component>
+                </div>
+            </div>
+        </div>
+
+        <div class="custom-section" style="height:90vh; overflow:auto;" onscroll={handleScroll}>
+            <template for:each={accountList} for:item="appt">
+                <div key={appt.id} class="slds-border--bottom">
+                    <div class="appointment-card appointment-clickable" data-id={appt.accountId}
+                        onclick={handleSelectAccount}>
+                        <div class="slds-grid">
+                            <div class="slds-media slds-col slds-size_4-of-4">
+                                <div class="slds-media__body">
+                                    <div class="appt-header">
+                                        <div class="appt-account-name">{appt.accountName}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-wrap">
+                            <template lwc:if={showCNGModal}>
+                                <div class="slds-col slds-size_4-of-4">
+                                    <div class="appt-summary">{appt.BP_Number}</div>
+                                </div>
+                                <div class="slds-col slds-size_2-of-4">
+                                    <div class="appt-summary">Location: {appt.Location}</div>
+                                </div>
+                                <div class="slds-col slds-size_2-of-4">
+                                    <div class="appt-summary">Zone: {appt.Zone}</div>
+                                </div>
+                                <div class="slds-col slds-size_4-of-4">
+                                    <div class="appt-summary">Representative Company: {appt.Representative_Company}
+                                    </div>
+                                </div>
+                            </template>
+                            <template lwc:else>
+                                <div class="slds-col slds-size_4-of-4">
+                                    <div class="appt-summary">{appt.Meter_Number}</div>
+                                </div>
+                                <div class="slds-col slds-size_4-of-4">
+                                    <div class="appt-summary">{appt.AMR_Name}</div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template lwc:if={isLoadingMore}>
+                <div class="slds-align_absolute-center slds-p-around_small">
+                    <lightning-spinner alternative-text="Loading more..." size="small"></lightning-spinner>
+                </div>
+            </template>
+            <template if:true={hasMore}>
+                <template if:false={isLoadingMore}>
+                    <div class="slds-align_absolute-center slds-p-around_small slds-text-color_weak">
+                        Scroll for more...
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+
+    <template if:true={showModal}>
+        <section class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container slds-is-relative">
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </template>
+
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModel}>
+                        <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                            <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close">
+                            </use>
+                        </svg>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Create Appointment</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" if:true={selectedAccount}>
+                    <p>Creating appointment for <b>{selectedAccount.accountName}</b></p>
+                    <p if:true={showCNGModal}>BP Number: <b>{selectedAccount.BP_Number}</b></p>
+                    <p if:false={showCNGModal}>Meter Number: <b>{selectedAccount.Meter_Number}</b></p>
+                    <p if:false={showCNGModal}>AMR Name: <b>{selectedAccount.AMR_Name}</b></p>
+                    <template if:true={showCNGModal}>
+                        <p>Location: <b>{selectedAccount.Location}</b></p>
+                        <p>Zone: <b>{selectedAccount.Zone}</b></p>
+                        <p>Representative Company: <b>{selectedAccount.Representative_Company}</b></p>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModel}>Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={handleCreateWorkOrder}>Create</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

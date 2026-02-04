@@ -1,0 +1,55 @@
+/* .container {
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+} */
+.border-top {
+    border-top: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.status-card {
+  background-color: #fff;
+  color: black;
+  /* border-radius: 12px; */
+  /* margin: 1rem; */
+  margin-bottom: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  
+    border-radius: 1rem;
+    /* padding: 1.2rem; */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.checked-out {
+  /* background-color: #d32f2f; */
+  color: white;
+  padding: 0.5rem 2rem;
+  border-radius: 8px;
+  border: none;
+}
+.full-size-width{
+  display: block;
+  width: 100%;
+}
+.check-in {
+  /* background-color: #1976d2; */
+  color: white;
+  padding: 0.5rem 2rem;
+  border-radius: 8px;
+  border: none;
+}
+
+
+/* In .css file */
+.spinner-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.6);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

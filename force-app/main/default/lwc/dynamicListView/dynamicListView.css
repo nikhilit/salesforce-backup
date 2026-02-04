@@ -1,0 +1,1371 @@
+
+
+.top-right-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.notification-wrapper {
+    position: relative;
+}
+
+.notification-btn {
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #c23030;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+
+
+.filter-panel {
+    width: 600px !important;
+}
+
+.filter-operator-section {
+    margin-bottom: 20px;
+    padding: 12px;
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+}
+
+.filter-operator-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--gray-600);
+}
+
+.filter-rows {
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 20px 0;
+}
+
+.filter-row {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 2fr 40px;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding: 12px;
+    background: var(--white);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-md);
+}
+
+.filter-field,
+.filter-operator,
+.filter-value {
+    width: 100%;
+}
+
+.delete-btn {
+    padding: 0 !important;
+    color: var(--danger) !important;
+}
+
+.add-filter-btn {
+    margin: 16px 0;
+}
+
+.presets-section {
+    padding: 12px;
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+    margin-top: 20px;
+}
+
+.presets-section h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.preset-btn {
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.filter-badge {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+.realtime-badge {
+    display: inline-block;
+    background: #ff6b6b;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* ============================================
+   INLINE EDITING PANEL
+   ============================================ */
+
+.inline-edit-panel {
+    background: linear-gradient(135deg, #fef9f3 0%, #fffbf7 100%);
+    border: 2px solid #ff9800;
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin: 16px;
+    box-shadow: 0 2px 8px rgba(255, 152, 0, 0.2);
+}
+
+.edit-title {
+    color: var(--gray-600);
+    margin: 0 0 16px 0;
+    font-weight: 700;
+}
+
+.edit-fields-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.edit-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-field label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--gray-600);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 152, 0, 0.2);
+}
+
+/* ============================================
+   ANALYTICS MODAL
+   ============================================ */
+
+.analytics-modal {
+    width: 700px !important;
+    max-width: 95vw !important;
+}
+
+.analytics-content {
+    padding: 24px;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.metric-card {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 112, 210, 0.1);
+}
+
+.metric-label {
+    display: block;
+    font-size: 11px;
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.metric-value {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.distribution-section {
+    margin-top: 24px;
+}
+
+.distribution-section h4 {
+    margin: 0 0 16px 0;
+    color: var(--gray-600);
+}
+
+.distribution-bar {
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 12px;
+    align-items: center;
+}
+
+.bar-label {
+    font-size: 12px;
+    color: var(--gray-600);
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bar-container {
+    height: 30px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+    width: 65%;
+    transition: width 0.3s ease;
+}
+
+/* ============================================
+   NOTIFICATION PANEL
+   ============================================ */
+
+.notification-panel {
+    width: 500px !important;
+    max-width: 95vw !important;
+    max-height: 600px !important;
+    overflow-y: auto !important;
+}
+
+.notification-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    border-bottom: 1px solid var(--gray-200);
+    hover-background: var(--gray-50);
+    transition: background 0.2s ease;
+}
+
+.notification-item:hover {
+    background: var(--gray-50);
+}
+
+.notification-badge-small {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #0070d2;
+    border-radius: 50%;
+    margin-top: 6px;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-message {
+    margin: 0 0 4px 0;
+    color: var(--gray-600);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.notification-time {
+    font-size: 11px;
+    color: var(--gray-300);
+}
+
+.empty-state {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--gray-300);
+}
+
+/* ============================================
+   RECORD DETAILS MODAL
+   ============================================ */
+
+.details-modal {
+    width: 750px !important;
+    max-width: 95vw !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+}
+
+.details-content {
+    padding: 24px;
+}
+
+.details-section {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.details-section:last-child {
+    border-bottom: none;
+}
+
+.details-section h4 {
+    margin: 0 0 16px 0;
+    color: var(--gray-600);
+    font-weight: 700;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.detail-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-label {
+    font-size: 11px;
+    color: var(--gray-300);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.detail-value {
+    font-size: 13px;
+    color: var(--gray-600);
+    font-weight: 500;
+    word-break: break-word;
+}
+
+.related-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.related-item {
+    padding: 8px 12px;
+    background: var(--gray-50);
+    border-radius: 4px;
+    border-left: 4px solid var(--primary);
+}
+
+.related-item a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.related-item a:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   DATATABLE WRAPPER
+   ============================================ */
+
+.datatable-wrapper {
+    margin: 16px;
+    overflow-y: auto;
+    max-height: 500px;
+}
+
+.datatable-toolbar {
+    padding: 12px 16px;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+* {
+    --primary: #0070d2;
+    --primary-light: #1b96ff;
+    --primary-dark: #003d82;
+    --white: #ffffff;
+    --gray-50: #f8f9fa;
+    --gray-100: #f4f6f9;
+    --gray-200: #e8ecf1;
+    --gray-300: #d8dce6;
+    --gray-600: #16325c;
+    --danger: #c23030;
+    
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.10);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+    --radius-md: 8px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    box-sizing: border-box;
+}
+
+/* ============================================
+   SEARCH SECTION
+   ============================================ */
+
+.search-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 32px 24px 20px 24px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.search-section lightning-input {
+    width: 100%;
+    max-width: 500px;
+}
+
+.search-section lightning-input::part(input) {
+    border: 2px solid var(--gray-300) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 12px 16px !important;
+    background: var(--white) !important;
+    color: var(--gray-600) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transition: var(--transition);
+}
+
+.search-section lightning-input::part(input):hover {
+    border-color: var(--primary) !important;
+    box-shadow: 0 2px 4px rgba(0, 112, 210, 0.08) !important;
+}
+
+.search-section lightning-input::part(input):focus {
+    border-color: var(--primary) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 4px rgba(0, 112, 210, 0.12) !important;
+}
+
+/* ============================================
+   BUTTON SECTION
+   ============================================ */
+
+.button-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 0 24px 32px 24px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    flex-wrap: wrap;
+}
+
+/* PAGE SIZE COMBOBOX */
+.button-section lightning-combobox::part(dropdown-trigger) {
+    border: 2px solid var(--gray-300) !important;
+    border-radius: var(--radius-md) !important;
+    background: var(--white) !important;
+    padding: 8px 12px !important;
+    transition: var(--transition);
+    font-size: 13px !important;
+}
+
+.button-section lightning-combobox::part(dropdown-trigger):hover {
+    border-color: var(--primary) !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+/* ACTION BUTTONS */
+.button-section lightning-button::part(button) {
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    border-radius: var(--radius-md) !important;
+    transition: var(--transition);
+    border: 1px solid var(--gray-300) !important;
+    text-transform: none !important;
+    letter-spacing: 0;
+}
+
+/* NEUTRAL BUTTONS (Default style) */
+.button-section lightning-button::part(button) {
+    background: var(--gray-100) !important;
+    color: var(--gray-600) !important;
+    border: 1px solid var(--gray-300) !important;
+}
+
+.button-section lightning-button::part(button):hover {
+    background: var(--gray-200) !important;
+    box-shadow: var(--shadow-sm) !important;
+    transform: translateY(-1px);
+}
+
+.button-section lightning-button::part(button):active {
+    transform: translateY(0);
+}
+
+.button-section lightning-button::part(button):disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+/* BRAND BUTTON (Select Columns) */
+.button-section lightning-button[variant="brand"]::part(button) {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%) !important;
+    border: none !important;
+    color: var(--white) !important;
+    box-shadow: 0 2px 8px rgba(0, 112, 210, 0.3);
+}
+
+.button-section lightning-button[variant="brand"]::part(button):hover {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%) !important;
+    box-shadow: 0 4px 12px rgba(0, 112, 210, 0.4) !important;
+    transform: translateY(-2px);
+}
+
+.button-section lightning-button[variant="brand"]::part(button):active {
+    box-shadow: 0 2px 4px rgba(0, 112, 210, 0.4) !important;
+    transform: translateY(0);
+}
+
+.button-section lightning-button::part(icon) {
+    margin-right: 6px;
+}
+
+/* ============================================
+   COLUMN SELECTOR MODAL
+   ============================================ */
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 9000;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 640px;
+    max-width: 90vw;
+    max-height: 85vh;
+    overflow-y: auto;
+    z-index: 9001;
+    margin: 0 !important;
+    background: linear-gradient(135deg, #f8f9fa 0%, var(--white) 100%) !important;
+    border: 1px solid var(--gray-300) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 28px !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25) !important;
+}
+
+.column-selector h3 {
+    color: var(--gray-600) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    margin: 0 0 20px 0 !important;
+    letter-spacing: -0.5px;
+}
+
+/* DRAGGABLE COLUMNS */
+.column-selector .slds-box {
+    background: var(--white) !important;
+    border: 2px solid var(--gray-300) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 12px 14px !important;
+    margin-bottom: 8px !important;
+    cursor: grab !important;
+    transition: var(--transition);
+    color: var(--gray-600);
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.column-selector .slds-box:hover {
+    border-color: var(--primary) !important;
+    background: linear-gradient(135deg, var(--white) 0%, rgba(0, 112, 210, 0.03) 100%) !important;
+    box-shadow: 0 2px 8px rgba(0, 112, 210, 0.15) !important;
+}
+
+.column-selector .slds-box:active {
+    background: #e3f2fd !important;
+    border-color: var(--primary) !important;
+    cursor: grabbing !important;
+    box-shadow: 0 4px 12px rgba(0, 112, 210, 0.25) !important;
+}
+
+/* MODAL BUTTON ACTIONS */
+.column-selector .slds-grid {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 16px;
+    border-top: 1px solid var(--gray-300);
+}
+
+.column-selector lightning-button::part(button) {
+    border-radius: var(--radius-md) !important;
+    padding: 8px 18px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    transition: var(--transition);
+    text-transform: none !important;
+}
+
+.column-selector lightning-button[variant="neutral"]::part(button) {
+    background: var(--gray-100) !important;
+    border: 1px solid var(--gray-300) !important;
+    color: var(--gray-600) !important;
+}
+
+.column-selector lightning-button[variant="neutral"]::part(button):hover {
+    background: var(--gray-200) !important;
+    border-color: var(--gray-300) !important;
+}
+
+.column-selector lightning-button[variant="brand"]::part(button) {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%) !important;
+    border: none !important;
+    color: var(--white) !important;
+}
+
+.column-selector lightning-button[variant="brand"]::part(button):hover {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%) !important;
+    box-shadow: 0 4px 12px rgba(0, 112, 210, 0.3) !important;
+}
+
+/* ============================================
+   ERROR MESSAGE
+   ============================================ */
+
+.error-message {
+    background: linear-gradient(135deg, #fef5f3 0%, #fff9f7 100%) !important;
+    border-left: 4px solid var(--danger) !important;
+    border-radius: var(--radius-md) !important;
+    color: var(--danger) !important;
+    padding: 14px 18px !important;
+    margin: 16px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* ============================================
+   LOADING SPINNER
+   ============================================ */
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, var(--white) 100%);
+}
+
+/* ============================================
+   DATA TABLE
+   ============================================ */
+
+.datatable-container {
+    margin: 16px !important;
+    border-radius: var(--radius-md) !important;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+lightning-datatable {
+    --slds-c-table-header-background-color: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-200) 100%);
+    --slds-c-table-header-text-color: var(--gray-600);
+    --slds-c-table-header-font-weight: 700;
+    --slds-c-table-header-font-size: 12px;
+    --slds-c-table-header-border-color: var(--gray-300);
+    
+    --slds-c-table-row-background-color: var(--white);
+    --slds-c-table-row-text-color: var(--gray-600);
+    --slds-c-table-row-border-color: var(--gray-200);
+    --slds-c-table-cell-padding: 14px 16px;
+    
+    --slds-c-table-row-hover-background-color: var(--gray-50);
+}
+
+lightning-datatable::part(header) {
+    background: linear-gradient(135deg, var(--gray-100) 0%, var(--gray-200) 100%);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray-600);
+    border-bottom: 2px solid var(--gray-300);
+}
+
+lightning-datatable::part(row) {
+    transition: var(--transition);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+lightning-datatable::part(row):hover {
+    background: linear-gradient(to right, var(--gray-50) 0%, var(--white) 100%) !important;
+    box-shadow: inset 0 1px 3px rgba(0, 112, 210, 0.08);
+}
+
+lightning-datatable::part(row):last-child {
+    border-bottom: none;
+}
+
+lightning-datatable::part(cell) {
+    border-right: 1px solid var(--gray-200);
+    padding: 14px 16px !important;
+    vertical-align: middle;
+    font-size: 13px;
+    color: var(--gray-600);
+}
+
+lightning-datatable::part(cell):last-child {
+    border-right: none;
+}
+
+/* ============================================
+   PAGINATION BAR
+   ============================================ */
+
+.pagination-bar {
+    background: linear-gradient(135deg, #f8f9fa 0%, var(--white) 100%);
+    border-top: 1px solid var(--gray-300);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.06);
+    flex-wrap: wrap;
+}
+
+.pagination-text {
+    color: var(--gray-600);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 6px 14px;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-md);
+    min-width: 160px;
+    text-align: center;
+    letter-spacing: 0.3px;
+}
+
+.pagination-bar lightning-button::part(button) {
+    border: 2px solid var(--gray-300) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 8px 18px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    background: var(--white) !important;
+    color: var(--gray-600) !important;
+    transition: var(--transition);
+    text-transform: none !important;
+    min-width: 100px;
+}
+
+.pagination-bar lightning-button::part(button):hover:not([disabled]) {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%) !important;
+    color: var(--white) !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 4px 12px rgba(0, 112, 210, 0.3) !important;
+    transform: translateY(-2px);
+}
+
+.pagination-bar lightning-button::part(button):active:not([disabled]) {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 112, 210, 0.2) !important;
+}
+
+.pagination-bar lightning-button::part(button)[disabled] {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    background: var(--gray-100) !important;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .search-section {
+        padding: 24px 16px 16px 16px;
+    }
+
+    .search-section lightning-input {
+        max-width: 100%;
+    }
+
+    .button-section {
+        padding: 0 16px 24px 16px;
+        gap: 8px;
+    }
+
+    .button-section lightning-button::part(button) {
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+    }
+
+    .modal-container {
+        width: 95vw;
+        max-height: 90vh;
+        padding: 16px !important;
+    }
+
+    .datatable-container {
+        margin: 12px !important;
+    }
+
+    lightning-datatable {
+        --slds-c-table-cell-padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .pagination-bar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 14px 16px;
+    }
+
+    .pagination-text {
+        width: 100%;
+    }
+
+    .pagination-bar lightning-button::part(button) {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-section {
+        padding: 16px 12px 12px 12px;
+    }
+
+    .button-section {
+        padding: 0 12px 16px 12px;
+        gap: 6px;
+    }
+
+    .button-section lightning-button::part(button) {
+        padding: 6px 10px !important;
+        font-size: 11px !important;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+.search-section lightning-input::part(input):focus-visible,
+.button-section lightning-button::part(button):focus-visible,
+.pagination-bar lightning-button::part(button):focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* BUTTON SECTION ALIGNMENT */
+.button-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* PAGE SIZE LOOK LIKE A BUTTON */
+.page-size-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 10px;
+    height: 32px;
+    border-radius: 6px;
+    background: #ffffff;
+    border: 1px solid #d8dde6;
+}
+
+/* LABEL */
+.page-size-label {
+    font-size: 12px;
+    color: #444;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* COMBOBOX SIZE FIX */
+.page-size-combobox {
+    width: 70px;
+}
+
+/* REMOVE EXTRA SPACE FROM COMBOBOX */
+.page-size-combobox lightning-base-combobox {
+    min-height: 28px;
+}
+/* ========== ADD THIS CSS TO YOUR dynamicListView.css FILE ========== */
+
+/* ============================================
+   IMPORT/EXPORT MODAL
+   ============================================ */
+
+.import-export-modal {
+    width: 700px !important;
+    max-width: 95vw !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    padding: 0 !important;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 2px solid var(--gray-300);
+    background: linear-gradient(135deg, var(--gray-100) 0%, var(--white) 100%);
+}
+
+.modal-header h3 {
+    margin: 0 !important;
+    color: var(--gray-600);
+}
+
+.close-btn {
+    padding: 8px !important;
+}
+
+/* ============================================
+   MODAL TABS
+   ============================================ */
+
+.modal-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--gray-300);
+    background: var(--gray-50);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 14px 20px;
+    border: none;
+    background: transparent;
+    color: var(--gray-600);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+    background: var(--white);
+    color: var(--primary);
+}
+
+.tab-btn.active {
+    background: var(--white);
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+/* ============================================
+   TAB CONTENT
+   ============================================ */
+
+.tab-content {
+    padding: 24px;
+}
+
+.tab-content h4 {
+    color: var(--gray-600);
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+}
+
+.tab-content h5 {
+    color: var(--gray-600);
+    font-size: 12px;
+    font-weight: 700;
+    margin: 16px 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   FILE UPLOAD
+   ============================================ */
+
+.upload-section {
+    margin-bottom: 24px;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius-md);
+    background: var(--gray-50);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-600);
+}
+
+.file-label:hover {
+    border-color: var(--primary);
+    background: rgba(0, 112, 210, 0.03);
+    color: var(--primary);
+}
+
+/* ============================================
+   PREVIEW TABLE
+   ============================================ */
+
+.preview-section {
+    margin: 24px 0;
+    padding: 16px;
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+}
+
+.preview-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+}
+
+.preview-table th {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.preview-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 11px;
+    color: var(--gray-600);
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.preview-table tbody tr:hover {
+    background: var(--gray-50);
+}
+
+/* ============================================
+   IMPORT/EXPORT STATS
+   ============================================ */
+
+.import-stats,
+.export-stats {
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius-md);
+    margin: 16px 0;
+    font-size: 13px;
+    color: var(--gray-600);
+}
+
+.import-stats p,
+.export-stats p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ============================================
+   EXPORT OPTIONS
+   ============================================ */
+
+.export-options {
+    padding: 16px;
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+    margin-bottom: 24px;
+}
+
+.option-group {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.option-group:last-child {
+    margin-bottom: 0;
+}
+
+.option-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--gray-600);
+    user-select: none;
+}
+
+.option-group input[type="radio"],
+.option-group input[type="checkbox"] {
+    margin-right: 8px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.option-group input[type="radio"]:disabled,
+.option-group input[type="checkbox"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.option-group input[type="radio"]:disabled + span,
+.option-group input[type="checkbox"]:disabled + span {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   FORMAT SECTION
+   ============================================ */
+
+.format-section {
+    padding: 16px;
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+    margin-bottom: 24px;
+}
+
+.format-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.format-options lightning-button::part(button) {
+    padding: 8px 16px !important;
+    font-size: 12px !important;
+    min-width: 120px;
+}
+
+/* ============================================
+   INSTRUCTIONS
+   ============================================ */
+
+.instructions {
+    padding: 16px;
+    background: #fffbf0;
+    border-left: 4px solid #ff9800;
+    border-radius: var(--radius-md);
+    margin-top: 24px;
+}
+
+.instructions h5 {
+    margin: 0 0 12px 0;
+    color: #e65100;
+}
+
+.instructions ul {
+    margin: 0;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.instructions li {
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.5;
+}
+
+/* ============================================
+   MODAL ACTIONS
+   ============================================ */
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px 24px;
+    border-top: 1px solid var(--gray-300);
+    background: var(--gray-50);
+}
+
+.modal-actions lightning-button::part(button) {
+    padding: 8px 18px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+}
+
+
+
+@media (max-width: 768px) {
+    .import-export-modal {
+        width: 95vw !important;
+        padding: 0 !important;
+    }
+
+    .modal-tabs {
+        flex-direction: column;
+    }
+
+    .tab-btn {
+        border-bottom: none;
+        border-right: 3px solid transparent;
+    }
+
+    .tab-btn.active {
+        border-right-color: var(--primary);
+    }
+
+    .format-options {
+        flex-direction: column;
+    }
+
+    .format-options lightning-button::part(button) {
+        width: 100% !important;
+    }
+
+    .preview-table {
+        font-size: 10px;
+    }
+
+    .preview-table th,
+    .preview-table td {
+        padding: 6px 8px;
+    }
+}
+
+/* ========== ADD THIS CSS TO YOUR dynamicListView.css FILE ========== */
+
+/* ============================================
+   TOP RIGHT BUTTON STYLING
+   ============================================ */
+
+.top-right-button {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    z-index: 100;
+}
+
+.top-right-button lightning-button::part(button) {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%) !important;
+    border: none !important;
+    color: var(--white) !important;
+    padding: 8px 16px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 2px 8px rgba(0, 112, 210, 0.3);
+    transition: var(--transition);
+    text-transform: none !important;
+}
+
+.top-right-button lightning-button::part(button):hover {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%) !important;
+    box-shadow: 0 4px 12px rgba(0, 112, 210, 0.4) !important;
+    transform: translateY(-2px);
+}
+
+.top-right-button lightning-button::part(button):active {
+    box-shadow: 0 2px 4px rgba(0, 112, 210, 0.4) !important;
+    transform: translateY(0);
+}
+
+.top-right-button lightning-button::part(button):disabled {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+.top-right-button lightning-button::part(icon) {
+    margin-right: 6px;
+}
+
+/* ============================================
+   RESPONSIVE - TOP RIGHT BUTTON
+   ============================================ */
+
+@media (max-width: 768px) {
+    .top-right-button {
+        top: 10px;
+        right: 12px;
+    }
+
+    .top-right-button lightning-button::part(button) {
+        padding: 6px 12px !important;
+        font-size: 11px !important;
+    }
+}

@@ -1,0 +1,135 @@
+<!-- locationServiceExample.html -->
+<template>
+ 
+    <div class="slds-text-align_center">
+        <span class="slds-text-heading_large">Mark Attendence</span>
+    </div>
+  
+    <!-- After the current location is received,
+         its value is displayed here: -->
+    <template lwc:if={currentLocation}>
+        <div class="slds-m-vertical_large slds-p-vertical_medium
+                    slds-text-align_left slds-border_top slds-border_bottom">
+           
+            <!-- Current location as latitude and longitude -->
+                  Your current location is:
+            <pre>{currentLocationAsString}</pre>
+  
+            <!-- Current location as a map -->
+            <lightning-map map-markers={currentLocationAsMarker} zoom-level=16>
+            </lightning-map>
+        </div>
+    </template>
+  
+    <!-- While request is processing, show spinner -->
+    <div class="slds-m-around_large">
+        <template lwc:if={requestInProgress}>
+            <div class="slds-is-relative">
+                <lightning-spinner
+                    alternative-text="Getting location...">
+                </lightning-spinner>
+            </div>
+        </template>
+    </div>
+  
+    <!-- Static help text -->
+    <div class="slds-text-align_center slds-text-color_weak slds-m-vertical_large">
+        Click <strong>Get Current Location</strong> to see where you are.
+    </div>
+  
+    <!-- The get-current-location button;
+         Disabled if LocationService isn't available -->
+    <div class="slds-align_absolute-center slds-m-vertical_large">
+        <lightning-button
+            variant="brand"
+            disabled={locationButtonDisabled}
+            icon-name="utility:target"
+            label="Mark Attendance"
+            title="Use your device's GPS and other location sensors to determine your current location"
+            onclick={handleGetCurrentLocationClick}>
+        </lightning-button>
+    </div>
+
+
+
+<template if:true={openPopup}>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open" key={status}>
+        <div class="slds-modal__container">
+            <!-- Modal Header -->
+            <header class="slds-modal__header">
+                <h2 class="slds-text-heading_medium">Attendance</h2>
+                <button class="slds-button slds-modal__close" title="Close" onclick={handleClose}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                </button>
+            </header>
+
+            <!-- Modal Body -->
+            <div class="slds-modal__content slds-p-around_medium">
+                <div class="slds-m-bottom_medium">
+                    <lightning-combobox
+                        name="attendanceStatus"
+                        label="Attendance Status"
+                        value={status}
+                        options={statusOptions}
+                        onchange={handleStatusChange}
+                        disabled={isSubmitted}>
+                    </lightning-combobox>
+                </div>
+
+                <template if:true={showSubmit}>
+                    <lightning-button
+                        variant="brand"
+                        label="Submit"
+                        class="slds-m-top_medium"
+                        onclick={handleSubmit}>
+                    </lightning-button>
+                </template>
+
+                <template if:true={showDayOut}>
+                    <lightning-button
+                        variant="destructive"
+                        label="Mark Day-Out"
+                        class="slds-m-top_medium"
+                        onclick={handleOpenDayOutConfirm}>
+                    </lightning-button>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Backdrop -->
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+<template if:true={openConfirmPopup}>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h2 class="slds-text-heading_medium">Confirm Day-Out</h2>
+            </header>
+
+            <div class="slds-modal__content slds-p-around_medium">
+                <p>Are you sure you want to mark Day-Out?</p>
+
+                <div class="slds-m-top_medium slds-grid slds-grid_align-end">
+                    <lightning-button
+                        label="Cancel"
+                        class="slds-m-right_small"
+                        onclick={handleCancelDayOut}>
+                    </lightning-button>
+
+                    <lightning-button
+                        variant="destructive"
+                        label="Yes"
+                        onclick={handleDayOut}>
+                    </lightning-button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+
+ </template>

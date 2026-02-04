@@ -1,0 +1,56 @@
+<apex:page renderAs="pdf" controller="O_MMeterDetailContr">
+
+
+ <apex:repeat value="{!docLinks}" var="doc">
+        <!--<apex:outputText value="{!doc.ContentDocument.LatestPublishedVersion.Title}" /><br/>-->
+
+        <!-- Display as Image -->
+        <img src="/sfc/servlet.shepherd/version/download/{!doc.ContentDocument.LatestPublishedVersionId}" 
+             width="300px" height="auto" style="margin-bottom:0px;"/><br/><br/>
+    </apex:repeat>
+    
+    <span style="margin-left:580px;">Date : {!inspectionDate}</span><br/>
+    
+   
+
+    <span style="font-family: Arial, sans-serif; font-size: 14px;">Customer BP NO: {!bpNumber}</span>
+
+    <div style="margin-bottom: 10px; font-family: Arial, sans-serif; font-size: 12px;">
+        <p>• Inspection of PNG installation &amp; rubber hose replacement. ✔</p>
+        <span>•  Rubber Hose Expiry date: {!rubberHoseExpiry}</span>
+                <span style="margin-left:60px;">Feedback :  {!feedBack} </span>
+                  
+
+         <span style="margin-left:10px;"><p>•The Work Done: {!workDone}</p></span>
+
+
+    </div>
+    
+
+
+    <div style="margin-bottom: 10px; font-family: Arial, sans-serif; font-size: 12px;">
+        <ol>
+            <li>The PNG installation inspection &amp;  rubber hose replacement after 5 years is free of cost and customer is not required to pay any charges for it.</li>
+            <li>The personnel carrying out maintenance is not authorized for Gas Geyser installation, stove repair work, selling of PNG accessories, meter cover, etc.</li>
+            <li>Visit MGL website for any other services if required.</li>
+        </ol>
+    </div>
+
+   <table style="font-family: Arial, sans-serif; font-size: 12px; margin-bottom: 10px;">
+    <tr>
+            <td style="width: 150px;"><strong>Meter Reading:</strong> {!meterReading}</td>
+
+        <td style="width: 150px;"><strong>Meter No:</strong> {!meterNumber}</td>
+        <td style="width: 270px;"><strong>Technician Name:</strong> {!technicianName}</td>
+    </tr>
+    <tr>
+        
+        <td style="width: 370px;"><strong>Customer Mobile No:</strong> {!mobileNumber}</td>
+         <td style="width: 370px;"><strong>Customer Name:</strong> {!customerName}</td>
+
+        <td></td>
+    </tr>
+</table>
+
+    
+</apex:page>

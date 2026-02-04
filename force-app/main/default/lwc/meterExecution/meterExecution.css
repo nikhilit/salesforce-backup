@@ -1,0 +1,70 @@
+.custom-container{
+	color : black;
+}
+/* .preview-list {
+    margin-top: 10px;
+}
+
+.preview-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    background: #f3f2f2;
+    padding: 6px 10px;
+    border-radius: 6px;
+} */
+/* .hidden-file-input {
+    display: none;
+} */
+.section-header {
+    display: flex;
+    justify-content: space-between;  /* Push title left & icon right */
+    align-items: center;             /* Vertically center them */
+}
+.upload-icon {
+    cursor: pointer;
+}
+/* Ensures list scrolls instead of overflowing */
+.preview-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Each file row */
+.preview-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 4px 0;
+    gap: 8px; /* spacing between filename + icons */
+    border-bottom: 1px solid #ddd;
+}
+
+/* FORCE WRAP LONG FILENAMES (Android fix) */
+.file-name {
+    font-size: 10px;      /* Small font size for Android fix */
+    max-width: 55%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    flex-shrink: 1;
+    line-height: 1.1;
+}
+
+/* Keep preview icon visible */
+lightning-button-icon {
+    flex-shrink: 0;  /* Icon never shrinks or disappears */
+}
+
+/* Hide the file input */
+.hidden-file-input {
+    display: none;
+}
+
+/* Prevent filename from pushing icon out */
+.preview-item span {
+    min-width: 0;   /* VERY IMPORTANT for Android flexbox */
+}
+.preview-item lightning-button-icon {
+    flex-shrink: 0;
+}

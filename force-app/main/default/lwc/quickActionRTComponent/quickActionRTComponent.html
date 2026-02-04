@@ -1,0 +1,141 @@
+<template>
+    <div class="card">
+        <!-- Attendance Component -->
+        <div class="attendance-container">
+            <div class="header-row">
+                <p class="welcome-text">Welcome, {userName}!</p>
+                <p class="displaytime">{formattedDateTime}</p>
+            </div>
+
+            <!-- Block + Attendance Buttons -->
+            <div class="slds-grid slds-wrap slds-gutters" style="margin-bottom: -5px; margin-top: -8px;">
+                <!-- Block Selection -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12">
+                    <template if:true={isFrontOffice}>
+                        <lightning-combobox
+                            name="block"
+                            placeholder="Select Front Office Location"
+                            options={blockOptions}
+                            value={selectedBlock}
+                            onchange={handleBlockChange}
+                            disabled={isBlockDisabled}
+                            dropdown-length="7"
+                            class="custom-combobox">
+                        </lightning-combobox>
+                    </template>
+                    <template if:false={isFrontOffice}>
+                        <div class="disabled-location-box">
+                            <div class="disabled-location-content">
+                                <span class="location-text">{selectedBlock}</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Check-In / Check-Out Buttons -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12" style="margin: 18px auto auto;">
+                    <div class="button-container">
+                        <template if:true={showCheckInButton}>
+                            <button class="custom-button checkin-bg" onclick={handleCheckIn}>
+                                Check-In
+                            </button>
+                        </template>
+
+                        <template if:true={showCheckOutButton}>
+                            <button class="custom-button checkout-bg" onclick={handleCheckOut}>
+                                Check-Out
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sub Function Section - Always visible -->
+            <div class="slds-grid slds-wrap slds-gutters" style="margin-top: 12px;">
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12">
+        <lightning-combobox
+            name="subFunction"
+            label="Sub Function"
+            placeholder="Select Sub Function"
+            options={subFunctionOptions}
+            value={selectedSubFunction}
+            onchange={handleSubFunctionChange}
+            disabled={isSubFunctionDisabled}
+            required>
+        </lightning-combobox>
+    </div>
+</div>
+
+
+            <!-- Break Section -->
+            <template if:true={showBreak}>
+                <div class="slds-grid slds-wrap slds-gutters" style="margin-top: 12px;">
+                    <!-- Break Reason Dropdown -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_8-of-12">
+                        <lightning-combobox
+                            name="breakReason"
+                            label="Select Break Reason"
+                            placeholder="Select Reason"
+                            options={breakReasons}
+                            value={selectedBreakReason}
+                            onchange={handleBreakReasonChange}
+                            disabled={isBreakDisabled}>
+                        </lightning-combobox>
+                    </div>
+
+                    <!-- Start / End Break Buttons -->
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12" style="margin: 18px auto auto;">
+                        <div class="button-container">
+                            <template if:false={onBreak}>
+                                <button class="custom-button checkout-bg" style="margin-top: 9px;" onclick={handleStartBreak}>
+                                    Start Break
+                                </button>
+                            </template>
+
+                            <template if:true={onBreak}>
+                                <button class="custom-button checkin-bg" style="margin-top: 9px;" onclick={handleEndBreak}>
+                                    End Break
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Quick Actions Header -->
+        <div class="header-section">
+            <lightning-icon icon-name="utility:apps" size="small" variant="default" class="purple-icon"></lightning-icon>
+            <div class="title">Quick Actions</div>
+        </div>
+
+        <!-- Quick Actions List -->
+        <template if:true={quickActionData}>
+            <template for:each={quickActionData} for:item="action">
+                <div class="action-item" key={action.actionName} onclick={handleActionClick} data-name={action.actionName}>
+                    <div class="icon-container">
+                        <lightning-icon icon-name={action.iconName} alternative-text={action.actionName} size="small"
+                            class="custom-icon" style={action.iconStyle}>
+                        </lightning-icon>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-label">{action.actionName}</div>
+                        <div class="action-description">{action.description}</div>
+                    </div>
+                </div>
+            </template>
+        </template>
+        <template if:true={isBackOffice}>
+    <div class="action-item" onclick={handleRefreshMIS}>
+        <div class="icon-container">
+            <lightning-icon icon-name="utility:refresh" alternative-text="Refresh MIS" size="small" class="custom-icon"></lightning-icon>
+        </div>
+        <div class="action-content">
+            <div class="action-label">Refresh MIS Data</div>
+            <div class="action-description">Run scheduled MIS data refresh</div>
+        </div>
+    </div>
+</template>
+
+    </div>
+</template>

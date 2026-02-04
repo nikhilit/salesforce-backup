@@ -1,0 +1,41 @@
+<template>
+    <div class="utility-container">
+
+        <!-- Phone Number Display (Read-only div) -->
+        <!-- <div class="phone-display">{phoneNumber}</div>
+         -->
+       <input 
+    type="tel" 
+    maxlength="10"
+    class="phone-inline-input"
+    value={phoneNumber}
+    oninput={handlePhoneInput}
+/>
+
+        
+        <!-- Dial Pad -->
+        <div class="dial-pad">
+            <template for:each={dialKeysTop} for:item="key">
+                <button key={key} class="dial-button" onclick={handleDialClick}>{key}</button>
+            </template>
+
+            <!-- Empty placeholders for grid alignment -->
+            <div class="placeholder"></div>
+            <button class="dial-button" onclick={handleDialClick}>0</button>
+            <div class="placeholder"></div>
+        </div>
+
+        <!-- Backspace and Call Button in one line -->
+        <div class="action-row">
+            <button class="action-button backspace" onclick={handleBackspaceClick}>⌫</button>
+            <lightning-icon 
+                icon-name="action:call" 
+                alternative-text="Call" 
+                size="small"
+                class="call-icon"
+                title="Click to call"
+                onclick={handleCallClick}
+            ></lightning-icon>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,32 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-around_medium">
+            <template if:true={recordId}>
+                
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+                </template>
+
+                <template if:true={hasError}>
+                    <div class="slds-text-color_error slds-m-top_medium">
+                        ⚠️ {errorMessage}
+                    </div>
+                </template>
+
+                <template if:true={isAfterSalesService}>
+                    <c-meter-execution record-id={recordId}></c-meter-execution>
+                </template>
+
+                <template if:true={isAFSReconnectionDisconnection}>
+                    <c-after-sales-appointment-execution record-id={recordId}></c-after-sales-appointment-execution>
+                </template>
+
+                <template if:true={isUnknownType}>
+                    <div class="slds-text-color_warning slds-m-top_medium">
+                        ⚠️ This Work Order type does not have a matching execution component.
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

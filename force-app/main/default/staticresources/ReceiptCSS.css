@@ -1,0 +1,76 @@
+@page {
+    size: A4;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.page-container {
+    width: 600px;
+    margin: 120px auto 40px auto; /* manually centered */
+    padding: 20px;
+    border: 1px solid #000;
+    background-color: #fff;
+}
+
+.header-logo {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.company-info {
+    text-align: center;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.receipt-details {
+    background-color: #eee;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.receipt-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.receipt-table td {
+    padding: 4px 6px;
+    vertical-align: top;
+}
+
+.label {
+    width: 35%;
+}
+
+.colon {
+    width: 5px;
+}
+
+.value {
+    font-weight: bold;
+}
+
+.footer-note {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 10px;
+    font-style: italic;
+}
+
+.footer-warning {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.footer-warning span {
+    font-weight: normal;
+}

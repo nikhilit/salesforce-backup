@@ -1,0 +1,57 @@
+/* .material-search {
+    position: relative;
+}
+
+.dropdown {
+    position: absolute;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #d8dde6;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.dropdown ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.dropdown li {
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.dropdown li:hover {
+    background-color: #f4f6f9;
+} */
+/* .slds-dropdown {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.slds-listbox__item:hover {
+    background-color: #f3f3f3;
+    cursor: pointer;
+} */
+
+/* small styling for highlighted option and scrolling */
+/* .lookup-option {
+    padding: 0.5rem;
+    cursor: pointer;
+}
+.lookup-option:hover,
+.lookup-option.highlighted {
+    background: #f4f6f9;
+}
+.slds-dropdown {
+    max-height: 200px;
+    overflow-y: auto;
+} */
+
+.hoverable:hover {
+    background-color: #f3f6f9;
+    cursor: pointer;
+}

@@ -1,0 +1,54 @@
+.custom-container{
+	color : black;
+}
+.confirm-box {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    background: #fafafa;
+    width: 100%;
+}
+
+.text {
+    font-size: 16px;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.btn-row {
+    display: flex;
+    gap: 10px;
+}
+
+.cancel-btn {
+    background: #e0e0e0;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+
+.withdraw-btn {
+    background: #d9534f; /* Bootstrap red */
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+/* .success-msg {
+    margin-top: 15px;
+    padding: 10px;
+    background: #e6ffe6;
+    border-left: 4px solid #2e7d32;
+    color: #2e7d32;
+    border-radius: 5px;
+    font-size: 15px;
+}
+.error-msg{
+     margin-top: 15px;
+    padding: 10px;
+    background: red;
+    border-left: 4px solid rgb(211, 7, 7);
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+} */

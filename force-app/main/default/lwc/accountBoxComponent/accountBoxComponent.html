@@ -1,0 +1,253 @@
+<template>
+     <div class="custom-wrapper">
+  <div class="custom-grid">
+
+    <!-- CONTACT INFO -->
+    <div class="custom-card">
+      <div class="card-header contact-header">
+        <span class="header-icon slds-m-right_x-small">
+          <lightning-icon icon-name="utility:user" alternative-text="Contact" size="x-small" variant="bare"></lightning-icon>
+        </span>
+        <span class="card-title">CONTACT INFO</span>
+      </div>
+      <div class="card-body">
+        <div class="field-row">
+          <span class="label" title="Name">Name</span>
+          <span class="value bold" title={accountName}>{accountName}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="CA Number">CA Number</span>
+          <span class="value" title={caNumber}>{caNumber}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="BP Number">BP Number</span>
+          <span class="value" title={bpNumber}>{bpNumber}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="Primary Phone">Primary Phone</span>
+          <span class="value" title={primaryPhone}>{primaryPhone}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="Email ID">Email ID</span>
+          <span class="value" title={emailId}>{emailId}</span>
+        </div>
+      <div class="field-row">
+        <span class="label" title="VIP Customer">VIP Customer</span>
+        <span class="value" if:true={vip}>
+            <img src="/resource/crown" alt="VIP" width="24" height="24" />
+        </span>
+        <span class="value" if:false={vip}>N/A</span>
+    </div>
+     <div class="field-row">
+          <span class="label" title="Customer Type">Customer Type</span>
+          <span class="value" title={customerType}>{customerType}</span>
+        </div>
+     <div class="field-row">
+          <span class="label" title="Open Cases Count">Open Cases Count</span>
+          <span class="value" title={openCaseCount}>{openCaseCount}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADDRESS -->
+    <div class="custom-card">
+      <div class="card-header address-header">
+        <span class="header-icon slds-m-right_x-small">
+          <lightning-icon icon-name="utility:home" alternative-text="Address" size="x-small" variant="bare"></lightning-icon>
+        </span>
+        <span class="card-title">ADDRESS</span>
+      </div>
+      <div class="card-body">
+        <div class="field-row">
+          <span class="label" title="CO Number">CO Number</span>
+          <span class="value" title={coNumber}>{coNumber}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="Room Number">Room Number</span>
+          <span class="value" title={flatNumber}>{flatNumber}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="Building Name">Building Name</span>
+          <span class="value" title={buildingName}>{buildingName}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="Street">Street</span>
+          <span class="value" title={street}>{street}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="City">City</span>
+          <span class="value" title={city}>{city}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="Postal Code">Postal Code</span>
+          <span class="value" title={postalCode}>{postalCode}</span>
+        </div>
+         <div class="field-row">
+          <span class="label" title="LMC">LMC</span>
+          <span class="value" title={lmcValue}>{lmcValue}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="EBill">E-Bill</span>
+          <span class="value" title={ebillValue}>{ebillValue}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACT REG -->
+    <div class="custom-card">
+      <div class="card-header actreg-header">
+        <span class="header-icon slds-m-right_x-small">
+          <lightning-icon icon-name="utility:contract" alternative-text="Reg" size="x-small" variant="bare"></lightning-icon>
+        </span>
+        <span class="card-title">ACT REG.</span>
+      </div>
+      <div class="card-body">
+        <div class="field-row">
+          <span class="label" title="Registration Form">Registration Form</span>
+          <span class="value" title={formNumber}>{formNumber}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="MoveIn Date">MoveIn Date</span>
+          <span class="value" title={miDate}>{miDate}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="MoveOut Date">MoveOut Date</span>
+          <span class="value" title={noDate}>{noDate}</span>
+        </div>
+        <div class="field-row">
+        <span class="label" title="Status">Status</span>
+        <span class="value" title={currentStatus}>
+            <span class={badgeClass} title={currentStatus}>
+                {currentStatus}
+            </span>
+        </span>
+    </div>
+            <template if:true={isTD}>
+    <div class="field-row">
+        <span class="label" title="Disconnection Reason">Disconnection Reason</span>
+        <span class="value" title={discReason}>
+            <lightning-icon icon-name="utility:lock" size="small"></lightning-icon>
+            {discReason}
+        </span>
+    </div>
+</template>
+
+<template if:false={isTD}>
+    <div class="field-row">
+        <span class="label" title="Disconnection Reason">Disconnection Reason</span>
+        <span class="value" title={discReason}>
+            {discReason}
+        </span>
+    </div>
+</template>
+
+         <div class="field-row">
+          <span class="label" title="Person Disconnected">Person Disconnected</span>
+          <span class="value">{discPerson}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="Date of disconnection">Date of disconnection</span>
+          <span class="value">{discDate}</span>
+        </div>
+       <div class="field-row">
+          <span class="label" title="Scheduled Bill Date">Scheduled Bill Date</span>
+          <span class="value" title={schBD}>{schBD}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="custom-card">
+      <div class="card-header payment-header">
+        <span class="header-icon slds-m-right_x-small">
+          <lightning-icon icon-name="utility:currency" alternative-text="Payment" size="x-small" variant="bare"></lightning-icon>
+        </span>
+        <span class="card-title">PAYMENT</span>
+      </div>
+      <div class="card-body">
+        <div class="field-row">
+          <span class="label" title="Security Deposit">Security Deposit</span>
+          <span class="value" title={totalCashAmountDisplay}>{totalCashAmountDisplay}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="Open">Open</span>
+          <span class="value" title={openAmountFormatted}>{openAmountFormatted}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="Due">Due</span>
+          <span class="value" title={dueAmountFormatted}>{dueAmountFormatted}</span>
+        </div>
+         <div class="field-row">
+          <span class="label" title="Credit">Credit</span>
+          <span class="value" title={creditAmountFormatted}>{creditAmountFormatted}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="Last Amount Paid">Last Amount Paid</span>
+          <span class="value" title={lastAmountPaid}>{lastAmountPaid}</span>
+        </div>
+        <div class="field-row">
+            <span class="label" title="Last Paid Date">Last Paid Date</span>
+            <span class="value" title={lastPaidDate}>{lastPaidDate}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="DOM Id">DOM Id</span>
+          <span class="value" title={domNum}>{domNum}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="Payment Scheme">Payment Scheme</span>
+          <span class="value" title={domDesc}>{domDesc}</span>
+        </div>
+         <div class="field-row">
+          <span class="label" title="NACH Debit">NACH Debit</span>
+          <span class="value" title={nachDebit}>{nachDebit}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- METERING -->
+    <div class="custom-card">
+      <div class="card-header metering-header">
+        <span class="header-icon slds-m-right_x-small">
+          <lightning-icon icon-name="utility:retail_execution" alternative-text="Metering" size="x-small" variant="bare"></lightning-icon>
+        </span>
+        <span class="card-title">METERING</span>
+      </div>
+      <div class="card-body">
+        <div class="field-row">
+          <span class="label" title="Latest Meter Reading">Latest Meter Reading</span>
+          <span class="value" title={lastMeterReading}>{lastMeterReading}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="MR Number">Device Number</span>
+          <span class="value" title={mrNumber}>{mrNumber}</span>
+        </div>
+         <div class="field-row">
+          <span class="label" title="MR Number">Meter Number</span>
+          <span class="value" title={meterNumber}>{meterNumber}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="MR Date">MR Date</span>
+          <span class="value" title={mrDate}>{mrDate}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="MR Person">MR Person</span>
+          <span class="value" title={personName}>{personName}</span>
+        </div>
+        <div class="field-row">
+        <span class="label" title="Latest Meter Reading Type">MR Type</span>
+        <span class="value">{meterReadingType}</span>
+    </div>
+        <div class="field-row">
+          <span class="label" title="Minimum charges with date range">Minimum charges with date range</span>
+          <span class="value" title={minimumChargesObj}>{minimumChargesObj}</span>
+        </div>
+        <div class="field-row">
+          <span class="label" title="Remarks">Remarks</span>
+          <span class="value" title={remarks}>{remarks}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+     </div>
+</template>

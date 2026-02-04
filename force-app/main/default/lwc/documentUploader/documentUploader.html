@@ -1,0 +1,53 @@
+<template>
+    <div class="slds-p-around_x-small">
+        <fieldset class="slds-form-element">
+            <div class="slds-form-element__control">
+              
+
+                <template if:false={isLoading}>
+                    <template for:each={categories} for:item="category">
+                        <div key={category.Id} class="slds-m-bottom_small">
+                            <div class="slds-checkbox">
+                                <input type="checkbox" 
+                                       id={category.Id}
+                                       checked={category.checked}
+                                       onchange={handleCategorySelect}
+                                       data-id={category.Id} />
+                                <label class="slds-checkbox__label" for={category.Id}>
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">
+                                       {category.Category_Name__c}
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="slds-p-left_large">
+                                <template for:each={category.options} for:item="option">
+                                    <div key={option.Id} class="slds-checkbox slds-m-top_xx-small">
+                                        <input type="checkbox"
+                                               id={option.Id}
+                                               value={option.Id}
+                                               checked={option.checked}
+                                               onchange={handleDocumentSelect} />
+                                        <label class="slds-checkbox__label" for={option.Id}>
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label">
+                                                {option.Option_Name__c}
+                                                <template if:true={option.Is_Required__c}>
+                                                    <lightning-icon icon-name="utility:required"
+                                                                    size="x-small"
+                                                                    class="slds-m-left_xx-small">
+                                                    </lightning-icon>
+                                                </template>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+            </div>
+        </fieldset>
+    </div>
+</template>

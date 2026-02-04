@@ -1,0 +1,32 @@
+.no-box .slds-input {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0.25rem 0.5rem; /* optional, adjust spacing */
+}
+
+.no-box .slds-form-element__control {
+    padding: 0;
+}
+
+.no-box .slds-form-element__label {
+    font-weight: 500; /* optional, adjust label look */
+} 
+.slds-table thead th {
+    position: sticky;
+    top: 0;
+    background: #f3f3f3; /* Same as SLDS table header color */
+    z-index: 2;
+}
+
+/* Optional: Add subtle shadow for clarity when scrolling */
+.slds-table thead {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure scrollable container */
+.slds-scrollable_x {
+    overflow-x: auto;
+    overflow-y: auto; /* important for vertical scroll */
+    /* or set based on your modal height */
+}

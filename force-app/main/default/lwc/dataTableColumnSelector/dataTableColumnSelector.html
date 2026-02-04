@@ -1,0 +1,43 @@
+<template>
+    <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <div class="slds-combobox_container">
+                    <div class={dropdown} data-id="resultBox" role="combobox">
+                        <!--code for input and dropdown icon-->
+                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                            <input type="text" class="slds-input slds-combobox__input slds-combobox__input-value"
+                                    placeholder="Select Value" onclick={openDropdown} value={selectedValue}/>
+                            <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right" title="Down icon">
+                                <lightning-icon icon-name="utility:down" size="xx-small" class="slds-icon-text-default" ></lightning-icon>
+                                <span class="slds-assistive-text">Down icon</span>
+                            </span>            
+                        </div>
+                        
+                        <template if:true={load}>
+                            <div id="listbox-unique-id" role="listbox" onmouseleave={closeDropDown}>
+                                <ul class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid" role="presentation">
+                                    <div class="slds-scrollable">
+                                        <!-- code to show list of options -->
+                                        <template for:each={options} for:item="item">  
+                                            <li key = {item.label} role="presentation" class="slds-listbox__item">
+                                                <div data-id={item.isChecked} data-name={item.label} onclick={selectOption} class={item.class} role="option">
+                                                    <span class="slds-media__figure">
+                                                        <lightning-icon icon-name="utility:check" size="xx-small" class="slds-listbox__icon-selected"></lightning-icon>
+                                                    </span>
+                                                    <span class="slds-media__body">
+                                                        <span class="slds-truncate" style="color:black;" title={item.label}> {item.label}</span>
+                                                    </span>
+                                                </div> 
+                                            </li>
+                                        </template>
+                                    </div>
+                                </ul>
+                            </div>
+                        </template>
+                        
+                    </div>   
+                </div>
+            </div>
+            
+        </div>  
+</template>

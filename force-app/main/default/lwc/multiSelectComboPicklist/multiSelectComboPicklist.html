@@ -1,0 +1,108 @@
+<template>
+    <div class="slds-form-element">
+        <label class="slds-form-element__label" if:true={label}>{label}</label>
+        <div class="slds-form-element__control">        
+            <!-- Main Dropdown Container -->
+            <div class="slds-combobox_container">
+                <div class={comboBoxClass}>
+                    <!-- Dropdown Button -->
+                    <div class="slds-combobox__form-element" role="none">
+                        <button class="slds-button slds-button_neutral slds-button_stretch slds-combobox__input" 
+                                onclick={toggleDropdown}
+                                aria-expanded={isOpen}
+                                aria-haspopup="listbox"
+                                disabled={hasNoOptions}
+                                type="button">
+                            <!-- Selected options aligned left -->
+                            <span class="slds-truncate slds-text-align_left slds-grow">
+                                <template if:true={hasOptions}>
+                                    <span class="selected-text-left">{displayValue}</span>
+                                </template>
+                                <template if:false={hasOptions}>Select Options</template>
+                            </span>
+                            <!-- Arrow icon aligned right -->
+                            <span class="slds-icon_container slds-icon-utility-down slds-combobox__input-icon slds-m-left_auto">
+                                <lightning-icon icon-name="utility:down" size="x-small"></lightning-icon>
+                            </span>
+                        </button>
+                    </div>
+                    
+                    <!-- Dropdown Menu - UPDATED WITH PROPER SIZING -->
+                    <div if:true={isOpen} class="slds-dropdown slds-dropdown_left custom-dropdown-size" role="listbox">
+                        <!-- Search Box -->
+                        <div class="slds-p-around_x-small">
+                            <div class="slds-input-has-icon slds-input-has-icon_left">
+                                <lightning-icon icon-name="utility:search" class="slds-input__icon" size="x-small"></lightning-icon>
+                                <input type="text" 
+                                       class="slds-input" 
+                                       placeholder="Search..." 
+                                       value={searchTerm}
+                                       oninput={handleSearch} />
+                            </div>
+                        </div>
+                        
+                        <!-- Select All Option -->
+                        <div class="slds-p-around_x-small slds-border_bottom">
+                            <div class="slds-checkbox">
+                                <input type="checkbox" 
+                                       id="select-all"
+                                       checked={allSelected}
+                                       onchange={handleSelectAll}
+                                       class="slds-checkbox__input" />
+                                <label class="slds-checkbox__label" for="select-all">
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label"><strong>Select All</strong></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Options List with Scroll -->
+                        <ul class="slds-listbox slds-listbox_vertical scrollable-options" role="presentation">
+                            <template for:each={filteredOptionsWithSelection} for:item="option">
+                                <li key={option.value} class="slds-listbox__item" role="presentation">
+                                    <div class="slds-checkbox">
+                                        <input type="checkbox" 
+                                               name="options"
+                                               id={option.value}
+                                               checked={option.selected}
+                                               onchange={handleCheckboxChange}
+                                               data-value={option.value}
+                                               class="slds-checkbox__input" />
+                                        <label class="slds-checkbox__label" for={option.value}>
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label">{option.label}</span>
+                                        </label>
+                                    </div>
+                                </li>
+                            </template>
+                            
+                            <!-- No Results Message -->
+                            <template if:true={noResults}>
+                                <li class="slds-listbox__item">
+                                    <div class="slds-text-align_center slds-p-vertical_small">
+                                        <span class="slds-text-color_weak">
+                                            <template if:true={searchTerm}>No options match your search</template>
+                                            <template if:false={searchTerm}>No options available</template>
+                                        </span>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Selected Pills -->
+            <div if:true={_selectedValues.length} class="slds-m-top_small">
+                <template for:each={selectedOptions} for:item="option">
+                    <lightning-pill key={option.value} 
+                                   label={option.label} 
+                                   onremove={handleRemovePill}
+                                   name={option.value}
+                                   class="slds-m-right_x-small slds-m-bottom_x-small">
+                    </lightning-pill>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,97 @@
+<template>
+   <template if:true={isCheckOutDone}>
+    <div class="slds-text-color_error slds-p-around_small" style="background-color: white;
+    padding: 5%;
+    width: 100%;
+    height: 100px;
+    text-align: center;">
+        <p>
+            Checkout is already completed. You cannot proceed to upload details.
+        </p>
+    </div>
+    </template>
+
+    <template if:false={isCheckinDone}>
+         <div class="slds-text-color_error slds-p-around_small" style="background-color: white;padding: 5%;
+    width: 100%;height: 100px;text-align: center;">
+        <p>
+            Please Checkin Before to proceed with Upload Site Documents.
+        </p>
+    </div>
+    </template>
+
+    <template if:true={isValidateCheckinCheckout}>
+    <div style="background-color:white;padding: 3%;">
+    <h1 style="font-size: 15px;padding-bottom: 1%;font-weight: bold;">Details</h1>
+     <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+    <template for:each={documentTypes} for:item="doc" for:index="index">
+        <div key={doc.label} class="section-header">
+            <span>{doc.label}</span>
+            <span class="upload-icon">
+                <input type="file" data-label={doc.label} class="file-input" onchange={handleImageUpload}/>
+                <lightning-icon icon-name='utility:download' alternative-text='download' size='xx-small' title='download'></lightning-icon>
+            </span>
+        </div>
+
+        <template if:true={doc.files}>
+            <template for:each={doc.files} for:item="file">
+                <div key={file.name} class="file-row">
+                    <span class="file-name">{file.uniqueName}</span>
+                    <!-- <button class="eye-btn" > -->
+                        <div style="display: flex;gap: 8px;align-items: center;">
+                            <span style="padding:1%">
+                        <lightning-icon data-label={doc.label} data-uniquename={file.uniqueName} data-index={index} data-name={file.name} onclick={handlePreviewClick} icon-name='utility:preview' alternative-text='preview' size='xx-small' title='preview'></lightning-icon>
+                            </span>
+                            <span style="padding:1%">
+                    <lightning-icon data-label={doc.label}  data-uniquename={file.uniqueName}  data-index={index} data-name={file.name} onclick={handleDeleteClick} icon-name='utility:delete' alternative-text='delete' size='xx-small' title='delete'></lightning-icon>
+                            </span> </div>
+                    <!-- </button> -->
+                </div>
+            </template>
+        </template>
+    </template>
+    
+         <lightning-button style="display: flex;text-align: center;justify-content: end;padding: 2%;" label="Save" onclick={handleUploadClick}
+                                class="slds-m-right_small" variant="brand"></lightning-button>
+    <!-- PREVIEW POPUP -->
+    <template if:true={showPreview}>
+    <section class="popup">
+        <div class="popup-content">
+
+            <template if:true={previewIsVideo}>
+                <p>Video Preview Not Supported in Mobile</p>
+     <!-- <video
+        src={previewUrl}
+        controls
+        playsinline
+        preload="metadata"
+        style="max-width:100%; max-height:70vh; border-radius:8px;"
+    ></video> -->
+            </template>
+
+            <template if:true={previewIsPDF}>
+                <!-- Only desktop -->
+                <p>PDF Preview Not Supported in Mobile</p>
+            </template>
+
+            <template if:true={previewIsImage}>
+                <img src={previewUrl} class="image-preview" />
+            </template>
+
+            <button class="close-btn" onclick={closePreview}>Close</button>
+        </div>
+    </section>
+</template>
+    <!-- <template if:true={showPreview}>
+        <section class="popup">
+            <div class="popup-content">
+                <img src={previewUrl} class="preview-img" />
+                <button class="close-btn" onclick={closePreview}>Close</button>
+            </div>
+        </section>
+    </template> -->
+    </div>
+    </template>
+</template>

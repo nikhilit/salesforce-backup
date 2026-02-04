@@ -1,0 +1,98 @@
+.card{
+    padding: 1.2rem;
+}
+
+/* .step-container {
+    margin: 1rem 0;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.step-indicator {
+    margin-right: 1rem;
+    text-align: center;
+    min-width: 30px;
+}
+
+.step-number {
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    line-height: 26px;
+}
+
+.checkmark {
+    content: '✓';
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: bold;
+    border: 2px solid white;
+    background: #4caf50;
+    color: #fff;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.upload-placeholder {
+
+    display: block;
+    background: #f3f3f3;
+    padding: 32px;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    height: 100px;
+}
+
+label.upload-placeholder:has(img.image-preview) {
+    padding: 0;
+}
+
+.upload-placeholder input[type="file"] {
+    display: none;
+}
+
+.camera-icon {
+    font-size: 2rem;
+}
+
+.image-preview {
+    margin-bottom: 0.5rem;
+
+    opacity: 1;
+    border-radius: 10px;
+    background: palegreen;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.remove-button {
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    background: #ff000000;
+    border-radius: 50%;
+    padding: 0;
+} */

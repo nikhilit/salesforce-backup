@@ -1,0 +1,466 @@
+<template>
+    <lightning-card>
+        <div style="background-color: white;">
+            <div>
+                <!-- Radio Buttons for Customer/Prospect -->
+                <div class="slds-m-bottom_medium custom-radio-group" style="margin-left: 8px;">
+                    <label class="radio-label">
+                        <input 
+                            type="radio" 
+                            name="recordType" 
+                            value="Customer" 
+                            checked={isCustomer} 
+                            onchange={handleRecordTypeChange} 
+                            class="slds-radio__button" />
+                        <span class="slds-radio_faux">Customer</span>
+                    </label>
+                     <label class="radio-label">
+                        <input 
+                            type="radio" 
+                            name="recordType" 
+                            value="Prospect" 
+                            checked={isProspect} 
+                            onchange={handleRecordTypeChange} 
+                            class="slds-radio__button" />
+                        <span class="slds-radio_faux">Prospect Search</span>
+                     </label>
+                </div>
+<template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+    </template>
+                <!-- Customer (Account) Section -->
+                <template if:true={isCustomer}>
+                    <!-- Registered/Unregistered Radio Buttons -->
+                    <div class="slds-m-bottom_medium custom-radio-group" style="margin-left: 8px;">
+                        <label class="radio-label">
+                            <input 
+                                type="radio" 
+                                name="registrationStatus" 
+                                value="Registered" 
+                                checked={isRegistered} 
+                                onchange={handleRegistrationChange} 
+                                class="slds-radio__button" />
+                            <span class="slds-radio_faux">Registered</span>
+                        </label>
+                        <label class="radio-label slds-m-left_medium">
+                            <input 
+                                type="radio" 
+                                name="registrationStatus" 
+                                value="Unregistered" 
+                                checked={isUnregistered} 
+                                onchange={handleRegistrationChange} 
+                                class="slds-radio__button" />
+                            <span class="slds-radio_faux">Prospect Creation</span>
+                        </label>
+                    </div>
+
+                    <!-- Registered Section -->
+                    <template if:true={isRegistered}>
+                        <div class="no-scrollbar">
+                            <div class="slds-grid slds-nowrap slds-p-around_small slds-border_bottom" style="min-width: 2500px;">
+                                <!-- Input Fields -->
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input pattern="[A-Za-z]*" message-when-pattern-mismatch="Only Aphabets allowed" label="First Name" label-class="center-label" name="firstName" value={firstName} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input pattern="[A-Za-z]*" message-when-pattern-mismatch="Only Aphabets allowed" label="Last Name" label-class="center-label" name="lastName" value={lastName} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input pattern="[0-9]*" message-when-pattern-mismatch="Only digits allowed" maxlength="12" label="CA Number" label-class="center-label" name="caNumber" value={caNumber} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input pattern="[0-9]*" message-when-pattern-mismatch="Only digits allowed" maxlength="10" label="BP Number" label-class="center-label" name="bpNumber" value={bpNumber} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input pattern="[0-9]*" message-when-pattern-mismatch="Only digits allowed" maxlength="10" label="Connection Object" label-class="center-label" name="connection" value={connection} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input label="Registration Form No" label-class="center-label" name="registrationInfoName" value={registrationInfoName} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input pattern="[0-9]{10}" label="Phone Number" label-class="center-label" name="teleNumber" value={teleNumber} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}" type="email" label="Email" label-class="center-label" name="email" value={email} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input pattern="[0-9]*" message-when-pattern-mismatch="Only digits allowed" maxlength="6" label="Postal Code" label-class="center-label" name="postalCode" value={postalCode} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input label="City" label-class="center-label" name="city" value={city} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input label="Building Name" label-class="center-label" name="buildingName" value={buildingName} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input label="Street" label-class="center-label" name="streetname" value={streetname} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input label="Meter Number" pattern="[0-9]*" message-when-pattern-mismatch="Only digits allowed" label-class="center-label" name="meternumber" value={meternumber} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                    <lightning-input label="Invoice Number" label-class="center-label" name="invoicenumber" value={invoicenumber} onchange={handleInputChange} onkeyup={handleKeyUp}></lightning-input>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="slds-m-top_small slds-m-bottom_medium slds-p-horizontal_x-small">
+                            <div class="slds-grid slds-gutters_xx-small slds-grid_align-end">
+                                <div>
+                                    <lightning-button 
+                                        variant="brand" 
+                                        label="Search" 
+                                        size="small" 
+                                        onclick={handleSearchClick}>
+                                    </lightning-button>
+                                </div>
+                                <div class="slds-m-left_xx-small" style="margin-right: 20px;">
+                                    <lightning-button 
+                                        variant="neutral" 
+                                        label="Clear" 
+                                        size="small" 
+                                        onclick={handleClearClick}>
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <template if:true={noResults}>
+                            <div class="slds-text-color_error slds-text-body_small slds-m-top_small">No record Matches</div>
+                        </template>
+                    </template>
+
+                    <!-- Unregistered Section -->
+                  <template if:true={isUnregistered}>
+                <div class="slds-grid slds-wrap slds-gutters_small">
+                    <!-- Row 1 -->
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input pattern="[A-Za-z]*" message-when-pattern-mismatch="Only Aphabets allowed" name="leadFirstName" label="Lead First Name" value={leadFirstName} required onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input pattern="[A-Za-z]*" message-when-pattern-mismatch="Only Aphabets allowed" name="leadLastName" label="Lead Last Name" value={leadLastName} required onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input type="tel" pattern="[0-9]{10}" name="leadPhone" label="Phone Number" value={leadPhone} required onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input type="email" pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}" name="leadEmail" label="Email" value={leadEmail} onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-combobox
+                            name="DRS"
+                            label="Select DRS"
+                            value={selectedDrsId}
+                            placeholder="Search DRS"
+                            options={drsOptions}
+                            required
+                            onchange={handleDrsSelect}>
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-combobox
+                            name="leadType"
+                            label="Lead Type"
+                            value={leadType}
+                            placeholder="Select Type"
+                            options={typeOptions}
+                            required
+                            onchange={handleChange}>
+                        </lightning-combobox>
+                    </div>
+                    
+                    <!-- Row 2 -->
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="floor" label="Floor" value={floor} onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="buildingName" label="Building Name" value={buildingName} required onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="buildingCode" label="Building Code" value={buildingCode} required onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="street" label="Street" title="Society Name" value={street} required onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    
+                    <!-- Row 3 -->
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="street2" label="Street 2" title="Building Name" value={street2} required onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="street3" label="Street 3" title="Landmark" value={street3} onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="street4" label="Street 4" title="Colony Name" value={street4} onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="street5" label="Street 5" title="Road Name" value={street5} onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="flat" label="Flat" value={flat} required onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="city" label="City" value={city} required onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    
+                    <!-- Row 4 -->
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="othercity" label="Other City" title="Area" value={othercity} onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="district" label="District" title="Location" value={district} required onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input pattern="[0-9]*" message-when-pattern-mismatch="Only digits allowed" maxlength="6" name="postalCode" label="Postal Code" title="Pin Code" value={postalCode} required onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="country" label="Country" value={country} onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="timeZone" label="Time Zone" value={timeZone} onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="region" label="Region" value={region} required onchange={handleLeadInputChange}></lightning-input>
+                    </div>
+                     <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="Name & No of Wings" label="Name & No of Wings" value={nameandNoofWings} onchange={handleLead1InputChange}></lightning-input>
+                    </div>
+                      <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="Potential In Each Wing" label="Potential In Each Wing" value={potentialInEachWing} onchange={handleLead1InputChange}></lightning-input>
+                    </div>
+                     <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="Total Nos Of Floor" label="Total Nos Of Floor" value={totalNosOfFloor} onchange={handleLead1InputChange}></lightning-input>
+                    </div>
+                      <div class="slds-col slds-size_1-of-6">
+                        <lightning-input name="Plot No" label="Plot No" value={plotNo} onchange={handleLead1InputChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-combobox
+                            name="gaField"
+                            label="GA"
+                            value={selectedGA}
+                            placeholder="Select GA"
+                            options={gaOptions}
+                            required
+                            onchange={handleGAChange}>
+                        </lightning-combobox>
+                    </div>
+                    
+                    <!-- Create Lead Button -->
+                    <div class="slds-col slds-size_1-of-6 slds-align-bottom slds-p-top_medium slds-col_bump-left">
+                        <lightning-button variant="brand" label="Create Lead" onclick={handleCreateLead} style="margin-left: 134px;"></lightning-button>
+                    </div>
+                </div>
+                  </template>
+                </template>
+
+                <!-- Prospect (Lead) Section -->
+                <template if:true={isProspect}>
+                    <div class="no-scrollbar">
+                        <div class="slds-grid slds-nowrap slds-p-around_small slds-border_bottom" style="min-width: 2500px;">
+                            <!-- Lead Search Fields -->
+                            <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                <lightning-input pattern="[A-Za-z]*" message-when-pattern-mismatch="Only Aphabets allowed" label="First Name" name="leadFirstName" value={leadFirstName} onchange={handleLeadInputChange} onkeyup={handleKeyUp}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                <lightning-input pattern="[A-Za-z]*" message-when-pattern-mismatch="Only Aphabets allowed" label="Last Name" name="leadLastName" value={leadLastName} onchange={handleLeadInputChange} onkeyup={handleKeyUp}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                <lightning-input label="Prospect Number" name="leadProspect" value={leadProspect} onchange={handleLeadInputChange} onkeyup={handleKeyUp}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                <lightning-input pattern="[0-9]{10}" label="Phone" name="leadPhone" value={leadPhone} onchange={handleLeadInputChange} onkeyup={handleKeyUp}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                <lightning-input pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}" type="email" label="Email" name="leadEmail" value={leadEmail} onchange={handleLeadInputChange} onkeyup={handleKeyUp}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                <lightning-input pattern="[0-9]*" message-when-pattern-mismatch="Only digits allowed" maxlength="6" label="Postal Code" name="leadPostalCode" value={leadPostalCode} onchange={handleLeadInputChange} onkeyup={handleKeyUp}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                <lightning-input label="City" name="leadCity" value={leadCity} onchange={handleLeadInputChange} onkeyup={handleKeyUp}></lightning-input>
+                            </div>
+                            <div class="slds-col slds-m-right_small" style="width: 250px;">
+                                <lightning-input label="Street" name="leadStreet" value={leadStreet} onchange={handleLeadInputChange} onkeyup={handleKeyUp}></lightning-input>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="slds-m-top_small slds-m-bottom_medium slds-p-horizontal_x-small">
+                        <div class="slds-grid slds-gutters_xx-small slds-grid_align-end">
+                            <div>
+                                <lightning-button 
+                                    variant="brand" 
+                                    label="Search" 
+                                    size="small" 
+                                    onclick={handleLeadSearchClick}
+                                    >
+                                </lightning-button>
+                            </div>
+                            <div class="slds-m-left_xx-small" style="margin-right: 20px;">
+                                <lightning-button 
+                                    variant="neutral" 
+                                    label="Clear" 
+                                    size="small" 
+                                    onclick={handleLeadClearClick}>
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <template if:true={leadNoResults}>
+                        <div class="slds-text-color_error slds-text-body_small slds-m-top_small">No record Matches</div>
+                    </template>
+                </template>
+            </div>
+        </div>
+    </lightning-card>
+
+    <br>
+    
+    <!-- Customer Results Table -->
+    <template if:true={isCustomer}>
+        <template if:true={showtable}>
+            <template if:true={hasAccounts}>
+                <lightning-card>
+                    <div class="slds-scrollable_x" style="overflow-x: auto; width: 100%;">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-table_fixed-layout" 
+                               style="min-width: 3000px; border-collapse: separate; border-spacing: 0;">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col" style="padding: 0.75rem; min-width: 120px;"><div class="slds-truncate" title="First Name">First Name</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 120px;"><div class="slds-truncate" title="Last Name">Last Name</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 140px;"><div class="slds-truncate" title="BP Number">BP Number</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 160px;"><div class="slds-truncate" title="Connection Object">Connection Name</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 140px;"><div class="slds-truncate" title="Application Number">Application No.</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 140px;"><div class="slds-truncate" title="CA Number">CA Number</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 140px;"><div class="slds-truncate" title="Phone">Phone</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 80px;"><div class="slds-truncate" title="Room">Room</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 180px;"><div class="slds-truncate" title="Building Name">Building Name</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 200px;"><div class="slds-truncate" title="Email">Email</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 120px;"><div class="slds-truncate" title="Postal Code">Postal Code</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 140px;"><div class="slds-truncate" title="City">City</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 200px;"><div class="slds-truncate" title="Street">Street</div></th>                  
+                                    <th scope="col" style="padding: 0.75rem; min-width: 80px;"><div class="slds-truncate" title="Floor">Floor</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 140px;"><div class="slds-truncate" title="Project Area">Project Area</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 140px;"><div class="slds-truncate" title="Con.Obj Status">Con.Obj Status</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 180px;"><div class="slds-truncate" title="Marketing BP Status">Marketing BP Status</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 150px;"><div class="slds-truncate" title="Search Term 1">Search Term 1</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 140px;"><div class="slds-truncate" title="Move-In Date">Move-In Date</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 140px;"><div class="slds-truncate" title="Move-Out Date">Move-Out Date</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 250px;"><div class="slds-truncate" title="Full Street">Full Street</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 140px;"><div class="slds-truncate" title="Region Name">Region Name</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 120px;"><div class="slds-truncate" title="Region">Region</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 120px;"><div class="slds-truncate" title="Country">Country</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 120px;"><div class="slds-truncate" title="Country Code">Country Code</div></th>
+                                    <th scope="col" style="padding: 0.75rem; min-width: 150px;"><div class="slds-truncate" title="City (Connection)">City (Connection)</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={accounts} for:item="acc">
+                                    <tr key={acc.Id} data-key={acc.Id} data-bp={acc.BP_Number__c} onclick={handleRecordClick} style="cursor:pointer;">
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.FirstName__c}>{acc.FirstName__c}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.LastName__c}>{acc.LastName__c}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.BP_Number__c}>{acc.BP_Number__c}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.Connection_Object__c}>{acc.Connection_Object__c}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.applicationNumber}>{acc.applicationNumber}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.CA_Number__c}>{acc.CA_Number__c}</div></td>
+                                        <td style="padding: 0.75rem;">
+                                            <div class="slds-truncate" title={acc.Phone}>
+                                                <div class="click-to-call" style="color: #0070d2; text-decoration: underline; cursor: pointer;" data-phone={acc.Phone} data-id ={acc.Id} onclick={handleClickToCall}>
+                                                    <lightning-icon icon-name="utility:call" alternative-text="Call" size="x-small" class="slds-m-right_xx-small" title="Call"></lightning-icon>
+                                                    {acc.Phone}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.Room__c}>{acc.Room__c}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.Building_Name_Conn__c}>{acc.Building_Name_Conn__c}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.Account_Email__c}>{acc.Account_Email__c}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.Postal_Code__c}>{acc.Postal_Code__c}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.City__c}>{acc.City__c}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.Street__c}>{acc.Street__c}</div></td>                                 
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.Floor__c}>{acc.Floor__c}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.projectArea}>{acc.projectArea}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.connectionStatus}>{acc.connectionStatus}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.marketingBPStatus}>{acc.marketingBPStatus}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.searchTerm1}>{acc.searchTerm1}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.moveInDate}>{acc.moveInDate}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.moveOutDate}>{acc.moveOutDate}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.fullAccountStreet}>{acc.fullAccountStreet}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.regionName}>{acc.regionName}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.region}>{acc.region}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.country}>{acc.country}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.countryCode}>{acc.countryCode}</div></td>
+                                        <td style="padding: 0.75rem;"><div class="slds-truncate" title={acc.cityConnection}>{acc.cityConnection}</div></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-card>
+            </template>
+        </template>
+    </template>
+
+    <!-- Prospect Results Table -->
+    <template if:true={isProspect}>
+        <template if:true={leadShowTable}>
+            <template if:true={hasLeads}>
+                <lightning-card>
+                    <div class="no-scrollbar">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-table_fixed-layout" style="min-width: 1800px;">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate" title="First Name">First Name</div></th>
+                                    <th scope="col"><div class="slds-truncate" title="Last Name">Last Name</div></th>
+                                    <th scope="col"><div class="slds-truncate" title="Last Name">Prospect Number</div></th>
+                                    <th scope="col"><div class="slds-truncate" title="Phone">Phone</div></th>
+                                    <th scope="col"><div class="slds-truncate" title="Email">Email</div></th>
+                                    <th scope="col"><div class="slds-truncate" title="Postal Code">Postal Code</div></th>
+                                    <th scope="col"><div class="slds-truncate" title="City">City</div></th>
+                                    <th scope="col"><div class="slds-truncate" title="Street">Street</div></th>
+                                    <th scope="col"><div class="slds-truncate" title="Building Name">Building Name</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={leads} for:item="lead">
+                                    <tr key={lead.Id} data-key={lead.Id} onclick={handleLeadRecordClick} style="cursor:pointer;">
+                                        <td><div class="slds-truncate" title={lead.FirstName}>{lead.FirstName}</div></td>
+                                        <td><div class="slds-truncate" title={lead.LastName}>{lead.LastName}</div></td>
+                                        <td><div class="slds-truncate" title={lead.Lead_No__c}>{lead.Lead_No__c}</div></td>
+                                        <td>
+                                            <div class="slds-truncate" title={lead.Phone}>
+                                                <div
+                                                    class="click-to-call"
+                                                    style="color: #0070d2; text-decoration: underline; cursor: pointer;"
+                                                    data-phone={lead.Phone} data-id={lead.Id}
+                                                    onclick={handleLeadClickToCall}
+                                                >
+                                                    <lightning-icon 
+                                                        icon-name="utility:call" 
+                                                        alternative-text="Call" 
+                                                        size="x-small"
+                                                        class="slds-m-right_xx-small"
+                                                        title="Call">
+                                                    </lightning-icon>
+                                                    {lead.Phone}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><div class="slds-truncate" title={lead.Email}>{lead.Email}</div></td>
+                                        <td><div class="slds-truncate" title={lead.Postal_Code__c}>{lead.Postal_Code__c}</div></td>
+                                        <td><div class="slds-truncate" title={lead.City__c}>{lead.City__c}</div></td>
+                                        <td><div class="slds-truncate" title={lead.fullStreet}>{lead.fullStreet}</div></td>
+                                        <td><div class="slds-truncate" title={lead.Building_Name__c}>{lead.Building_Name__c}</div></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-card>
+            </template>
+        </template>
+    </template>
+</template>

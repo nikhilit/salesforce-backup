@@ -1,0 +1,63 @@
+.spinner-message::after {
+    position: absolute;
+    content: var(--spinner-text, 'Please Wait...');
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 2em);
+    font-weight: 600;
+}
+
+.account-container {
+    background-color: #fdfdfd;
+}
+
+.section {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #d8dde6;
+    border-radius: 6px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1b5297;
+    margin-bottom: 0.75rem;
+    border-left: 4px solid #1b96ff;
+    padding-left: 0.5rem;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.label {
+    font-weight: bold;
+    color: #333;
+    flex: 1;
+}
+
+.value {
+    color: #555;
+    flex: 2;
+    text-align: right;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.footer-section{
+    padding-bottom: 20px;
+}
+
+.footer-section-extra{
+    padding-bottom: 44px;
+}

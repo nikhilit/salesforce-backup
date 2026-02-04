@@ -1,0 +1,47 @@
+<!-- agencySelectorForOM.html -->
+<template>
+    <div class="slds-box slds-theme_default">
+
+        <template if:false={isAssigned}>
+            <!-- Agency Dropdown -->
+            <lightning-combobox
+                name="agencySelect"
+                label="Select Agency"
+                value={selectedAgencyId}
+                options={agencyOptions}
+                onchange={handleChange}
+                placeholder="-- Select an Agency --"
+                class="slds-m-bottom_medium">
+            </lightning-combobox>
+
+            <!-- Work Orders Table -->
+            <lightning-datatable
+    key-field="Id"
+    data={workOrderData}
+    columns={columns}
+    onrowselection={handleRowSelection}>
+</lightning-datatable>
+
+
+            <!-- Assign Button -->
+            <template if:true={agencyOptions.length}>
+                <lightning-button
+                    label="Assign Agency"
+                    onclick={handleAssign}
+                    class="slds-m-top_medium">
+                </lightning-button>
+            </template>
+
+            <template if:false={agencyOptions.length}>
+                <p class="slds-text-color_error slds-m-top_medium">No agencies available.</p>
+            </template>
+        </template>
+
+        <!-- Success Message -->
+        <template if:true={isAssigned}>
+            <div class="slds-text-color_success slds-m-top_medium">
+                ✅ Work Orders assigned successfully.
+            </div>
+        </template>
+    </div>
+</template>

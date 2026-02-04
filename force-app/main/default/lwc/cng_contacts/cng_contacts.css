@@ -1,0 +1,32 @@
+.section {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #16325c;
+    margin-bottom: 0.75rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 0.75rem;
+    column-gap: 2rem;
+}
+
+.item {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.label {
+    font-weight: 600;
+    color: #3e3e3c;
+}
+
+.value {
+    color: #444;
+}

@@ -1,0 +1,57 @@
+<template>
+
+  
+
+
+               <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+        <lightning-card class="slds-card" >
+
+                <div class="slds-p-around_medium" style="margin-top:-2.5rem;">
+
+
+
+                    <template if:true={showMaintenanceEntry} >
+
+                        <!-- <c-o_-m-riser-execution-details-comp record-id={recordId} oncancel={handleCancel}></c-o_-m-riser-execution-details-comp> -->
+                        <c-co-execution-details-riser-maintenance record-id={recordId} oncancel={handleCancel}></c-co-execution-details-riser-maintenance> 
+
+
+                    </template>
+
+
+                      <template if:true={riserReplacementForm}>
+
+                        <!--Need to create same like painting and maintenance -->
+                     <!-- <c-riser-replacement-form record-id={recordId} oncancel={handleCancel}></c-riser-replacement-form> -->
+
+                    <c-co-execution-details-riser-replacement-comp record-id={recordId} oncancel={handleCancel}> </c-co-execution-details-riser-replacement-comp>
+
+                    </template>
+
+                     <template if:true={riserPaintingCOExecution}>
+
+
+                     <!-- <c-riser-painting-c-o-execution-details-comp record-id={recordId} oncancel={handleCancel}></c-riser-painting-c-o-execution-details-comp> -->
+                       
+                         <!-- <c-co-execution-details-riser-painting-u-i-change record-id={recordId} oncancel={handleCancel}></c-co-execution-details-riser-painting-u-i-change>  -->
+
+                         <c-co-execution-details-riser-painting-comp record-id={recordId} oncancel={handleCancel}></c-co-execution-details-riser-painting-comp> 
+
+
+                    </template>
+
+                     
+
+                    
+                
+
+                </div>
+
+            </lightning-card>
+
+
+
+</template>

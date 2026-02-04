@@ -1,0 +1,26 @@
+<template>
+    <lightning-card title="Cancel Receipt" class="slds-p-around_medium">
+
+        <div class="slds-p-around_small">
+            <lightning-combobox
+                name="cancelReason"
+                label="Cancel Reason"
+                value={value}
+                options={options}
+                onchange={handleChange}
+                class="slds-m-bottom_medium">
+            </lightning-combobox>
+        </div>
+
+        <div slot="footer" class="slds-text-align_right">
+            <lightning-button 
+                label="Submit" 
+                title="Submit"
+                onclick={handleClick}
+                disabled={disableSubmit}
+                class="slds-m-left_x-small">
+            </lightning-button>
+        </div>
+
+    </lightning-card>
+</template>

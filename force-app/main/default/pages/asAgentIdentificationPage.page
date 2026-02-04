@@ -1,0 +1,21 @@
+<apex:page standardStylesheets="true" showHeader="false">
+    
+    <apex:includeLightning />    
+    
+    <div id="LwcId" />
+    
+    <script>
+        const queryString = window.location.search; // Returns "?id=shirt&color=blue"
+        const urlParams = new URLSearchParams(queryString);
+        const idValue = urlParams.get('id'); // Returns "shirt"
+       
+        $Lightning.use("c:asAgentIdentificationAura", function() {
+            $Lightning.createComponent("c:asVerifyAgentDetails",
+            {recordId : idValue},
+            "LwcId", // the Id of div tag where your component will be rendered
+            function(cmp) {
+                console.log('Calling the LWC Component');
+            });
+        });
+    </script>
+</apex:page>

@@ -1,0 +1,71 @@
+<template>
+    <lightning-card title="Documents Review" icon-name="standard:document">
+        <div class="slds-m-around_medium">
+            <template if:true={hasDocuments}>
+                <template for:each={documents} for:item="doc">
+                    <div key={doc.ContentDocumentId} class="file-row">
+                        <a class="file-link"
+                           data-id={doc.ContentDocumentId}
+                           onclick={openPreview}>
+                            {doc.Title}
+                        </a>
+                    </div>
+                </template>
+            </template>
+
+            <template if:false={hasDocuments}>
+                <p class="slds-text-color_weak">No documents found.</p>
+            </template>
+        </div>
+    </lightning-card>
+
+    <!-- Modal -->
+    <template if:true={showPreviewModal}>
+        <section class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container modal-custom">
+
+                <!-- Toolbar with rotate buttons -->
+                <div class="preview-toolbar">
+                    <div class="toolbar-left">
+                        <button class="circle-btn" onclick={rotateLeft} title="Rotate Left">↺</button>
+                        <button class="circle-btn" onclick={rotateRight} title="Rotate Right">↻</button>
+                    </div>
+                    <button class="circle-btn close" onclick={closePreview} title="Close">✕</button>
+                </div>
+
+                <!-- Preview Area -->
+                <div class="preview-body">
+                    <!-- Scrollable container -->
+                    <div class="scrollable-outer" style={scrollContainerStyle}>
+                        <!-- Main container for ALL content -->
+                        <div class="content-container" style={contentContainerStyle}>
+                            
+                            <!-- For images -->
+                            <template if:true={isImage}>
+                                <img src={previewUrl} 
+                                     class="preview-content"
+                                     style={contentStyle}
+                                     alt={currentDocumentTitle}
+                                     onload={handleImageLoad}/>
+                            </template>
+                            
+                            <!-- For PDFs and other files -->
+                            <template if:false={isImage}>
+                                <iframe src={previewUrl} 
+                                        class="preview-content"
+                                        style={contentStyle}
+                                        sandbox="allow-scripts allow-same-origin"
+                                        title={currentDocumentTitle}
+                                        onload={handleIframeLoad}>
+                                </iframe>
+                            </template>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

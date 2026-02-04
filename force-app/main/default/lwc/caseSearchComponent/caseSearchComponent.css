@@ -1,0 +1,115 @@
+/* .square-input lightning-input .slds-input {
+    border-radius: 0 !important; /* Makes the input square */
+/* }
+.custom-radio {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio-option input[type="radio"] {
+    margin-right: 0.5rem;
+} */
+/* yourComponentName.css */
+ /* .horizontal-radio .slds-radio_button-group {
+        display: flex;
+        flex-direction: row;
+    } */ 
+    /* Align all table headers to the center */
+th {
+    text-align: center; /* Centers text within all <th> elements */
+}
+
+    .custom-radio-group {
+    display: flex;
+    gap: 20px; /* Optional: Adjusts the space between the buttons */
+}
+.field-with-border {
+    border-right: 1px solid #d2d1d1; /* Darker and thicker vertical separator */
+    padding-right: 2px;
+}
+input::placeholder {
+    color: #d2d1d1; /* Darker gray placeholder text */
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+}
+
+.slds-radio__button {
+    display: none;
+}
+
+.slds-radio_faux {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.slds-radio_faux::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #0070d2;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.slds-radio__button:checked + .slds-radio_faux::before {
+    background-color: #0070d2;
+    border-color: #0070d2;
+}
+
+.slds-radio__button:checked + .slds-radio_faux::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: white;
+}
+.no-border-input {
+    border: none;
+    outline: none;
+    
+    font-weight: bold; /* make text bold */
+    font-size: 1rem;
+  
+    width: 90%;
+}
+
+.custom-input {
+    margin-bottom: 6px;
+}
+
+
+
+/* .input-no-border {
+    --lwc-shadowButtonFocus: 0;
+    --lwc-borderWidthThin: 0;
+    --slds-c-input-shadow-focus: 0;
+    --sds-c-input-shadow-focus: 0;
+} */
+.slds-border_bottom{
+    margin-left: 1px;
+    margin-right:1px;
+    width:100%;
+   
+}
+
+/* .sicxe{
+    margin-right: 1px;
+} */

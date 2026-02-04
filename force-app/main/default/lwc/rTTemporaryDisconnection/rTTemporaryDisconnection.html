@@ -1,0 +1,38 @@
+<!--
+  @description       : 
+  @author            : Shashank.shekhar@appstrail.com
+  @group             : 
+  @last modified on  : 07-12-2025
+  @last modified by  : Shashank.shekhar@appstrail.com
+-->
+<template>
+
+    <template if:true={load}>
+        <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+    </template>
+    
+    <div class="slds-box slds-theme_default">
+        <!-- First Image Upload -->
+        <div class="slds-m-bottom_medium">
+            <c-r-t-camer-uploadcomp image-list={photoUploadSlots} onchange={handleFile}></c-r-t-camer-uploadcomp>
+        </div>
+
+        <!-- Remarks Text Area -->
+        <lightning-textarea 
+            name="remarks" 
+            label="Remarks" 
+            value={remarks} 
+            onchange={handleRemarksChange}
+            placeholder="Enter your remarks here">
+        </lightning-textarea>
+
+        <!-- Save Button -->
+        <div class="slds-m-top_medium slds-align_absolute-center">
+            <lightning-button 
+                variant="brand" 
+                label="Save" 
+                onclick={handleFinalSave}>
+            </lightning-button>
+        </div>
+    </div>
+</template>

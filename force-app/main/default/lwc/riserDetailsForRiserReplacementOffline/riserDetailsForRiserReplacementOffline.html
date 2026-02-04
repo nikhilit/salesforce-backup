@@ -1,0 +1,679 @@
+<template>
+
+<lightning-card>
+
+     <div class="slds-grid slds-wrap">
+
+          <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+                     <!-- <h2>{workOrderLineItemName}</h2>    -->
+
+                               <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+        <p class="slds-text-heading_small">
+            {workOrderLineItemName}
+        </p>
+    </div>
+
+<template if:true={isStep1}>
+
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                                <div>
+                                    
+                                    <!-- <c-o_-m-camera-upload-comp image-list={preInstallationPhotoUploadSlots} onchange={handlePreInstallationPhotoFile}>
+                                    </c-o_-m-camera-upload-comp> -->
+
+                                     <p style=" margin-bottom:1.2rem;"><b>Pre Installation</b></p>
+                             <lightning-input type="file" name="fileUploader" label="Select files to upload"
+                              accept="image/*" onchange={handleFilePreInstallation}>
+            
+                </lightning-input>
+
+                      <div if:true={fileNamePreInstallation}>
+                      <p>Selected file: {fileNamePreInstallation}</p>
+                        </div>
+                                </div>
+
+                            </div>
+
+
+
+                         
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Riser Fabrication"
+                               checked={gIpipefabrication} onchange={handleCheckBoxChange}>
+                                </lightning-input>                                
+                                 
+                            </div>    
+
+                 <template if:true={showGiPipeFabricationLength}>    
+
+                      <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+ 
+                 <lightning-input label="GI pipe fabrication length" name="giPipeFabricationlength" type="number"
+                    value={riserReplacement.giPipeFabricationlength}  onchange={handleRiserReplacementDetailChange}>
+                </lightning-input>
+
+                                            </div>
+             <div class="slds-col slds-size_1-of-1">
+                               
+                                <div>
+                                    <!-- <c-o_-m-camera-upload-comp image-list={giPipeFabricationPhotoUploadSlots} onchange={handleGiPipeFabricationPhotoFile}>
+                                    </c-o_-m-camera-upload-comp> -->
+
+                                      <p style=" margin-bottom:1.2rem;"><b>Riser Fabrication</b></p>
+                             <lightning-input type="file" name="fileUploader" label="Select files to upload"
+                              accept="image/*" onchange={handleFileRiserFabrication}>
+            
+                </lightning-input>
+
+                      <div if:true={fileNameRiserFabrication}>
+                      <p>Selected file: {fileNameRiserFabrication}</p>
+                        </div>
+                                </div>
+
+                 </div>     
+
+                            </template>
+
+
+                    <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Riser Erection"
+                               checked={gIPipeErection} onchange={handleCheckBoxChange}>
+                                </lightning-input>                                
+                                 
+                            </div>    
+         
+
+
+                 <template if:true={showGiPipeErection}>
+
+          <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+
+        <lightning-input label="GI pipe erection length" name="gipipeerectionlength" type="number"
+                    value={riserReplacement.gipipeerectionlength}  onchange={handleRiserReplacementDetailChange}>
+                </lightning-input>
+
+          </div>
+
+                    <div class="slds-col slds-size_1-of-1">
+                               
+                                <div>
+                                    <!-- <c-o_-m-camera-upload-comp image-list={giPipeErectionPhotoUploadSlots} onchange={handleGiPipeErectionPhotoFile}>
+                                    </c-o_-m-camera-upload-comp> -->
+                                      <p style=" margin-bottom:1.2rem;"><b>Riser Erection</b></p>
+                             <lightning-input type="file" name="fileUploader" label="Select files to upload"
+                              accept="image/*" onchange={handleFileRiserErection}>
+            
+                </lightning-input>
+
+                      <div if:true={fileNameRiserErection}>
+                      <p>Selected file: {fileNameRiserErection}</p>
+                        </div>
+                                </div>
+
+                 </div>     
+
+                 </template>  
+
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Riser Testing"
+                               checked={riserTesting} onchange={handleCheckBoxChange}>
+                                </lightning-input>                                
+                                 
+                            </div>    
+
+                        <template if:true={showNoOfLeakages}>
+
+                         <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                              <lightning-input type="text" label="Length of Riser Tested" name="lengthofRiserTested"  value={riserReplacement.lengthofRiserTested}
+                                    onchange={handleRiserReplacementDetailChange}  ></lightning-input>
+
+                         </div>
+                         <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+               <lightning-combobox label="Number of Leakage" name="numberofleakage"
+                                    value={riserReplacement.numberofleakage} options={numberofLeakagesOptions}
+                                    onchange={handleRiserReplacementDetailChange} >
+                                </lightning-combobox>
+          
+        </div>
+
+
+         <template if:true={riserReplacement.leakLocationList}>
+                 <template for:each={riserReplacement.leakLocationList} for:item="leak" for:index="index">
+                <div key={leak.id} class="slds-box slds-m-bottom_small slds-size_1-of-1">
+                                 <lightning-input type="text" label={leak.label}  value={leak.value}
+                                    onchange={handleRiserReplacementDetailChange}  ></lightning-input> 
+
+                                  
+                                                  
+              </div>
+               </template>
+         </template>
+
+            <!-- <template if:true={showLeakLocationsFields}>
+                         <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+               <lightning-input type="text" label="Leakage location 1"  value={leakLocation1}
+                                    onchange={handleRiserDetailChange}  ></lightning-input>
+                         </div>
+                         <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+             <lightning-input type="text" label="Leakage location 2"  value={leakLocation2}
+                                    onchange={handleRiserDetailChange}  ></lightning-input> 
+                         </div>
+
+            </template> -->
+
+        <!-- <template if:true={leakagelocations}>
+                 <template for:each={leakagelocations} for:item="leak" for:index="index">
+                <div key={leak.index} class="slds-box slds-m-bottom_small slds-size_1-of-1">
+                                 <lightning-input type="text" label={leak.label}  value={leak.value}
+                                    onchange={handleRiserDetailChange}  ></lightning-input> 
+                                                  
+              </div>
+               </template>
+            </template>  -->
+
+        <!-- <template if:true={currentRiserDetail.numberOfleakage}>
+                     <template for:each={currentRiserDetail.leakagelocations} for:item="leakLocation" for:index="index">
+                <div key={leakLocation.index} class="slds-box slds-m-bottom_small slds-size_1-of-1">
+                                 <lightning-input type="text" label={leakLocation.label}  value={handleRiserDetailChange.value}
+                                    onchange={handleRiserDetailChange}  ></lightning-input> 
+              </div>
+               </template>
+            </template>  -->
+
+                        </template>
+
+
+       <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Riser Testing and Commissioning"
+                               checked={riserTestingandCommissioning} onchange={handleCheckBoxChange}>
+                                </lightning-input>                                
+                                 
+                            </div>  
+
+             <template if:true={showRiserTestingAndCommissioning}>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+
+        <lightning-input label="Length of Riser Commissioned" name="lengthofRiserCommissioned" type="text"
+                    value={riserReplacement.lengthofRiserCommissioned}  onchange={handleRiserReplacementDetailChange}>
+                </lightning-input>
+
+          </div>
+
+                    <div class="slds-col slds-size_1-of-1">
+                               
+                                <div>
+                                    <!-- <c-o_-m-camera-upload-comp image-list={lengthOfPipelineCommissionedPhotoUploadSlots} onchange={handlelengthOfPipelineCommissionedPhotoFile}>
+                                    </c-o_-m-camera-upload-comp> -->
+                                        <p style=" margin-bottom:1.2rem;"><b>Pipeline Commissioned</b></p>
+                             <lightning-input type="file" name="fileUploader" label="Select files to upload"
+                              accept="image/*" onchange={handleFilePipelineCommissioned}>
+            
+                </lightning-input>
+
+                      <div if:true={fileNamePipelineCommissioned}>
+                      <p>Selected file: {fileNamePipelineCommissioned}</p>
+                        </div>
+                                </div>
+                 </div>    
+             </template>   
+</template>
+                  <!--material consumption ---->
+<template if:true={isStep2}>
+        <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+    <h3 class="slds-text-heading_small slds-m-bottom_small">Material Consumption Report</h3>
+
+    <template for:each={materialList} for:item="material" for:index="index">
+        <div key={material.rowNumber} class="slds-box slds-m-bottom_small">
+
+            <div class="slds-grid slds-wrap slds-gutters">
+               
+                <div class="slds-col slds-size_1-of-1">
+                 
+                     <lightning-input type="search" 
+                            label="Item Description"
+                            data-rownumber={material.rowNumber}
+                            value={material.itemDescription}
+                            placeholder="Type to search..."
+                            onchange={handleKeyChange}>
+                        </lightning-input>
+
+                        <template if:true={material.showDropdown}>
+                            <div class="slds-box slds-m-top_x-small slds-scrollable_y" style="max-height:200px;">
+                                <template for:each={material.filteredMaterials} for:item="mat">
+                                    <div key={mat.code}
+                                        class="slds-p-around_x-small slds-border_bottom hoverable"
+                                        data-code={mat.code}
+                                        data-description={mat.description}
+                                        data-rownumber={material.rowNumber}
+                                        onclick={handleSelect}>
+                                        {mat.description}
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1">
+                                
+                        <lightning-input label="Item Code" value={material.itemCode} disabled></lightning-input>
+
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Quantity" name="quantity" type="number" data-rownumber={material.rowNumber}
+                        value={material.quantity} onchange={handleMaterialChange}>
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-2 slds-text-align_right" style="margin-top:24px;">
+                    <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove"
+                        data-rownumber={material.rowNumber} onclick={removeMaterialRow} class="slds-m-top_small">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <lightning-button icon-name="utility:add" label="Add Material" onclick={addMaterialRow}
+        class="slds-m-top_medium">
+    </lightning-button>    
+
+
+        </div>       -->
+         
+<div class="slds-col slds-size_1-of-1 slds-p-around_small">
+        <h3 class="slds-text-heading_small slds-m-bottom_small">
+            Material Consumption Report
+        </h3>
+    <template if:true={hasMaterials}>
+        <template for:each={materialList} for:item="mat">
+            <div key={mat.rowNumber}
+                 class="slds-box slds-m-bottom_small">
+<div class="slds-grid slds-grid_vertical">
+<div class="slds-col"><span>
+    <div class="slds-grid slds-truncate">
+<div><span class="slds-truncate">{mat.itemDescription}</span></div>
+</div>
+</span></div>
+<div class="slds-col"><span>
+    <div class="slds-grid slds-truncate">
+<div><span class="slds-truncate">{mat.itemCode}</span></div>
+</div>
+</span></div>
+<div class="slds-col"><span>
+    <div class="slds-grid">
+<div><span> Qty : {mat.quantity}
+    </span></div>
+<div><span> </span></div>
+
+<div class="slds-col_bump-left"><span>
+    <lightning-button-icon size='x-small'
+                        icon-name="utility:delete" 
+                        alternative-text="Delete"
+                        data-rownumber={mat.rowNumber}
+                        onclick={removeMaterialRow}>
+                    </lightning-button-icon>
+    </span></div>
+</div>
+    </span></div>
+</div>
+            
+            </div>
+        </template>
+    </template>
+        <div class="slds-align_absolute-center slds-m-top_medium">
+             <lightning-button icon-name="utility:add" label="Add Material" onclick={openPopup}
+        class="slds-m-top_medium">
+    </lightning-button>
+
+        </div>
+
+    </div>
+
+
+         <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Old Riser Removed"
+                               checked={oldRiserRemoved} onchange={handleCheckBoxChange}>
+                                </lightning-input>                                
+                                 
+                            </div>  
+
+             <template if:true={showRiserLength}>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+
+        <lightning-input label="Riser Length" name="riserLength" type="text"
+                    value={riserReplacement.riserLength}  onchange={handleRiserReplacementDetailChange}>
+                </lightning-input>
+
+          </div>
+
+                    <div class="slds-col slds-size_1-of-1">
+                               
+                                <div>
+                            <p style=" margin-bottom:1.2rem;"><b>Post Replacement Picture</b></p>
+                             <lightning-input type="file" name="fileUploader" label="Select files to upload"
+                              accept="image/*" onchange={handlefilePostReplacementPicture}>
+            
+                </lightning-input>
+
+                      <div if:true={fileNamePostReplacementPicture}>
+                      <p>Selected file: {fileNamePostReplacementPicture}</p>
+                        </div>
+                                </div>
+                 </div>    
+             </template>   
+
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Riser Painting"
+                               checked={riserPainting} onchange={handleCheckBoxChange}>
+                                </lightning-input>                                
+                                 
+                            </div>  
+
+
+                <template if:true={showRiserPaintingRequired}>
+
+                    <div class="slds-col slds-size_1-of-1">
+
+                    <lightning-combobox label="Riser Painting" name="riserPainting" 
+                        value={riserReplacement.riserPainting} options={riserPaintingOptions}  
+
+                        onchange={handleRiserReplacementDetailChange}>
+                    </lightning-combobox>
+                </div>
+
+                     <div class="slds-col slds-size_1-of-1">
+
+                          <lightning-input label="Riser Painted Length" name="riserPaintedLength" type="text"
+                    value={riserReplacement.riserPaintedLength}  
+                    onchange={handleRiserReplacementDetailChange}>
+                </lightning-input>    
+
+                    </div>
+
+                </template>
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Clamp Installement"
+                               checked={clampReplacement} onchange={handleCheckBoxChange}>
+                                </lightning-input>                                
+                                 
+                            </div>  
+
+
+                            <template if:true={showClampReplacedQuantity}>
+
+                    <div class="slds-col slds-size_1-of-1">
+
+
+                 <lightning-input label="Number of Clamps Replaced" name="numberofClampstobeReplaced" type="text"
+                    value={riserReplacement.numberofClampstobeReplaced} onchange={handleRiserReplacementDetailChange}>
+                </lightning-input>
+                    </div>
+                         </template>
+                          <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Crimp Guard Replacement"
+                               checked={crimpGuardReplacement} onchange={handleCheckBoxChange}>
+                                </lightning-input>                                
+                                 
+                            </div>  
+
+
+                            <template if:true={showCrimpsReplacedQuantity}>
+
+                    <div class="slds-col slds-size_1-of-1">
+
+                <lightning-input label="Number of Crimp Guards Replaced" name="numberofCrimpGuardstobeReplaced" type="text"
+                    value={riserReplacement.numberofCrimpGuardstobeReplaced} onchange={handleRiserReplacementDetailChange}>
+                </lightning-input>
+                    </div>
+                            </template>
+  <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Lateral Replacement"
+                             checked={lateralReplacement} onchange={handleCheckBoxChange}>
+                                </lightning-input>                                
+                                 
+                            </div>  
+
+
+                            <template if:true={showLateralReplacementDone}>
+
+                    <div class="slds-col slds-size_1-of-1">
+
+
+            <lightning-input label="Number Of Lateral Replacements Done" name="numberOfLateralReplacementsDone" type="text"
+                    value={riserReplacement.numberOfLateralReplacementsDone} 
+                    onchange={handleRiserReplacementDetailChange}>
+                </lightning-input>
+
+                    </div>
+                    
+                         </template>
+</template>
+    <template if:true={isStep3}>
+                  <div class="slds-grid slds-wrap">
+
+
+                     <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="text" label="Test Pressure" name="testPressure"
+                                    value={riserReplacement.testPressure} onchange={handleRiserReplacementDetailChange} >
+                                </lightning-input>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="Text" label="Duration" name="duration"
+                                    value={riserReplacement.duration} onchange={handleRiserReplacementDetailChange} >
+                                </lightning-input>
+                            </div>
+
+                               <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+
+                             <lightning-combobox label="Riser Tested Status" name="riserTestedStatus"
+                                    value={riserReplacement.riserTestedStatus} options={riserTestedStatusOptions}
+                                    onchange={handleRiserReplacementDetailChange} >
+                                </lightning-combobox>
+
+                               </div>
+
+                                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="number" label="No of active customers" name="noofactivecustomers"
+                                    value={riserReplacement.noofactivecustomers} onchange={handleRiserReplacementDetailChange} >
+                                </lightning-input>
+                            </div>
+
+                             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="Text" label="Remark" name="remark"
+                                    value={riserReplacement.remark} onchange={handleRiserReplacementDetailChange} >
+                                </lightning-input>
+                            </div>
+
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Instrument Type & Range" name="instrumentTypeRange"
+                        value={riserReplacement.instrumentTypeRange} onchange={handleRiserReplacementDetailChange} ></lightning-input>
+                </div>
+
+                  <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Calibration Certificate No" name="calibrationCertificateNo"
+                        value={riserReplacement.calibrationCertificateNo} onchange={handleRiserReplacementDetailChange} >
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="Date" label="Calibration Date" name="calibrationDate" value={riserReplacement.calibrationDate}
+                        onchange={handleRiserReplacementDetailChange} ></lightning-input>
+                </div>
+
+               
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                  <lightning-input type="Date" label="Calibration Due Date" name="calibrationDueDate"
+                        value={riserReplacement.calibrationDueDate} onchange={handleRiserReplacementDetailChange} >
+                    </lightning-input>
+                </div> 
+
+                  <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Instrument Serial Number " name="instrumentSerialNumber"
+                        value={riserReplacement.instrumentSerialNumber} onchange={handleRiserReplacementDetailChange}></lightning-input>
+                </div>
+
+
+</div>     
+                 
+    </template>
+     </div>  
+
+      
+<div class="slds-m-top_medium slds-align_absolute-center">
+
+    <template if:true={isStep1}>
+        <lightning-button
+            label="Cancel"
+            variant="neutral"
+            onclick={handleBack}>
+        </lightning-button>
+
+        &nbsp;&nbsp;
+    </template>
+
+    <template if:false={isStep1}>
+        <lightning-button
+            label="Previous"
+            onclick={handlePrevious}>
+        </lightning-button>
+
+        &nbsp;&nbsp;
+    </template>
+
+    <template if:false={isStep3}>
+        <lightning-button
+            label="Next"
+            variant="brand"
+            onclick={handleNext}>
+        </lightning-button>
+    </template>
+
+    <template if:true={isStep3}>
+        
+        &nbsp;&nbsp;
+        <lightning-button
+            label="Save"
+            variant="brand"
+            onclick={handleSave}>
+        </lightning-button>
+    </template>
+
+</div>
+
+         <!-- <div style="margin-top:1rem; margin-left:5rem;">
+
+                    
+ <lightning-button label="Back" onclick={handleBack} variant="brand">
+                                    </lightning-button> &nbsp;&nbsp;
+
+
+ <lightning-button label="Save" onclick={handleSave} variant="brand">
+                                    </lightning-button>
+
+                </div>             -->
+
+</lightning-card>
+
+<template if:true={showPopup}>
+    <section role="dialog" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+
+            <!-- HEADER -->
+            <header class="slds-modal__header">
+                <h2 class="slds-text-heading_medium">Add Material</h2>
+            </header>
+
+            <!-- BODY -->
+            <div class="slds-modal__content slds-p-around_medium">
+
+                <!-- ITEM DESCRIPTION (SEARCH) -->
+                <div class="dropdown-container" style="position: relative;">
+    <lightning-input
+        type="search"
+        label="Item Description"
+        value={popupMaterial.itemDescription}
+        placeholder="Type to search..."
+        onchange={handlePopupKeyChange} required>
+    </lightning-input>
+
+    <!-- DROPDOWN -->
+    <template if:true={popupMaterial.showDropdown}>
+        <div class="dropdown slds-box slds-scrollable_y" style="position: absolute;
+    top: 100%;             
+    left: 0;
+    right: 0;
+    z-index: 9999;    
+    max-height: 200px;
+    background: white;
+    border: 1px solid #d8dde6;">
+            <template for:each={popupMaterial.filteredMaterials} for:item="mat">
+                <div key={mat.code}
+                    class="slds-p-around_x-small slds-border_bottom hoverable"
+                    data-code={mat.code}
+                    data-description={mat.description}
+                    onclick={handlePopupSelect}>
+                    {mat.description}
+                </div>
+            </template>
+        </div>
+    </template>
+</div>
+
+                <lightning-input
+                    label="Item Code"
+                    value={popupMaterial.itemCode}
+                    disabled>
+                </lightning-input>
+
+                <!-- QUANTITY -->
+                <lightning-input
+                    type="number"
+                    label="Quantity"
+                    value={popupMaterial.quantity}
+                    onchange={handlePopupQtyChange} required>
+                </lightning-input>
+
+            </div>
+
+            <!-- FOOTER -->
+            <footer class="slds-modal__footer">
+                <lightning-button label="Cancel" onclick={closePopup}></lightning-button>
+                &nbsp;&nbsp;
+                <lightning-button label="Save" variant="brand" onclick={saveMaterial}></lightning-button>
+            </footer>
+
+        </div>
+    </section>
+
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+
+</template>

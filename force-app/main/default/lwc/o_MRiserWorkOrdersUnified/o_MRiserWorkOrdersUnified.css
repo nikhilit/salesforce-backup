@@ -1,0 +1,269 @@
+/***************************************************
+ * DASHBOARD SECTION (Parent styles)
+ ***************************************************/
+.checkin-toggle {
+    position: relative;
+    top: -1px;
+    right: -6px;
+}
+
+.check-btn {
+    --slds-c-button-radius-border: 0.75rem;
+    --slds-c-button-line-height: 1.5rem;
+    font-size: 0.75rem;
+    padding: 0 0.6rem;
+    height: 1.8rem;
+}
+
+.disabled-dashboard {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.main-container {
+    background-color: #2683bd;
+}
+
+.greeting-card {
+    background-color: #2683bd;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 0;
+    margin: 0;
+    height: 160px;
+}
+
+.greeting-line {
+    font-weight: 400;
+    margin-bottom: 4px;
+}
+
+.greeting-line:nth-child(1),
+.greeting-line:nth-child(2) {
+    font-size: 20px;
+    color: #fff;
+}
+
+.greeting-line:nth-child(3),
+.greeting-line:nth-child(4) {
+    font-size: 12px;
+}
+
+.user-section {
+    height: 140px;
+}
+
+.user-name {
+    color: rgba(255, 255, 255, 0.655);
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.dashboard-wrapper {
+    height: 80vh;
+    background-color: white;
+}
+
+.header-section {
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 20px;
+    font-family: sans-serif;
+    padding: 15px 25px;
+}
+
+.dashboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: #fff;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 25px;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 0;
+    transition: background 0.2s ease;
+}
+
+.list-item:hover {
+    background: #f4f4f4;
+}
+
+.list-icon {
+    margin-right: 0.75rem;
+    --slds-c-icon-color-foreground-default: currentColor;
+}
+
+.list-label {
+    flex: 1;
+    font-weight: 500;
+    color: #333;
+    font-size: 15px;
+    font-family: sans-serif;
+}
+
+.list-count {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.blue-icon, .blue-text { color: #3366cc; }
+.amber-icon, .amber-text { color: #c19400; }
+.green-icon, .green-text { color: #2ecc71; }
+.red-icon, .red-text { color: #e74c3c; }
+
+.card {
+    padding: 10px;
+    border-radius: 15px;
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    background-color: #6EB1D6;
+    border-radius: 0.5rem;
+    box-shadow: 0px 2px 3px rgba(187, 187, 187, 0.8);
+}
+
+.card div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.card .icon-section {
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff42;
+    padding: 15px;
+}
+
+.card * {
+    text-wrap: nowrap;
+}
+
+.card strong {
+    font-size: 25px;
+}
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border-bottom: 1px solid #d8dde6;
+}
+
+.left-title, .right-title {
+    margin: 0 9px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/***************************************************
+ * WORK ORDER LIST SECTION (Child styles)
+ ***************************************************/
+.work-order-list-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.datatable-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Style the lightning-datatable */
+.work-order-datatable {
+    flex: 1;
+    min-height: 400px;
+}
+
+/* Ensure the datatable takes full available space */
+.work-order-datatable .slds-table {
+    min-height: 300px;
+}
+
+.work-order-datatable .slds-table td {
+    vertical-align: top;
+}
+
+/* Make sure the datatable container is properly sized */
+.slds-card__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+}
+
+.slds-card__body lightning-datatable {
+    flex: 1;
+}
+
+/* Header styling for work order list */
+.workorder-header-section {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 15px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/***************************************************
+ * RESPONSIVE & LAYOUT
+ ***************************************************/
+@media (max-width: 768px) {
+    .datatable-container {
+        margin: 0 -0.5rem;
+    }
+
+    .work-order-datatable {
+        font-size: 0.875rem;
+    }
+
+    .card strong {
+        font-size: 20px;
+    }
+
+    .list-item {
+        padding: 12px 16px;
+    }
+
+    .header-section {
+        padding: 10px 16px;
+        font-size: 18px;
+    }
+}
+
+/* Ensure proper scrolling for the datatable */
+.work-order-datatable ::slotted(table) {
+    min-width: 100%;
+}

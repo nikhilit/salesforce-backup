@@ -1,0 +1,80 @@
+<template>
+
+     <div class="slds-p-around_medium">
+        <lightning-combobox
+                name="activity"
+                label="Activity Name"
+                value={selectedActivity}
+                placeholder="Choose an activity"
+                options={activityOptions}
+                onchange={handleActivityChange}
+                required>
+            </lightning-combobox>
+
+        <lightning-input
+                type="datetime"
+                name="startDate"
+                label="Start Date"
+                value={selectedDateTime}
+                onchange={handleDateTimeChange} 
+                required>
+            </lightning-input>
+
+
+             <lightning-combobox
+            name="serviceTerritory"
+            label="Contractors"
+            value={selectedTerritory}
+            placeholder="Select a Contractor"
+            options={territoryOptions}
+            onchange={handleTerritoryChange}
+            required>
+        </lightning-combobox>
+         <lightning-combobox
+            name="workOrderNumber"
+            label="Contractor Work Order Number"
+            value={contractorWorkOrderNumber}
+            placeholder="Select a Work Order Number"
+            options={woNumberOptions}
+            onchange={handleWONumberChange}
+            required 
+           disabled={isWorkOrderDisabled}>
+
+        </lightning-combobox>
+
+         <lightning-input
+                type="text"
+                name="supervisorName"
+                label="Supervisor Name"
+                value={supervisorName}
+                onchange={handleSupervisorName} 
+                required>
+            </lightning-input>
+
+             <lightning-input
+                type="text"
+                name="plumberName"
+                label="Plumber Name"
+                value={plumberName}
+                onchange={handlePlumberName} 
+                required>
+            </lightning-input>
+
+           <div class="slds-m-top_medium" style="margin-left:5rem;">
+            <lightning-button variant="brand" label="Create Work Order" onclick={handleCreateWo}>
+            </lightning-button>
+            
+        </div>
+
+        <template if:true={isLoading}>
+                <div class="slds-m-top_medium">
+                    <lightning-spinner alternative-text="Processing"></lightning-spinner>
+                </div>
+            </template>
+    
+
+
+     </div>
+
+
+</template>

@@ -1,0 +1,59 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-around_medium">
+
+                 <template if:true={isLoading}>
+                <lightning-spinner
+                    alternative-text="Loading work orders"
+                    size="medium">
+                </lightning-spinner>
+            </template>
+            
+            <!-- Search Input -->
+            <lightning-input 
+                label="Search Connection" 
+                placeholder="Enter Connection"
+                value={searchKey} 
+                onchange={handleSearchChange}>
+            </lightning-input>
+
+            <!-- Search Results Table -->
+           <template if:true={connectionlist.length}>
+    <div class="slds-m-top_medium">
+        <template for:each={connectionlist} for:item="conn">
+            <div 
+                key={conn.Id}
+                class="connection-card slds-box slds-m-bottom_small"
+                data-id={conn.Id}
+                onclick={handleRowClick}
+            >
+                <div class="field name ">
+                    {conn.Name.value}
+                </div>
+
+                <div class="field building">
+                    Building Name:  {conn.Building_Name__c.value}
+                </div>
+
+                <div class="field address wrap-text">
+                    Address:  {conn.Address_1__c.value}
+                </div>
+                 <div class="field address wrap-text">
+                    Maintenance:  {conn.Maintenance_year__c.value}
+                </div>
+            </div>
+        </template>
+    </div>
+</template>
+
+
+            <template if:true={isSearching}>
+                <div class="slds-m-top_medium" style="text-align:center;padding: 15%;font-weight: bold;">Searching...</div>
+            </template>
+
+            <template if:true={noResults}>
+                <div class="slds-m-top_medium" style="text-align:center;padding: 15%;font-weight: bold;">No connections found.</div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

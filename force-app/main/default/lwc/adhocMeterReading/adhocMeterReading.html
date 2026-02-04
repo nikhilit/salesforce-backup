@@ -1,0 +1,78 @@
+<!--
+  @description       : 
+  @author            : Shashank.shekhar@appstrail.com
+  @group             : 
+  @last modified on  : 06-08-2025
+  @last modified by  : Kartik Patkar, Appstrail
+-->
+<template>
+    <lightning-card title="Create Ad-Hoc Appointment">
+        <div class="slds-p-around_medium">
+
+            <!-- Identification Type -->
+            <lightning-combobox
+                name="idType"
+                label="Customer Identification Type"
+                value={selectedIdentificationType}
+                options={identificationOptions}
+                onchange={handleIdTypeChange}>
+            </lightning-combobox>
+
+            <!-- Identification Value -->
+            <lightning-input
+                type="text"
+                label="Identification Value"
+                value={identificationValue}
+                data-id="idValue"
+                onchange={handleInputChange}>
+            </lightning-input>
+
+            <!-- Account Picker (works online/offline with Briefcase) -->
+            <lightning-record-picker
+                label="Customer (Account)"
+                placeholder="Search Account..."
+                object-api-name="Account"
+                fields="Name,Phone"
+                key={accountKey}
+                value={selectedAccountId}
+                filter={accountFilter}
+                onchange={handleAccountChange}>
+            </lightning-record-picker>
+
+            <!-- Phone Number -->
+            <lightning-input
+                type="tel"
+                label="Phone Number"
+                value={phoneNumber}
+                data-id="phone"
+                onchange={handleInputChange}>
+            </lightning-input>
+
+            <!-- Create Button -->
+            <div class="slds-grid slds-grid_align-center slds-m-top_medium">
+                <lightning-button
+                    label="Create Appointment"
+                    title="Submit"
+                    onclick={handleCreateAppointment}
+                    variant="success"
+                    disabled={isLoading}>
+                </lightning-button>
+            </div>
+
+            <!-- Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-is-relative slds-p-vertical_medium">
+                    <lightning-spinner alternative-text="Saving..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Messages -->
+            <template if:true={error}>
+                <div class="slds-text-color_error slds-m-top_medium">{error}</div>
+            </template>
+            <template if:true={successMessage}>
+                <div class="slds-text-color_success slds-m-top_medium">{successMessage}</div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

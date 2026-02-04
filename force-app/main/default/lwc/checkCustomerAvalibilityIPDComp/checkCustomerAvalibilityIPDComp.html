@@ -1,0 +1,77 @@
+<template>
+
+     <lightning-card class="slds-card">
+                <div class="slds-p-around_medium" style="margin-top:-2rem;">
+
+                     <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+
+                       <template if:true={showCheckBox}> 
+
+
+
+                    <template if:true={showCustomerAvailability}>
+    <div class="slds-m-top_medium slds-p-around_medium">
+        <lightning-radio-group name="customerAvailability"
+            label="Is Customer Available?"
+            options={availabilityOptions}
+            value={customerAvailability}
+            type="radio"
+            onchange={handleAvailabilityChange}>
+        </lightning-radio-group>
+    </div>
+</template>
+
+                       </template>
+
+                       
+ <template if:true={customerAvilable}>
+
+                              <div class="button-container" style="margin-top:1rem; margin-left:7rem;">
+                            <lightning-button label="Save" onclick={handleCusAvilSave}
+                                class="slds-m-right_small" variant="brand"></lightning-button>
+                        </div>  
+
+                            </template>
+            
+
+                   <template if:true={customerNotAvailableDetails}>
+
+            <lightning-card class="slds-card">
+                <div class="slds-p-around_medium" style="margin-top:-3rem;">
+
+
+                  
+
+                                  
+             
+
+                 <template if:true={showIPDEntry}>
+
+                    <c-cna-i-p-disconnection record-id={recordId} oncancel={handleCancel}></c-cna-i-p-disconnection>
+                </template>
+
+                 <!-- <template if:true={showAfterSalesEntry}>
+
+                    <c-cna-after-sales record-id={recordId} oncancel={handleCancel}></c-cna-after-sales>
+                </template> -->
+
+                <!-- <template if:true={showMeterReplacementEntry}>
+
+                    <c-cna-meter-replacement record-id={recordId} oncancel={handleCancel}></c-cna-meter-replacement>
+
+                </template> -->
+
+                </div>
+
+            </lightning-card>
+        </template>
+                    
+
+                </div>
+
+    </lightning-card>      
+
+</template>

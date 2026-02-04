@@ -1,0 +1,235 @@
+<apex:page controller="MRJCReportContr" renderAs="pdf" showHeader="false" sidebar="false">
+
+   
+
+<div style="border: 1px solid black;">
+    
+        <img src="{!URLFOR($Resource.MglLogo)}" width="20px" alt="MGL Logo" style="margin-top:-11px; margin-left:14px;"/>
+        <p style="margin-top:4px; margin-left:1px; font-size:12px;">Mahanagar<br/> <span style="margin-left:14px;">Gas</span></P>
+        <h3 style="text-align:center; margin-top:-60px;">MAHANAGAR GAS LIMITED</h3><br/>
+        
+        <h5>RECORD NO. {!notificationNo}    </h5>
+         <h5>TITLE : METER REPLACEMENT JOB CARD</h5>
+
+
+        <!-- Section 1: Customer and Notification Info -->
+        <table style="width: 100%; border-collapse: collapse;" border="1">
+            <tr style="background-color:black; color:white;">
+                <th style="width:60%; word-wrap: break-word;">Customer's  Name &amp; Address : </th>
+                 <th style="width:40%;">Notification No.</th>
+             
+            </tr>
+            <tr>
+            <td>{!customerName} <br/> {!customerAddress}</td>
+            <td>{!notificationNo} </td>
+            <td></td>
+            </tr>
+            </table>
+            
+                  <table style="width: 100%; border-collapse: collapse;" border="1">
+
+            <tr style="background-color:black; color:white;">
+                <th style="width:30%;">Customer BP No.</th>
+                <th style="width:30%;" >Contact No.</th>
+                <th style="width:40%;" >Work Details </th>
+            </tr>
+            
+            <tr>
+            <td>{!bpNumber} </td>
+            <td>{!contactNo} </td>
+            <td>Received From : <b>{!receivedFrom}</b>
+            <br/>
+            Received Date : <b>{!receivedDate}</b>
+            <br/>
+            Attended Date : <b>{!attendedDate}</b></td>
+            
+            </tr>
+            
+            </table>
+            
+                    <table style="width: 100%; border-collapse: collapse;" border="1">
+
+            <tr style="background-color:black; color:white;">
+               <!-- <th>Nature Of Work / Type Of Request</th> -->
+               <th style="width:40%;"></th>
+                <th style="width:60%;">Test</th>
+                
+            </tr>   
+            
+            <tr>
+            
+          <!--  <td> {!natureOfWork} -->
+           <!-- <br/><br/><br/> -->
+           <td> Reason : {!reason} <br/><br/><br/></td>
+            <td>Leak Test With SOAP Solution - <b>{!leakTestSOAP}</b>
+            
+            <br/>
+            Penumatic Pressure Test at 32 mbar - <b>{!penumaticPressure}</b>
+            <br/>
+            Gascoseeker Reading (leaving site) - <b>{!gascoseekerReading}</b>
+            <br/>
+            {!rubberTubeType}
+            <br/>
+            Rubber Tube Condition - <b>{!rubberTubeCondition}</b>
+            <br/>
+            Ensure No Gas Leakage. Before Leaving The Site - <b>{!noGasLeakage }</b></td>  
+            
+            </tr>
+            
+               </table>
+               
+               <table style="width: 100%; border-collapse: collapse;" border="1">
+               
+               <td style="height:60px;">
+               Action Taken : {!actionTaken}
+                
+            </td> 
+               </table>
+               
+                    <table style="width: 100%; border-collapse: collapse;" border="1">
+                    
+                                <tr style="background-color:black; color:white;">
+                                
+                                <th style="width:60%;">Material Used</th>
+                                <th style="width:40%;">Material Recovered</th>
+
+                    </tr>
+                    
+                    <tr>
+                    
+                    <td style="height:auto;">
+                    
+                    <table style="border:1px solid black; border-collapse: collapse; width:100%;"  border="1">
+ 
+ <tr>
+ <td>Code </td>
+  <td>Description</td>
+ <td>Quantity</td>
+
+ 
+ </tr>
+               <apex:repeat value="{!materialConsuption}" var="item">
+
+     <tr style="height:16px; text-align:center;">
+     
+        <td style="width:10%;">{!item.Item_Code__c}</td>
+        <td style="width:60%;">{!item.Item_description__c}</td>
+        <td style="width:10%;">{!item.Quantity__c}</td>
+    
+    
+    </tr>
+    
+    
+               </apex:repeat>
+
+    </table>
+                    
+                    </td>
+                   <td>{!materialRecovered}</td> 
+                    
+                    </tr>
+                    
+                    </table>
+                    
+                              <table style="width: 100%; border-collapse: collapse;" border="1">
+                              
+                                          <tr style="background-color:black; color:white;">
+                                          <th></th>
+                                          <th>Make </th>
+                                          <th>Serial No. </th>
+                                          <th>Meter Reading </th>
+                                          <th>Remark If Any</th>
+                                          
+                              </tr>
+                              
+                              <tr>
+                              
+                              <td>Old Meter :</td>
+                              
+                              <td>{!oldMeterMake}</td>
+                              <td>{!oldMeterSerialNo}</td>
+                              <td>{!oldMeterReading }</td>
+                              <td>{!oldMeterRemark}</td>
+                              
+                              </tr>
+                              
+                              <tr>
+                              
+                              <td>New Meter :</td>
+                              <td>{!newMeterMake}</td>
+                              <td>{!newMeterSerialNo}</td>
+                              <td>{!newMeterReading}</td>
+                              <td>{!newMeterRemark}</td>
+                              
+                              </tr>
+                              
+                                                            
+                              </table>
+                              
+                         <table style="width: 100%; border-collapse: collapse;" border="1">
+                         
+                         
+                                     <tr style="background-color:black; color:white;">
+                                     
+                                     <th></th>
+                                     <th>Work Attended By</th>
+                                     <th></th>
+                                     
+                                     <th>Work Has Been Done</th>
+                                     <th></th>
+                                     
+                                     </tr>
+                                     
+                                     <tr>
+                                     
+                                     <td>Contractor Technician</td>
+                                     <td>Contractor Superviser</td>
+                                     <td>Name Of Contractor </td>
+                                     <td>Satisfactorily</td>
+                                     <td>Non-Satisfactorily</td>
+                                     
+                                     </tr>
+                                     
+                                     <tr>
+                                     
+                                     <td>Name : {!contTechName }</td>
+                                     <td>Name : {!contSupName}</td>
+                                     <td> {!contractorName}</td>
+                                     <td>
+                                        <apex:outputText rendered="{!satisOrNotSatisfactory == 'Satisfactory'}">{!customerName}</apex:outputText>
+                                            </td>
+                                     <td>
+                                      <apex:outputText rendered="{!satisOrNotSatisfactory == 'Not Satisfactory'}">{!customerName}</apex:outputText>
+                                     </td>
+
+                         </tr>
+                         
+                         <tr>
+                         
+                         <td>Sign: </td>
+                         <td>Sign : </td>
+                         <td></td>
+                         <td></td>
+                         <td></td>
+                         
+                         </tr>
+                         
+                         </table>
+                         
+                        <!--   <table style="width: 100%; border-collapse: collapse;" border="1">
+                           
+                                       <tr >
+
+                        <th style="background-color:black; color:white; width:50%;">
+                           Any Remarks (Optional)
+                           </th>
+                           <th style="Width:50%;">Customer's Signature is Compulsory</th>
+                           </tr>
+                           </table>  -->
+
+                  
+
+        
+      
+    </div>
+</apex:page>

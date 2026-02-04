@@ -1,0 +1,209 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 10-11-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   19-08-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<apex:page controller="JointTicketPDFController" renderAs="pdf">
+    <html>
+        <head>
+         <style type="text/css" media="print">
+            .text-bold{
+                font-weight: 600 !important;
+            }
+        </style>
+        </head>
+        <body>
+             <!-- Header -->
+    <table width="100%">
+        <tr>
+            <td style="width: 25%;">
+                <img src="{!$Resource.MGL_Logo}" style="height: 70px;" />
+            </td>
+            <td style="width: 50%; text-align: center;">
+                <div style="font-family: 'Times New Roman'; font-size: 17px;">MAHANAGAR GAS LIMITED</div>
+                <div style="font-family: 'Times New Roman'; font-size: 15px;">JOINT TICKET</div>
+            </td>
+            <td style="width: 25%;"></td>
+        </tr>
+    </table>
+    
+    <br/>
+    
+    <!-- Retail Details -->
+<div style="font-family: 'Times New Roman'; font-size: 14px;">
+
+        <!-- Row 1 -->
+        <div style="margin-bottom: 10px;">
+            <span>NAME OF CNG RETAIL OUTLET</span>
+            <span style="display: inline-block;
+            border-bottom: 1px solid black;
+            width: 240px;
+            text-align: left;
+            height: 18px;
+            padding: 2px 5px;
+            vertical-align: bottom;
+            font-family: 'Times New Roman'; font-weight: 600 !important;">{!ticket.Account.Name}</span>
+
+            <span>LOCATION</span>
+            <span style="display: inline-block;
+            border-bottom: 1px solid black;
+            width: 150px;
+            text-align: left;
+            height: 18px;
+            padding: 2px 5px;
+            vertical-align: bottom;
+            font-family: 'Times New Roman';font-weight: 600 !important;">{!ticket.Account.Location__c}</span>
+        </div>
+
+        <!-- Row 2 -->
+        <div style="margin-bottom: 10px;">
+            <span>NAME OF REPRESENTATIVE COMPANY</span>
+            <span style="display: inline-block;
+            border-bottom: 1px solid black;
+            width: 428px;
+            text-align: left;
+            height: 18px;
+            padding: 2px 5px;
+            vertical-align: bottom;
+            font-family: 'Times New Roman';font-weight: 600 !important;">{!ticket.Account.Representative_Company__c}</span>
+        </div>
+
+        <!-- Row 3 -->
+        <div style="margin-bottom: 4px;">
+            <span>Dispenser Reading Taken on date</span>
+            <span style="display: inline-block;
+            border-bottom: 1px solid black;
+            width: 150px;
+            text-align: left;
+            height: 18px;
+            padding: 2px 5px;
+            vertical-align: bottom;
+            font-family: 'Times New Roman';font-weight: 600 !important;">{!liveReadingDate}</span>
+
+            <span style="margin-left: 10px;">time</span>
+            <span style="display: inline-block;
+            border-bottom: 1px solid black;
+            width: 150px;
+            text-align: left;
+            height: 18px;
+            padding: 2px 5px;
+            vertical-align: bottom;
+            font-family: 'Times New Roman';font-weight: 600 !important;">{!liveReadingTime}</span>
+        </div>
+
+        <!-- Row 4 -->
+       
+
+    </div>
+
+    
+    <br/>
+    
+    <!-- Dispenser Table -->
+    <apex:outputPanel rendered="{!useDualColumn}">
+    <table width="100%" border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse; font-family: 'Times New Roman'; font-size: 13px; text-align: center;">
+        <!-- Column headers -->
+        <tr>
+            <th style="padding: 7px;height: 15px;">Dispenser Points</th>
+            <th style="padding: 7px;height: 15px;">Dispenser Reading</th>
+            <th style="padding: 7px;height: 15px;">Dispenser Points</th>
+            <th style="padding: 7px;height: 15px;">Dispenser Reading</th>
+        </tr>
+
+        <!-- 11 rows for both left and right -->
+        <apex:repeat value="{!ROW_COUNT}" var="i">
+            <tr style="height: 15px;">
+                <!-- Left side -->
+                <td style="padding: 7px;min-height: 15px;">{!liveDispenserListLeft[i-1].pointName}</td>
+                <td style="padding: 7px;min-height: 15px;">{!liveDispenserListLeft[i-1].live}</td>
+
+                <!-- Right side -->
+                <td style="padding: 7px;min-height: 15px;">{!liveDispenserListRight[i-1].pointName}</td>
+                <td style="padding: 7px;min-height: 15px;">{!liveDispenserListRight[i-1].live}</td>
+            </tr>
+        </apex:repeat>
+
+       
+    </table>
+</apex:outputPanel>
+    
+    <br/>
+    
+    <!-- Reading Table -->
+    <!-- Section 1: Dispenser Reading -->
+<table border="1" style="border-collapse: collapse; width: 100%; font-family: 'Times New Roman', serif; font-size: 14px;">
+    <!-- Row 1: Question and Yes/No checkboxes -->
+   <tr>
+    <td style="text-align: left; width: 40%; padding: 15px;">
+        Dispenser readings found progressive<br/>
+        (Tick on appropriate box)
+    </td>
+
+    <!-- Yes Box -->
+    <td style="width: 30%; text-align: center;">
+        <div>Yes</div>
+        <div style="width: 20px; height: 20px; display: inline-block; border: 1px solid black; text-align: center;">
+            <apex:image url="{!IF(yesNo, URLFOR($Resource.TickIcon), '')}" width="16" height="16" style="margin-top: 2px;" rendered="{!yesNo}" />
+        </div>
+    </td>
+
+    <!-- No Box -->
+    <td style="width: 30%; text-align: center;">
+        <div>No</div>
+        <div style="width: 20px; height: 20px; display: inline-block; border: 1px solid black; text-align: center;">
+            <apex:image url="{!IF(NOT(yesNo), URLFOR($Resource.TickIcon), '')}" width="16" height="16" style="margin-top: 2px;" rendered="{!!yesNo}" />
+        </div>
+    </td>
+</tr>
+
+
+
+
+    <!-- Row 2: Other Remark spanning both Yes/No columns -->
+    <tr>
+    <td colspan="1" style="text-align: left; padding: 15px;">
+        Other Remark (if any)
+    </td>
+    <td colspan="2" style="padding: 15px;">
+        <apex:repeat value="{!remarks}" var="r">
+            <div>{!r}</div>
+        </apex:repeat>
+    </td>
+</tr>
+
+</table>
+
+
+
+    <br/><br/>
+
+    <!-- Section 2: Signature -->
+    <table width="100%" border="1" cellpadding="4" cellspacing="0" style="font-family: 'Times New Roman'; font-size: 13px; text-align: center; border-collapse: collapse;">
+        <tr>
+            <td colspan="3" style="text-align: center;font-weight: bold;">Authorized Signatory</td>
+        </tr>
+        <tr>
+            <td>Retail Outlet</td>
+            <td>MGL</td>
+            <td>OMC</td>
+        </tr>
+        <tr>
+            <td style="width: 250px; height: 140px">
+                <img src="{!fileDownloadUrl}" style="width: 100%; height: 100%;" />
+            </td>
+            <td>
+                <div>{!ticket.Assigned_Meter_Reader__r.RelatedRecord.Name}<br/>{!liveReadingDate} {!liveReadingTime}</div>
+                <div>Approved By <br/>{!ticket.Approvar_User__r.Name}<br/>{!approvarDate} {!approvarTime}</div>
+            </td>
+            <td style="padding:40px;"></td>
+        </tr>
+    </table>
+        </body>
+    </html>
+   
+</apex:page>

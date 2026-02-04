@@ -1,0 +1,43 @@
+<template>
+    <lightning-card title="Customer Unavailable">
+        <lightning-combobox label="Reason"
+            options={reasonOptions}
+            value={selectedReason}
+            onchange={handleReasonChange}>
+        </lightning-combobox>
+
+        <template if:true={showRemarks}>
+            <lightning-textarea label="Remarks" value={remarks} onchange={handleRemarks}></lightning-textarea>
+        </template>
+
+        <!-- <lightning-file-upload
+            label="Upload Photo"
+            record-id={serviceAppointmentId}
+            onuploadfinished={handleUploadFinished}>
+        </lightning-file-upload> -->
+
+        <template if:true={imageUploadPage}>
+                <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-1">
+                <div>
+                    <c-o_-m-camera-upload-comp
+                        image-list={photoUploadSlots}
+                        onchange={handleFile}>
+                    </c-o_-m-camera-upload-comp>
+                </div> 
+                </div>
+            </div>
+            </template>
+
+        <template if:true={showFollowUp}>
+    <lightning-input
+        type="date"
+        label="Follow-Up Visit Date"
+        value={followUpDate}
+        onchange={handleFollowUpDateChange}>
+    </lightning-input>
+</template>
+
+        <lightning-button label="Submit" onclick={handleSubmit}></lightning-button>
+    </lightning-card>
+</template>

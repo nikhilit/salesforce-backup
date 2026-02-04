@@ -1,0 +1,114 @@
+<template>
+    <div style="border-radius: 8px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); background: #fff; margin: 24px 0; padding-bottom: 20px;">
+        
+        <!-- Spinner while loading -->
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+        </template>
+
+        <!-- Header -->
+        <div class="slds-grid slds-grid_align-spread slds-p-around_small slds-border_bottom">
+            <h2 class="slds-text-heading_medium slds-m-vertical_none">Security Deposits</h2>
+            <lightning-button-icon 
+                icon-name="utility:refresh"
+                alternative-text="Refresh"
+                variant="border-filled"
+                size="medium"
+                onclick={handleRefresh}>
+            </lightning-button-icon>
+        </div>
+
+        <br>
+
+        <!-- SAP Table -->
+        <template if:true={sapData}>
+            <div class="slds-scrollable_x">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                    
+                    <!-- Table Header -->
+                    <thead>
+                        <tr>
+                            <th>Security Number</th>
+                            <th>Start Date</th>
+                            <th>Return Date</th>
+                            <th>Status</th>
+                            <th>Currency</th>
+                            <th>Req Amount</th>
+                            <th>Cash Amount</th>
+                            <th>Non Cash</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table Body -->
+                    <tbody>
+                        <template for:each={sapData} for:item="row">
+                            <tr key={row.SECURITY}>
+                                <td>{row.SECURITY}</td>
+                                <td><lightning-formatted-date-time value={row.SEC_START} year="numeric"
+                                                month="2-digit" day="2-digit">
+                                            </lightning-formatted-date-time></td>
+ <td><lightning-formatted-date-time value={row.SEC_END} year="numeric"
+                                                month="2-digit" day="2-digit">
+                                            </lightning-formatted-date-time></td>
+                                <td>{row.STATUS}</td>
+                                <td>{row.WAERS}</td>
+                                <td>
+                                    <lightning-formatted-number 
+                                        value={row.REQUEST} 
+                                        minimum-fraction-digits="2" 
+                                        maximum-fraction-digits="2">
+                                    </lightning-formatted-number>
+                                </td>
+                                 <td>
+                                    <lightning-formatted-number 
+                                        value={row.PAID} 
+                                        minimum-fraction-digits="2" 
+                                        maximum-fraction-digits="2">
+                                    </lightning-formatted-number>
+                                </td>
+                                <td>
+    <lightning-input 
+        type="checkbox" 
+        checked={row.NON_CASH} 
+        disabled>
+    </lightning-input>
+</td>
+
+                               
+                            </tr>
+                        </template>
+                    </tbody>
+
+                    <!-- Table Footer with Totals -->
+                    <tfoot>
+                        <tr style="background:#fff9b0; font-weight:bold;">
+                            <td colspan="5" style="text-align:right;">Total</td>
+                            <td>
+                                <lightning-formatted-number 
+                                    value={totalRequestAmount} 
+                                    minimum-fraction-digits="2" 
+                                    maximum-fraction-digits="2">
+                                </lightning-formatted-number>
+                            </td>
+                            <td>
+                                <lightning-formatted-number 
+                                    value={totalCashAmount} 
+                                    minimum-fraction-digits="2" 
+                                    maximum-fraction-digits="2">
+                                </lightning-formatted-number>
+                            </td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+        </template>
+
+        <!-- Error Message -->
+        <template if:true={error}>
+            <p class="slds-text-color_error slds-p-around_medium">{error}</p>
+        </template>
+
+    </div>
+</template>

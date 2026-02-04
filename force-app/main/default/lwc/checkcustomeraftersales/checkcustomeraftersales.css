@@ -1,0 +1,56 @@
+.custom-container{
+	color : black;
+}
+
+/* Container for uploaded files */
+.preview-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 8px;
+}
+
+/* Each uploaded file row */
+.preview-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 6px 8px;
+    gap: 8px;
+    border-bottom: 1px solid #ddd;
+    background: #f3f2f2;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+/* Filename styling (ANDROID SAFE) */
+.file-name {
+    font-size: 10px;
+    max-width: 35%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    line-height: 1.1;
+    flex-grow: 1;
+    min-width: 0;   /* CRITICAL for flexbox */
+}
+
+/* Icons must never shrink */
+.preview-item lightning-button-icon {
+    flex-shrink: 0;
+}
+
+/* Upload icon in section header */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.upload-icon {
+    cursor: pointer;
+}
+
+/* Hide native file input */
+.hidden-file-input {
+    display: none;
+}

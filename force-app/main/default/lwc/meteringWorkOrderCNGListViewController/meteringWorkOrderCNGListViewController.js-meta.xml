@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__Tab</target>
+        <target>lightning__AppPage</target>
+    </targets>
+    <targetConfigs>  
+        <targetConfig targets="lightning__AppPage">
+            <property name="hideHeader" type="Boolean" default="true" label="Hide Header"/>
+            <property name="metadataConfigApiName" type="String" required="true" default=""/>
+            <property name="limitRec" type="String" required="true" default="5000"/>
+            <property name="tableHeight" type="String" required="true" default="43vh"/>
+            <property name="lazyLoading" type="Boolean"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

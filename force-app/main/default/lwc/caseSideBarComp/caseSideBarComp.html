@@ -1,0 +1,384 @@
+<template>
+    <!-- Warning Message -->
+    <template if:true={warningMessage}>
+        <div class="slds-notify slds-notify_alert slds-alert_warning slds-m-bottom_medium" role="alert">
+            <span class="slds-assistive-text">Warning</span>
+            {warningMessage}
+        </div>
+    </template>
+
+    <!-- Main Content -->
+   <template if:true={caseRecord}>
+    <div class="profile-card">
+
+        <!-- Case Section -->
+        <div class="header">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <p class="location" title={displayNumber}>{displayNumber}</p>
+            </div>
+        </div>
+        <div class="divider"></div>
+
+        <div class="info">
+            <div class="info-row">
+                <div class="label" title="Case Origin">
+                    <lightning-icon icon-name="utility:email" size="x-small" class="icon"></lightning-icon>
+                    Case Origin
+                </div>
+                <div class="value bold" title={caseRecord.Origin}>{caseRecord.Origin}</div>
+            </div>
+            <div class="info-row">
+                <div class="label" title="Category">
+                    <lightning-icon icon-name="utility:date_time" size="x-small" class="icon"></lightning-icon>
+                    Category
+                </div>
+                <div class="value bold" title={category}>{category}</div>
+            </div>
+            <div class="info-row">
+                <div class="label" title="Department">
+                    <lightning-icon icon-name="utility:date_time" size="x-small" class="icon"></lightning-icon>
+                    Department
+                </div>
+                <div class="value bold" title={department}>{department}</div>
+            </div>
+            <div class="info-row">
+                <div class="label" title="Date/Time Opened">
+                    <lightning-icon icon-name="utility:date_input" size="x-small" class="icon"></lightning-icon>
+                    Date/Time Opened
+                </div>
+                <div class="value bold" title={createdDate}>{createdDate}</div>
+            </div>
+            <div class="info-row">
+                <div class="label" title="Date/Time Closed">
+                    <lightning-icon icon-name="utility:date_input" size="x-small" class="icon"></lightning-icon>
+                    Date/Time Closed
+                </div>
+                <div class="value bold" title={closedDate}>{closedDate}</div>
+            </div>
+            <div class="info-row">
+                <div class="label" title="Last Modified">
+                    <lightning-icon icon-name="utility:date_time" size="x-small" class="icon"></lightning-icon>
+                    Last Modified
+                </div>
+                <div class="value bold" title={lastModifiedDate}>{lastModifiedDate}</div>
+            </div>
+            <div class="info-row">
+                <div class="label" title="Previous Status">
+                    <lightning-icon icon-name="utility:success" size="x-small" class="icon"></lightning-icon>
+                    Previous Status
+                </div>
+                <div class="value bold" style="color: Yellow;" title={previousStatus}>{previousStatus}</div>
+            </div>
+            
+        </div>
+
+        <!-- Account Section -->
+        <template if:true={account}>
+            <div class="divider"></div>
+            <div class="info">
+                <!-- Basic Info -->
+                <div class="info-row">
+                    <div class="label" title="Name">
+                        <lightning-icon icon-name="utility:user" size="x-small" class="icon"></lightning-icon>
+                        Name
+                    </div>
+                    <div class="value bold" title={account.Name}>{account.Name}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Email Id">
+                        <lightning-icon icon-name="utility:email" size="x-small" class="icon"></lightning-icon>
+                        Email Id
+                    </div>
+                    <div class="value bold" title={account.Account_Email__c}>{account.Account_Email__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Phone">
+                        <lightning-icon icon-name="utility:call" size="x-small" class="icon"></lightning-icon>
+                        Phone
+                    </div>
+                    <div class="value bold" title={account.Phone}>{account.Phone}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Secondary Telephone">
+                        <lightning-icon icon-name="utility:call" size="x-small" class="icon"></lightning-icon>
+                        Secondary Telephone
+                    </div>
+                    <div class="value bold" title={account.Secondary_Telephone__c}>{account.Secondary_Telephone__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="City">
+                        <lightning-icon icon-name="utility:user" size="x-small" class="icon"></lightning-icon>
+                        City
+                    </div>
+                    <div class="value bold" title={account.City__c}>{account.City__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="BP/Prospect Number">
+                        <lightning-icon icon-name="utility:user" size="x-small" class="icon"></lightning-icon>
+                        BP/Prospect Number
+                    </div>
+                    <div class="value bold" title={bpOrProspectNumber}>{bpOrProspectNumber}</div>
+                </div>
+
+                <!-- CA Number -->
+                <div class="info-row">
+                    <div class="label" title="CA Number">
+                        <lightning-icon icon-name="utility:groups" size="x-small" class="icon"></lightning-icon>
+                        CA Number
+                    </div>
+                    <div class="value bold" title={caNumber}>{caNumber}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="CO Number">
+                        <lightning-icon icon-name="utility:number_input" size="x-small" class="icon"></lightning-icon>
+                        CO Number
+                    </div>
+                    <div class="value bold" title={account.Connection_Object__c}>{account.Connection_Object__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Application">
+                        <lightning-icon icon-name="utility:number_input" size="x-small" class="icon"></lightning-icon>
+                        Application
+                    </div>
+                    <div class="value bold" title={applicationNumber}>{applicationNumber}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label">
+                        <lightning-icon icon-name="utility:number_input" size="x-small" class="icon"></lightning-icon>
+                        Premise
+                    </div>
+                    <div class="value bold">{premiseId}</div>
+                </div>
+                    
+
+                <div class="divider"></div>
+
+                <!-- Device Info -->
+                <div class="info-row">
+                    <div class="label" title="Meter Number">
+                        <lightning-icon icon-name="utility:number_input" size="x-small" class="icon"></lightning-icon>
+                        Meter Number
+                    </div>
+                    <div class="value bold" title={meterNumber}>{meterNumber}</div>
+                </div>
+
+                <!-- Dates -->
+                <div class="info-row">
+                    <div class="label" title="Move In Date">
+                        <lightning-icon icon-name="utility:date_input" size="x-small" class="icon"></lightning-icon>
+                        Move In Date
+                    </div>
+                    <div class="value bold" title={miDate}>{miDate}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Move Out Date">
+                        <lightning-icon icon-name="utility:date_input" size="x-small" class="icon"></lightning-icon>
+                        Move Out Date
+                    </div>
+                    <div class="value bold" title={noDate}>{noDate}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Customer Status">
+                        <lightning-icon icon-name="utility:status_code" size="x-small" class="icon"></lightning-icon>
+                        Customer Status
+                    </div>
+                    <div class="value bold" title={status}>{currentStatus}</div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Address Info -->
+                <div class="info-row">
+                    <div class="label" title="Floor">
+                        <lightning-icon icon-name="utility:home" size="x-small" class="icon"></lightning-icon>
+                        Floor
+                    </div>
+                    <div class="value bold" title={account.Floor__c}>{account.Floor__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Room Number">
+                        <lightning-icon icon-name="utility:home" size="x-small" class="icon"></lightning-icon>
+                        Room Number
+                    </div>
+                    <div class="value bold" title={account.Room__c}>{account.Room__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Building Code">
+                        <lightning-icon icon-name="utility:home" size="x-small" class="icon"></lightning-icon>
+                        Building Code
+                    </div>
+                    <div class="value bold" title={account.Building_Code__c}>{account.Building_Code__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Address">
+                        <lightning-icon icon-name="utility:location" size="x-small" class="icon"></lightning-icon>
+                        Address
+                    </div>
+                    <div class="value bold" title={streetAddress}>{streetAddress}</div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Financial Info -->
+                <div class="info-row">
+                    <div class="label" title="Security Deposit">
+                        <lightning-icon icon-name="utility:money" size="x-small" class="icon"></lightning-icon>
+                        Security Deposit
+                    </div>
+                    <div class="value bold" title={totalCashAmountDisplay}>₹{totalCashAmountDisplay}</div>
+                </div>
+
+                <!-- Meter Reading -->
+                <div class="info-row">
+                    <div class="label" title="Last Meter Reading">
+                        <lightning-icon icon-name="utility:display_text" size="x-small" class="icon"></lightning-icon>
+                        Last Meter Reading
+                    </div>
+                    <div class="value bold" title={lastMeterReading}>{lastMeterReading}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Date of Last Meter Reading">
+                        <lightning-icon icon-name="utility:date_input" size="x-small" class="icon"></lightning-icon>
+                        Date of Last Meter Reading
+                    </div>
+                    <div class="value bold" title={mrDate}>{mrDate}</div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Disconnection Info -->
+                <div class="info-row">
+                    <div class="label" title="Disconnection Reason">
+                        <lightning-icon icon-name="utility:display_text" size="x-small" class="icon"></lightning-icon>
+                        Disconnection Reason
+                    </div>
+                    <div class="value bold" title={discReason}>{discReason}</div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Lead Section -->
+        <template if:true={leadRecord}>
+            <div class="divider"></div>
+            <div class="info">
+                <!-- Basic Info -->
+                <div class="info-row">
+                    <div class="label" title="Name">
+                         <lightning-icon icon-name="utility:user" size="x-small" class="icon"></lightning-icon>
+                        Name
+                    </div>
+                    <div class="value bold" title={leadRecord.Name}>{leadRecord.Name}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Phone">
+                        <lightning-icon icon-name="utility:phone_portrait" size="x-small" class="icon"></lightning-icon>
+                        Phone
+                    </div>
+                    <div class="value bold" title={leadRecord.Phone}>{leadRecord.Phone}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Email">
+                        <lightning-icon icon-name="utility:email" size="x-small" class="icon"></lightning-icon>
+                        Email
+                    </div>
+                    <div class="value bold" title={leadRecord.Email}>{leadRecord.Email}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Prospect Number">
+                        <lightning-icon icon-name="utility:number_input" size="x-small" class="icon"></lightning-icon>
+                        Prospect Number
+                    </div>
+                    <div class="value bold" title={leadRecord.Lead_No__c}>{leadRecord.Lead_No__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Type">
+                        <lightning-icon icon-name="utility:type" size="x-small" class="icon"></lightning-icon>
+                        Type
+                    </div>
+                    <div class="value bold" title={leadRecord.Type__c}>{leadRecord.Type__c}</div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Address Section -->
+                <div class="info-row">
+                    <div class="label" title="DRS">
+                        <lightning-icon icon-name="utility:location" size="x-small" class="icon"></lightning-icon>
+                        DRS
+                    </div>
+                   <div class="value bold" title={drsName}>{drsName}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Building Name">
+                        <lightning-icon icon-name="utility:home" size="x-small" class="icon"></lightning-icon>
+                        Building Name
+                    </div>
+                    <div class="value bold" title={leadRecord.Building_Name__c}>{leadRecord.Building_Name__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Street">
+                          <lightning-icon icon-name="utility:home" size="x-small" class="icon"></lightning-icon>
+                        Street
+                    </div>
+                    <div class="value bold" title={leadRecord.Street__c}>{leadRecord.Street__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Floor">
+                          <lightning-icon icon-name="utility:home" size="x-small" class="icon"></lightning-icon>
+                        Floor
+                    </div>
+                    <div class="value bold" title={leadRecord.Floor__c}>{leadRecord.Floor__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Flat">
+                          <lightning-icon icon-name="utility:home" size="x-small" class="icon"></lightning-icon>
+                        Flat
+                    </div>
+                    <div class="value bold" title={leadRecord.Flat__c}>{leadRecord.Flat__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="City">
+                        <lightning-icon icon-name="utility:location" size="x-small" class="icon"></lightning-icon>
+                        City
+                    </div>
+                    <div class="value bold" title={leadRecord.City__c}>{leadRecord.City__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Postal Code">
+                           <lightning-icon icon-name="utility:home" size="x-small" class="icon"></lightning-icon>
+                        Postal Code
+                    </div>
+                    <div class="value bold" title={leadRecord.Postal_Code__c}>{leadRecord.Postal_Code__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Country">
+                        <lightning-icon icon-name="utility:world" size="x-small" class="icon"></lightning-icon>
+                        Country
+                    </div>
+                    <div class="value bold" title={leadRecord.Country__c}>{leadRecord.Country__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Region">
+                        <lightning-icon icon-name="utility:global_constant" size="x-small" class="icon"></lightning-icon>
+                        Region
+                    </div>
+                    <div class="value bold" title={leadRecord.Region__c}>{leadRecord.Region__c}</div>
+                </div>
+                <div class="info-row">
+                    <div class="label" title="Time Zone">
+                        <lightning-icon icon-name="utility:clock" size="x-small" class="icon"></lightning-icon>
+                        Time Zone
+                    </div>
+                    <div class="value bold" title={leadRecord.Time_Zone__c}>{leadRecord.Time_Zone__c}</div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>
+
+
+    <!-- Loading State -->
+    <template if:false={caseRecord}>
+        <lightning-spinner alternative-text="Loading case details..."></lightning-spinner>
+    </template>
+</template>

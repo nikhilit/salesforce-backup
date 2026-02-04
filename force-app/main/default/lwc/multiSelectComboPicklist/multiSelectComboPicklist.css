@@ -1,0 +1,90 @@
+.selected-text-left {
+    text-align: left;
+    width: 100%;
+}
+
+/* Ensure the button content is properly aligned */
+.slds-combobox__input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Make the text take available space and push icon to right */
+.slds-grow {
+    flex-grow: 1;
+}
+
+.slds-m-left_auto {
+    margin-left: auto;
+}
+
+/* Custom dropdown sizing and scrolling */
+.custom-dropdown-size {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 200px !important;
+    max-height: 300px !important;
+}
+
+.scrollable-options {
+    max-height: 200px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Ensure dropdown stays within viewport */
+.slds-dropdown {
+    position: absolute;
+    z-index: 7000;
+    left: 0;
+    float: left;
+    min-width: 15rem;
+    max-width: 20rem;
+    margin-top: 0.125rem;
+    border: 1px solid #dddbda;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0;
+    background: white;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.16);
+    transform: none !important;
+}
+
+/* Proper spacing between options */
+.slds-listbox__item {
+    padding: 0.5rem 0.75rem !important;
+    margin: 0 !important;
+    border-bottom: 1px solid #f3f3f3 !important;
+}
+
+.slds-listbox__item:last-child {
+    border-bottom: none !important;
+}
+
+.slds-checkbox__label {
+    align-items: center !important;
+    display: flex !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.slds-checkbox {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Hover effect for better UX */
+.slds-listbox__item:hover {
+    background-color: #f3f3f3 !important;
+}
+
+/* Ensure proper spacing for the checkbox and label */
+.slds-checkbox_faux {
+    margin-right: 0.5rem !important;
+}
+
+.slds-form-element__label {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0.875rem !important;
+}

@@ -1,0 +1,74 @@
+<template>
+
+      <lightning-card>
+
+        <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+                     
+
+        <div class="slds-grid slds-wrap">
+
+                    <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+
+              <lightning-combobox name="picklist" label="Approval Status" value={approvalStatusValue}
+                     options={approvalStatusValueOption} onchange={handleApprovalValueChange} required="true">
+                </lightning-combobox>
+
+                    </div>
+
+        </div>
+
+        <!-- <template if:true={showOnHoldField}>
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <lightning-input type="text" label="On Hold Reason" value={onHoldReason}
+                    onchange={handleChangeOnHoldReason} required="true">
+
+                </lightning-input>
+
+            </div>
+            </template> -->
+
+              <!-- <template if:true={showRemarkField}> -->
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <lightning-input type="text" label="Standard Remark" value={remark}
+                    onchange={handleChangeRemark} required="true">
+
+                </lightning-input>
+
+            </div>
+
+             <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+            <lightning-input type="date" label="Move Out Date"  required="true"
+                value={moveOutDate} onchange={handleMoveOutDateChange}></lightning-input>
+        </div> -->
+            <!-- </template> -->
+
+
+                <template if:true={showMessage}>
+                 <div class="slds-p-around_medium" style="margin-left:1.3rem;">
+
+            <b>{showMessage}</b>
+                 </div>
+            </template>  
+
+
+
+                     <template if:true={showSaveButton}>
+
+              <div class="slds-p-around_medium" style="margin-left:2.3rem;">
+
+                <lightning-button label="Save" variant="brand" onclick={handleSave} ></lightning-button>
+
+            </div>
+
+
+                     </template>
+
+                 
+
+      </lightning-card>
+
+</template>

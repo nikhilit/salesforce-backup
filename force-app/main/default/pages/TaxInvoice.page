@@ -1,0 +1,281 @@
+<apex:page standardController="Invoice__c"
+           applyHtmlTag="false"
+           showHeader="false"
+           sidebar="false"
+           extensions="CNG_InvoiceController"
+           renderAs="pdf"
+           standardStylesheets="false">
+
+<!-- Title -->
+<h3 style="text-align:center;
+           font-size:21px;
+           color:#1a3353;
+           margin-bottom:.5rem;
+           font-family:Roboto,Segoe UI,Helvetica Neue,Arial,Noto Sans,sans-serif;
+           line-height:1.5;
+           display:grid;">
+    Tax Invoice
+</h3>
+
+<!-- Header Section -->
+<table style="width:100%;border-collapse:collapse;
+              font-family:Roboto,Segoe UI,Helvetica Neue,Arial,Noto Sans,sans-serif;
+              font-size:12px;color:#2e3a46;">
+    <tr>
+        <!-- Seller -->
+        <td width="50%" style="border:1px solid #595959;padding-left:8px;">
+            <br/>
+            <span style="font-weight:bolder;color:#455560;display:block;font-size:12px;line-height:1.1;">
+                {!invoice.Station__r.Name}
+            </span>
+            <div style="font-size:12px;line-height:1.1;color:#455560;">
+                <apex:outputText value="{!SUBSTITUTE(invoice.Station__r.BillingStreet, ',', '<br/>')}" escape="false"/>
+                <apex:outputText value="{!invoice.Station__r.BillingCity}-{!invoice.Station__r.BillingPostalCode}" /><br/>
+                GSTIN/UIN : {!invoice.Station__r.GST_No__c}<br/>
+                State Name : Maharashtra Code : 27
+            </div>
+            <br/>
+        </td>
+
+        <!-- Invoice No -->
+        <td width="25%" valign="middle" style="border:1px solid #595959;padding-left:8px;">
+            <span style="font-size:12px;color:#455560;">Invoice no</span><br/><br/>
+            <div style="font-weight:bolder;color:#455560;">{!invoice.Name}</div>
+        </td>
+
+        <!-- Date -->
+        <td width="25%" valign="middle" style="border:1px solid #595959;padding-left:8px;">
+            <span style="font-size:12px;color:#455560;">Dated</span><br/><br/>
+            <div style="font-weight:bolder;color:#455560;">
+                <apex:outputText value="{0,date,dd-MM-yyyy}">
+                    <apex:param value="{!invoice.CreatedDate}" />
+                </apex:outputText>
+            </div>
+        </td>
+    </tr>
+
+    <!-- Consignee -->
+    <tr>
+        <td style="border:1px solid #595959;padding-left:8px;">
+            <span style="color:#455560;font-size:80%;display:block;">Consignee (Ship To)</span>
+            <div style="white-space:pre-line;font-size:12px;color:#455560;">
+                {!invoice.Consignee__c}
+            </div>
+            <br/>
+        </td>
+
+        <td valign="middle" style="border:1px solid #595959;padding-left:8px;">
+            <span style="font-size:12px;color:#455560;">Work Order No.</span><br/><br/>
+            <div style="font-weight:bolder;color:#455560;">{!invoice.Work_Order_No__c}</div>
+        </td>
+
+        <td valign="middle" style="border:1px solid #595959;padding-left:8px;">
+            <span style="font-size:12px;color:#455560;">Vendor Code</span><br/><br/>
+            <div style="font-weight:bolder;color:#455560;">{!invoice.Vendor_Code__c}</div>
+        </td>
+    </tr>
+
+    <!-- Buyer -->
+    <tr>
+        <td style="border:1px solid #595959;padding-left:8px;">
+            <span style="color:#455560;font-size:80%;display:block;">Buyer (Bill to)</span>
+            <div style="white-space:pre-line;font-size:12px;color:#455560;">
+                {!invoice.Buyer__c}
+            </div>
+            <br/>
+        </td>
+        <td colspan="2" style="border:1px solid #595959;padding-left:8px;"></td>
+    </tr>
+</table>
+
+<!-- Services Table -->
+<table style="width:100%;border-collapse:collapse;
+              font-family:Roboto,Segoe UI,Helvetica Neue,Arial,Noto Sans,sans-serif;
+              font-size:12px;color:#455560;">
+
+<tr style="height:35px;">
+    <td width="5%"  style="border:1px solid #595959;text-align:center;">Sr</td>
+    <td width="35%" style="border:1px solid #595959;text-align:center;">Description of services</td>
+    <td width="10%" style="border:1px solid #595959;text-align:center;">HSN/SAC</td>
+    <td width="10%" style="border:1px solid #595959;text-align:center;">Quantity</td>
+    <td width="10%" style="border:1px solid #595959;text-align:center;">Rate</td>
+    <td width="5%"  style="border:1px solid #595959;text-align:center;">Per</td>
+    <td width="15%" style="border:1px solid #595959;text-align:center;">Amount</td>
+</tr>
+
+<apex:variable var="rowIdx" value="{!0}"/>
+
+<apex:repeat value="{!lineItems}" var="item">
+    <apex:variable var="rowIdx" value="{!rowIdx + 1}" />
+
+    <tr style="height:60px;">
+        <td style="text-align:center;border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;">{!rowIdx}</td>
+        <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;">
+            <b>{!item.Description_of_Services__c}</b><br/>
+            <b>{!invoice.Billing_Period__c}</b>
+        </td>
+        <td style="text-align:center;border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;">{!item.HSN_SAC__c}</td>
+        <td style="text-align:center;border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;">{!item.Quantity__c}</td>
+        <td style="text-align:center;border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;">{!item.Rate__c}</td>
+        <td style="text-align:center;border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+        <td style="text-align:center;border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;">{!item.Amount__c}</td>
+    </tr>
+</apex:repeat>
+
+
+<tr style="height:20px;">
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="borborder-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;">
+        <hr style="border:1px solid #e6ebf1;"/>
+    </td>
+</tr>
+
+<tr style="height:20px;">
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"><b>Taxable Amount</b></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;text-align:center;">
+            {!formattedTaxableAmount}
+    </td>
+</tr>
+
+<tr style="height:20px;">
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"><b>CGST-{!invoice.CGST__c}%</b></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;text-align:center;">{!invoice.CGST__c}</td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;text-align:center;">%</td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;;text-align:center;">{!invoice.CGST_Amount__c}</td>
+</tr>
+
+<tr style="height:20px;">
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"><b>SGST-{!invoice.SGST__c}%</b></td>
+    <td style="borborder-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;text-align:center;">{!invoice.SGST__c}</td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;text-align:center;">%</td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;text-align:center;">{!invoice.SGST_Amount__c}</td>
+</tr>
+
+<tr style="height:20px;">
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959;"><b>Round Off</b></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959;text-align:center;">{!invoice.Round_Off__c}</td>
+</tr>
+
+<tr style="height:40px;">
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959;text-align:right;">Total</td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959;"></td>
+    <td style="text-align:center;border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959">
+       {!formattedTotalQuantity}
+    </td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959;"></td>
+    <td style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959;"></td>
+    <td style="text-align:center;border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none">
+        {!formattedTotalAmount}
+    </td>
+</tr>
+
+<tr>
+    <td colspan="6" style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;">
+        Amount Chargeable (in words) :
+        <b>{!totalAmount}</b>
+    </td>
+    <td style="border:1px solid #595959;"></td>
+</tr>
+</table>
+
+<!-- Tax Summary -->
+<table style="width:100%;border-collapse:collapse;
+              font-family:Roboto,Segoe UI,Helvetica Neue,Arial,Noto Sans,sans-serif;
+              font-size:12px;color:#455560;">
+
+<tr>
+    <td rowspan="2" style="text-align:center;border:1px solid #595959;">HSN/SAC</td>
+    <td rowspan="2" style="text-align:center;border:1px solid #595959;">Taxable Value</td>
+    <td colspan="2" style="text-align:center;border:1px solid #595959;">Central Tax</td>
+    <td colspan="2" style="text-align:center;border:1px solid #595959;">State Tax</td>
+    <td style="text-align:center;border:1px solid #595959;">Total</td>
+</tr>
+
+<tr>
+    <td style="text-align:center;border:1px solid #595959;">Rate</td>
+    <td style="text-align:center;border:1px solid #595959;">Amount</td>
+    <td style="text-align:center;border:1px solid #595959;">Rate</td>
+    <td style="text-align:center;border:1px solid #595959;">Amount</td>
+    <td style="text-align:center;border:1px solid #595959;">Tax Amount</td>
+</tr>
+
+<apex:repeat value="{!hsnGroups}" var="group">
+<tr>
+    <td style="text-align:left;border:1px solid #595959;">{!group.hsnCode}</td>
+    <td style="text-align:center;border:1px solid #595959;">{!group.formattedTaxableAmount}
+    </td>
+    <td style="text-align:center;border:1px solid #595959;">{!group.cgstRate}%</td>
+    <td style="text-align:center;border:1px solid #595959;">{!group.cgstAmount}</td>
+    <td style="text-align:center;border:1px solid #595959;">{!group.sgstRate}%</td>
+    <td style="text-align:center;border:1px solid #595959;">{!group.sgstAmount}</td>
+    <td style="text-align:center;border:1px solid #595959;">{!group.totalTax}</td>
+</tr>
+</apex:repeat>
+
+<tr>
+    <td style="border:1px solid #595959;">Total</td>
+    <td style="text-align:center;border:1px solid #595959;">{!formattedTaxableAmount}
+    </td>
+    <td style="border:1px solid #595959;"></td>
+    <td style="text-align:center;border:1px solid #595959;">{!invoice.CGST_Amount__c}</td>
+    <td style="border:1px solid #595959;"></td>
+    <td style="text-align:center;border:1px solid #595959;">{!invoice.SGST_Amount__c}</td>
+    <td style="text-align:center;border:1px solid #595959;">{!invoice.Total_Tax_Amount__c}</td>
+</tr>
+</table>
+
+<!-- Declaration -->
+<table style="width:100%;border-collapse:collapse;
+              font-family:Roboto,Segoe UI,Helvetica Neue,Arial,Noto Sans,sans-serif;
+              font-size:12px;color:#455560;">
+
+<tr>
+    <td colspan="2" style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:1px solid #595959;border-bottom:none;">
+        Total Amount (in words) :
+        <b>{!amountInWords}</b>
+    </td>
+</tr>
+
+<tr>
+    <td colspan="2" style="border-left:1px solid #595959;border-right:1px solid #595959;border-top:none;border-bottom:none;">
+        <hr style="border:1px solid #e6ebf1;"/>
+    </td>
+</tr>
+
+<tr>
+    <td width="70%" style="border-left:1px solid #595959;border-right:none;border-top:none;border-bottom:1px solid #595959;">
+        <b>Declaration:</b>
+        We declare that this invoice shows the actual price of the goods
+        described and that all particulars are true and correct<br/><br/>
+        <b>(This is a computer generated invoice)</b>
+    </td>
+    <td width="30%" style="text-align:right;border-left:none;border-right:1px solid #595959;border-top:none;border-bottom:1px solid #595959;">
+        {!invoice.Station__r.Name}<br/><br/><br/>
+        Authorized Signature
+    </td>
+</tr>
+</table>
+
+</apex:page>

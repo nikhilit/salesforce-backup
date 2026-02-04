@@ -1,0 +1,60 @@
+<!--
+  @description       : 
+  @author            : Shashank.shekhar@appstrail.com
+  @group             : 
+  @last modified on  : 07-25-2025
+  @last modified by  : Shashank.shekhar@appstrail.com
+-->
+
+<template> 
+
+    <template if:true={showSpinner}>
+        <lightning-spinner alternative-text="Loading..." size="small"></lightning-spinner>
+    </template>
+
+        <div style="background-color: white;">
+            <div style="height: 170px;">
+                <div class="backgroundImage" style={backgroundStyle}>
+                    <span class="slds-align_absolute-center" style="padding-top: 25px;">
+                        <div class="smallcircle">
+                            <img src={Logo} alt="User Logo" style="border-radius: 50%; height: 70px; width: 70px;" class="slds-align_absolute-center" />
+                        </div>
+                    </span>
+                    <div></div>
+                    <p style="color: rgb(0, 0, 0); font-weight: 500; font-size: 16px; margin-top: 6px;" class="slds-align_absolute-center">{greeting}</p>
+                    <p style="color: rgb(0, 0, 0); font-weight: 400; font-size: 14px; margin-top: -4px;" class="slds-align_absolute-center">Let's get started!</p>
+                </div>
+            </div>
+        </div>
+       
+        <div class="header-bar">
+            <h2 class="left-title">My KPI</h2>
+            <h2 class="right-title">R&amp;T</h2>
+        </div>
+
+        <template for:each={kpisResult} for:item="kpi"> 
+            <div key={kpi.label} data-card={kpi.label} class="slds-border_bottom slds-grid" onclick={onCardCLick} style={kpi.cardColor}>
+                <div class="slds-col slds-size_1-of-7  slds-align_absolute-center slds-var-m-around_small">
+                    <div>
+                    <lightning-icon icon-name={kpi.iconUrl} alternative-text={kpi.label} size="small"></lightning-icon>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_4-of-7 slds-var-p-around_x-small slds-align-middle">
+                <p style="color: black;font-size:15px;">{kpi.label}</p>
+                </div>
+                <div class="slds-col slds-size_2-of-7  slds-var-p-around_x-small slds-align_absolute-center" >
+                <div class="round slds-align--absolute-center"> <b>{kpi.count}</b></div>
+                </div>
+            </div>
+        </template>
+
+    <!-- Child Component -->
+    <template if:true={showChild}>
+        <c-rt-appointment-list-view 
+            selected-status={selectedStatus} 
+            second-page={secondPage} 
+            onchildevent={handleChildEvent} 
+            selected-type={selectedType} >
+        </c-rt-appointment-list-view>
+    </template>
+</template>

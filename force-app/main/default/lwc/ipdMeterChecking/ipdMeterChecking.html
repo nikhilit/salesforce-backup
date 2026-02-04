@@ -1,0 +1,18 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-around_medium">
+            <template if:true={load}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+
+            <div class="slds-align_absolute-center" style="margin-top:1.5rem;">
+                <lightning-button
+                    label="Generate Service Report"
+                    variant="brand"
+                    onclick={handleDownloadPDF}
+                    disabled={load}>
+                </lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

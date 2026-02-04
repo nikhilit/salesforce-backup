@@ -1,0 +1,99 @@
+<template>
+   <div class="slds-grid slds-grid_align-end slds-m-top_small">
+    <lightning-button
+        label="New"
+        variant="brand"
+        onclick={openModal}>
+    </lightning-button>
+</div>
+
+    <template if:true={isModalOpen}>
+        <section
+            role="dialog"
+            tabindex="-1"
+            aria-modal="true"
+            class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                <div class="slds-modal__content slds-p-around_medium">
+
+    <section class="sf-container">
+
+        <!-- Header -->
+        <div class="sf-header">
+            <span class="sf-title">New Invoice</span>
+        </div>
+
+        <!-- Divider -->
+        <div class="sf-divider"></div>
+        <div class="sf-required-info">
+            <abbr title="required">*</abbr> = Required Information
+        </div>
+
+        <!-- Information Section -->
+        <div class="sf-section-header">Information</div>
+
+        <div class="sf-section-body">
+
+            <!-- Station -->
+            <div class="sf-row">
+                <label class="sf-label">Station</label>
+                <div class="sf-control">
+                    <lightning-input value={stationName} disabled></lightning-input>
+                </div>
+            </div>
+
+            <!-- Invoice Number -->
+            <div class="sf-row">
+                <label class="sf-label required">Invoice Number</label>
+                <div class="sf-control">
+                    <lightning-input
+                        value={invoiceNumber}
+                        onchange={handleChange}
+                        data-field="invoiceNumber">
+                    </lightning-input>
+                </div>
+            </div>
+
+            <!-- Due Date -->
+            <div class="sf-row">
+                <label class="sf-label">Due Date</label>
+                <div class="sf-control">
+                    <lightning-input
+                        type="date"
+                        value={invoiceDate}
+                        onchange={handleChange}
+                        data-field="invoiceDate">
+                    </lightning-input>
+                </div>
+            </div>
+
+            <!-- Billing Period -->
+            <div class="sf-row">
+                <label class="sf-label">Billing Period</label>
+                <div class="sf-control">
+                    <lightning-combobox
+                        placeholder="Select an Option"
+                        options={billDurationOptions}
+                        value={billDuration}
+                        onchange={handleChange}
+                        data-field="billDuration">
+                    </lightning-combobox>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="sf-footer">
+            <lightning-button label="Cancel" variant="neutral" onclick={closeModal}></lightning-button>
+            <lightning-button label="Save & New" variant="neutral" class="slds-m-left_small" onclick={handleSubmit}></lightning-button>
+            <lightning-button label="Save" variant="brand" class="slds-m-left_small" onclick={handleSubmit}></lightning-button>
+        </div>
+
+    </section>
+                </div>
+                        </div>
+        </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+</template>

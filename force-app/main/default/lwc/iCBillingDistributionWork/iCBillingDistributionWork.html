@@ -1,0 +1,119 @@
+<!--
+  @description       : 
+  @author            : Shashank.shekhar@appstrail.com
+  @group             : 
+  @last modified on  : 
+  @last modified by  : 
+-->
+<template>
+    <template if:true={showEnableMessage}>
+        <div class="slds-modal__header">
+            <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate"></h1>
+        </div>
+
+        <div class="slds-modal__content slds-is-relative" id="modal-content-id-1" style="font-size: larger;">
+            <div class="slds-p-around_large slds-box slds-theme_default">
+                <h1 class="slds-text-align_center slds-m-bottom_large">{message}</h1>
+            </div>
+        </div>
+    </template>
+
+    <template if:false={showEnableMessage}>
+        <template if:true={showCustomToast}>
+            <div class="overlay-blocker">
+                <div class="toast-box">
+                    <div class="slds-notify slds-notify_toast slds-theme_warning" role="alert">
+                        <span class="slds-assistive-text">Warning</span>
+
+                        <span class="slds-icon_container slds-icon-utility-warning" title="Warning">
+                            <lightning-icon icon-name="utility:warning" alternative-text="Warning" size="small">
+                            </lightning-icon>
+                        </span>
+
+                        <div class="slds-notify__content">
+                            <h2 class="slds-text-heading_small">
+                                {customToastMessage}
+                            </h2>
+                        </div>
+
+                        <button class="slds-button slds-button_icon slds-notify__close" title="Close"
+                            onclick={handleCloseToast}>
+                            <lightning-icon icon-name="utility:close" alternative-text="Close" size="x-small">
+                            </lightning-icon>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <c-as-acc-validator-utility work-order-id={recordId}></c-as-acc-validator-utility>
+
+        <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+        <div class="slds-box slds-theme_default">
+
+            <template if:true={showFollowUpScreen}>
+                <c-rt-followup-appointment record-id={recordId}></c-rt-followup-appointment>
+            </template>
+
+            <template if:false={showFollowUpScreen}>
+                <!-- First Image Upload -->
+                <div class="slds-m-bottom_medium">
+                    <!-- <c-r-t-camer-uploadcomp image-list={photoUploadSlots} onchange={handleFile}></c-r-t-camer-uploadcomp> -->
+                    <c-as-camera image-list={photoUploadSlots} onchange={handleFile}></c-as-camera>
+                </div>
+
+                <c-as-signature-pad></c-as-signature-pad>
+
+                <!-- <c-ic-account-update
+                    record-id={recordId}
+                    object-api-name="Account"
+                    onchildsaved={handleChildSaved}>
+                </c-ic-account-update> -->
+
+                <lightning-input label="Mobile Number" data-name="mobileNumber" value={mobileNumber}
+                    onchange={handleChange}>
+                </lightning-input>
+
+                <lightning-input label="Secondary Number" data-name="secondaryNumber" value={secondaryNumber}
+                    onchange={handleChange}>
+                </lightning-input>
+
+                <lightning-input label="Email Id" data-name="emailId" value={emailId} onchange={handleChange}>
+                </lightning-input>
+
+                <!-- Remarks Text Area -->
+                <lightning-textarea data-name="remarks" label="Remarks" value={remarks} onchange={handleChange}
+                    placeholder="Enter your remarks here">
+                </lightning-textarea>
+
+                <!-- <div>
+                    <h1>geoEnabled: {geoEnabled}</h1>
+                    <h1>geoRadius: {geoRadius}</h1>
+                    <h1>lat : {lat}</h1>
+                    <h1>long: {long}</h1>
+                    <h1>fenceLat: {fenceLat}</h1>
+                    <h1>fenceLon: {fenceLon}</h1>
+                    <h1>distance: {distance}</h1>
+                    <h1>isOutOfFence: {isOutOfFence}</h1>
+                </div> -->
+
+                <!-- Follow Up Button -->
+                <div class="slds-m-top_medium slds-align_absolute-center">
+                    <lightning-button variant="brand" label="Follow Up" onclick={handleFollowUp}>
+                    </lightning-button>
+                </div>
+
+                <!-- Save Button -->
+                <div class="slds-m-top_medium slds-align_absolute-center">
+                    <lightning-button variant="brand" label="Save" onclick={handleChildSaved}>
+                    </lightning-button>
+                </div>
+            </template>
+
+        </div>
+    </template>
+</template>

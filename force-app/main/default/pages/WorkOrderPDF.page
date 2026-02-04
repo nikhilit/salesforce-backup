@@ -1,0 +1,8 @@
+<apex:page name="WorkOrderPDF" renderAs="pdf" standardController="WorkOrder">
+    <h1>Work Order Details</h1>
+    <p><strong>Work Order Number:</strong> {!WorkOrder.WorkOrderNumber}</p>
+    <p><strong>Status:</strong> {!WorkOrder.Status}</p>
+    <p><strong>Subject:</strong> {!WorkOrder.Subject}</p>
+    <p><strong>Description:</strong> {!WorkOrder.Description}</p>
+    <p><strong>Created Date:</strong> {!WorkOrder.CreatedDate}</p>
+</apex:page>

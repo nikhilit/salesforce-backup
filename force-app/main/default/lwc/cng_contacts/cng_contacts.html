@@ -1,0 +1,93 @@
+<template>
+        <!-- Dial Before Dig -->
+         <template if:true={data}>
+        <div class="section">
+            <div class="section-title">Dial Before Dig</div>
+
+            <div class="grid">
+                <div class="item">
+                    <span class="label">Contact No. :</span>
+                    <span class="value">{data.dialBeforeDigPhone}</span>
+                </div>
+
+                <div class="item">
+                    <span class="label">Email :</span>
+                    <span class="value">{data.dialBeforeDigEmail}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 1 -->
+        <div class="section">
+            <div class="section-title">Level 1</div>
+
+            <div class="grid">
+                <div class="item">
+                    <span class="label">MIC Name :</span>
+                    <span class="value">{data.mic.name}</span>
+                </div>
+
+                <div class="item">
+                    <span class="label">Phone No. :</span>
+                    <span class="value">{data.mic.phone}</span>
+                </div>
+
+                <div class="item">
+                    <span class="label">MIC Email :</span>
+                    <span class="value">{data.mic.email}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 2 -->
+        <div class="section">
+            <div class="section-title">Level 2</div>
+
+            <div class="grid">
+                <div class="item">
+                    <span class="label">ZIC Name :</span>
+                    <span class="value">{data.zic.name}</span>
+                </div>
+
+                <div class="item">
+                    <span class="label">Phone No. :</span>
+                    <span class="value">{data.zic.phone}</span>
+                </div>
+
+                <div class="item">
+                    <span class="label">ZIC Email :</span>
+                    <span class="value">{data.zic.email}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other Emergency Numbers -->
+        <div class="section">
+    <div class="section-title">Other Emergency Numbers</div>
+
+    <div class="grid">
+        <div class="item">
+                    <span class="label">Fire :</span>
+                    <span class="value">{data.fire}</span>
+                </div>
+
+                <div class="item">
+                    <span class="label">MGL Control Room :</span>
+                    <span class="value">{data.mglcontrolroom}</span>
+                </div>
+
+                <div class="item">
+                    <span class="label">Ambulance :</span>
+                    <span class="value">{data.ambulance}</span>
+                </div>
+
+                <div class="item">
+                    <span class="label">Police :</span>
+                    <span class="value">{data.police}</span>
+                </div>
+    </div>
+</div>
+
+</template>
+
+</template>

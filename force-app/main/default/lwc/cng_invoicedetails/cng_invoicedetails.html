@@ -1,0 +1,39 @@
+<template>
+    <lightning-card title="Invoice Details">
+        <template if:true={invoice}>
+            <div class="container">
+
+                <div class="row">
+                    <span class="label">Billing Period :</span>
+                    <span class="value">{invoice.Billing_Period__c}</span>
+                </div>
+
+                <div class="row" style="white-space:pre-line;">
+                    <span class="label">Buyer :</span>
+                    <span class="value">{invoice.Buyer__c}</span>
+                </div>
+
+                <div class="row" style="white-space:pre-line;">
+                    <span class="label">Consignee :</span>
+                    <span class="value">{invoice.Consignee__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Due Date :</span>
+                    <span class="value">{invoice.Due_Date__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Total Amount :</span>
+                    <span class="value">{invoice.Total_Amount__c}</span>
+                </div>
+            </div>
+        </template>
+
+        <template if:false={invoice}>
+            <div class="slds-p-around_medium">
+                Loading invoice details...
+            </div>
+        </template>
+    </lightning-card>
+</template>

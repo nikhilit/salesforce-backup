@@ -1,0 +1,68 @@
+<template>
+
+     <div class="slds-grid slds-wrap">
+   
+        
+
+           <template if:true={isload}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+          <div class="slds-p-around_medium" style="margin-left:2.7rem;">
+
+                <lightning-button label="Generate Service Report" variant="brand" onclick={handleDownloadServiceReport}></lightning-button>
+
+            </div>
+
+
+
+                
+                <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Instrument Type & Range" name="instrumentTypeRange"
+                        value={serviceReport.instrumentTypeRange} onchange={handleServiceReportDetails} required></lightning-input>
+                </div>
+
+                  <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Calibration Certificate No" name="calibrationCertificateNo"
+                        value={serviceReport.calibrationCertificateNo} onchange={handleServiceReportDetails} required>
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="Date" label="Calibration Date" name="calibrationDate" value={serviceReport.calibrationDate}
+                        onchange={handleServiceReportDetails} required></lightning-input>
+                </div>
+
+               
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                  <lightning-input type="Date" label="Calibration Due Date" name="calibrationDueDate"
+                        value={serviceReport.calibrationDueDate} onchange={handleServiceReportDetails} required>
+                    </lightning-input>
+                </div> -->
+
+                 <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                  <lightning-input type="text" label="MATERIAL USED" name="mATERIALUSED"
+                        value={serviceReport.mATERIALUSED} onchange={handleServiceReportDetails} required>
+                    </lightning-input>
+                </div> -->
+
+                  <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                  <lightning-input type="text" label="COMMENTS (If any)" name="comments"
+                        value={serviceReport.comments} onchange={handleServiceReportDetails} required>
+                    </lightning-input>
+                </div> -->
+
+                 <!-- <div class="slds-p-around_medium" style="margin-left:8.7rem;">
+
+                <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+
+            </div> -->
+
+     </div>
+
+
+</template>

@@ -1,0 +1,142 @@
+<template>
+    <div style="border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border: none;
+    background: #fff;
+    margin: 24px 0;
+    padding-bottom: 20px;">
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+        </template>
+        <div style="background-color:white;">
+            <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread slds-p-around_small" style="background-color:white;">
+    
+    <!-- Left side: Header -->
+    <div class="slds-col">
+        <h2 class="slds-text-heading_medium">
+            Get Bills By Date
+        </h2>
+    </div>
+
+    <!-- Right side: Inputs + Button -->
+    <div class="slds-col">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <lightning-input type="date" label="From Date" value={fromDate} onchange={handleFromDateChange}>
+                </lightning-input>
+            </div>
+
+            <div class="slds-col">
+                <lightning-input type="date" label="To Date" value={toDate} onchange={handleToDateChange}>
+                </lightning-input>
+            </div>
+
+            <div class="slds-col slds-align-bottom">
+                <lightning-button label="Show Bill" variant="brand" onclick={handleRefresh}>
+                </lightning-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <br>
+
+            <template if:true={sapData}>
+                <div class="slds-scrollable_x">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                        <thead>
+                            <tr>
+                                <th>Invoice Number</th>
+                                <th>Billing Doc Number</th>
+                                <th>MVAT Invoice Number</th>
+                                <th>Contract Account</th>
+                                <th>Contract</th>
+                                <th>Portion</th>
+                                <th>MR Unit</th>
+                                <th>Billing Transaction</th>
+                                <th>Posting Date</th>
+                                <th>Document Date</th>
+                                <th>Bill From</th>
+                                <th>Bill To</th>
+                                <th>Due Amount</th>
+                                <th>Due Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={sapData} for:item="row">
+                                <tr key={row.OPBEL}>
+                                    <td>
+                                        {row.OPBEL}
+                                        <lightning-icon icon-name="doctype:pdf" size="x-small" alternative-text="PDF"
+                                            title="PDF" class="slds-m-left_x-small pdf-icon" data-printdoc={row.OPBEL}
+                                            onclick={getPdf}>
+                                        </lightning-icon>
+                                    </td>
+                                    <td>{row.BELNR}</td>
+                                    <td>{row.ZZ_TAXINVNO}</td>
+                                    <td>{row.VKONT}</td>
+                                    <td>{row.VERTRAG}</td>
+                                    <td>{row.PORTION}</td>
+                                    <td>{row.ABLEINH}</td>
+                                    <td>{row.ABRVORG}</td>
+                                    <td>
+    <lightning-formatted-date-time 
+        value={row.BUDAT}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+                                    <td>
+    <lightning-formatted-date-time 
+        value={row.BLDAT}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+                                    <td>
+    <lightning-formatted-date-time 
+        value={row.BEGABRPE}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+                                    <td>
+    <lightning-formatted-date-time 
+        value={row.ENDABRPE}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+                                    <td>
+                                        <lightning-formatted-number 
+                                            value={row.TOTAL_AMNT} 
+                                            minimum-fraction-digits="2" 
+                                            maximum-fraction-digits="2">
+                                        </lightning-formatted-number>
+                                    </td>
+<td>
+    <lightning-formatted-date-time 
+        value={row.FAEDN}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+                                </tr>
+                            </template>
+                        </tbody>
+
+                    </table>
+                </div>
+            </template>
+
+            <template if:true={error}>
+                <p class="slds-text-color_error slds-p-around_medium">{error}</p>
+            </template>
+        </div>
+    </div>
+</template>

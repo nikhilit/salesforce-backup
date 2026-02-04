@@ -1,0 +1,54 @@
+<template>
+    <lightning-card>
+        <div class="slds-grid slds-wrap slds-p-around_medium slds-grid_vertical-align-end">
+    <!-- Lookup -->
+    <div class="slds-col slds-size_4-of-6">
+        <c-custom-lookup-component
+            obj-name="FRL_Template__c"
+            icon-name="standard:document"
+            input-label="FRL Template"
+            required
+            onlookupselected={handleFRLTemplate}
+            onnolookupselected={handleNoTemplate}>
+        </c-custom-lookup-component>
+    </div>
+
+    <!-- Buttons on same line -->
+    <div class="slds-col slds-size_2-of-6 slds-text-right">
+        <lightning-button
+            class="slds-m-right_small"
+            label="Generate PDF"
+            variant="brand"
+            onclick={handleGeneratePDF}>
+        </lightning-button>
+        <lightning-button 
+            label="Preview PDF"
+            variant="neutral"
+            onclick={handlePreview}>
+        </lightning-button>
+    </div>
+</div>
+
+
+        <!-- ✨ Formatting Toolbar -->
+        <div class="slds-grid slds-p-horizontal_medium slds-m-bottom_small" style="gap: 10px; align-items: center;">
+            <lightning-button label="B" onclick={applyBold}></lightning-button>
+            <lightning-button label="I" onclick={applyItalic}></lightning-button>
+            <lightning-button label="U" onclick={applyUnderline}></lightning-button>
+            <lightning-button label="Times New Roman" onclick={applyTimesNewRoman}></lightning-button>
+        </div>
+
+        <!-- Editable Message Content -->
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+            <label>Message Content</label>
+            <div
+                class="message-editor"
+                contenteditable="true"
+                lwc:dom="manual"
+                data-id="messageEditor"
+                style="font-size:13px; line-height:1.6; border:1px solid #d8dde6; padding:10px; min-height:200px; font-family: 'Times New Roman', Times, serif;"
+                oninput={handleEditableChange}>
+            </div>
+        </div>
+    </lightning-card>
+</template>

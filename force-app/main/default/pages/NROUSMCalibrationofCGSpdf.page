@@ -1,0 +1,565 @@
+<apex:page renderAs="pdf" applyBodyTag="false" standardStylesheets="false" lightningStylesheets="false" applyHtmlTag="false"
+           showHeader="false">
+    <head>
+        <style>
+            @page {
+                size: A4;
+                margin-top: 3cm;
+                margin-bottom: 3cm;
+                margin-left: 1cm;
+                margin-right: 1cm;
+            }
+            
+            @page {
+            @bottom-left {
+                content: element(pageFooter);
+            }
+             @top-center {
+        content: element(pageHeader);
+    }
+        }
+
+        #pageFooter {
+            position: running(pageFooter);    
+            text-align: left;
+            font-size: 12px;
+        }
+         #pageHeader {
+            position: running(pageHeader);    
+            text-align: left;
+            font-size: 12px;
+        }
+
+            .pagenumber:before {
+                content: counter(page);
+            }
+           table {
+    		width: 95%;
+    		border-collapse: collapse;
+    		margin: 0 auto;
+    		font-size: 15px;
+            border-spacing: 0;
+            -fs-table-paginate: paginate;
+			}
+
+            tr {
+                  page-break-inside: avoid; 
+                            break-inside: avoid;
+            }
+
+
+            td,th {
+                border: 1px solid #000;
+                text-align: center;
+                height: 35px;
+                border-collapse: collapse;
+                    vertical-align: middle;
+                         padding-bottom:0px;
+            }
+            
+            th {
+                font-weight: bold;
+            }
+            
+            .title-page {
+                page-break-after: always;
+            }
+                        
+             .table-wrapper {
+                page-break-inside: avoid;
+            }
+           .note {
+                        margin: 10px auto 0 auto;
+                        font-family: Arial, sans-serif;
+                        font-size: 11pt;
+            }
+            .note b {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+       <div id="pageFooter">
+            <p>
+                <span class="pagenumber"></span> | Page <br/>
+                Title: Removal of 16” Ultrasonic meter along with meter run at CGS, Mahape
+            </p>
+        </div>
+
+    <body> 
+        <div  class="title-page">
+      
+     <p style="text-align:left;font-weight:bold;text-decoration:underline;"> A) Non-Routine Operation</p>
+                 <table cellpadding="1">
+    <tr>
+        <th style="width:30%;">Non-Routine Operation No.</th>
+        <td colspan="3"> O&amp;M / 2025-2026 / 16</td>
+    </tr>
+    <tr>
+        <th>Brief Description of Work</th>
+        <td colspan="3">
+          Removal of 16” Ultrasonic meter along with meter run at CGS Mahape and dispatch to GAIL Hazira for calibration  </td>
+    </tr>
+    <tr>
+        <th>Location</th>
+        <td colspan="3">CGS, Mahape</td>
+    </tr>
+    <tr>
+        <th style="border:none;border-left:1px solid #000;">Responsible Engineers:</th>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;"  colspan="3"></td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;">Authorizing Engineer (Line Manager):</td>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;"  colspan="3">Mahesh Pandhare / Raosaheb Patil</td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;">Competent Engineer (Engineer In-Charge):</td>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;" colspan="3">Gorav Gupta / Shashank Pradhan</td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;" >Other Engineers at Site:</td>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;"  colspan="3"></td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;" >Competent Technician at Site:</td>
+        <td style="border-top:none;border-right:1px solid #000;" colspan="3"></td>
+    </tr><tr>
+            <th > Prepared by:</th>
+            <td ><br/>Sign: ....................... <br/>Name: Mahesh Pandhare<br/>(Dy. Manager O&amp;M) </td>
+            <td colspan="2"><br/>Sign: ....................... <br/>Name: Gorav Gupta <br/>(Dy. Manager O&amp;M) </td>
+        </tr>
+
+        <tr>
+            <th >Checked by:</th>
+            <td ><br/>Sign: .......................<br/>Name: Raosaheb Patil <br/> (Chief Mgr. – O&amp;M)</td>
+            <td colspan="2"><br/>Sign: ....................... <br/>Name: Shashank Pradhan <br/> (Sr. Mgr. – O&amp;M)</td>
+            
+        </tr>   
+        <tr>
+            <th  rowspan="5"> Reviewed by</th>
+             <td colspan="3" style="border-bottom:none"><br/>Sign: .......................Date:<br/>Name: Sanjay Gawde (DGM – AI) </td>
+ 			</tr>
+                     <tr>
+                       <td  colspan="3" style="border-bottom:none;border-top:none;"><br/>Sign: ....................... Date:<br/>Name: Sachin Gumaste (HOD – CNG Upgradation &amp; SCADA) </td>
+                     </tr>
+                     <tr>
+                      <td colspan="3" style="border-bottom:none;border-top:none;"><br/>Sign: .......................Date:<br/>Name: Pratap Ayarekar (HOD – Operations)</td>
+                     </tr>
+                     <tr>
+                     <td colspan="3" style="border-bottom:none;border-top:none;"><br/>Sign: .......................Date: <br/>Name: Ajay Patki (HOD – HSE/AI)</td>  
+                     </tr>
+                     <tr>
+                         <td colspan="3"  style="border-top:none;"><br/>Sign: .......................Date: <br/>Name: Navin Gupta (HOD -AI &amp; GIS )<br/></td>
+                     </tr>
+          <tr>
+               <th >Authorized by:</th>
+             <td colspan="3"><br/>Sign: ...................... Date:<br/> Name: Sitanshu Roychowdhury (VP - O&amp;M )</td>
+        </tr>
+             <tr>
+               <th >Circulation list</th>
+              <td style="border: 1px solid #000;padding-left:4px;width:30%;text-align:center;" colspan="1"><br/>• HSE <br/>• DIC </td>
+      		 <td style="border: 1px solid #000;padding-left:4px;width:40%;text-align:center;" colspan="2"><br/>• Asset Integrity <br/>• Control Room </td>
+      
+        </tr>
+
+          </table>    
+        </div>
+        <div  class="title-page">
+  
+         <p>(B) <b style="border-bottom: 1px solid #000; font-weight: bold;">Communication List:</b></p>
+ <table>
+        <tr>
+            <th style="width:8%;">Sr. No.</th>
+            <th style="width:52%;">Contact Person</th>
+            <th style="width:40%;">Phone Number</th>
+        </tr>
+
+        <tr ><td style="height: 25px;">1</td><td style="height: 25px;">S.Murali</td><td style="height: 25px;">9324941120</td></tr>
+        <tr><td style="height: 25px;">2</td><td style="height: 25px;">Milind Ranade</td><td style="height: 25px;">9930022790</td></tr>
+        <tr><td style="height: 25px;">3</td><td style="height: 25px;">Devendra Shastry</td><td style="height: 25px;">9324941211</td></tr>
+        <tr><td style="height: 25px;">4</td><td style="height: 25px;">Mahesh Nagnure</td><td style="height: 25px;">9324905492</td></tr>
+        <tr><td style="height: 25px;">5</td><td style="height: 25px;">Shashank Pradhan</td><td style="height: 25px;">9322862664</td></tr>
+        <tr><td style="height: 25px;">6</td><td style="height: 25px;">Mandrita Bal</td><td style="height: 25px;">9619100330</td></tr>
+       <tr><td style="height: 25px;">7</td><td style="height: 25px;">Mihir Chaudhary</td><td style="height: 25px;">8424007066</td></tr>
+        <tr><td style="height: 25px;">8</td><td style="height: 25px;">Emergency Control Room</td><td style="height: 25px;">022-24012400</td></tr>
+        <tr><td style="height: 25px;">9</td><td style="height: 25px;">TOPSLINE</td><td style="height: 25px;">1252</td></tr>
+            </table>
+            <p><b>MGL personnel at Site</b></p>
+            <ul>
+        <li>Shashank Pradhan</li>
+        <li>Mandrita Bal</li>
+        <li>Mihir Chaudhary</li>
+    </ul>
+        </div>
+        
+                <div  class="title-page">
+ 
+      <p>(C) <b style="border-bottom: 1px solid #000; font-weight: bold;text-decoration:underline;">Preparatory Steps:</b></p>
+  <table cellpadding="1">
+
+        <tr style="font-weight:bold; text-align:center;">
+      <th style="width:6%;">Sr. No.</th>
+            <th style="width:68%;">Preparatory Work</th>
+            <th style="width:11%;">Action by</th>
+            <th style="width:10%;">Check</th>
+        </tr>
+
+        <tr>
+            <td align="center">1</td>
+            <td>
+               Intimation to Commercial department regarding removal of Ultrasonic meter and hence non-availability of check metering system till the time duly calibrated meter is reinstalled at CGS, Mahape. Intimation shall be provided 15 days before execution of NRO.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">2</td>
+            <td>
+                Specific site risk assessment is to be done prior to commencement of job. Tool box talk to be conducted. <b>Refer: PTW System</b>
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">3</td>
+            <td>
+                All the valves are operating correctly (as checked during valve maintenance) and accessible to be operated and in correct position at the start of NRO.<b> Refer WI: O &amp; M WI 105</b>
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">4</td>
+            <td>
+            Ensure that all the personnel involved in the shutdown operation are briefed regarding the sequence of the operation and are aware of the valve positions.    
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+		 <tr>
+            <td align="center">5</td>
+            <td>
+             
+             Ensure No smoking / No Naked flames / No mobile signs are on site.
+             </td>
+            <td align="center">O&amp;M Technician</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td align="center">6</td>
+            <td>
+                Ensure that Gascoseeker and Oxygen meter is available on site with due calibration.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">7</td>
+            <td>
+            Ensure two fire extinguishers (9 Kgs.) are available at site.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">8</td>
+            <td>
+                Ensure appropriate non sparking tools for valve operation and pipe removal are available at site. </td>
+            <td align="center">O&amp;M Technician</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">9</td>
+            <td>
+                Ensure sealant gun and sealant are available at site for valve sealing purpose.
+            </td>
+            <td align="center">O&amp;M Technician</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">10</td>
+            <td>
+                Ensure that the required blind flanges, gaskets and fasteners are available at site.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">11</td>
+            <td>
+            Ensure availability of lock out and tag out devices for valves to be closed during the NRO. 
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">12</td>
+            <td>
+               Ensure availability of flame arrester required during venting purpose at site.  </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">13</td>
+            <td>
+                Ensure proper earthing of the vent hose during the venting operation.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+    </table>
+           <p><b>Note:</b>
+               Valve A was inspected on 6th Dec, 2018 and found to be OK.
+               <br/>
+               Valve B was inspected on 6th Dec, 2018 and found to be OK
+</p>
+
+                    <p><b>Valve operation:<br/>
+
+MGL trained technicians will operate the valves. First anti-rust WD-40 will be applied on the valve stem and after that valves will be carefully operated by the technicians.  Refer: WI: O &amp; M WI 105</b></p>         
+        </div>
+        
+    <div  class="title-page">
+               <p>(D) <b style="border-bottom: 1px solid #000; font-weight: bold;">Status of Valves Before operation:</b></p>
+       <table>
+		
+        <tr>
+            <th>Sr. No.</th>
+            <th>Valve No.</th>
+            <th>Status</th>
+            <th>Check</th>
+        </tr>
+
+        <tr><td align="center">1</td><td align="center">A</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">2</td><td align="center">B</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">3</td><td align="center">C</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">4</td><td align="center">D</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">5</td><td align="center">E</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">6</td><td align="center">F</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">7</td><td align="center">G</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">8</td><td align="center">H</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">9</td><td align="center">I</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">10</td><td align="center">J</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">11</td><td align="center">K</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">12</td><td align="center">L</td><td align="center">CLOSE</td><td></td></tr>
+ </table>
+        </div>
+        
+    <div  class="title-page">
+               <p>(E) <b style="border-bottom: 1px solid #000; font-weight: bold;">Status of Valves After Operation:</b></p>
+       <table>
+		
+        <tr>
+            <th>Sr. No.</th>
+            <th>Valve No.</th>
+            <th>Status</th>
+            <th>Check</th>
+        </tr>
+
+        <tr><td align="center">1</td><td align="center">A</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">2</td><td align="center">B</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">3</td><td align="center">C</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">4</td><td align="center">D</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">5</td><td align="center">E</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">6</td><td align="center">F</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">7</td><td align="center">G</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">8</td><td align="center">H</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">9</td><td align="center">I</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">10</td><td align="center">J</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">11</td><td align="center">K</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">12</td><td align="center">L</td><td align="center">CLOSE</td><td></td></tr>
+ </table>
+        </div>
+         
+          <div  class="title-page">
+               <p>(F) <b style="border-bottom: 1px solid #000; font-weight: bold;">Normal Operation Procedure:</b></p>
+              <table cellpadding="2">
+                
+    <tr>
+         <th style="width:6%;">Sr. No.</th>
+            <th style="width:68%;">Operation Procedure</th>
+            <th style="width:11%;">Action by</th>
+            <th style="width:10%;">Check</th>
+    </tr>
+
+    <tr>
+        <td>1</td>
+        <td>
+           Inform Control room about commencement of NRO.
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>2</td>
+        <td>
+       Disconnect electric supply and other communication cables to Ultrasonic meter, pressure transmitter, temperature transmitter. </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>3</td>
+        <td>
+            Remove Pressure transmitter, temperature transmitter and RTD from meter run.
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>4</td>
+        <td>
+       Check for potential sources of ignition in the vicinity of valve H and remove if any.
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>5</td>
+        <td>
+     Install vent stack with flame arrestor at valve H (Size 1/2”) for gas venting purpose and Pressure gauge to monitor pipeline pressure.
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>6</td>
+        <td>
+        Connect hose between vent valve K and vent valve L.
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>7</td>
+        <td>
+      Open vent valves K and L to pressurise meter by pass line.
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>8</td>
+        <td>
+        Gradually open valve G (size 16”) and valve F (size 16”) to start gas flow through meter bypass line. 
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>9</td>
+        <td>
+		Gradually Close valve A (size 16”) and valve B (size 16”) to isolate USM.
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>10</td>
+        <td>
+		Open valve H (Size 1/2”) and vent the gas in the pipeline till the gauge pressure falls to zero.
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>11</td>
+        <td>
+ 	Check the gas % at valve H using gascoseeker and reconfirm zero gas in the pipeline.
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>12</td>
+        <td>
+	Disconnect the meter run from point X and Y and remove the same.
+        </td>
+        <td>O&amp;M Technician</td>
+        <td></td>
+    </tr>
+      <tr>
+            <td>13</td>
+            <td>
+                Install blind flanges at point X and Y.
+            </td>
+            <td>
+               O&amp;M Technician
+            </td>
+          <td></td>
+        </tr>
+
+        <tr>
+            <td>14</td>
+            <td>
+Inform control room about the completion of NRO.
+            </td>
+            <td>O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+</table>
+        </div>
+       
+         <div  class="title-page">
+ <p> <b style="border-bottom: 1px solid #000; font-weight: bold;">(G) Contingency Action Plan:</b></p>
+    <p><b style="text-decoration:underline;color:red"> In case of Passing of Valve A (16"):</b> </p>
+ <table>	
+        <tr>
+            <th style="width:10%;">Sr. No.</th>
+            <th>Description of work</th>
+            <th>Responsibility</th>
+        </tr>
+      <tr><td>1</td><td> Close valve A (16”) completely. </td><td >O&amp;M Technician </td></tr>
+     <tr><td>2</td><td> Open needle valve downstream of valve A sealant point. </td><td>O&amp;M Technician </td></tr>
+	<tr><td>3</td><td>Connect sealant gun to the needle valve tubing. </td><td>O&amp;M Technician </td></tr>
+     <tr><td>4</td><td> Apply sealant using sealant injection gun to ensure passing of valve is completely stopped.</td><td>O&amp;M Technician </td></tr>
+     <tr><td>5</td><td>Open valve H (Size 1/2”) and vent the gas in the pipeline till the gauge pressure falls to zero. </td><td>O&amp;M Technician </td></tr>
+     <tr><td>6</td><td>Check the gas % at valve H using gascoseeker to ensure zero gas. </td><td>O&amp;M Engineer </td></tr>
+     <tr><td>7</td><td>Disconnect the meter run from point X and Y and remove the same. </td><td>O&amp;M Technician </td></tr>
+     <tr><td>8</td><td> Install blind flanges at point X and Y.</td><td>O&amp;M Techcician </td></tr>
+     <tr><td>9</td><td> Inform Control Room about completion of NRO.</td><td>O&amp;M Engineer </td></tr>
+     
+             </table> 
+             
+      <p><b style="text-decoration:underline;color:red"> In case of Passing of Valve B (16"):</b> </p>
+ <table>	
+        <tr>
+            <th style="width:10%;">Sr. No.</th>
+            <th>Description of work</th>
+            <th>Responsibility</th>
+        </tr>
+      <tr><td>1</td><td> Close valve A (16”) completely. </td><td >O&amp;M Technician </td></tr>
+     <tr><td>2</td><td> Open needle valve downstream of valve B sealant point. </td><td>O&amp;M Technician </td></tr>
+	<tr><td>3</td><td>Connect sealant gun to the needle valve tubing. </td><td>O&amp;M Technician </td></tr>
+     <tr><td>4</td><td> Apply sealant using sealant injection gun to ensure passing of valve is completely stopped.</td><td>O&amp;M Technician </td></tr>
+     <tr><td>5</td><td>Open valve H (Size 1/2”) and vent the gas in the pipeline till the gauge pressure falls to zero. </td><td>O&amp;M Technician </td></tr>
+     <tr><td>6</td><td>Check the gas % at valve H using gascoseeker to ensure zero gas. </td><td>O&amp;M Engineer </td></tr>
+     <tr><td>7</td><td>Disconnect the meter run from point X and Y and remove the same. </td><td>O&amp;M Technician </td></tr>
+     <tr><td>8</td><td> Install blind flanges at point X and Y.</td><td>O&amp;M Techcician </td></tr>
+     <tr><td>9</td><td> Inform Control Room about completion of NRO.</td><td>O&amp;M Engineer </td></tr>
+             </table> 
+                      
+    
+        </div>
+      
+    </body>
+</apex:page>

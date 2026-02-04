@@ -1,0 +1,100 @@
+<!--
+  @description       : 
+  @author            : Shashank.shekhar@appstrail.com
+  @group             : 
+  @last modified on  : 07-01-2025
+  @last modified by  : Shashank.shekhar@appstrail.com
+-->
+<template>
+
+    <template if:true={showEnableMessage}>
+        <div class="slds-modal__header">
+            <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate"></h1>
+        </div>
+
+        <div class="slds-modal__content slds-is-relative" id="modal-content-id-1" style="font-size: larger;">
+            <div class="slds-p-around_large slds-box slds-theme_default">
+                <h1 class="slds-text-align_center slds-m-bottom_large">{message}</h1>
+            </div>
+        </div>
+    </template>
+
+    <template if:false={showEnableMessage}>
+
+        <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+        
+        <div class="slds-box slds-theme_default">
+
+            <template if:true={showFollowUpScreen}>
+                <c-rt-followup-appointment record-id={recordId}></c-rt-followup-appointment>
+            </template>
+
+            <template if:false={showFollowUpScreen}>
+                <!-- First Image Upload -->
+                <div class="slds-m-bottom_medium">
+                    <!-- <c-r-t-camer-uploadcomp image-list={photoUploadSlots} onchange={handleFile}></c-r-t-camer-uploadcomp> -->
+                    <c-as-camera image-list={photoUploadSlots} onchange={handleFile}></c-as-camera>
+                </div>
+
+                <c-as-signature-pad></c-as-signature-pad>
+
+                <!-- <c-ic-account-update
+                    record-id={recordId}
+                    object-api-name="Account"
+                    onchildsaved={handleChildSaved}>
+                </c-ic-account-update> -->
+
+                <lightning-input 
+                    label="Mobile Number"
+                    data-name="mobileNumber"
+                    value={mobileNumber}
+                    onchange={handleChange}>
+                </lightning-input>
+
+                <lightning-input 
+                    label="Secondary Number"
+                    data-name="secondaryNumber"
+                    value={secondaryNumber}
+                    onchange={handleChange}>
+                </lightning-input>
+ 
+                <lightning-input 
+                    label="Email Id"
+                    data-name="emailId"
+                    value={emailId}
+                    onchange={handleChange}>
+                </lightning-input>
+
+                <!-- Remarks Text Area -->
+                <lightning-textarea 
+                    data-name="remarks" 
+                    label="Remarks" 
+                    value={remarks} 
+                    onchange={handleChange}
+                    placeholder="Enter your remarks here">
+                </lightning-textarea>
+
+                <!-- Follow Up Button -->
+                <div class="slds-m-top_medium slds-align_absolute-center">
+                    <lightning-button 
+                        variant="brand" 
+                        label="Follow Up" 
+                        onclick={handleFollowUp}>
+                    </lightning-button>
+                </div>
+
+                <!-- Save Button -->
+                <div class="slds-m-top_medium slds-align_absolute-center">
+                    <lightning-button 
+                        variant="brand" 
+                        label="Save" 
+                        onclick={handleChildSaved}>
+                    </lightning-button>
+                </div>
+            </template>
+            
+        </div>
+    </template>
+</template>

@@ -1,0 +1,31 @@
+<template>
+    <lightning-card >
+        <div>
+            <!-- <lightning-input
+                type="checkbox"
+                label="Repeat Case"
+                checked={isRepeat}
+                onchange={handleCheckboxChange}>
+            </lightning-input> -->
+            <lightning-textarea
+                label="Internal Comment"
+                value={internalComment}
+                onchange={handleCommentChange}
+                >
+            </lightning-textarea>
+            <br>
+            <lightning-button
+                label="Submit"
+                variant="brand"
+                onclick={handleSubmit}
+                class="slds-align_absolute-center"
+                disabled={isLoading}>
+            </lightning-button>
+        </div>
+        <template if:true={isLoading}>
+            <div>
+                <lightning-spinner alternative-text="Processing..." size="small"></lightning-spinner>
+            </div>
+        </template>
+    </lightning-card>
+</template>

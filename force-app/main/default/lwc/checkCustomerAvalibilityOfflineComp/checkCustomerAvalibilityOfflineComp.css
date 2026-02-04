@@ -1,0 +1,6 @@
+.upload-placeholder input[type="file"] {
+    display: none;
+}
+.upload-placeholder {
+     display: block;
+}

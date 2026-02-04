@@ -1,0 +1,70 @@
+<template>
+<div class="slds-var-m-around_medium slds-text-align_center">
+<template if:true={billings}>
+    <lightning-spinner if:true={isLoading}></lightning-spinner>
+        <div class="slds-scrollable_x">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                <thead>
+                    <tr>
+                        <th>Print Doc Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <template for:each={billings} for:item="bill">
+                        <tr key={bill.Id}>
+                            
+                            <td>
+                                <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                                    <div class="slds-col">
+                                        <lightning-input type="checkbox" data-printdoc={bill.Print_Doc_Number__c} onclick={handleCheckBoxChange}></lightning-input>
+                                    </div>
+                                    <div class="slds-col">
+                                        {bill.Print_Doc_Number__c}
+                                    </div>
+                                    <div class="slds-col">
+                                        <lightning-button-icon 
+                                            icon-name="doctype:pdf"
+                                            size="small"
+                                            alternative-text="View PDF"
+                                            title="View PDF"
+                                            class="pdf-icon"
+                                            data-printdoc={bill.Print_Doc_Number__c}
+                                            >
+                                        </lightning-button-icon>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </template>
+    <template if:true={error}>
+        <div class="slds-text-color_error slds-m-around_small">
+            Error loading bills: {error}
+        </div>
+    </template>
+    <template if:true={hasNoBillings}>
+        <div class="slds-text-color_weak slds-m-around_small">
+            No billing records found for this account.
+        </div>
+    </template>
+    <template if:true={ifChecked}>
+        <div>
+        <lightning-combobox
+            name="preference"
+            label="Select Preference"
+            value={selectedPreference}
+            placeholder="Choose Preference"
+            options={preferenceOptions}
+            onchange={handleChange}>
+        </lightning-combobox>
+<lightning-input type="number" onchange={handlePhoneChange} label="Alternate Mobile no:-"></lightning-input>
+</br>
+<lightning-button label="Send To Customer" onclick={getPdfList} varaiant="brand"></lightning-button>
+</div>
+    </template>
+</div>
+</template>

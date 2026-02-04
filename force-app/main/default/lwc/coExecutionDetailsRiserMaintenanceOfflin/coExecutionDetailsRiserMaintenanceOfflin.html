@@ -1,0 +1,148 @@
+<template>
+
+     <lightning-card>
+
+        <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+                     
+
+        <div class="slds-grid slds-wrap" style="margin-top:-4rem;">
+
+
+
+            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <lightning-input type="number" label="Total Number of Risers" value={risersNumber}
+                    onchange={handleRiserChange}  min="1" max="20" required="true" disabled={isReadOnly}>
+
+                </lightning-input>
+
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <lightning-input type="text" label="Sample BP Number 1" value={sampleBP1}
+                    onchange={handleBP1Change} required="true" disabled={isReadOnly}>
+
+                </lightning-input>
+
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <lightning-input type="text" label="Sample BP Number 2" value={sampleBP2}
+                    onchange={handleBP2Change}  disabled={isReadOnly}>
+
+                </lightning-input>
+
+            </div>
+
+             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <lightning-input type="number" label="Number of Floors" value={risersFloors}
+                    onchange={handleFloorChange}   required="true" disabled={isReadOnly}>
+
+                </lightning-input>
+
+            </div>
+
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                <lightning-combobox name="picklist" label="Type Of Riser" value={riserPickListValue}
+                     options={typeOfRiserOptions} onchange={handlePicklistChange} required="true" disabled={isReadOnly}>
+                </lightning-combobox>
+
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+               
+             <lightning-combobox name="picklist" label="Information Board Available" value={boardAvailable}
+                    placeholder="Choose an option" options={typeOfBoard} onchange={handleboardAvailableChange} required="true" disabled={isReadOnly}>
+                </lightning-combobox>
+
+            </div>
+
+            <template if:true={showNewInformationBoarInstalled}>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+
+            <lightning-combobox name="picklist" label="New Information Board Installed" value={newInformationBoardInstalled}
+                    placeholder="Choose an option" options={typeOfBoard} onchange={handleNewBoardInstalledChange} required="true" disabled={isReadOnly}>
+                </lightning-combobox>
+
+
+
+            </div>
+
+                 </template>
+
+
+
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Instrument Type & Range" name="instrumentTypeRange"
+                        value={instrumentTypeRange} onchange={handleInstrumentType} required="true" disabled={isReadOnly}></lightning-input>
+                </div>
+
+                  <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Calibration Certificate No" name="calibrationCertificateNo"
+                        value={calibrationCertificateNo} onchange={handleCalibrationCertificateNo} required="true" disabled={isReadOnly}>
+                    </lightning-input>
+                </div>
+
+
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="Date" label="Calibration Date" name="calibrationDate" value={calibrationDate}
+                        onchange={handleCalibrationDate} required="true" disabled={isReadOnly}></lightning-input>
+                </div>
+
+               
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                  <lightning-input type="Date" label="Calibration Due Date" name="calibrationDueDate"
+                        value={calibrationDueDate} onchange={handleCalibrationDueDate} required="true" disabled={isReadOnly}>
+                    </lightning-input>
+                </div> 
+
+                 
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Instrument Serial Number " name="instrumentSerialNumber"
+                        value={instrumentSerialNumber} onchange={handleInstrumentSerialNumber} required="true" disabled={isReadOnly}></lightning-input>
+                </div>
+
+              
+
+
+
+
+
+         <template if:true={showSaveButton}>
+
+            <div class="slds-p-around_medium" style="margin-left:7.3rem;">
+
+                <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+
+            </div>
+        </template>
+
+
+        
+
+       
+        </div>
+        
+
+          <!-- <template if:true={showWorkOrderLineItems}>
+
+          <c-work-order-line-item-component record-id={recordId} oncancel={handleCancel}></c-work-order-line-item-component> 
+
+
+
+        </template> -->
+
+
+        </lightning-card>
+
+      
+
+</template>

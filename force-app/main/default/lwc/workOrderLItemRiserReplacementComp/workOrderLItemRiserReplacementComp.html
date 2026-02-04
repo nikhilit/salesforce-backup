@@ -1,0 +1,43 @@
+<template>
+    <lightning-card>
+
+        <template if:true={showCOWorkOrderLineItemPage}>
+        <template if:true={workOrderLineItems}>
+            <ul class="list">
+                <template for:each={workOrderLineItems} for:item="item">
+                    <li key={item.recordId}   data-name={item.name} class="list-item" data-id={item.recordId} onclick={handleOpenModal}>
+                        <span class="index">{item.index}.</span>
+                        <span class="name">{item.name}</span>
+                        <span class="arrow">></span>
+                    </li>
+                </template>
+            </ul>
+        </template>
+
+        </template>
+
+        <template if:true={showEnterRiserDetails}>
+
+       <!-- <c-riser-details-for-riser-replacement-comp work-order-line-item-name={workOrderLineItemName} work-order-line-item-id={workOrderLineItemId} oncancel={handleCancel}></c-riser-details-for-riser-replacement-comp> -->
+
+         <!-- day wise -->
+            <c-riser-details-for-riser-replacement-day-wise work-order-line-item-name={workOrderLineItemName} work-order-line-item-id={workOrderLineItemId} oncancel={handleCancel}></c-riser-details-for-riser-replacement-day-wise> 
+
+        </template>
+
+
+       <div style="margin-top:5rem;">
+
+
+        <template if:true={showBPDetails}>
+
+            <c-bp-details-based-on-connection-comp oncancel={handleCancel} record-id={recordId}> </c-bp-details-based-on-connection-comp>
+
+
+        </template>
+
+        </div>
+
+       
+    </lightning-card>
+</template>

@@ -1,0 +1,156 @@
+<template>
+    <template if:true={billings}>
+<table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+            <thead>
+                <tr>
+                    <th onclick={handleSort} data-field="OPBEL">
+                        Invoice Number
+                        <template if:true={isSortedByPrintDoc}>
+                            <lightning-icon 
+                                icon-name={sortIcon} 
+                                size="xx-small" 
+                                class="slds-m-left_x-small">
+                            </lightning-icon>
+                        </template>
+                    </th>
+                    <th onclick={handleSort} data-field="BELNR">
+                        Billing Doc Number
+                        <template if:true={isSortedByBillingDoc}>
+                            <lightning-icon 
+                                icon-name={sortIcon} 
+                                size="xx-small" 
+                                class="slds-m-left_x-small">
+                            </lightning-icon>
+                        </template>
+                    </th>
+                    <th onclick={handleSort} data-field="BLDAT">
+                        Document Date
+                        <template if:true={isSortedByDocDate}>
+                            <lightning-icon 
+                                icon-name={sortIcon} 
+                                size="xx-small" 
+                                class="slds-m-left_x-small">
+                            </lightning-icon>
+                        </template>
+                    </th>
+                    <th onclick={handleSort} data-field="BUDAT">
+                        Posting Date
+                        <template if:true={isSortedByPostingDate}>
+                            <lightning-icon 
+                                icon-name={sortIcon} 
+                                size="xx-small" 
+                                class="slds-m-left_x-small">
+                            </lightning-icon>
+                        </template>
+                    </th>
+                    <th onclick={handleSort} data-field="BEGABRPE">
+                        Bill From
+                        <template if:true={isSortedByBillFrom}>
+                            <lightning-icon 
+                                icon-name={sortIcon} 
+                                size="xx-small" 
+                                class="slds-m-left_x-small">
+                            </lightning-icon>
+                        </template>
+                    </th>
+                    <th onclick={handleSort} data-field="ENDABRPE">
+                        Bill To
+                        <template if:true={isSortedByBillTo}>
+                            <lightning-icon 
+                                icon-name={sortIcon} 
+                                size="xx-small" 
+                                class="slds-m-left_x-small">
+                            </lightning-icon>
+                        </template>
+                    </th>
+                    <th onclick={handleSort} data-field="TOTAL_AMNT">
+                        Due Amount
+                        <template if:true={isSortedByDueAmount}>
+                            <lightning-icon 
+                                icon-name={sortIcon} 
+                                size="xx-small" 
+                                class="slds-m-left_x-small">
+                            </lightning-icon>
+                        </template>
+                    </th>
+                    <th onclick={handleSort} data-field="FAEDN">
+                        Due Date
+                        <template if:true={isSortedByDueDate}>
+                            <lightning-icon 
+                                icon-name={sortIcon} 
+                                size="xx-small" 
+                                class="slds-m-left_x-small">
+                            </lightning-icon>
+                        </template>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+               <template for:each={billings} for:item="row">
+                        <tr key={row.Id}>
+                            <td>
+                                   {row.OPBEL}
+                              <lightning-icon 
+    icon-name="doctype:pdf"
+    size="x-small"
+    alternative-text="PDF"
+    title="PDF"
+    class="slds-m-left_x-small pdf-icon"
+    data-printdoc={row.OPBEL}
+    onclick={getPdf}>
+</lightning-icon>
+                            </td>
+                            <td>{row.BELNR}</td>
+                            <td>
+    <lightning-formatted-date-time 
+        value={row.BLDAT}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+                            <td>
+    <lightning-formatted-date-time 
+        value={row.BUDAT}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+<td>
+    <lightning-formatted-date-time 
+        value={row.BEGABRPE}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+<td>
+    <lightning-formatted-date-time 
+        value={row.ENDABRPE}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+                            <td>
+    <lightning-formatted-number 
+        value={row.TOTAL_AMNT} 
+        minimum-fraction-digits="2" 
+        maximum-fraction-digits="2">
+    </lightning-formatted-number>
+</td>
+<td>
+    <lightning-formatted-date-time 
+        value={row.FAEDN}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+                        </tr>
+                    </template>
+            </tbody>
+        </table>
+    </template>
+</template>

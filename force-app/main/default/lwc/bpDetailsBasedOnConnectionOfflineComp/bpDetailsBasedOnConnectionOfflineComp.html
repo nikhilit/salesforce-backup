@@ -1,0 +1,45 @@
+<template>
+    <lightning-card>
+
+        <template if:true={showBPPage}>
+        <template if:true={bpDetail}>
+            <ul class="list">
+                <template for:each={bpDetail} for:item="item">
+                    <li key={item.recordId}   data-name={item.name} class="list-item" data-id={item.recordId} onclick={handleOpenModal}>
+                        <span class="index">{item.index}.</span>
+                        <span class="name">{item.name}</span>
+                        <span class="arrow">></span>
+                    </li>
+                </template>
+            </ul>
+        </template>
+
+        </template>
+
+        <template if:true={showEnterBPDetails}>
+
+       <c-bp-detail-update-comp  account-id={accountId} record-id={recordId} oncancel={handleCancel}></c-bp-detail-update-comp>
+
+        </template>
+
+        
+       
+    </lightning-card>
+
+    <!-- <lightning-card class="slds-card">
+
+<div>
+
+            <h1>BP Details</h1>
+
+        <template if:true={showBPDetails}>
+
+            <c-bp-details-based-on-connection-comp oncancel={handleCancel}> </c-bp-details-based-on-connection-comp>
+
+
+        </template>
+
+        </div>
+
+    </lightning-card> -->
+</template>

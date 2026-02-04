@@ -1,0 +1,10 @@
+<template>
+
+    <!-- Pass selected Connection__c Ids to child -->
+    <template if:true={showChild}>
+        <c-create-connection-work-orders
+            connection-ids={connectionIds}>
+        </c-create-connection-work-orders>
+    </template>
+
+</template>

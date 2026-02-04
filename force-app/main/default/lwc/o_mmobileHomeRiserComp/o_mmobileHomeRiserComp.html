@@ -1,0 +1,156 @@
+<!--
+  @description       : 
+  @author            : Neeraj dalal Appstrail
+  @group             : 
+  @last modified on  : 19-05-2025
+  @last modified by  : Neeraj dalal, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   16-05-2025   Neeraj dalal, Appstrail   Initial Version
+-->
+<template>
+
+   
+
+    <template if:true={showSpinner}>
+        <lightning-spinner alternative-text="Loading..." size="small"></lightning-spinner>
+    </template>
+
+    <template if:true={openMainPage}>
+        <div class="main-container">
+            <div class="greeting-card">
+                <p class="greeting-line">{currentDate}</p>
+                <p class="greeting-line">{currentTime}</p>
+                <p class="greeting-line" style="margin-top: 10px;">{greeting}</p>
+                <p class="greeting-line">Let's get started!</p>
+            </div>
+        </div>
+
+             <div class="card" style="text-align: center;
+    padding: 23px;
+    border: 3px solid red;
+    display: flex;
+    font-weight: bold;
+    background-color: green;
+    align-items: stretch;" onclick={handleuploadtbtdo}>
+
+             <!-- <div class="icon-section"> -->
+                                    <!-- <img src={kpi.iconUrl} style="height: 50px;"/> -->
+                                    <lightning-icon icon-name="utility:upload"
+                                        alternative-text="Total" size="small" variant="inverse">
+                                    </lightning-icon>
+                                <!-- </div> -->
+                   <p style="font-size:12px;">
+                   {tbtStatus}  </p>
+
+                   <lightning-icon icon-name='utility:refresh' onclick={handletbtRefresh}  alternative-text='refresh' size='x-small' title='refresh' class="white-utility-icon"></lightning-icon>
+            </div>
+
+    </template>
+
+    <!-- Dashboard Section -->
+    <template if:true={showDashboard}>
+        <div class="dashboard-wrapper">
+              <!-- commenting My kpis card
+                <div class="header-bar">
+                <h2 class="left-title">My KPI</h2>
+                <h2 class="right-title">O&amp;M</h2>
+            </div> -->
+
+           <!-- <div class="header-bar">
+            <h2 class="slds-card__header-title slds-p-around_small slds-border_bottom header-section">
+                My Today's KPI &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 O&amp;M
+           </div> -->
+
+            <div class="dashboard-list">
+
+                <div class="slds-p-around_small">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-1">
+                            <div class="card" onclick={onTotalClick}>
+                                <div class="icon-section">
+                                    <!-- <img src={kpi.iconUrl} style="height: 50px;"/> -->
+                                    <lightning-icon icon-name="utility:locker_service_api_viewer"
+                                        alternative-text="Total" size="small" variant="inverse">
+                                    </lightning-icon>
+                                </div>
+                                <div>
+                                    <span>Total</span>
+                                </div>
+                                <div>
+                                    <strong>{kpis.total}</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <template for:each={kpisResult} for:item="kpi">
+                            <div class="slds-col slds-size_1-of-1" key={kpi.label}>
+                                <div class="card" data-card={kpi.label} onclick={onCardCLick}>
+                                    <div class="icon-section">
+                                        <!-- <img src={kpi.iconUrl} style="height: 50px;"/> -->
+                                        <lightning-icon icon-name={kpi.iconUrl} alternative-text={kpi.label}
+                                            size="small" variant="inverse">
+                                        </lightning-icon>
+                                    </div>
+                                    <div>
+                                        <strong style="text-align: end;">{kpi.count}</strong>
+                                        <span style="margin-right:7rem; margin-top:-2rem;">{kpi.label}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </template>
+
+    <!-- Child Component -->
+    <template if:true={showChild}>
+        <!-- <c-o_-m-service-appointments-address-map selected-status={selectedStatus} open-main-page={openMainPage}
+            second-page={secondPage} onchildevent={handleChildEvent} show-dashboard={showDashboard}
+            selected-type={selectedType}>
+        </c-o_-m-service-appointments-address-map> -->
+         <!-- <c-o_-m-work-order-account-list-view-details 
+            selected-status={selectedStatus} 
+            second-page={secondPage} 
+            onchildevent={handleChildEvent} 
+            selected-type={selectedType}>
+        </c-o_-m-work-order-account-list-view-details> -->
+
+        <!-- <c-o_-m-service-appointments-address-map-i-p-d selected-status={selectedStatus} open-main-page={openMainPage}
+            second-page={showAppointmentScreen} onchildevent={handleChildEvent} show-dashboard={showDashboard}
+            selected-type={selectedType}>
+        </c-o_-m-service-appointments-address-map-i-p-d>
+         -->
+
+         
+
+         <!-- <c-o_-m-work-order-account-list-view-details selected-status={selectedStatus} open-main-page={openMainPage}
+            second-page={showAppointmentScreen} onchildevent={handleChildEvent} show-dashboard={showDashboard}
+            selected-type={selectedType}>
+        </c-o_-m-work-order-account-list-view-details> -->
+
+
+         <!-- <c-o_-m-work-order-account-list-view-details 
+            selected-status={selectedStatus} 
+            second-page={secondPage} 
+            onchildevent={handleChildEvent} 
+            selected-type={selectedType}>
+        </c-o_-m-work-order-account-list-view-details> -->
+
+         <c-connection-list-view-details-comp
+            selected-status={selectedStatus} 
+            second-page={secondPage} 
+            onchildevent={handleChildEvent} 
+            selected-type={selectedType}>
+        </c-connection-list-view-details-comp>
+
+
+    </template>
+
+    
+</template>

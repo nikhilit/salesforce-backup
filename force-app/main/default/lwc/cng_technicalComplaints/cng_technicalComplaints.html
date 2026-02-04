@@ -1,0 +1,65 @@
+<template>
+    <section class="card">
+
+        <!-- Header -->
+        <div class="card-header">
+            <div class="title">
+                <span>{listName}</span>
+            </div>
+
+            <lightning-button-icon
+                icon-name="utility:refresh"
+                alternative-text="Refresh"
+                title="Refresh"
+                onclick={handleRefresh}>
+            </lightning-button-icon>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <template for:each={columnsWithClass} for:item="col">
+    <th key={col.fieldName} data-field={col.fieldName} onclick={handleSort}>
+        {col.label}
+        <span class={col.sortClass}></span>
+    </th>
+</template>
+                    </tr>
+                </thead>
+
+              <tbody>
+    <template for:each={records} for:item="row">
+        <tr key={row.Id}>
+            <template for:each={columnsWithClass} for:item="col">
+                <td key={col.fieldName}>
+                    <template if:true={col.isUrl}>
+                        <a href={row.recordUrl}
+                           class="slds-text-link">
+                            {row[col.fieldName]}
+                        </a>
+                    </template>
+
+                    <template if:false={col.isUrl}>
+                        {row[col.fieldName]}
+                    </template>
+                </td>
+            </template>
+        </tr>
+    </template>
+
+    <template if:false={records.length}>
+        <tr>
+            <td colspan={columns.length} class="no-data">
+                No records found
+            </td>
+        </tr>
+    </template>
+</tbody>
+
+            </table>
+        </div>
+
+    </section>
+</template>

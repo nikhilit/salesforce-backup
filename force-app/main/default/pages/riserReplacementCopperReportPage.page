@@ -1,0 +1,228 @@
+<apex:page renderAs="pdf" controller="RiserReplacementPageContr">
+
+   
+
+    <h4 style="text-align: center;">PNEUMATIC TESTING REPORT (Copper Pipe)</h4>
+    <div style="text-align: right; font-size:14px;">PNG RE 016</div> 
+
+    <p><b>DATE :{!completedDate}</b></p> 
+
+    <table>
+        <tr>
+            <td>1</td>
+            <td>BP No : {!bpNumber}</td> 
+        
+        </tr>
+        <tr><td>2</td><td>Address : {!address}
+        </td></tr>
+        <tr><td>3</td><td>Copper pipe Length : {!copperPipeLength}</td></tr>
+        <tr><td>4</td><td>Test Pressure : 32 mbar</td></tr>
+        <tr><td>5</td><td>Stabilization Time:1 minute</td></tr>
+        <tr><td>6</td><td>Testing Time : 2 minutes</td></tr>
+        <tr><td>7</td><td>Result :OK/Not OK</td></tr>
+        <tr><td>8</td><td>Leakage Observed in:</td></tr>
+        <tr><td>9</td><td>Length rectified (mtrs):</td></tr> 
+    </table>
+
+      
+    <div style="margin-left:450px; margin-top:-120px;">
+    <table style="border:1px solid black; border-collapse: collapse;"  border="1">
+    
+    <tr>
+    <td>Meter Reading :</td>
+                <td>{!meterReading}</td> 
+
+    </tr>
+    <tr>
+            <td>Meter No.:</td>
+            <td>{!meterNumber}</td>
+    
+    </tr>
+    
+    <tr>
+                <td>Regulator Make:</td>
+            <td>{!regulatorMake}</td> 
+
+    
+    </tr>
+    
+    
+    
+    
+    </table>
+    </div>
+    
+    <div style="margin-top:80px;">
+    <p>10 Material Used</p>
+    
+    <table style="border:1px solid black; border-collapse: collapse; width:70%;"  border="1">
+    
+    <tr> 
+    <td style="text-align:center;">New Material Used</td>
+    
+    </tr>
+   
+    
+    
+    
+    </table>
+    
+    <table style="border:1px solid black; border-collapse: collapse; width:70%;"  border="1">
+    <tr>
+    
+    
+    </tr>
+                  <apex:repeat value="{!materialConsuption}" var="item">
+
+ <tr style="height:16px; text-align:center;">
+     
+        <td style="width:10%;">{!item.Item_Code_Riser_Activity__c}</td>
+        <td style="width:60%;">{!item.Item_Description_Riser_Activity__c}</td>
+        <td style="width:10%;">{!item.Quantity__c}</td>
+        <td style="width:10%;"></td>
+    
+    
+    </tr> 
+    
+               </apex:repeat> 
+
+    </table>
+    
+    <table style="border:1px solid black; border-collapse: collapse; width:70%;"  border="1">
+    
+    <tr> 
+    <td style="text-align:center;">Old Material Replaced</td>
+    
+    </tr>
+    
+   
+      
+    
+    </table>
+    
+     <table style="border:1px solid black; border-collapse: collapse; width:70%;"  border="1">
+    <tr>
+    
+    
+    
+    
+    </tr>
+    
+     <tr style="height:16px; text-align:center;">
+    
+    <td style="width:22%;"></td>
+    <td style="width:58%;"></td>
+    <td style="width:10%;"></td>
+    <td style="width:10%;"></td>
+    
+    
+    
+    
+    </tr>
+    <tr style="height:16px; text-align:center;">
+    
+    <td style="width:22%;"></td>
+    <td style="width:58%;"></td>
+    <td style="width:10%;"></td>
+    <td style="width:10%;"></td>
+    
+    
+    
+    
+    </tr>
+    
+    </table>
+    
+    
+           
+    </div>
+    
+    <div>
+   <!-- <p>Old Material Used : {!materialRecovered}</p> -->
+    
+    </div>
+    
+     <div style="margin-top:-10px;">
+    <p>11 Pressure Guage Calibration Details</p>
+    
+    <table style="border:1px solid black; border-collapse: collapse; width:70%;"  border="1">
+    
+    <tr>
+    
+    <td style="width:40%;">Instrument Type &amp; Range</td>
+    <td>{!pGCDInstrumentType}</td> 
+    
+    </tr>
+    
+     <tr>
+    
+    <td style="width:40%;">Calibration Certificate No.</td>
+   <td>{!pGCDCalibrationCertificateNo}</td> 
+    
+    </tr>
+    
+     <tr>
+    
+    <td style="width:40%;">Calibration Date</td>
+     <td>{!pGCDCalibrationDate}</td> 
+    
+    </tr>
+    
+     <tr>
+    
+    <td style="width:40%;">Calibration Due Date</td>
+    <td>{!pGCDCalibrationDueDate}</td>
+    
+    </tr>
+    </table>
+    
+    </div>
+    
+    
+    <div style="margin-top:20px;">
+    
+    <table style="width:70%;" >
+    
+   
+    
+     <tr>
+    
+    <td>
+    Supervisor Name : {!supervisoreName} 
+    
+    </td> 
+    <td> Witnessed by</td>
+    </tr>
+    
+     <tr>
+    
+    <td>
+    Contractor supervisor Sign :
+    
+    </td>
+        <td> TPE Name : {!tPEName}</td> 
+
+    </tr>
+    
+     <tr>
+    
+    <td></td>
+        <td> TPE Sign</td>
+
+    </tr>
+    </table>
+    </div>
+    
+    <div style="margin-top:15px;">
+    
+    <table>
+    <tr>
+   <td> Customer Name :{!customerName} </td>
+    </tr>
+     <tr>
+   <td>     Customer Sign  </td>
+    </tr>
+    </table>
+    </div>
+    
+</apex:page>

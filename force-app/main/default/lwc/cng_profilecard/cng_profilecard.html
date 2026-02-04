@@ -1,0 +1,157 @@
+<template>
+    <lightning-card title="Profile Details">
+        <template if:true={profile}>
+            <div class="container">
+
+                <!-- Left Column -->
+              <div class="column">
+                <div class="row">
+                    <span class="label">Name :</span>
+                    <span class="value">{profile.Parent.Name}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Phone :</span>
+                    <span class="value">{profile.Parent.Phone}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">PAN-NO :</span>
+                    <span class="value">{profile.PAN_No__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">IFSC Code :</span>
+                    <span class="value">{profile.IFSC_Code__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Station Name :</span>
+                    <span class="value">{profile.Name}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Station Number :</span>
+                    <span class="value">{profile.BP_Number__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Ship To Party Code :</span>
+                    <span class="value">{profile.Ship_To_Party_Code__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Vendor Code :</span>
+                    <span class="value">{profile.Vendor_Code__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Station Type :</span>
+                    <span class="value">{profile.Station_Type__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Connectivity :</span>
+                    <span class="value">{profile.Connectivity__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">No of Compressor :</span>
+                    <span class="value">{profile.No_of_Compressor__c}</span>
+                </div>
+              <template for:each={leftCompressors} for:item="comp">
+    <div class="row" key={comp.Id}>
+        <span class="label">
+            Compressor {comp.displayIndex} Capacity :
+        </span>
+        <span class="value">{comp.Capacity__c}</span>
+    </div>
+</template>
+
+
+                <div class="row">
+                    <span class="label">Address :</span>
+                 <span class="value">{billingAddress}
+</span>
+
+
+                </div>
+            </div>
+
+                <!-- Right Column -->
+            <div class="column">
+                <div class="row">
+                    <span class="label">Email :</span>
+                    <span class="value">{profile.Parent.Email_Id__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">GST-NO :</span>
+                    <span class="value">{profile.GST_No__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Account Number :</span>
+                    <span class="value">{profile.AccountNumber}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Zone :</span>
+                    <span class="value">{profile.Zone__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Station Nick Name :</span>
+                    <span class="value">{profile.Station_Nick_Name__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Account Ref Number :</span>
+                    <span class="value">{profile.Account_Ref_Number__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">SAP Code :</span>
+                    <span class="value">{profile.SAP_Code__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Purchase Order Number :</span>
+                    <span class="value">{profile.Purchase_Order_Number__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Model :</span>
+                    <span class="value">{profile.Model__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">No of Dispenser :</span>
+                    <span class="value">{profile.No_of_Dispensers__c}</span>
+                </div>
+
+                <div class="row">
+                    <span class="label">Compressor Capacity :</span>
+                    <span class="value">{profile.Compressor_Capacity__c}</span>
+                </div>
+                <template for:each={rightCompressors} for:item="comp">
+    <div class="row" key={comp.Id}>
+        <span class="label">
+            Compressor {comp.displayIndex} Capacity :
+        </span>
+        <span class="value">{comp.Capacity__c}</span>
+    </div>
+</template>
+
+            </div>
+
+            </div>
+        </template>
+
+        <template if:false={profile}>
+            <div class="slds-p-around_medium">
+                Loading profile details...
+            </div>
+        </template>
+    </lightning-card>
+</template>

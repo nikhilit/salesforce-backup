@@ -1,0 +1,734 @@
+<template>
+
+<lightning-card>
+
+     <div class="slds-grid slds-wrap" style="margin-top:-2rem;">
+
+          <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+
+                               <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+        <p class="slds-text-heading_small">
+            {workOrderLineItemName}
+        </p>
+    </div>
+
+<template if:true={isStep1}>
+                                   <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                 <lightning-combobox label="Any encroached corrosion condition" name="anyencroachedcorrosioncondition"
+                                    value={riserMaintenance.anyencroachedcorrosioncondition} options={anyencroachedcorrosionconditionOptions}
+                                    onchange={handleRiserMaintainenceDetail} >
+                                </lightning-combobox>
+                                <!-- <lightning-input type="number" label="Any encroached  corrosion condition"
+                                    value={riser.anyencroachedcorrosioncondition} onchange={handleMaintainenceDetail}>
+                                </lightning-input> -->
+                            </div>
+
+                              <template if:true={ifYesShowanyencroachedcorrosionImageUpload}>
+                                      <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                              <!-- <c-o_-m-camera-upload-comp
+                                    image-list={showAnyEncroachedPhotoUploadSlots}
+                                    onchange={handleAnyEncroachedFile}>
+                                   </c-o_-m-camera-upload-comp> -->
+
+                 <lightning-input type="file" name="fileUploader" label="Select files to upload"
+                              accept="image/*" onchange={handleFilesInputChange}>
+            
+                </lightning-input>
+
+                      <div if:true={fileName}>
+                      <p>Selected file: {fileName}</p>
+                        </div>
+
+                                   
+                          </div>
+
+
+                              </template>
+
+                                         
+                             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                           <!-- <h2>{workOrderLineItemName}</h2>    -->
+
+                                       <lightning-combobox label="Number of Leakages" name="numberofLeakages"
+                                    value={riserMaintenance.numberofLeakages} options={numberofLeakagesOptions}
+                                    onchange={handleRiserMaintainenceDetail} >
+                                </lightning-combobox>
+                            </div>
+
+                             <template if:true={riserMaintenance.leakLocationList}>
+                 <template for:each={riserMaintenance.leakLocationList} for:item="leak" for:index="index">
+                <div key={leak.id} class="slds-box slds-m-bottom_small slds-size_1-of-1">
+                                 <!-- <lightning-input type="text" label={leak.label}  value={leak.value}
+                                    onchange={handleRiserMaintainenceDetail}  ></lightning-input>  -->
+                 <lightning-combobox label={leak.label} value={leak.value} options={leakOptions} data-index={index}
+                                          name="leakLocation" onchange={handleRiserMaintainenceDetail}>
+                </lightning-combobox>
+                                 
+                                                  
+              </div>
+               </template>
+
+                             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+            <lightning-combobox label="Is Any Copper Leakage Found" name="isanycopperleakagefound"
+                                    value={riserMaintenance.isanycopperleakagefound} options={valvesReplacedOptions}
+                                    onchange={handleRiserMaintainenceDetail} >
+                                </lightning-combobox>
+
+                           <template if:true={anyOneYes}>   
+
+                 <lightning-input type="text" label="Notification Number" name="copperLeakageFoundNotificationNo"
+                     value={riserMaintenance.copperLeakageFoundNotificationNo} onchange={handleRiserMaintainenceDetail} >
+                                </lightning-input>     
+
+
+                    </template>                           
+
+              </div>
+
+                    <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                     <lightning-combobox label="Is Any Crimp Guard Leakage Found" name="isanycrimpguardleakagefound"
+                                    value={riserMaintenance.isanycrimpguardleakagefound} options={valvesReplacedOptions}
+                                    onchange={handleRiserMaintainenceDetail} >
+                                </lightning-combobox>
+
+                                  <template if:true={anyOneYes}>   
+
+                 <lightning-input type="text" label="Notification Number" name="crimpLeakageFoundNotificationNo"
+                     value={riserMaintenance.crimpLeakageFoundNotificationNo} onchange={handleRiserMaintainenceDetail} >
+                                </lightning-input>     
+
+
+                    </template>  
+
+                    </div>
+
+
+                    <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                     <lightning-combobox label="Is Any SR Leakage Found" name="isanySRleakagefound"
+                                    value={riserMaintenance.isanySRleakagefound} options={valvesReplacedOptions}
+                                    onchange={handleRiserMaintainenceDetail} >
+                                </lightning-combobox>
+
+                              <template if:true={anyOneYes}>   
+
+                 <lightning-input type="text" label="Notification Number" name="srLeakageFountNotificationNo"
+                     value={riserMaintenance.srLeakageFountNotificationNo} onchange={handleRiserMaintainenceDetail} >
+                                </lightning-input>     
+
+
+                    </template>      
+
+                    </div>
+
+
+            </template> 
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="number" label="Clamps Replaced" name="clampsReplaced"
+                                    value={riserMaintenance.clampsReplaced} onchange={handleRiserMaintainenceDetail}>
+                                </lightning-input>
+                            </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="number" label="Crimp Guards Replaced" name="crimpGuardsReplaced"
+                                    value={riserMaintenance.crimpGuardsReplaced} onchange={handleRiserMaintainenceDetail}>
+                                </lightning-input>
+                            </div>
+
+
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="number" label="Hole Pieces Replaced" name="holePiecesReplace"
+                                    value={riserMaintenance.holePiecesReplace} onchange={handleRiserMaintainenceDetail}>
+                                </lightning-input>
+                            </div>
+
+                             <template if:true={showEnterHolePiecesFlatNumber}>
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                                <lightning-textarea  label="Flat Numbers" name="holePiecesFlatNumbers"
+                                    value={riserMaintenance.holePiecesFlatNumbers}  onchange={handleRiserMaintainenceDetail}  rows="5">
+                                </lightning-textarea>
+
+                            </div>
+
+
+                            </template> 
+
+</template>
+<template if:true={isStep2}>
+
+  <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <!-- <lightning-input type="number" label="Valves Replaced" value={riser.valvesReplaced}
+                                    onchange={handleMaintainenceDetail}></lightning-input> -->
+                             <lightning-combobox label="Valves Replaced" name="valvesReplaced"
+                                    value={riserMaintenance.valvesReplaced} options={valvesReplacedOptions}
+                                    onchange={handleRiserMaintainenceDetail} >
+                                </lightning-combobox>        
+                            </div>
+
+                            <template if:true={showNoOfValvesReplaced}>
+
+                              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                               
+                                       <lightning-combobox label="Number Of Valves Replaced" name="numberOfValvesReplaced"
+                                    value={riserMaintenance.numberOfValvesReplaced} options={numberofValvesOptions}
+                                    onchange={handleRiserMaintainenceDetail} >
+                                </lightning-combobox>
+                            </div>
+
+                            </template>
+
+             <template if:true={riserMaintenance.valvesReplacedList}>
+                 <template for:each={riserMaintenance.valvesReplacedList} for:item="valves" for:index="index">
+                <div key={valves.id} class="slds-box slds-m-bottom_small slds-size_1-of-1">
+                      <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small "> -->
+                                 <lightning-input type="text" label={valves.label}  value={valves.value}
+                                    onchange={handleRiserMaintainenceDetail}  ></lightning-input> 
+                       <!-- </div>      -->
+              </div>
+               </template>
+            </template> 
+
+ <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="number" label="Anacondas Replaced" name="anacondasReplaced"
+                                    value={riserMaintenance.anacondasReplaced} onchange={handleRiserMaintainenceDetail}>
+                                </lightning-input>
+                            </div>
+
+
+                              <template if:true={showEnterAnacondasReplacedFlatNumber}>
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                     <lightning-textarea  label="Flat Numbers" name="anacondasReplacedFlatNumbers"
+                                    value={riserMaintenance.anacondasReplacedFlatNumbers}  onchange={handleRiserMaintainenceDetail}  rows="5">
+                                </lightning-textarea>
+
+
+                                 <!-- <template for:each={anacondasReplacedFlatNumberList} for:item="flat" for:index="index">
+        <div key={flat.index} class="slds-box slds-m-bottom_small">
+
+            <div class="slds-grid slds-wrap slds-gutters">
+                
+                <div class="slds-col slds-size_2-of-3">
+                    <lightning-input label="Flat Number" name="flatNumber" type="text" data-index={index}
+                        value={flat.flatNumber} onchange={handleAnacondasReplacedFlatNumberChange}>
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-3 slds-text-align_right" style="margin-top:1.5rem;">
+                    <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove"
+                        data-index={index} onclick={removeAnacondasReplacedFlatNumberRow} class="slds-m-top_small">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <lightning-button icon-name="utility:add" label="Add Flat" onclick={addAnacondasReplacedFlatNumberRow}
+        class="slds-m-top_medium">
+    </lightning-button> -->
+
+                            </div>
+
+
+                            </template>
+
+
+ <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                                 <lightning-combobox label="LIV Connectivity with flat no" name="lIVConnectivitywithflatno"
+                                    value={riserMaintenance.lIVConnectivitywithflatno} options={livConnectivityOptions}
+                                    onchange={handleRiserMaintainenceDetail} >
+                                </lightning-combobox>
+                                
+                            </div> -->
+
+                            <!-- <template if:true={showEnterFlatNumber}> -->
+
+                                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="text" label="Number of liv connectivity" name="numberoflivconnectivity"
+                                    value={riserMaintenance.numberoflivconnectivity} onchange={handleRiserMaintainenceDetail}>
+                                </lightning-input>
+                            </div>
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                        <lightning-textarea  label="Flat Numbers" name="livConnectivityFlatNumbers"
+                                    value={riserMaintenance.livConnectivityFlatNumbers}  onchange={handleRiserMaintainenceDetail}  rows="5">
+                                </lightning-textarea>
+
+                                 <!-- <template for:each={flatNumberList} for:item="flat" for:index="index">
+        <div key={flat.index} class="slds-box slds-m-bottom_small">
+
+            <div class="slds-grid slds-wrap slds-gutters">
+                
+                <div class="slds-col slds-size_2-of-3">
+                    <lightning-input label="Flat Number" name="flatNumber" type="text" data-index={index}
+                        value={flat.flatNumber} onchange={handleFlatNumberChange}>
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-3 slds-text-align_right" style="margin-top:1.5rem;">
+                    <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove"
+                        data-index={index} onclick={removeFlatNumberRow} class="slds-m-top_small">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <lightning-button icon-name="utility:add" label="Add Flat" onclick={addFlatNumberRow}
+        class="slds-m-top_medium">
+    </lightning-button> -->
+
+                            </div>
+
+
+                            <!-- </template> -->
+<div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="text" label="GI Pipe Length Replaced" name="gIPipeLengthReplaced"
+                                    value={riserMaintenance.gIPipeLengthReplaced} onchange={handleRiserMaintainenceDetail}>
+                                </lightning-input>
+                            </div>
+
+  <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="number" label="Active Connections"
+                                    value={riser.activeConnections} onchange={handleMaintainenceDetail}>
+                                </lightning-input>
+                            </div> -->
+
+ <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="text" label="Riser Height Floor Wise" name="riserHeightFloorWise"
+                                    value={riserMaintenance.riserHeightFloorWise} onchange={handleRiserMaintainenceDetail}>
+                                </lightning-input>
+                            </div>
+
+                            <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="number" label="Riser Number" value={riser.riserNumber}
+                                    onchange={handleMaintainenceDetail}></lightning-input>
+                            </div>
+                            -->
+
+                           
+
+                             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                               
+                                <lightning-combobox label="Riser Category" name="riserCategory"
+                                    value={riserMaintenance.riserCategory} options={mainOrApproachRiserOptions}
+                                    onchange={handleRiserMaintainenceDetail} >
+                                </lightning-combobox>
+                            </div>
+
+
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                               
+                                <lightning-combobox label="Suspected Gas Leakage In House Lock" name="suspectedGasLeakageInHouseLock"
+                                    value={riserMaintenance.suspectedGasLeakageInHouseLock} options={gasLeakLockCaseOptions}
+                                    onchange={handleRiserMaintainenceDetail} >
+                                </lightning-combobox>
+                            </div>
+
+                            <template if:true={showDetailsAfterSuspectedGas}>
+
+                                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+        <template if:true={hasFlatdata}>                              
+<template for:each={flatNumberAndLivPlug} for:item="flat">
+    <div key={flat.rowNumber} class="slds-box slds-m-bottom_small">
+<div class="slds-grid slds-grid_vertical">
+<div class="slds-col"><span>
+    <div class="slds-grid slds-truncate">
+<div><span class="slds-truncate">Flat Number : {flat.flatNumber} </span></div>
+</div>
+</span></div>
+
+<div class="slds-col"><span>
+    <div class="slds-grid">
+<div><span> LIV Plug Status: : {flat.livPlugStatus}
+    </span></div>
+<div><span> </span></div>
+
+<div class="slds-col_bump-left"><span>
+      <lightning-button-icon size='x-small' icon-name="utility:delete"
+                                   alternative-text="Delete"
+                                   data-rownumber={flat.rowNumber}
+                                   onclick={removeFlatAndLivPlugRow}>
+            </lightning-button-icon>
+   
+    </span></div>
+</div>
+    </span></div>
+</div>
+        <!-- <div class="slds-col slds-size_5-of-12 slds-truncate" title={flat.flatNumber}>
+            <span class="slds-text-title_caps">Flat Number:</span>
+            <span class="slds-m-left_small">{flat.flatNumber}</span>
+        </div>
+
+        <div class="slds-col slds-size_5-of-12 slds-truncate" title={flat.livPlugStatus}>
+            <span class="slds-text-title_caps">LIV Plug Status:</span>
+            <span class="slds-m-left_small">{flat.livPlugStatus}</span>
+        </div>
+
+        <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+            <lightning-button-icon icon-name="utility:delete"
+                                   alternative-text="Delete"
+                                   data-rownumber={flat.rowNumber}
+                                   onclick={removeFlatAndLivPlugRow}>
+            </lightning-button-icon>
+        </div> -->
+
+    </div>
+</template>
+        </template>
+
+                             <!-- <template for:each={flatNumberAndLivPlug} for:item="flat" for:index="index">
+                     <div key={flat.rowNumber} class="slds-box slds-m-bottom_small">
+
+            <div class="slds-grid slds-wrap slds-gutters">
+                
+                <div class="slds-col slds-size_2-of-3">
+                    <lightning-input label="Flat Number" name="flatNumber" type="text" data-rownumber={flat.rowNumber}
+                        value={flat.flatNumber} onchange={handleFlatNumberAndLivPlugChange}>
+                    </lightning-input>
+                </div>
+
+               
+                <div class="slds-col slds-size_2-of-3">
+
+                     <lightning-combobox label="LIV plug status" name="livPlugStatus" data-rownumber={flat.rowNumber}
+                                    value={flat.livPlugStatus} options={gasLeakLockCaseOptions}
+                                    onchange={handleFlatNumberAndLivPlugChange} >
+                                </lightning-combobox>
+                </div>
+
+                <div class="slds-col slds-size_1-of-3 slds-text-align_right" style="margin-top:1.5rem;">
+                    <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove"
+                        data-rownumber={flat.rowNumber} onclick={removeFlatAndLivPlugRow} class="slds-m-top_small">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </div>
+    </template> -->
+
+    <lightning-button icon-name="utility:add" label="Add Flat" onclick={openFlatPopup}
+        class="slds-m-top_medium">
+    </lightning-button>
+                            </div> 
+                            </template>
+
+                             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="text" label="Test Pressure" name="testPressure"
+                                    value={riserMaintenance.testPressure} onchange={handleRiserMaintainenceDetail} >
+                                </lightning-input>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="Text" label="Duration" name="duration"
+                                    value={riserMaintenance.duration} onchange={handleRiserMaintainenceDetail} >
+                                </lightning-input>
+                            </div>
+
+                              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <!-- <lightning-input type="number" label="Riser Tested Status"
+                                    value={riser.riserTestedStatus} onchange={handleMaintainenceDetail}>
+                                </lightning-input> -->
+                                 <lightning-combobox label="Riser Tested Status" name="riserTestedStatus"
+                                    value={riserMaintenance.riserTestedStatus} options={riserTestedStatusOptions}
+                                    onchange={handleRiserMaintainenceDetail} >
+                                </lightning-combobox>
+                            </div>
+                            <template if:true={riserTestedStatusNotOk}>
+                             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="Text" label="Remark" name="notOkRemark"
+                                    value={riserMaintenance.notOkRemark} onchange={handleRiserMaintainenceDetail} >
+                                </lightning-input>
+                               
+                            </div>
+
+                              <div class="slds-col slds-size_1-of-1">
+                             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                          
+                          <lightning-input type="file" name="fileUploader" label="Select files to upload"
+                              accept="image/*" onchange={handleFileRiserTestedStatusChange}>
+            
+                         </lightning-input>
+
+                      <div if:true={fileNameRiserTestedStatus}>
+                      <p>Selected file: {fileNameRiserTestedStatus}</p>
+                        </div>          
+                          </div>
+
+
+    </div>
+
+                            </template>
+</template>
+
+<template if:true={isStep3}>
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="number" label="No of active customers" name="noofactivecustomers"
+                                    value={riserMaintenance.noofactivecustomers} onchange={handleRiserMaintainenceDetail} >
+                                </lightning-input>
+                            </div>
+
+                             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="Text" label="Remark" name="remark"
+                                    value={riserMaintenance.remark} onchange={handleRiserMaintainenceDetail} >
+                                </lightning-input>
+                            </div>
+
+      <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+        <h3 class="slds-text-heading_small slds-m-bottom_small">
+            Material Consumption Report
+        </h3>
+    <template if:true={hasMaterials}>
+        <template for:each={materialList} for:item="mat">
+            <div key={mat.rowNumber}
+                 class="slds-box slds-m-bottom_small">
+<div class="slds-grid slds-grid_vertical">
+<div class="slds-col"><span>
+    <div class="slds-grid slds-truncate">
+<div><span class="slds-truncate">{mat.itemDescription}</span></div>
+</div>
+</span></div>
+<div class="slds-col"><span>
+    <div class="slds-grid slds-truncate">
+<div><span class="slds-truncate">{mat.itemCode}</span></div>
+</div>
+</span></div>
+<div class="slds-col"><span>
+    <div class="slds-grid">
+<div><span> Qty : {mat.quantity}
+    </span></div>
+<div><span> </span></div>
+
+<div class="slds-col_bump-left"><span>
+    <lightning-button-icon size='x-small'
+                        icon-name="utility:delete" 
+                        alternative-text="Delete"
+                        data-rownumber={mat.rowNumber}
+                        onclick={removeMaterialRow}>
+                    </lightning-button-icon>
+    </span></div>
+</div>
+    </span></div>
+</div>
+                <!-- <div class="slds-col slds-size_5-of-12">
+                    <p class="slds-text-title_caps">Item</p>
+                    <p>{mat.itemDescription}</p>
+                </div>
+
+                <div class="slds-col slds-size_5-of-12">
+                    <p class="slds-text-title_caps">Qty</p>
+                    <p>{mat.quantity}</p>
+                </div> -->
+
+                <!-- <div class="slds-col slds-size_2-of-12 slds-align_absolute-center">
+                    <lightning-button-icon
+                        icon-name="utility:delete"
+                        alternative-text="Delete"
+                        data-rownumber={mat.rowNumber}
+                        onclick={removeMaterialRow}>
+                    </lightning-button-icon>
+                </div> -->
+
+            </div>
+        </template>
+    </template>
+        <div class="slds-align_absolute-center slds-m-top_medium">
+            <!-- <lightning-button
+                label="Add Material"
+                variant="brand"
+                onclick={openPopup}>
+            </lightning-button> -->
+             <lightning-button icon-name="utility:add" label="Add Material" onclick={openPopup}
+        class="slds-m-top_medium">
+    </lightning-button>
+
+        </div>
+
+    </div>
+
+
+
+  <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-combobox label="Riser Painting" name="riserPainting" 
+                        value={riserMaintenance.riserPainting} options={riserPaintingOptions}  
+
+                        onchange={handleRiserMaintainenceDetail}>
+                    </lightning-combobox>
+                </div> 
+</template>
+                        </div>
+
+<div class="slds-m-top_medium slds-align_absolute-center">
+
+    <template if:true={isStep1}>
+        <lightning-button
+            label="Cancel"
+            variant="neutral"
+            onclick={handleBack}>
+        </lightning-button>
+
+        &nbsp;&nbsp;
+    </template>
+
+    <template if:false={isStep1}>
+        <lightning-button
+            label="Previous"
+            onclick={handlePrevious}>
+        </lightning-button>
+
+        &nbsp;&nbsp;
+    </template>
+
+    <template if:false={isStep3}>
+        <lightning-button
+            label="Next"
+            variant="brand"
+            onclick={handleNext}>
+        </lightning-button>
+    </template>
+
+    <template if:true={isStep3}>
+        
+        &nbsp;&nbsp;
+        <lightning-button
+            label="Save"
+            variant="brand"
+            onclick={handleSave}>
+        </lightning-button>
+    </template>
+
+</div>
+
+
+</lightning-card>
+
+<template if:true={showPopup}>
+    <section role="dialog" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+
+            <!-- HEADER -->
+            <header class="slds-modal__header">
+                <h2 class="slds-text-heading_medium">Add Material</h2>
+            </header>
+
+            <!-- BODY -->
+            <div class="slds-modal__content slds-p-around_medium">
+
+                <!-- ITEM DESCRIPTION (SEARCH) -->
+                <div class="dropdown-container" style="position: relative;">
+    <lightning-input
+        type="search"
+        label="Item Description"
+        value={popupMaterial.itemDescription}
+        placeholder="Type to search..."
+        onchange={handlePopupKeyChange} required>
+    </lightning-input>
+
+    <!-- DROPDOWN -->
+    <template if:true={popupMaterial.showDropdown}>
+        <div class="dropdown slds-box slds-scrollable_y" style="position: absolute;
+    top: 100%;             
+    left: 0;
+    right: 0;
+    z-index: 9999;    
+    max-height: 200px;
+    background: white;
+    border: 1px solid #d8dde6;">
+            <template for:each={popupMaterial.filteredMaterials} for:item="mat">
+                <div key={mat.code}
+                    class="slds-p-around_x-small slds-border_bottom hoverable"
+                    data-code={mat.code}
+                    data-description={mat.description}
+                    onclick={handlePopupSelect}>
+                    {mat.description}
+                </div>
+            </template>
+        </div>
+    </template>
+</div>
+
+                <lightning-input
+                    label="Item Code"
+                    value={popupMaterial.itemCode}
+                    disabled>
+                </lightning-input>
+
+                <!-- QUANTITY -->
+                <lightning-input
+                    type="number"
+                    label="Quantity"
+                    value={popupMaterial.quantity}
+                    onchange={handlePopupQtyChange} required>
+                </lightning-input>
+
+            </div>
+
+            <!-- FOOTER -->
+            <footer class="slds-modal__footer">
+                <lightning-button label="Cancel" onclick={closePopup}></lightning-button>
+                &nbsp;&nbsp;
+                <lightning-button label="Save" variant="brand" onclick={saveMaterial}></lightning-button>
+            </footer>
+
+        </div>
+    </section>
+
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+<template if:true={showFlatPopup}>
+    <section role="dialog" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+
+            <!-- HEADER -->
+            <header class="slds-modal__header">
+                <h2 class="slds-text-heading_medium">Add Flat</h2>
+            </header>
+
+            <!-- BODY -->
+      <div class="slds-modal__content slds-p-around_medium">
+                <!-- Flat Number -->
+                    <lightning-input label="Flat Number"
+                                     name="flatNumber"
+                                     type="text"
+                                     value={popupFlat.flatNumber}
+                                     onchange={handlePopupFlatChange} required>
+                    </lightning-input>
+         
+
+                <!-- LIV Plug Status -->
+                
+                    <lightning-combobox label="LIV Plug Status"
+                                        name="livPlugStatus"
+                                        value={popupFlat.livPlugStatus}
+                                        options={gasLeakLockCaseOptions}
+                                        onchange={handlePopupFlatChange} required>
+                    </lightning-combobox>
+           
+
+            </div>
+
+            <!-- FOOTER -->
+            <footer class="slds-modal__footer">
+                <lightning-button label="Cancel" onclick={closeFlatPopup}></lightning-button>
+                <lightning-button label="Save" variant="brand" onclick={saveFlat}></lightning-button>
+            </footer>
+
+        </div>
+    </section>
+
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+
+
+</template>

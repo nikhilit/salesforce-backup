@@ -1,0 +1,151 @@
+<!-- <template>
+    <lightning-card title="Connections Search">
+        <div class="slds-p-around_medium">
+
+           
+            <lightning-input
+                label="Search by Name"
+                placeholder="Enter name (min 3 chars)"
+                value={searchKey}
+                onchange={handleSearchChange}>
+            </lightning-input>
+
+           
+            <lightning-button
+                class="slds-m-top_medium"
+                variant="brand"
+                label="Create Building Demolition Work Orders"
+                onclick={handleCreateDemolition}>
+            </lightning-button>
+
+           <template if:true={showChild}>
+    <c-create-connection-work-orders
+        connection-ids={selectedConnectionsArray}>
+    </c-create-connection-work-orders>
+</template>
+
+
+          
+            <template if:true={connectionlist.length}>
+                <div class="slds-m-top_medium">
+                    <template for:each={connectionlist} for:item="conn">
+                        <div
+                            key={conn.Id}
+                            class="connection-card slds-box slds-m-bottom_small">
+
+                          
+<lightning-input
+    type="checkbox"
+    label="Select"
+    data-id={conn.Id}
+    onchange={handleSelectConnection}>
+</lightning-input>
+
+
+                           
+                            <div
+                                class="field name slds-text-link"
+                                data-id={conn.Id}
+                                onclick={handleNavigate}>
+                                Name: {conn.Name.value}
+                            </div>
+
+                            <div class="field building">
+                                Building Name: {conn.Building_Name__c.value}
+                            </div>
+
+                            <div class="field address wrap-text">
+                                Address: {conn.Address_1__c.value}
+                            </div>
+
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+           
+            <template if:true={isSearching}>
+                <div class="slds-m-top_medium slds-text-align_center slds-text-title_bold">
+                    Searching...
+                </div>
+            </template>
+
+          
+            <template if:true={noResults}>
+                <div class="slds-m-top_medium slds-text-align_center slds-text-title_bold">
+                    No connections found.
+                </div>
+            </template>
+
+        </div>
+    </lightning-card>
+</template> -->
+
+<template>
+    <lightning-card title="Connections Search">
+        <div class="slds-p-around_medium">
+
+            <!-- 🔴 SHOW PARENT ONLY WHEN showChild = false -->
+            <template if:false={showChild}>
+
+                <!-- SEARCH -->
+                <lightning-input
+                    label="Search by Name"
+                    placeholder="Enter name (min 3 chars)"
+                    value={searchKey}
+                    onchange={handleSearchChange}>
+                </lightning-input>
+                <br>
+                
+
+                <!-- BUTTON -->
+                <lightning-button
+                    class="slds-m-top_medium"
+                    variant="brand"
+                    label="Create Work Orders"
+                    onclick={handleCreateDemolition}>
+                </lightning-button>
+                <br>
+
+
+                <!-- CONNECTION CARDS -->
+                <template if:true={connectionlist.length}>
+                    <div class="slds-m-top_medium">
+                        <template for:each={connectionlist} for:item="conn">
+                            <div key={conn.Id}
+                                 class="connection-card slds-box slds-m-bottom_small">
+
+                                <lightning-input
+                                    type="checkbox"
+                                    label="Select"
+                                    data-id={conn.Id}
+                                    onchange={handleSelectConnection}>
+                                </lightning-input>
+
+                                <div class="slds-text-link"
+                                     data-id={conn.Id}
+                                     onclick={handleNavigate}>
+                                    Name: {conn.Name.value}
+                                </div>
+
+                                <div>Building: {conn.Building_Name__c.value}</div>
+                                <div>Address: {conn.Address_1__c.value}</div>
+
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+            </template>
+
+            <!-- 🟢 SHOW CHILD ONLY WHEN showChild = true -->
+            <template if:true={showChild}>
+                <c-create-connection-work-orders
+                    connection-ids={selectedConnectionsArray}
+                     onback={handleBackFromChild}>
+                </c-create-connection-work-orders>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

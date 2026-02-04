@@ -1,0 +1,174 @@
+/* Documents list styling */
+.file-row {
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.file-link {
+    color: #006dcc;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    padding: 4px 0;
+    cursor: pointer;
+}
+
+.file-link:hover {
+    text-decoration: underline;
+}
+
+.slds-text-color_weak {
+    color: #706e6b;
+    font-style: italic;
+}
+
+/* Modal styling */
+.modal-custom {
+    width: 90vw !important;
+    max-width: 1200px !important;
+    height: 90vh !important;
+    max-height: 800px !important;
+    margin: 5vh auto !important;
+}
+
+/* Toolbar styling */
+.preview-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: #f3f2f2;
+    border-bottom: 1px solid #dddbda;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.toolbar-left {
+    display: flex;
+    gap: 8px;
+}
+
+.circle-btn {
+    background: white;
+    border: 1px solid #dddbda;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.circle-btn:hover {
+    background: #f3f2f2;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.circle-btn.close {
+    font-weight: bold;
+}
+
+/* Preview body */
+.preview-body {
+    padding: 0;
+    height: calc(100% - 60px);
+    background: #f8f8f8;
+    overflow: hidden;
+}
+
+/* Scrollable outer container */
+.scrollable-outer {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: #f8f8f8;
+}
+
+/* Content container (rotates everything) */
+.content-container {
+    margin: auto;
+    min-width: 200px;
+    min-height: 200px;
+}
+
+/* Preview content common styles */
+.preview-content {
+    display: block;
+    margin: auto;
+}
+
+/* Image specific styles */
+.content-container img {
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* PDF/iframe specific styles */
+.content-container iframe {
+    background: white;
+    border: none;
+    display: block;
+}
+
+/* For rotated PDFs, we need to handle the iframe wrapper */
+.rotated-pdf-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Scrollbar styling */
+.scrollable-outer::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.scrollable-outer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+.scrollable-outer::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+.scrollable-outer::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Smooth transitions */
+.content-container {
+    transition: all 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .modal-custom {
+        width: 95vw !important;
+        height: 95vh !important;
+    }
+    
+    .circle-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+    
+    .preview-toolbar {
+        padding: 8px 12px;
+    }
+    
+    /* Less padding for mobile rotated content */
+    .scrollable-outer {
+        padding: 20px !important;
+    }
+}

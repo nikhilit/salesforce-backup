@@ -1,0 +1,53 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-around_medium">
+            <!-- Header -->
+            <div class="header-row">
+                <p class="welcome-text">Welcome, {userName}!</p>
+                <p class="displaytime">{formattedDateTime}</p>
+            </div>
+
+            <!-- Combobox & Buttons Row -->
+            <div class="slds-grid slds-wrap slds-gutters slds-align_absolute-center">
+                
+                <!-- Block Selection -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-4">
+                    <lightning-combobox
+                name="block"
+                label="Select Front Office Location"
+                value={comboboxValue}
+                options={blockOptions}
+                onchange={handleBlockChange}
+                disabled={isBlockDisabled}
+                class="custom-combobox">
+            </lightning-combobox>
+
+                </div>
+
+                <!-- Check-In / Check-Out Buttons -->
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                    <div class="slds-grid slds-wrap">
+                        <!-- Check-In Button -->
+                        <template if:true={showCheckInButton}>
+                            <div class="slds-col slds-size_1-of-1 slds-m-top_small">
+                                <div class="checkin-bg custom-button" onclick={handleCheckIn}>
+                                    Check-In
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Check-Out Button -->
+                        <template if:true={showCheckOutButton}>
+                            <div class="slds-col slds-size_1-of-1 slds-m-top_small">
+                                <div class="checkout-bg custom-button" onclick={handleCheckOut}>
+                                    Check-Out
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </lightning-card>
+</template>

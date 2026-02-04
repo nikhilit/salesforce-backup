@@ -1,0 +1,170 @@
+<template>
+    <lightning-card title="Case File Upload Utility">
+        <div class="slds-p-around_medium">
+            <!-- <div class="slds-m-bottom_medium">
+                <lightning-button
+                    variant="neutral"
+                    label="Back"
+                    onclick={handleBackClick}
+                    class="slds-m-bottom_medium">
+                </lightning-button>
+            </div> -->
+
+            <lightning-combobox
+                label="Select Object"
+                value={selectedObject}
+                options={objectOptions}
+                onchange={handleObjectChange}
+                class="slds-m-bottom_medium">
+            </lightning-combobox>
+             <lightning-combobox
+                label="Approval Status"
+                value={approvedOrRejectedValue}
+                options={approvalOptions}
+                onchange={handleApprovalStatusChange}
+                class="slds-m-bottom_medium" required="true">
+            </lightning-combobox>
+
+            <div class="drag-container slds-p-around_medium slds-m-top_medium"
+                ondragover={handleDragOver}
+                ondragleave={handleDragLeave}
+                ondrop={handleDrop}>
+
+                <lightning-input
+                    type="file"
+                    accept=".csv,.xlsx,.xls"
+                    label="Upload CSV or Excel File"
+                    onchange={handleFileChange}
+                    disabled={isUploading}
+                    class="file-input">
+                </lightning-input>
+
+                <template if:true={uploadedFileName}>
+                    <div class="slds-text-body_small slds-m-top_x-small slds-align_absolute-center">
+                        Uploaded file: <strong>{uploadedFileName}</strong>
+                    </div>
+                </template>
+
+            </div>
+
+            <template if:true={isParsing}>
+                <div class="slds-m-top_medium slds-align_absolute-center">
+                    <lightning-spinner alternative-text="Parsing File..." size="small"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Preview Table -->
+            <template if:true={showTable}>
+                <div class="slds-m-top_medium">
+                    <lightning-input
+                        type="search"
+                        label="Search Records"
+                        placeholder="Type to filter rows..."
+                        value={searchKeyword}
+                        disabled={isSearchDisabled}
+                        onchange={handleSearch}>
+                    </lightning-input>
+                </div>
+
+                <div style="height: 300px; overflow-y: auto; border: 1px solid #ccc; position: relative;">
+                    <template if:true={isTableDisabled}>
+                        <div style="
+                            position: absolute;
+                            top: 0; left: 0;
+                            right: 0; bottom: 0;
+                            background: rgba(255, 255, 255, 0.8);
+                            z-index: 10;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-weight: bold;
+                            font-size: 14px;
+                            color: #888;">
+                            Preview limited to 1,000 records. You can still proceed with uploading the full file — just click the Upload button.
+                        </div>
+                    </template>
+
+                    <lightning-datatable
+                        key-field="Id"
+                        data={previewTableData}
+                        columns={previewColumns}
+                        hide-checkbox-column
+                        min-column-width="100"
+                        class={tableDisabledClass}>
+                    </lightning-datatable>
+                </div>
+
+                <div class="slds-text-body_small slds-m-top_x-small slds-align_absolute-center">
+                    Filtered Rows: {filteredRowCount} / Total Rows: {totalRowCount}
+                </div>
+            </template>
+
+            <!-- Upload Button & Progress -->
+            <template if:true={isReadyToUpload}>
+                <div class="slds-m-top_medium">
+                    <div class="slds-text-body_regular slds-m-bottom_xx-small">Upload Progress</div>
+                    <lightning-progress-bar value={progressValue} size="medium"></lightning-progress-bar>
+                </div>
+
+                <template if:true={isUploading}>
+                    <p>Uploading... {chunksCompleted}/{totalChunks} chunks submitted</p>
+                </template>
+
+                <template if:true={isUploading}>
+                    <div class="slds-text-body_small slds-m-top_x-small slds-align_absolute-center">
+                        Processing {recordsUploaded} of {totalRecords} records...
+                    </div>
+                </template>
+
+                <template if:true={isUploading}>
+                    <div class="slds-m-top_small slds-align_absolute-center">
+                        <lightning-spinner size="small" alternative-text="Uploading..."></lightning-spinner>
+                    </div>
+                </template>
+
+                <!-- Buttons Row -->
+                <div class="slds-m-top_medium slds-grid slds-wrap slds-gutters slds-align_absolute-center">
+                    <div class="slds-col">
+                        <lightning-button
+                            label={uploadButtonLabel}
+                            onclick={handleUpload}
+                            disabled={isUploadDisabled}
+                            class="slds-m-right_small">
+                        </lightning-button>
+                    </div>
+
+                    <div class="slds-col">
+                        <lightning-button
+                            label="Reset"
+                            onclick={handleReset}
+                            disabled={disableControls}
+                            variant="neutral"
+                            class="slds-m-right_small">
+                        </lightning-button>
+                    </div>
+
+                    <template if:false={isUploading}>
+                        <template if:true={uploadComplete}>
+                            <lightning-button
+                                label="Download Success Uploads"
+                                variant="success"
+                                onclick={downloadSuccess}>
+                            </lightning-button>
+                        </template>
+
+                        <template if:true={failedRows.length}>
+                            <div class="slds-col">
+                                <lightning-button
+                                    label="Download Failed Rows"
+                                    onclick={downloadErrors}
+                                    variant="destructive"
+                                    class="slds-m-right_small">
+                                </lightning-button>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

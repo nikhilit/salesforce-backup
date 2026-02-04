@@ -1,0 +1,76 @@
+<template>
+    <lightning-card>
+
+         <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+        
+
+        <template if:true={showBPPage}>
+        <template if:true={bpDetail}>
+            <ul class="list">
+                <template for:each={bpDetail} for:item="item">
+                    <li key={item.recordId}   data-name={item.name} class="list-item" data-id={item.recordId} onclick={handleOpenModal}>
+                        <span class="index">{item.index}.</span>
+                        <span class="name">{item.name}</span>
+                        <span class="arrow">></span>
+                    </li>
+                </template>
+            </ul>
+        </template>
+
+        </template>
+
+        <template if:true={showEnterBPDetails}>
+
+       <c-bp-detail-update-comp  account-id={accountId} record-id={recordId} oncancel={handleCancel}></c-bp-detail-update-comp>
+
+        </template>
+
+
+          <div class="slds-col slds-size_1-of-1 slds-p-around_small" style="margin-top:3rem;">
+
+                <lightning-combobox name="picklist" label="Customer found using gas without BP number?" value={havingBPValue}
+                     options={havingBPOptions} onchange={handleHavingBPChange} required="true"  disabled={isReadOnly}>
+                </lightning-combobox>
+
+            </div>
+
+            <template if:true={showEnterCustomerDetails}>
+             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-textarea  label="Enter Details" name="customerDetails" placeholder="Enter Name, Flat Number and Phone Number"
+                        value={customerDetails} onchange={handleCustomerDetailChange} required="true"  disabled={isReadOnly}></lightning-textarea>
+                </div>
+            </template>
+
+              <template if:true={showSaveButton}>
+
+            <div class="slds-p-around_medium" style="margin-left:7.3rem;">
+
+                <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+
+            </div>
+        </template>
+
+        
+       
+    </lightning-card>
+
+    <!-- <lightning-card class="slds-card">
+
+<div>
+
+            <h1>BP Details</h1>
+
+        <template if:true={showBPDetails}>
+
+            <c-bp-details-based-on-connection-comp oncancel={handleCancel}> </c-bp-details-based-on-connection-comp>
+
+
+        </template>
+
+        </div>
+
+    </lightning-card> -->
+</template>

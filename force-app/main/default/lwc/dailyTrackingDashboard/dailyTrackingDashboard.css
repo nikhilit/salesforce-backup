@@ -1,0 +1,103 @@
+.clickable-cell {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.clickable-cell:hover {
+    background-color: #f3f2f2;
+}
+
+.clickable-cell:active {
+    background-color: #e5e5e5;
+}
+
+/* Rest of your existing CSS */
+.slds-table th {
+    background-color: #f3f2f2;
+    font-weight: bold;
+    text-align: center;
+}
+
+.slds-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.slds-table td strong {
+    font-size: 1.2rem;
+}
+
+.slds-table_col-bordered th + th,
+.slds-table_col-bordered td + td {
+    border-left: 1px solid #d8dde6;
+}
+
+.slds-table_col-bordered th,
+.slds-table_col-bordered td {
+    border-right: 1px solid #d8dde6;
+}
+
+.slds-border_left {
+    border-left: 1px solid #d8dde6;
+}
+
+.slds-border_right {
+    border-right: 1px solid #d8dde6;
+}
+
+.slds-border_top {
+    border-top: 1px solid #d8dde6;
+}
+
+.slds-border_bottom {
+    border-bottom: 1px solid #d8dde6;
+}
+
+.slds-text-color_success {
+    color: #4bca81;
+}
+
+.slds-text-color_warning {
+    color: #ffb75d;
+}
+
+.slds-text-color_error {
+    color: #c23934;
+}
+
+.slds-text-font_monospace {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.slds-card {
+    border: 1px solid #d8dde6;
+    border-radius: 0.25rem;
+    background-clip: padding-box;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.10);
+}
+
+.slds-card__header {
+    background-color: #f3f2f2;
+    border-bottom: 1px solid #d8dde6;
+    padding: 0.75rem 1rem;
+}
+
+.slds-card__body {
+    padding: 1rem;
+}
+
+.slds-grid_vertical-align-center {
+    align-items: center;
+}
+
+.slds-p-around_xx-small {
+    padding: 0.25rem;
+}
+
+.slds-m-top_xx-small {
+    margin-top: 0.25rem;
+}
+
+.slds-p-top_xx-small {
+    padding-top: 0.25rem;
+}

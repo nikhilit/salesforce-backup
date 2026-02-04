@@ -1,0 +1,92 @@
+<template>
+    <!-- Spinner while processing -->
+    <template if:true={requestInProgress}>
+        <div class="slds-spinner_container">
+            <lightning-spinner alternative-text="Processing..." size="medium"></lightning-spinner>
+        </div>
+    </template>
+
+    <!-- Main Content (no modal wrapper) -->
+    <div class="slds-card slds-m-around_medium">
+        <!-- Header -->
+        <div class="slds-card__header slds-grid slds-grid_align-spread">
+            <h1 class="slds-text-heading_medium">
+                Check In / Out
+            </h1>
+            <div class="slds-grid slds-grid_align-end slds-grid_vertical-align-center">
+                <template if:true={isOffline}>
+                    <lightning-badge 
+                        label="Offline Mode" 
+                        class="slds-theme_warning slds-text-color_inverse">
+                    </lightning-badge>
+                </template>
+                <lightning-button-icon
+                    icon-name="utility:close"
+                    alternative-text="Close"
+                    title="Close"
+                    onclick={handleCancel}
+                    aria-label="Close"
+                    class="slds-m-left_small">
+                </lightning-button-icon>
+            </div>
+        </div>
+
+        <!-- Offline Info -->
+        <template if:true={isOffline}>
+            <div class="slds-notify slds-notify_toast slds-theme_info slds-m-around_small">
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small">
+                        Offline mode
+                    </h2>
+                </div>
+            </div>
+        </template>
+
+        <!-- Content -->
+        <div class="slds-card__body slds-p-around_medium">
+            <template if:true={hasLocation}>
+                <lightning-map
+                    map-markers={lstMarkers}
+                    zoom-level="15"
+                    markers-title="Current Location"
+                    class="slds-m-bottom_medium">
+                </lightning-map>
+            </template>
+
+            <template if:true={showAlreadyCheckedInMessage}>
+                <h2 class="slds-text-align_center slds-m-top_medium slds-text-heading_small">
+                    Already Checked In / Out
+                </h2>
+            </template>
+        </div>
+
+        <!-- Footer Buttons -->
+        <div class="slds-card__footer slds-grid slds-grid_align-end slds-p-around_small">
+            <lightning-button
+                label="Cancel"
+                onclick={handleCancel}
+                disabled={requestInProgress}>
+            </lightning-button>
+
+            <template if:true={checkIn}>
+                <lightning-button
+                    variant="brand"
+                    label="Start Job"
+                    onclick={handleCheckIn}
+                    disabled={checkInDisabled}
+                    class="slds-m-left_small">
+                </lightning-button>
+            </template>
+
+            <template if:true={checkOut}>
+                <lightning-button
+                    variant="destructive"
+                    label="End Job"
+                    onclick={handleCheckOut}
+                    disabled={checkOutDisabled}
+                    class="slds-m-left_small">
+                </lightning-button>
+            </template>
+        </div>
+    </div>
+</template>

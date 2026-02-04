@@ -1,0 +1,121 @@
+.account-container {
+    background-color: #fdfdfd;
+}
+
+.section {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #d8dde6;
+    border-radius: 6px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1b5297;
+    margin-bottom: 0.75rem;
+    border-left: 4px solid #1b96ff;
+    padding-left: 0.5rem;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.label {
+    font-weight: bold;
+    color: #333;
+    flex: 1;
+}
+
+.value {
+    color: #555;
+    flex: 2;
+    text-align: right;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.custom-checkbox-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Adjust the gap between checkboxes */
+}
+
+.checkbox-pair {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust the spacing between the checkboxes */
+    flex-wrap: wrap;
+}
+
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.custom-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+}
+
+.custom-upload-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.custom-upload-slot {
+    align-items: center;
+}
+
+.custom-upload-label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.custom-file-upload {
+    max-width: 250px;
+    min-height: 32px;
+    --slds-c-file-selector-sizing-height: 32px;
+}
+
+.image-preview-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.image-preview-box {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    width: 120px;
+    text-align: center;
+}
+
+.preview-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.appt-summary {
+    font-size: 14px;
+    font-family: unset;
+    color: #666;
+    margin-bottom: 4px;
+}

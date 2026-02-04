@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+	<apiVersion>63.0</apiVersion>
+	<isExposed>true</isExposed>
+    <masterLabel>Work Order List</masterLabel>
+    <description>Dynamic Work Order List using Metadata Configuration</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage,lightning__AppPage,lightning__HomePage">
+            <property 
+                name="listViewName" 
+                type="String" 
+                label="List View Name" 
+                description="Developer Name of the metadata configuration (e.g., Default, My_Work_Orders)" 
+                default="Default"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

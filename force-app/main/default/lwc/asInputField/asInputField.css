@@ -1,0 +1,57 @@
+:host {
+    display: block;
+    --card-padding: 1rem;
+}
+
+.lightning-card {
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: var(--card-padding);
+}
+
+.slds-p-around_medium {
+    padding: 1.5rem;
+}
+
+lightning-combobox,
+lightning-textarea,
+lightning-button {
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+lightning-button {
+    margin-top: 1.5rem;
+    font-weight: bold;
+}
+
+.upload-label {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.image-upload-container {
+    background: #f8f8f8;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: 1px solid #dcdcdc;
+}
+
+.upload-slot {
+    margin-bottom: 1rem;
+}
+
+.lightning-card h1.slds-card__header-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

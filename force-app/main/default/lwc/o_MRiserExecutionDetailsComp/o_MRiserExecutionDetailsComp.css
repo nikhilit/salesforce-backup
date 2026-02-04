@@ -1,0 +1,4 @@
+.small-input label,
+.small-input .slds-form-element__control {
+    font-size: 12px; /* or 10px as per your need */
+}

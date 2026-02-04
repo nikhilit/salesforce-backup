@@ -1,0 +1,113 @@
+<template>
+
+     <lightning-card>
+
+         <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+                     
+
+        <div class="slds-grid slds-wrap" style="margin-top:-4rem;">
+
+
+
+            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <lightning-input type="number" label="Total Number of Risers" value={risersNumber}
+                    onchange={handleRiserChange}  min="1" max="20" required="true" disabled={isReadOnly}>
+
+                </lightning-input>
+
+            </div>
+
+           
+
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <lightning-input type="number" label="Number of Floors" value={risersFloors}
+                    onchange={handleFloorChange}   required="true" disabled={isReadOnly}>
+
+                </lightning-input>
+
+            </div>
+
+             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                <lightning-combobox name="picklist" label="Type Of Riser" value={riserPickListValue}
+                     options={typeOfRiserOptions} onchange={handlePicklistChange} required="true" disabled={isReadOnly}>
+                </lightning-combobox>
+
+            </div>
+
+
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <lightning-input type="text" label="Length Of Approcah Riser" value={approcahRiserLength}
+                    onchange={handleLengthChange}   required="true" disabled={isReadOnly}>
+
+                </lightning-input>
+
+            </div>
+
+
+              <!-- <template if:true={risersNumber}>
+
+                <template if:true={showBeforeImage}>
+
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                               
+
+                               
+                                <div>
+                                    
+                                    <c-o_-m-camera-upload-comp image-list={photoUploadSlots} onchange={handleFile}>
+                                    </c-o_-m-camera-upload-comp>
+                                </div>
+
+                            </div>
+
+                </template>
+
+            </template> -->
+            
+
+          
+          
+
+
+
+
+
+
+         <template if:true={showSaveButton}>
+
+            <div class="slds-p-around_medium" style="margin-left:7.3rem;">
+
+                <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+
+            </div>
+        </template>
+
+
+                </div>
+
+
+       
+
+        
+
+          <!-- <template if:true={showWorkOrderLineItems}>
+
+          <c-work-order-l-item-riser-painting-Comp record-id={recordId} oncancel={handleCancel}></c-work-order-l-item-riser-painting-Comp> 
+
+
+
+        </template>  -->
+
+
+       
+
+
+        </lightning-card>
+
+      
+
+</template>

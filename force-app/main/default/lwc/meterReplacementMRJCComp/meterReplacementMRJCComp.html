@@ -1,0 +1,315 @@
+<template>
+  
+            <div class="slds-grid slds-wrap">
+
+                <template if:true={isload}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+
+        
+                            <!-- <div class="slds-scrollable">
+
+            <div style="background-color:white; border-radius:7px;">
+
+
+                 <div class="slds-grid" style="border-bottom:1px solid lightgrey;">
+
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small slds-border_top">
+
+                            <p style="font-size:10px;">Nature Of Work</p>
+                        
+                        </div>
+
+                          <div class="slds-col slds-size_2-of-3 slds-border_left slds-p-around_small slds-border_top">
+
+                        
+                        <lightning-combobox name="natureOfWork" variant="label-hidden" value={mrjcReport.natureOfWork}
+                    options={natureOfWorkOptions} onchange={handleMRJCReport} required>
+                </lightning-combobox>
+
+               </div>
+            </div>
+
+
+             <div class="slds-grid" style="border-bottom:1px solid lightgrey;">
+
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small slds-border_top">
+
+                            <p style="font-size:10px;">Reason</p>
+                        
+                        </div>
+
+                          <div class="slds-col slds-size_2-of-3 slds-border_left slds-p-around_small slds-border_top">
+
+                        <lightning-input type="text" variant="label-hidden" name="reason" value={mrjcReport.reason}
+                        onchange={handleMRJCReport} required></lightning-input>
+                       
+
+               </div>
+            </div>
+
+
+
+                <div class="slds-grid" style="border-bottom:1px solid lightgrey;">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small slds-border_top">
+                            <p style="font-size:10px;">Leak Test SOAP Solution</p>                     
+                        </div>
+                          <div style="font-size:9px; line-height: 1.2;" class="slds-col slds-size_2-of-3 slds-border_left slds-p-around_small slds-border_top">
+                        <lightning-combobox name="leakTestSolution" variant="label-hidden" value={mrjcReport.leakTestSolution}
+                    options={leakTestSolutionOptions} onchange={handleMRJCReport} required>
+                </lightning-combobox>
+                </div>
+            </div>
+
+
+             <div class="slds-grid" style="border-bottom:1px solid lightgrey;">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small slds-border_top">
+                            <p style="font-size:10px;">Penumatic Pressure</p>                     
+                        </div>
+                          <div style="font-size:9px; line-height: 1.2;" class="slds-col slds-size_2-of-3 slds-border_left slds-p-around_small slds-border_top">
+                        <lightning-combobox name="penumaticPressure" variant="label-hidden" value={mrjcReport.penumaticPressure}
+                    options={penumaticPressureOptions} onchange={handleMRJCReport} required>
+                </lightning-combobox>
+                </div>
+            </div>
+
+
+         <div class="slds-grid" style="border-bottom:1px solid lightgrey;">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small slds-border_top">
+                            <p style="font-size:10px;">Gascoseeker Reading</p>                     
+                        </div>
+                          <div  class="slds-col slds-size_2-of-3 slds-border_left slds-p-around_small slds-border_top">
+                       <lightning-input type="text" variant="label-hidden" name="gascoseekerReading"
+                        value={mrjcReport.gascoseekerReading} onchange={handleMRJCReport} required></lightning-input>
+                </div>
+            </div>
+
+
+             <div class="slds-grid" style="border-bottom:1px solid lightgrey;">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small slds-border_top">
+                            <p style="font-size:10px;">Satisfactory Or NotSatisfactory</p>                     
+                        </div>
+                          <div style="font-size:9px; line-height: 1.2;" class="slds-col slds-size_2-of-3 slds-border_left slds-p-around_small slds-border_top">
+                       <lightning-combobox name="satisOrNotSatisfactory" variant="label-hidden" value={mrjcReport.satisOrNotSatisfactory}
+                    options={satisOrNotSatisfactoryOptions} onchange={handleMRJCReport} required>
+                </lightning-combobox>
+                </div>
+            </div>
+
+
+        <div class="slds-grid" style="border-bottom:1px solid lightgrey;">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small slds-border_top">
+                            <p style="font-size:10px;">Rubber Tube Condition</p>                     
+                        </div>
+                          <div style="font-size:9px; line-height: 1.2;" class="slds-col slds-size_2-of-3 slds-border_left slds-p-around_small slds-border_top">
+                      <lightning-combobox name="rubberTuberCondition" variant="label-hidden" value={mrjcReport.rubberTuberCondition}
+                    options={rubberTubeConditionOptions} onchange={handleMRJCReport} required>
+                </lightning-combobox>
+                </div>
+            </div>
+
+
+             <div class="slds-grid" style="border-bottom:1px solid lightgrey;">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small slds-border_top">
+                            <p style="font-size:10px;">Satisfactory Or NotSatisfactory</p>                     
+                        </div>
+                          <div style="font-size:9px; line-height: 1.2;" class="slds-col slds-size_2-of-3 slds-border_left slds-p-around_small slds-border_top">
+                       <lightning-combobox name="satisOrNotSatisfactory" variant="label-hidden" value={mrjcReport.satisOrNotSatisfactory}
+                    options={satisOrNotSatisfactoryOptions} onchange={handleMRJCReport} required>
+                </lightning-combobox>
+                </div>
+            </div>
+            
+
+            </div>
+
+        </div> -->
+
+                           
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                <lightning-combobox name="natureOfWork" label="Nature Of Work" value={mrjcReport.natureOfWork}
+                    options={natureOfWorkOptions} onchange={handleMRJCReport} required>
+                </lightning-combobox>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Reason" name="reason" value={mrjcReport.reason}
+                        onchange={handleMRJCReport} required></lightning-input>
+                </div>
+
+               
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                <lightning-combobox name="penumaticPressure" label="Penumatic Pressure" value={mrjcReport.penumaticPressure}
+                    options={penumaticPressureOptions} onchange={handleMRJCReport} required>
+                </lightning-combobox>
+                </div>
+
+            
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Gascoseeker Reading" name="gascoseekerReading"
+                        value={mrjcReport.gascoseekerReading} onchange={handleMRJCReport} required></lightning-input>
+                </div>
+
+                  <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                   <lightning-combobox name="leakTestSolution" label="Leak Test SOAP Solution" value={mrjcReport.leakTestSolution}
+                    options={leakTestSolutionOptions} onchange={handleMRJCReport} required>
+                </lightning-combobox>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                <lightning-combobox name="satisOrNotSatisfactory" label="Satisfactory Or NotSatisfactory" value={mrjcReport.satisOrNotSatisfactory}
+                    options={satisOrNotSatisfactoryOptions} onchange={handleMRJCReport} required>
+                </lightning-combobox>
+                </div>
+
+                 
+
+                  <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                <lightning-combobox name="rubberTuberCondition" label="Rubber Tube Condition" value={mrjcReport.rubberTuberCondition}
+                    options={rubberTubeConditionOptions} onchange={handleMRJCReport} required>
+                </lightning-combobox>
+                </div> -->
+
+                  <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                <lightning-combobox name="noGasLeak" label="Ensure No Gas Leak" value={mrjcReport.noGasLeak}
+                    options={noGasLeakOptions} onchange={handleMRJCReport} required>
+                </lightning-combobox>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Action Taken" name="actionTaken"
+                        value={mrjcReport.actionTaken} onchange={handleMRJCReport} required></lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Material Recovered" name="materialRecovered"
+                        value={mrjcReport.materialRecovered} onchange={handleMRJCReport} required></lightning-input>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Old Meter Make" name="oldMeterMake"
+                        value={mrjcReport.oldMeterMake} onchange={handleMRJCReport} required></lightning-input>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                <lightning-combobox name="rubberTubeType" label="Rubber Tube Type" value={mrjcReport.rubberTubeType}
+                    options={rubberTubeTypesOptions} onchange={handleMRJCReport} required>
+                </lightning-combobox>
+                </div>
+
+                
+
+                 <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Old Meter Reading" name="oldMeterReading"
+                        value={mrjcReport.oldMeterReading} onchange={handleMRJCReport} required></lightning-input>
+                </div> -->
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Old Remark" name="oldRemark"
+                        value={mrjcReport.oldRemark} onchange={handleMRJCReport} ></lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="New Meter Make" name="newMeterMake"
+                        value={mrjcReport.newMeterMake} onchange={handleMRJCReport} required></lightning-input>
+                </div>
+
+                 <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="New Meter Reading" name="newMeterReading"
+                        value={mrjcReport.newMeterReading} onchange={handleMRJCReport} required></lightning-input>
+                </div> -->
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Old Meter Serial No." name="oldMeterSerialNo"
+                        value={mrjcReport.oldMeterSerialNo} onchange={handleMRJCReport} required></lightning-input>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="New Meter Serial No." name="newMeterSerialNo"
+                        value={mrjcReport.newMeterSerialNo} onchange={handleMRJCReport} required></lightning-input>
+                </div>
+
+                
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="New Remark" name="newRemark"
+                        value={mrjcReport.newRemark} onchange={handleMRJCReport} ></lightning-input>
+                </div>
+
+
+                 <!--material consumption ---->
+
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+    <h3 class="slds-text-heading_small slds-m-bottom_small">Material Consumption Report</h3>
+
+    <template for:each={materialList} for:item="material" for:index="index">
+        <div key={material.itemCode} class="slds-box slds-m-bottom_small">
+
+            <div class="slds-grid slds-wrap slds-gutters">
+                <!-- Item Code -->
+                <!-- <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Item Code" name="itemCode" data-index={index}
+                        value={material.itemCode} onchange={handleMaterialChange}>
+                    </lightning-input>
+                </div> -->
+
+                <!-- Item Description -->
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning-combobox label="Item Description" name="itemDescription" data-index={index}
+                        value={material.itemDescription} options={itemDescriptionOptions}
+                        onchange={handleMaterialChange}>
+                    </lightning-combobox>
+                </div>
+
+                <!-- Unit -->
+                <!-- <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Unit" name="unit" data-index={index}
+                        value={material.unit} onchange={handleMaterialChange}>
+                    </lightning-input>
+                </div> -->
+
+                <!-- Quantity -->
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Quantity" name="quantity" type="number" data-index={index}
+                        value={material.quantity} onchange={handleMaterialChange}>
+                    </lightning-input>
+                </div>
+
+                <!-- Delete Icon -->
+                <div class="slds-col slds-size_1-of-2 slds-text-align_right" style="margin-top:1.5rem;">
+                    <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove"
+                        data-index={index} onclick={removeMaterialRow} class="slds-m-top_small">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <lightning-button icon-name="utility:add" label="Add Material" onclick={addMaterialRow}
+        class="slds-m-top_medium">
+    </lightning-button>
+</div>
+
+                          
+
+              
+            </div>
+
+            <div class="slds-p-around_medium" style="margin-left:8.7rem;">
+
+                <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+
+            </div>
+
+
+</template>

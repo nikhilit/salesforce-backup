@@ -1,0 +1,44 @@
+/* Apply padding around main container */
+.slds-p-around_medium {
+    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+}
+
+/* Add spacing between cards and buttons */
+lightning-card {
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 0.5rem;
+}
+
+/* Space between buttons and inputs */
+lightning-button,
+lightning-input,
+lightning-combobox,
+lightning-file-upload {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+/* Toast-friendly warning text styling */
+.warning-text {
+    font-size: 0.9rem;
+    color: #c23934;
+    font-weight: 500;
+}
+
+/* Spinner centering */
+lightning-spinner {
+    display: block;
+    margin: 2rem auto;
+}
+
+/* Responsive for mobile view */
+@media (max-width: 600px) {
+    lightning-button,
+    lightning-input,
+    lightning-combobox,
+    lightning-file-upload {
+        width: 100%;
+    }
+}

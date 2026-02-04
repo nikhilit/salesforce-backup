@@ -1,0 +1,1102 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" standardController="RO_Audit__c"  extensions="CNG_AuditPageController">
+   <apex:includeScript value="{!URLFOR($Resource.chartjs)}"/>
+   <style>
+      body {
+      font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+      background: #f7f9fb;
+      margin: 30px;
+      color: #455560;
+      }
+      .title {
+      font-family: sans-serif;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color:#455560;
+      }
+      .card-container {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 40px;
+      }
+      .card {
+      flex: 1;
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #f0f0f0;
+      }
+      .card h3 {
+      font-size: 17px;
+      margin: 18px;
+      color: #1a3353;
+      font-weight: 700;
+      }
+      .card h5 {
+      margin: 18px;
+      color: #1a3353;
+      }
+      .value {
+      font-size: 21px !important;
+      }
+      .score p {
+      font-size: 18px;
+      margin: 8px 0;
+      font-weight: 500;
+      }
+      .container {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #f0f0f0;
+      }
+      .section-title {
+      font-size: 21px;
+      font-weight: 600;
+      color: #1a3353;
+      line-height: 1.5;
+      margin-top: 0;
+      margin-bottom: 0;
+      }
+      .content {
+      display: flex;
+      gap: 120px;
+      }
+      .column {
+      flex: 1;
+      }
+      .row {
+      font-size: 16px;
+      line-height: 1.5;
+      }
+      .label {
+      font-weight: bolder;
+      color: #455560;
+      margin-right: 6px;
+      font-size: 1rem;
+      }
+      .field-value{
+      color: #455560;
+      margin-right: 6px;
+      font-size: 1rem;
+      }
+      .accordion-wrapper {
+      margin-top: 30px;
+      }
+      .accordion-title {
+      font-size: 22px;
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: rgb(26, 51, 83);
+      line-height: 1.5;
+      }
+      .accordion-section {
+      background: #ffffff;
+      border-radius: 14px;
+      border-radius: 12px;
+      border: 1px solid #f0f0f0;
+      }
+      .accordion-header {
+      padding: 12px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #e5eaf0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color:#f7f9fb;
+      }
+      .accordion-header1 {
+      padding: 12px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #e5eaf0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color:#f7f9fb;
+      }
+      .accordion-content {
+      padding: 25px;
+      }
+      /* ===== Table Layout ===== */
+      .question-table {
+      width: 100%;
+      }
+      .table-header,
+      .table-row {
+      display: grid;
+      grid-template-columns: 2.5fr 1.5fr 1.5fr 2fr;
+      padding: 16px 0;
+      border-bottom: 1px solid #e5eaf0;
+      font-size: 14px;
+      color: #455560;
+      }
+      .table-header {
+      color: #455560;
+      font-weight: 600;
+      background-color:#f7f9fb;
+      }
+      .table-row div {
+      display: flex;
+      align-items: center;
+      }
+      .photo img {
+      width: 180px;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid #e5eaf0;
+      }
+      .photo-text {
+      color: #455560;
+      font-style: italic;
+      }
+      .sales-wrapper {
+      background: #f7f9fb;
+      font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+      }
+      .sales-title {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a3353;
+      margin-bottom: 0.5rem;
+      }
+      .sales-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 20px;
+      border: 1px solid #eef1f5;
+      }
+      .sales-subtitle {
+      font-size: 17px;
+      font-weight: 600;
+      color: #1a3353;
+      margin: 0.5rem;
+      }
+      /* Accordion */
+      .accordion-box {
+      border: 1px solid #eef1f5;
+      overflow: hidden;
+      }
+      .accordion-header {
+      padding: 12px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #e5eaf0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color:#f7f9fb;
+      }
+      .accordion-header1 {
+      padding: 12px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #e5eaf0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color:#f7f9fb;
+      }
+      .arrow {
+      font-size: 14px;
+      }
+      .accordion-body {
+      padding: 20px;
+      border: 1px solid #eef1f5;
+      margin: 16px;
+      border-radius: 12px;
+      display: block;
+      }
+      .accordion-body1 {
+      padding: 20px;
+      border: 1px solid #eef1f5;
+      margin: 16px;
+      border-radius: 12px;
+      display: block;
+      }
+      .no-image {
+      color: #8a98a8;
+      }
+      .accordion-body.collapsed {
+      display: none;
+      }
+      .accordion-body1.collapsed {
+      display: none;
+      }
+      /* Arrow rotation instead of changing text */
+      .accordion-header .arrow {
+      transition: transform 0.2s ease;
+      }
+      .accordion-header.collapsed .arrow {
+      transform: rotate(-90deg); /* ▶ */
+      }
+      .accordion-header1 .arrow {
+      transition: transform 0.2s ease;
+      }
+      .accordion-header1.collapsed .arrow {
+      transform: rotate(-90deg); /* ▶ */
+      }
+      .subbox{
+      border-radius: 12px;
+      border: 1px solid #eef1f5;
+      padding: 16px;
+      margin-top: 10px;
+      }
+
+   </style>
+   <script>
+      function toggleAccordionCompressor(header) {
+          const allHeaders = document.querySelectorAll('.accordion-header');
+          const allBodies = document.querySelectorAll('.accordion-body');
+      
+          // Check if currently collapsed
+          const isCollapsed = header.classList.contains('collapsed');
+      
+          if (isCollapsed) {
+          // EXPAND ALL
+          allHeaders.forEach(h => h.classList.remove('collapsed'));
+          allBodies.forEach(b => b.classList.remove('collapsed'));
+          } else {
+          // COLLAPSE ALL
+          allHeaders.forEach(h => h.classList.add('collapsed'));
+          allBodies.forEach(b => b.classList.add('collapsed'));
+          }
+      }
+      function toggleAccordionDispenser(header) {
+          const allHeaders = document.querySelectorAll('.accordion-header1');
+          const allBodies = document.querySelectorAll('.accordion-body1');
+      
+          // Check if currently collapsed
+          const isCollapsed = header.classList.contains('collapsed');
+      
+          if (isCollapsed) {
+              // EXPAND ALL
+              allHeaders.forEach(h => h.classList.remove('collapsed'));
+              allBodies.forEach(b => b.classList.remove('collapsed'));
+          } else {
+              // COLLAPSE ALL
+              allHeaders.forEach(h => h.classList.add('collapsed'));
+              allBodies.forEach(b => b.classList.add('collapsed'));
+          }
+      }
+          document.addEventListener('DOMContentLoaded', function () {
+      
+          const currentTarget   = {!IF(ISBLANK(currentTarget), 0, currentTarget)};
+          const currentSale     = {!IF(ISBLANK(currentSale), 0, currentSale)};
+          const previousTarget  = {!IF(ISBLANK(previousTarget), 0, previousTarget)};
+          const previousSale    = {!IF(ISBLANK(previousSale), 0, previousSale)};
+      
+          const ctx = document.getElementById('performanceChart').getContext('2d');
+      
+          new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: ['Current Month', 'Previous Month'],
+                  datasets: [
+                      {
+                          label: 'Target',
+                          data: [currentTarget, previousTarget],
+                          backgroundColor: '#4c84ff',
+                          barPercentage: 0.5,        // 🔽 reduces bar width
+      categoryPercentage: 0.6
+                      },
+                      {
+                          label: 'Sale',
+                          data: [currentSale, previousSale],
+                          backgroundColor: '#10d48e',
+                          barPercentage: 0.5,        // 🔽 reduces bar width
+      categoryPercentage: 0.6
+                      }
+                  ]
+              },
+              options: {
+                  responsive: true,
+                  plugins: {
+                      legend: {
+                          position: 'bottom'
+                      },
+                      title: {
+                          display: false,
+                      }
+                  },
+                  scales: {
+                      y: {
+                          beginAtZero: true
+                      },
+                       x: {
+      grid: {
+      display: false
+      }
+      }
+                  }
+              }
+          });
+      
+      });
+   </script>
+   <!-- ================= Audit Report ================= -->
+   <div class="title">Audit Report</div>
+   <div class="card-container">
+      <div class="card">
+         <h3>Audit Date</h3>
+         <h3 class="value">
+            <apex:outputText value="{0,date,dd-MM-yyyy}">
+               <apex:param value="{!audit.CreatedDate}" />
+            </apex:outputText>
+         </h3>
+      </div>
+      <div class="card">
+         <h3>Audited By (Mic name)</h3>
+         <h3 class="value">{!audit.MIC_User__r.Name}</h3>
+      </div>
+      <div class="card score">
+         <h3>Audit Score</h3>
+         <h5>Total Marks: 100</h5>
+         <h5>Scored Marks :{!audit.Audit_Score__c}</h5>
+      </div>
+   </div>
+   <!-- ================= Inspection Details ================= -->
+   <div class="container">
+      <h3 class="section-title">
+         MGL-Marketing (Periodic Station Inspection)
+      </h3>
+      <div class="content">
+         <!-- Left Column -->
+         <div class="column">
+            <div class="row">
+               <span class="label">Name of RO:</span>
+               <span class="field-value">{!audit.Business_Partner__r.Name}</span>
+            </div>
+            <div class="row">
+               <span class="label">Station Code:</span>
+               <span class="field-value">{!audit.Business_Partner__r.BP_Number__c}</span>
+            </div>
+            <div class="row">
+               <span class="label">Trading Area:</span>
+               <span class="field-value">{!audit.Business_Partner__r.Zone__c}</span>
+            </div>
+            <apex:outputPanel layout="none"
+               rendered="{!AND(
+               NOT(ISBLANK(audit.GPS__Latitude__s)),
+               NOT(ISBLANK(audit.GPS__Longitude__s))
+               )}">
+               <div class="row">
+                  <span class="label">Location:</span>
+                  <span class="field-value">
+                  Latitude : {!audit.GPS__Latitude__s},
+                  Longitude : {!audit.GPS__Longitude__s}
+                  </span>
+               </div>
+            </apex:outputPanel>
+            <div class="row">
+               <span class="label">Latitude:</span>
+               <span class="field-value">{!audit.GPS__Latitude__s}</span>
+            </div>
+            <div class="row">
+               <span class="label">Longitude:</span>
+               <span class="field-value">{!audit.GPS__Longitude__s}</span>
+            </div>
+         </div>
+         <!-- Right Column -->
+         <div class="column">
+            <div class="row">
+               <span class="label">MIC Name:</span>
+               <span class="field-value">{!audit.MIC_User__r.name}</span>
+            </div>
+            <div class="row">
+               <span class="label">Inspection Date:</span>
+               <span class="field-value">
+                  <apex:outputText value="{0,date,dd-MM-yyyy}">
+                     <apex:param value="{!audit.Inspection_Date__c}" />
+                  </apex:outputText>
+               </span>
+            </div>
+            <div class="row">
+               <span class="label">SCADA Status:</span>
+               <span class="field-value">{!audit.SCADA_Status__c}</span>
+            </div>
+            <div class="row">
+               <span class="label">Name of Operator ship Firm:</span>
+               <span class="field-value">{!audit.Name_of_operationship_firm__c}</span>
+            </div>
+            <div class="row">
+               <span class="label">Name of Operator_Dealer:</span>
+               <span class="field-value">{!audit.Name_of_Operator_dealer__c}</span>
+            </div>
+            <div class="row">
+               <span class="label">Name of Inspecting Officer:</span>
+               <span class="field-value">{!audit.Name_of_inspecting_officer__c}</span>
+            </div>
+            <div class="row">
+               <span class="label">Reason for non-Operational hours:</span>
+               <span class="field-value">{!audit.Non_Operational_Hours__c}</span>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="accordion-wrapper">
+      <!-- SALES CNG SECTION -->
+      <div class="sales-wrapper">
+         <h2 class="sales-title">SALES CNG (All figures in Kgs)</h2>
+         <div class="sales-card">
+            <h3 class="sales-subtitle">
+               MGL-Marketing (Periodic Station Inspection)
+            </h3>
+            <!-- Accordion -->
+            <apex:repeat value="{!dispenserAnswerMap}" var="dispId">
+               <div class="accordion-box">
+                  <!-- Accordion Header -->
+                  <div class="accordion-header" onclick="toggleAccordionCompressor(this)">
+                     <span class="arrow">▼</span>
+                     Nozzle {!dispenserMap[dispId].Equipment_No__c}
+                  </div>
+                  <!-- Accordion Body -->
+                  <div class="accordion-body">
+                     <!-- Table Header -->
+                     <div class="table-row table-header">
+                        <div>Sales Cng All in (KG)</div>
+                        <div>Action</div>
+                        <div>Photo Required</div>
+                        <div>Photo</div>
+                     </div>
+                     <!-- Answers -->
+                     <apex:repeat value="{!dispenserAnswerMap[dispId]}" var="ans">
+                        <div class="table-row">
+                           <div>{!ans.Audit_Question__r.Question__c}</div>
+                           <div>{!ans.Answer__c}</div>
+                           <div>
+                              {!ans.Audit_Question__r.Photo_Required__c}
+                           </div>
+                           <div class="photo">
+                              <!-- Image Preview -->
+                              <apex:outputPanel rendered="{!AND(
+                                 answerHasFileMap[ans.Id],
+                                 OR(
+                                 answerFileMap[ans.Id].FileType = 'PNG',
+                                 answerFileMap[ans.Id].FileType = 'JPG',
+                                 answerFileMap[ans.Id].FileType = 'JPEG'
+                                 )
+                                 )}">
+                                 <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                    width="250"
+                                    height="150"/>
+                              </apex:outputPanel>
+                              <!-- No File -->
+                              <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                 <div class="no-image">Image Not Available</div>
+                              </apex:outputPanel>
+                           </div>
+                        </div>
+                     </apex:repeat>
+                  </div>
+               </div>
+            </apex:repeat>
+         </div>
+         <div class="accordion-wrapper">
+            <!-- SALES CNG SECTION -->
+            <div class="sales-wrapper">
+               <h2 class="sales-title">SUPPLY QUANTITY - Compressor readings</h2>
+               <div class="sales-card">
+                  <h3 class="sales-subtitle">
+                     MGL-Marketing (Periodic Station Inspection)
+                  </h3>
+                  <!-- Accordion -->
+                  <apex:repeat value="{!compressorAnswerMap}" var="dispId">
+                     <div class="accordion-box">
+                        <!-- Accordion Header -->
+                        <div class="accordion-header1" onclick="toggleAccordionDispenser(this)">
+                           <span class="arrow">▼</span>
+                           Compressor {!compressorMap[dispId].Name}
+                        </div>
+                        <!-- Accordion Body -->
+                        <div class="accordion-body1">
+                           <!-- Table Header -->
+                           <div class="table-row table-header">
+                              <div>Sales Cng All in (KG)</div>
+                              <div>Action</div>
+                              <div>Photo Required</div>
+                              <div>Photo</div>
+                           </div>
+                           <!-- Answers -->
+                           <apex:repeat value="{!compressorAnswerMap[dispId]}" var="ans">
+                              <div class="table-row">
+                                 <div>{!ans.Audit_Question__r.Question__c}</div>
+                                 <div>{!ans.Answer__c}</div>
+                                 <div>
+                                    {!ans.Audit_Question__r.Photo_Required__c}
+                                 </div>
+                                 <div class="photo">
+                                    <!-- Image Preview -->
+                                    <apex:outputPanel rendered="{!AND(
+                                       answerHasFileMap[ans.Id],
+                                       OR(
+                                       answerFileMap[ans.Id].FileType = 'PNG',
+                                       answerFileMap[ans.Id].FileType = 'JPG',
+                                       answerFileMap[ans.Id].FileType = 'JPEG'
+                                       )
+                                       )}">
+                                       <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                          width="250"
+                                          height="150"/>
+                                    </apex:outputPanel>
+                                    <!-- No File -->
+                                    <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                       <div class="no-image">Image Not Available</div>
+                                    </apex:outputPanel>
+                                 </div>
+                              </div>
+                           </apex:repeat>
+                        </div>
+                     </div>
+                  </apex:repeat>
+               </div>
+               <div class="accordion-wrapper">
+                  <!-- SALES CNG SECTION -->
+                  <div class="sales-wrapper">
+                     <div class="sales-card">
+                        <h3 class="sales-subtitle">
+                           Performance Comparison
+                        </h3>
+                        <div style="background-color:#ffffff;">
+                           <canvas id="performanceChart"></canvas>
+                        </div>
+                     </div>
+                     <div class="accordion-wrapper">
+                        <!-- SALES CNG SECTION -->
+                        <div class="sales-wrapper">
+                           <div class="sales-card">
+                              <h3 class="sales-subtitle">
+                                 CNG MRP Verification
+                              </h3>
+                              <!-- Table Header -->
+                              <div class="table-row table-header spacing">
+                                 <div>CNG MRP Verification</div>
+                                 <div>Action</div>
+                                 <div>Photo Required</div>
+                                 <div>View</div>
+                              </div>
+                              <!-- Answers -->
+                              <apex:repeat value="{!cngMRPVerification}" var="ans">
+                                 <div class="table-row spacing">
+                                    <div>{!ans.Audit_Question__r.Question__c}</div>
+                                    <div>{!ans.Answer__c}</div>
+                                    <div>
+                                       {!ans.Audit_Question__r.Photo_Required__c}
+                                    </div>
+                                    <div class="photo">
+                                       <apex:outputPanel rendered="{!AND(
+                                          answerHasFileMap[ans.Id],
+                                          OR(
+                                          answerFileMap[ans.Id].FileType = 'PNG',
+                                          answerFileMap[ans.Id].FileType = 'JPG',
+                                          answerFileMap[ans.Id].FileType = 'JPEG'
+                                          )
+                                          )}">
+                                          <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                             width="250"
+                                             height="150"/>
+                                       </apex:outputPanel>
+                                       <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                          <div class="no-image">Image Not Available</div>
+                                       </apex:outputPanel>
+                                    </div>
+                                 </div>
+                              </apex:repeat>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="accordion-wrapper">
+                        <!-- SALES CNG SECTION -->
+                        <div class="sales-wrapper">
+                           <div class="sales-card">
+                              <h3 class="sales-subtitle">
+                                 Statutory Compliances &amp; Records
+                              </h3>
+                              <!-- Table Header -->
+                              <div class="table-row table-header spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                 <div>Statutory Licenses / Certificates and Records</div>
+                                 <div>Yes/No</div>
+                                 <div>Photo Required</div>
+                                 <div>Point</div>
+                                 <div>Image</div>
+                              </div>
+                              <!-- Answers -->
+                              <apex:repeat value="{!statutoryRecords}" var="ans">
+                                 <div class="table-row spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                    <div>{!ans.Audit_Question__r.Question__c}</div>
+                                    <div>{!ans.Answer__c}</div>
+                                    <div>
+                                       {!ans.Audit_Question__r.Photo_Required__c}
+                                    </div>
+                                    <div>
+                                       {!ans.Point__c}
+                                    </div>
+                                    <div class="photo">
+                                       <apex:outputPanel rendered="{!AND(
+                                          answerHasFileMap[ans.Id],
+                                          OR(
+                                          answerFileMap[ans.Id].FileType = 'PNG',
+                                          answerFileMap[ans.Id].FileType = 'JPG',
+                                          answerFileMap[ans.Id].FileType = 'JPEG'
+                                          )
+                                          )}">
+                                          <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                             width="250"
+                                             height="150"/>
+                                       </apex:outputPanel>
+                                       <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                          <div class="no-image">Image Not Available</div>
+                                       </apex:outputPanel>
+                                    </div>
+                                 </div>
+                              </apex:repeat>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="accordion-wrapper">
+                        <!-- SALES CNG SECTION -->
+                        <div class="sales-wrapper">
+                           <div class="sales-card">
+                              <h3 class="sales-subtitle">
+                                 Branding And Awareness
+                              </h3>
+                              <!-- Table Header -->
+                              <div class="table-row table-header spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                 <div>Branding</div>
+                                 <div>Yes/No</div>
+                                 <div>Photo Required</div>
+                                 <div>Point</div>
+                                 <div>Image</div>
+                              </div>
+                              <!-- Answers -->
+                              <apex:repeat value="{!brandingRecords}" var="ans">
+                                 <div class="table-row spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                    <div>{!ans.Audit_Question__r.Question__c}</div>
+                                    <div>{!ans.Answer__c}</div>
+                                    <div>
+                                       {!ans.Audit_Question__r.Photo_Required__c}
+                                    </div>
+                                    <div>
+                                       {!ans.Point__c}
+                                    </div>
+                                    <div class="photo">
+                                       <apex:outputPanel rendered="{!AND(
+                                          answerHasFileMap[ans.Id],
+                                          OR(
+                                          answerFileMap[ans.Id].FileType = 'PNG',
+                                          answerFileMap[ans.Id].FileType = 'JPG',
+                                          answerFileMap[ans.Id].FileType = 'JPEG'
+                                          )
+                                          )}">
+                                          <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                             width="250"
+                                             height="150"/>
+                                       </apex:outputPanel>
+                                       <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                          <div class="no-image">Image Not Available</div>
+                                       </apex:outputPanel>
+                                    </div>
+                                 </div>
+                              </apex:repeat>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="accordion-wrapper">
+                        <!-- SALES CNG SECTION -->
+                        <div class="sales-wrapper">
+                           <div class="sales-card">
+                              <h3 class="sales-subtitle">
+                                 CUSTOMER ORIENTATION
+                              </h3>
+                              <div class="subbox">
+                                 <!-- Table Header -->
+                                 <div class="table-row table-header spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                    <div>Drinking Water</div>
+                                    <div>Answer</div>
+                                    <div>Photo Required</div>
+                                    <div>Point</div>
+                                    <div>Image</div>
+                                 </div>
+                                 <!-- Answers -->
+                                 <apex:repeat value="{!customerOrientation}" var="ans">
+                                    <div class="table-row spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                       <div>{!ans.Audit_Question__r.Question__c}</div>
+                                       <div>{!ans.Answer__c}</div>
+                                       <div>
+                                          {!ans.Audit_Question__r.Photo_Required__c}
+                                       </div>
+                                       <div>
+                                          {!ans.Point__c}
+                                       </div>
+                                       <div class="photo">
+                                          <apex:outputPanel rendered="{!AND(
+                                             answerHasFileMap[ans.Id],
+                                             OR(
+                                             answerFileMap[ans.Id].FileType = 'PNG',
+                                             answerFileMap[ans.Id].FileType = 'JPG',
+                                             answerFileMap[ans.Id].FileType = 'JPEG'
+                                             )
+                                             )}">
+                                             <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                                width="250"
+                                                height="150"/>
+                                          </apex:outputPanel>
+                                          <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                             <div class="no-image">Image Not Available</div>
+                                          </apex:outputPanel>
+                                       </div>
+                                    </div>
+                                 </apex:repeat>
+                              </div>
+                              <div class="subbox">
+                                 <!-- Table Header -->
+                                 <div class="table-row table-header spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                    <div>Clean And Functional Toilets</div>
+                                    <div>Answer</div>
+                                    <div>Photo Required</div>
+                                    <div>Point</div>
+                                    <div>Image</div>
+                                 </div>
+                                 <!-- Answers -->
+                                 <apex:repeat value="{!cleanandfunctoilets}" var="ans">
+                                    <div class="table-row spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                       <div>{!ans.Audit_Question__r.Question__c}</div>
+                                       <div>{!ans.Answer__c}</div>
+                                       <div>
+                                          {!ans.Audit_Question__r.Photo_Required__c}
+                                       </div>
+                                       <div>
+                                          {!ans.Point__c}
+                                       </div>
+                                       <div class="photo">
+                                          <apex:outputPanel rendered="{!AND(
+                                             answerHasFileMap[ans.Id],
+                                             OR(
+                                             answerFileMap[ans.Id].FileType = 'PNG',
+                                             answerFileMap[ans.Id].FileType = 'JPG',
+                                             answerFileMap[ans.Id].FileType = 'JPEG'
+                                             )
+                                             )}">
+                                             <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                                width="250"
+                                                height="150"/>
+                                          </apex:outputPanel>
+                                          <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                             <div class="no-image">Image Not Available</div>
+                                          </apex:outputPanel>
+                                       </div>
+                                    </div>
+                                 </apex:repeat>
+                              </div>
+                              <div class="subbox">
+                                 <div class="table-row table-header spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                    <div>Free Air Filling Facility</div>
+                                    <div>Answer</div>
+                                    <div>Photo Required</div>
+                                    <div>Point</div>
+                                    <div>Image</div>
+                                 </div>
+                                 <!-- Answers -->
+                                 <apex:repeat value="{!freeair}" var="ans">
+                                    <div class="table-row spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                       <div>{!ans.Audit_Question__r.Question__c}</div>
+                                       <div>{!ans.Answer__c}</div>
+                                       <div>
+                                          {!ans.Audit_Question__r.Photo_Required__c}
+                                       </div>
+                                       <div>
+                                          {!ans.Point__c}
+                                       </div>
+                                       <div class="photo">
+                                          <apex:outputPanel rendered="{!AND(
+                                             answerHasFileMap[ans.Id],
+                                             OR(
+                                             answerFileMap[ans.Id].FileType = 'PNG',
+                                             answerFileMap[ans.Id].FileType = 'JPG',
+                                             answerFileMap[ans.Id].FileType = 'JPEG'
+                                             )
+                                             )}">
+                                             <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                                width="250"
+                                                height="150"/>
+                                          </apex:outputPanel>
+                                          <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                             <div class="no-image">Image Not Available</div>
+                                          </apex:outputPanel>
+                                       </div>
+                                    </div>
+                                 </apex:repeat>
+                              </div>
+                              <div class="subbox">
+                                 <!-- Table Header -->
+                                 <div class="table-row table-header spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                    <div>Customer Complaint Box</div>
+                                    <div>Answer</div>
+                                    <div>Photo Required</div>
+                                    <div>Point</div>
+                                    <div>Image</div>
+                                 </div>
+                                 <!-- Answers -->
+                                 <apex:repeat value="{!customercomplaintbox}" var="ans">
+                                    <div class="table-row spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                       <div>{!ans.Audit_Question__r.Question__c}</div>
+                                       <div>{!ans.Answer__c}</div>
+                                       <div>
+                                          {!ans.Audit_Question__r.Photo_Required__c}
+                                       </div>
+                                       <div>
+                                          {!ans.Point__c}
+                                       </div>
+                                       <div class="photo">
+                                          <apex:outputPanel rendered="{!AND(
+                                             answerHasFileMap[ans.Id],
+                                             OR(
+                                             answerFileMap[ans.Id].FileType = 'PNG',
+                                             answerFileMap[ans.Id].FileType = 'JPG',
+                                             answerFileMap[ans.Id].FileType = 'JPEG'
+                                             )
+                                             )}">
+                                             <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                                width="250"
+                                                height="150"/>
+                                          </apex:outputPanel>
+                                          <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                             <div class="no-image">Image Not Available</div>
+                                          </apex:outputPanel>
+                                       </div>
+                                    </div>
+                                 </apex:repeat>
+                              </div>
+                              <div class="subbox">
+                                 <!-- Table Header -->
+                                 <div class="table-row table-header spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                    <div>First Aid Box</div>
+                                    <div>Answer</div>
+                                    <div>Photo Required</div>
+                                    <div>Point</div>
+                                    <div>Image</div>
+                                 </div>
+                                 <!-- Answers -->
+                                 <apex:repeat value="{!firstaidbox}" var="ans">
+                                    <div class="table-row spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                       <div>{!ans.Audit_Question__r.Question__c}</div>
+                                       <div>{!ans.Answer__c}</div>
+                                       <div>
+                                          {!ans.Audit_Question__r.Photo_Required__c}
+                                       </div>
+                                       <div>
+                                          {!ans.Point__c}
+                                       </div>
+                                       <div class="photo">
+                                          <apex:outputPanel rendered="{!AND(
+                                             answerHasFileMap[ans.Id],
+                                             OR(
+                                             answerFileMap[ans.Id].FileType = 'PNG',
+                                             answerFileMap[ans.Id].FileType = 'JPG',
+                                             answerFileMap[ans.Id].FileType = 'JPEG'
+                                             )
+                                             )}">
+                                             <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                                width="250"
+                                                height="150"/>
+                                          </apex:outputPanel>
+                                          <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                             <div class="no-image">Image Not Available</div>
+                                          </apex:outputPanel>
+                                       </div>
+                                    </div>
+                                 </apex:repeat>
+                              </div>
+                              <div class="subbox">
+                                 <!-- Table Header -->
+                                 <div class="table-row table-header spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                    <div>Payment Related</div>
+                                    <div>Answer</div>
+                                    <div>Photo Required</div>
+                                    <div>Point</div>
+                                    <div>Image</div>
+                                 </div>
+                                 <!-- Answers -->
+                                 <apex:repeat value="{!paymentRelated}" var="ans">
+                                    <div class="table-row spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                       <div>{!ans.Audit_Question__r.Question__c}</div>
+                                       <div>{!ans.Answer__c}</div>
+                                       <div>
+                                          {!ans.Audit_Question__r.Photo_Required__c}
+                                       </div>
+                                       <div>
+                                          {!ans.Point__c}
+                                       </div>
+                                       <div class="photo">
+                                          <apex:outputPanel rendered="{!AND(
+                                             answerHasFileMap[ans.Id],
+                                             OR(
+                                             answerFileMap[ans.Id].FileType = 'PNG',
+                                             answerFileMap[ans.Id].FileType = 'JPG',
+                                             answerFileMap[ans.Id].FileType = 'JPEG'
+                                             )
+                                             )}">
+                                             <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                                width="250"
+                                                height="150"/>
+                                          </apex:outputPanel>
+                                          <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                             <div class="no-image">Image Not Available</div>
+                                          </apex:outputPanel>
+                                       </div>
+                                    </div>
+                                 </apex:repeat>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="accordion-wrapper">
+                        <!-- SALES CNG SECTION -->
+                        <div class="sales-wrapper">
+                           <div class="sales-card">
+                              <h3 class="sales-subtitle">
+                                Safety &amp; Security
+
+                              </h3>
+                              <div class="subbox">
+                                 <!-- Table Header -->
+                                 <div class="table-row table-header spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                    <div>Fire Extinguisher</div>
+                                    <div>Answer</div>
+                                    <div>Photo Required</div>
+                                    <div>Point</div>
+                                    <div>Image</div>
+                                 </div>
+                                 <!-- Answers -->
+                                 <apex:repeat value="{!fireextinguisher}" var="ans">
+                                    <div class="table-row spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                       <div>{!ans.Audit_Question__r.Question__c}</div>
+                                       <div>{!ans.Answer__c}</div>
+                                       <div>
+                                          {!ans.Audit_Question__r.Photo_Required__c}
+                                       </div>
+                                       <div>
+                                          {!ans.Point__c}
+                                       </div>
+                                       <div class="photo">
+                                          <apex:outputPanel rendered="{!AND(
+                                             answerHasFileMap[ans.Id],
+                                             OR(
+                                             answerFileMap[ans.Id].FileType = 'PNG',
+                                             answerFileMap[ans.Id].FileType = 'JPG',
+                                             answerFileMap[ans.Id].FileType = 'JPEG'
+                                             )
+                                             )}">
+                                             <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                                width="250"
+                                                height="150"/>
+                                          </apex:outputPanel>
+                                          <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                             <div class="no-image">Image Not Available</div>
+                                          </apex:outputPanel>
+                                       </div>
+                                    </div>
+                                 </apex:repeat>
+                              </div>
+                              <div class="subbox">
+                                 <!-- Table Header -->
+                                 <div class="table-row table-header spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                    <div>Safety and Security</div>
+                                    <div>Answer</div>
+                                    <div>Photo Required</div>
+                                    <div>Point</div>
+                                    <div>Image</div>
+                                 </div>
+                                 <!-- Answers -->
+                                 <apex:repeat value="{!safetysecurity}" var="ans">
+                                    <div class="table-row spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                       <div>{!ans.Audit_Question__r.Question__c}</div>
+                                       <div>{!ans.Answer__c}</div>
+                                       <div>
+                                          {!ans.Audit_Question__r.Photo_Required__c}
+                                       </div>
+                                       <div>
+                                          {!ans.Point__c}
+                                       </div>
+                                       <div class="photo">
+                                          <apex:outputPanel rendered="{!AND(
+                                             answerHasFileMap[ans.Id],
+                                             OR(
+                                             answerFileMap[ans.Id].FileType = 'PNG',
+                                             answerFileMap[ans.Id].FileType = 'JPG',
+                                             answerFileMap[ans.Id].FileType = 'JPEG'
+                                             )
+                                             )}">
+                                             <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                                width="250"
+                                                height="150"/>
+                                          </apex:outputPanel>
+                                          <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                             <div class="no-image">Image Not Available</div>
+                                          </apex:outputPanel>
+                                       </div>
+                                    </div>
+                                 </apex:repeat>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                      <div class="accordion-wrapper">
+                        <!-- SALES CNG SECTION -->
+                        <div class="sales-wrapper">
+                           <div class="sales-card">
+                              <h3 class="sales-subtitle">
+                                Manpower
+                              </h3>
+                              <div class="subbox">
+                                 <!-- Table Header -->
+                                 <div class="table-row table-header spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                    <div>Man Power</div>
+                                    <div>Answer</div>
+                                    <div>Photo Required</div>
+                                    <div>Point</div>
+                                    <div>Image</div>
+                                 </div>
+                                 <!-- Answers -->
+                                 <apex:repeat value="{!manpower}" var="ans">
+                                    <div class="table-row spacing" style="grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr 2fr;">
+                                       <div>{!ans.Audit_Question__r.Question__c}</div>
+                                       <div>{!ans.Answer__c}</div>
+                                       <div>
+                                          {!ans.Audit_Question__r.Photo_Required__c}
+                                       </div>
+                                       <div>
+                                          {!ans.Point__c}
+                                       </div>
+                                       <div class="photo">
+                                          <apex:outputPanel rendered="{!AND(
+                                             answerHasFileMap[ans.Id],
+                                             OR(
+                                             answerFileMap[ans.Id].FileType = 'PNG',
+                                             answerFileMap[ans.Id].FileType = 'JPG',
+                                             answerFileMap[ans.Id].FileType = 'JPEG'
+                                             )
+                                             )}">
+                                             <img src="{!$Site.BaseUrl}/sfc/servlet.shepherd/version/download/{!answerFileMap[ans.Id].Id}"
+                                                width="250"
+                                                height="150"/>
+                                          </apex:outputPanel>
+                                          <apex:outputPanel rendered="{!NOT(answerHasFileMap[ans.Id])}">
+                                             <div class="no-image">Image Not Available</div>
+                                          </apex:outputPanel>
+                                       </div>
+                                    </div>
+                                 </apex:repeat>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</apex:page>

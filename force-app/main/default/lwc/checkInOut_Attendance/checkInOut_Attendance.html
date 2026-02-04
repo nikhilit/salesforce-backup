@@ -1,0 +1,62 @@
+<template>
+    <div class="container">
+        <div class="status-card">
+            <template if:true={isLoading}>
+                <div class="spinner-container">
+                    <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <template if:false={isLoading}>
+            <lightning-card title="Today's Status">
+                <div class="slds-p-around_medium border-top">
+                    <p>{today}</p>
+                    <div class="slds-modal__content slds-is-relative" id="modal-content-id-1" style="font-size: larger;">
+                        <button if:false={isCheckedOut} onclick={handleGetLocation} class="slds-button slds-button_brand slds-size_1-of-1 slds-m-top_small">Get Location</button>
+                        <template if:true={showMap}>
+                            <lightning-map class="slds-m-top_small" map-markers={lstMarkers} zoom-level="15" markers-title="Current Location"></lightning-map>
+                        </template>
+                    </div>
+                    <template if:true={hasCheckedIn}>
+                        <p class="slds-m-top_small"><strong>Status:</strong> {status}</p>
+                        <template if:true={onLeave}>
+                            <lightning-textarea label="Reason for Leave" class="slds-m-top_small" value={absenceOrLeaveReason} disabled="true">
+                            </lightning-textarea>
+                        </template>
+                        <p class="slds-m-top_small"><strong>Checked In:</strong> {checkInTime}</p>
+                        <p class="slds-m-top_small">Check In Latitude: {lat} and Longitude: {long}</p>
+                        <p if:true={isCheckedOut} class="slds-m-top_small"><strong>Checked Out:</strong> {checkOutTime}</p>
+                        <p if:true={isCheckedOut} class="slds-m-top_small">Check Out Latitude: {lat2} and Longitude: {long2}</p>
+                    </template>
+
+                    <template if:false={hasCheckedIn}>
+                        <lightning-combobox value={selectedStatus} options={statusOptions} placeholder="Select Status"
+                            onchange={handleStatusChange}>
+                        </lightning-combobox>
+                    </template>
+                    <template if:true={isOnLeave}>
+                        <lightning-textarea label="Reason for Leave" class="slds-m-top_small" value={absenceOrLeaveReason} onchange={handleReasonChange}>
+                        </lightning-textarea>
+                    </template>
+
+                    <template if:true={lat}>
+                        <template if:false={hasCheckedIn}>
+                            <button onclick={handleCheckIn} disabled={hasCheckedIn} class="slds-button slds-button_brand slds-size_1-of-1 slds-m-top_small">Check In</button>
+                            <!-- <lightning-button label="Check In" onclick={handleCheckIn} class="slds-button slds-button_brand slds-size_full slds-m-top_small"
+                                variant="brand" disabled={hasCheckedIn}></lightning-button> -->
+                        </template>
+                    </template>
+
+                    <template if:true={lat2}>
+                        <template if:true={isCheckedIn}>
+                            <button if:false={isCheckedOut} onclick={handleCheckOut} disabled={isCheckedOut} class="slds-button slds-button_destructive slds-size_1-of-1 slds-m-top_small">Check Out</button>
+                            <!-- <lightning-button if:false={isCheckedOut} label="Check Out" onclick={handleCheckOut}
+                                class="slds-m-top_small" variant="destructive" disabled={isCheckedOut}></lightning-button> -->
+                        </template>
+                    </template>
+                </div>
+            </lightning-card>
+            </template>
+        </div>
+    </div>
+</template>

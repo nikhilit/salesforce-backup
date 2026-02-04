@@ -1,0 +1,123 @@
+<apex:page controller="LetterAcknowledgmentController"
+           renderAs="pdf"
+           showHeader="false"
+           sidebar="false"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           contentType="application/pdf">
+
+    <html>
+        <head>
+            <style>
+                @page {
+                    size: A4;
+                    margin-top: 0cm;
+                    margin-bottom: 0cm;
+                    margin-left: 1cm;
+                    margin-right: 1cm;
+                }
+                body {
+                    font-family: 'Times New Roman', Times, serif;
+                    font-size: 14px;
+                    margin: 0;
+                    padding: 0;
+                    line-height: 1.5;
+                }
+                .footer {
+                    position: fixed;
+                    bottom: 20px;
+                    left: 0;
+                    right: 0;
+                    font-size: 11px;
+                    line-height: 1.3;
+                    padding: 0 12px;
+                }
+                .footer hr {
+                    border: 0;
+                    border-top: 1px solid #000;
+                    margin: 0 0 4px 0;
+                }
+            </style>
+        </head>
+        <body>
+
+            <!-- Header -->
+            <table style="width: 100%; border-bottom: 1px solid #000; padding-bottom: 6px;">
+                <tr>
+                    <td style="width: 22%; text-align: left; vertical-align: middle;">
+                        <img src="{!URLFOR($Resource.MGL_Logo)}" alt="Logo" style="width: 100px; height: auto;"/>
+                    </td>
+                    <td style="width: 56%; text-align: center; vertical-align: middle;">
+                        <h2 style="margin: 0; font-size: 20px;">MAHANAGAR GAS LIMITED</h2>
+                    </td>
+                    <td style="width: 22%; text-align: left; font-size: 12px; vertical-align: top;">
+                        <div style="font-weight: bold;">CRMRE007</div>
+                        <div>
+                            Pay &amp; Accounts Building,<br/>
+                            Ground Floor,<br/>
+                            Bandra Kurla Complex,<br/>
+                            Bandra (East),<br/>
+                            Mumbai 400 051<br/>
+                            Customer Helpline Nos.<br/>
+                            (022) 68674500 / 61564500<br/>
+                            support@mahanagargas.com
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Reference No and Date -->
+           
+
+            <!-- Body -->
+            <div style="margin-top: 15px;">
+                <apex:outputText value="{!templateBody}" escape="false"/>
+            </div>
+
+            <!-- Closing -->
+           <div style="margin-top: 20px;">
+                <p>
+                    Further it is our constant endeavor to strive and provide pleasing experience to our valued customers and Android users can now download our Mobile App "MGL Connect" from the play store for easy and convenient access to information with host of other features.
+                </p>
+                <p>Assuring you of our best service at all times.</p>
+                <p>Thanking you,</p>
+                <div style="text-align: right;">
+                    <p>Yours truly,</p>
+                    <p><strong>Mr. Paresh Chanpur</strong><br/>Chief Manager - CRM</p>
+                </div>
+            </div>
+
+            <!-- Footer (fixed at bottom of every page) -->
+            <!-- Footer (fixed at bottom, full width) -->
+
+
+    <!-- Full-width HR -->
+   <div style="position: fixed; bottom: 15px; font-size: 11px; line-height: 1.2; margin-top: 30px;">
+
+    <!-- Matched HR: same as header bottom border -->
+    <hr style="border: 0; border-top: 1px solid #000; margin: 0 0 6px 0; width: 100%;" />
+
+
+    <!-- Footer Text -->
+    <div style="line-height: 1.3; text-align: left;">
+        <p style="margin: 2px 0;">Beware of fraudulent activities prevalent under the name of Mahanagar Gas Ltd.</p>
+        <p style="margin: 2px 0;">This is a computer generated form requiring no signature and represents our record of transaction with you.</p>
+        <p style="margin: 2px 0;">Any exception to the details above should be advised to us within 7 days.</p>
+        <p style="margin: 2px 0;">
+            Regd. Office: MGL House, G-33 Block, Bandra-Kurla Complex, Bandra (East) Mumbai - 400 051.<br/>
+            Website: <a href="http://www.mahanagargas.com" target="_blank">www.mahanagargas.com</a><br/>
+            Facsimile (022) 26592156 / CIN No. L40200MH1995PLC088133
+        </p>
+    </div>
+        <!-- Full Width Image Section -->
+   <div style="padding: 0 12px; font-size: 11px; line-height: 1;">
+    <img src="{!URLFOR($Resource.mglcautionimage)}" 
+         style="width:100%; max-height:50px; object-fit:contain; display:block;" />
+</div>
+
+</div>
+
+
+        </body>
+    </html>
+</apex:page>

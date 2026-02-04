@@ -1,0 +1,71 @@
+.custom-container {
+    height: 100vh;
+    background: #ffffff;
+    border-top: 1px solid #ddd;
+}
+
+.back-button-container {
+    padding-left: 1rem;
+}
+
+/* Custom Header Styling */
+.section-header {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.header-title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+    padding-right: 15px;
+
+}
+
+.appointment-card {
+    padding: 0.7rem 8px;
+    /* border-radius: 8px; */
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.appt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.appt-account-name {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.appt-status {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 6px;
+    text-transform: capitalize;
+}
+
+.appt-subject {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.appt-summary {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.appt-datetime {
+    font-size: 13px;
+    color: #999;
+}

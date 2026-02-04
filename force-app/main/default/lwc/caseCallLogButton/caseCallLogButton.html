@@ -1,0 +1,116 @@
+<template>
+    <lightning-card title="Outbound Call Details" icon-name="standard:case">
+        <div class="slds-p-around_medium">
+
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-align_absolute-center slds-p-vertical_large">
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                    <div class="slds-m-top_small">Saving...</div>
+                </div>
+            </template>
+
+            <!-- Error State -->
+            <template if:true={showError}>
+                <div class="slds-box slds-theme_error">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name="utility:error" size="small" class="slds-icon-text-error"></lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h3 class="slds-text-heading_small">Unable to Load Case Data</h3>
+                            <p class="slds-m-top_x-small">{errorMessage}</p>
+                        </div>
+                    </div>
+                    <div class="slds-m-top_medium slds-align_absolute-center">
+                        <lightning-button 
+                            label="Close" 
+                            onclick={closeModal}
+                            variant="neutral">
+                        </lightning-button>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Main Content -->
+            <template if:true={showContent}>
+
+                <!-- Outbound Call 1 -->
+                <div class="slds-box slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">Outbound Call 1 Details</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-3">
+                            <strong>Done By:</strong> <div>{call1DoneBy}</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <strong>Done Time:</strong> <div>{call1DoneTime}</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <strong>Remarks:</strong><div>{call1Remarks}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outbound Call 2 -->
+                <div class="slds-box slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">Outbound Call 2 Details</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-3">
+                            <strong>Done By:</strong> <div>{call2DoneBy}</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <strong>Done Time:</strong> <div>{call2DoneTime}</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <strong>Remarks:</strong><div>{call2Remarks}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outbound Call 3 -->
+                <div class="slds-box slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">Outbound Call 3 Details</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-3">
+                            <strong>Done By:</strong> <div>{call3DoneBy}</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <strong>Done Time:</strong> <div>{call3DoneTime}</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <strong>Remarks:</strong><div>{call3Remarks}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Remarks -->
+                <template if:false={isSaveDisabled}>
+                    <div class="slds-box">
+                        <h3 class="slds-text-heading_small slds-m-bottom_small">Add New Remarks</h3>
+
+                        <label class="slds-form-element__label">
+                            <span class="slds-required">*</span> Comments
+                        </label>
+
+                        <textarea 
+                            class="slds-textarea"
+                            value={remarks}
+                            onchange={handleRemarksChange}
+                            placeholder="Enter your comments..."
+                        ></textarea>
+
+                        <div class="slds-m-top_medium slds-align_absolute-center">
+                            <lightning-button 
+                                label="Save" 
+                                variant="brand"
+                                disabled={isSaveButtonDisabled}
+                                onclick={handleSaveClick}
+                            ></lightning-button>
+                        </div>
+                    </div>
+                </template>
+
+            </template>
+        </div>
+    </lightning-card>
+</template>

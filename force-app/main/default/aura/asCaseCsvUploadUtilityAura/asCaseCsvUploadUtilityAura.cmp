@@ -1,0 +1,3 @@
+<aura:component implements="lightning:isUrlAddressable,force:hasSObjectName" access="global">
+    <c:asCaseCsvUploader objectApiName="{!v.pageReference.state.c__sObjectName}"></c:asCaseCsvUploader>
+</aura:component>

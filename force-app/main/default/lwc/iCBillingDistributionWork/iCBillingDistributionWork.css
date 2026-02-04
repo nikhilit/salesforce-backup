@@ -1,0 +1,28 @@
+.overlay-blocker {
+    width: 100vw;
+    position: fixed;
+    inset: 0;
+    /* replaces 100vw / 100vh */
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.toast-box .slds-notify {
+    /* respects overlay padding */
+    margin: 0 auto;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    /* keep SLDS structure */
+    align-items: center;
+
+    overflow: hidden;
+}

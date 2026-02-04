@@ -1,0 +1,24 @@
+<template>
+    <lightning-card title="Bulk Upload CSV">
+        <div class="slds-p-around_medium">
+            <lightning-input type="file" label="Upload CSV" 
+                             accept=".csv" 
+                             onchange={handleFileChange}>
+            </lightning-input>
+            <lightning-button label="Start Upload" 
+                              onclick={startUpload} 
+                              class="slds-m-top_medium"
+                              variant="brand">
+            </lightning-button>
+        </div>
+
+        <template if:true={jobId}>
+            <p class="slds-p-around_medium">Job Created: {jobId}</p>
+            <lightning-button label="Check Job Status" 
+                              onclick={checkStatus} 
+                              variant="neutral">
+            </lightning-button>
+            <p>{jobStatus}</p>
+        </template>
+    </lightning-card>
+</template>

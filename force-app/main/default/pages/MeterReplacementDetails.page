@@ -1,0 +1,273 @@
+<apex:page renderAs="pdf"
+           showHeader="false"
+           sidebar="false"
+           standardStylesheets="false"
+           controller="MeterReplacement_Detail_Controller"
+           applyHtmlTag="false"
+           applyBodyTag="false">
+
+    <style>
+        @page {
+            margin: 5mm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 8px;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <!-- very compact table: border=1, small cellpadding -->
+			<!-- very compact heading -->
+    <div style="text-align:center;font-size: 14px;font-weight:bold;font-size:14px;margin:0 0 2px 0;padding:1rem;">
+        MAHANAGAR GAS LIMITED
+    </div>
+    <div style="font-size: 14px;font-weight:bold;margin:0 0 1px 0;">
+        RECORD NO. &nbsp; {!recordNumber}
+    </div>
+    <div style="font-size: 14px;font-weight:bold;margin:0 0 3px 0;">
+        TITLE : &nbsp; METER REPLACEMENT JOB CARD
+    </div>
+           
+    <table width="100%" border="1" cellspacing="0" cellpadding="1" Style="font-family:Arial,sans-serif; font-size:14px;">
+
+    <!-- Header Row: Address/Notification/Others -->
+    <tr>
+        <td colspan="3" style="background:#000; color:#fff; font-weight:bold; border:1px solid #000; width:48%;">CUSTOMER'S NAME AND ADDRESS:</td>
+        <td style="background:#000; color:#fff; font-weight:bold; border:1px solid #000; width:26%;">NOTIFICATION NO.</td>
+        <td style="background:#000; color:#fff; font-weight:bold; border:1px solid #000; width:13%;">OTHERS</td>
+    </tr>
+    <!-- Value Row -->
+    <tr>
+        <td colspan="3" style="height:38px; vertical-align:top; border:1px solid #000;">{!customerNameAddress}</td>
+        <td style="border:1px solid #000; vertical-align:top;">{!notificationNumber}</td>
+        <td style="border:1px solid #000; vertical-align:top;">{!otherDetails}</td>
+    </tr>
+    <!-- WORK DETAILS header (full row) -->
+    <tr>
+        <td colspan="5" style="background:#000; color:#fff; font-weight:bold; border:1px solid #000; text-align:left;">WORK DETAILS</td>
+    </tr>
+    <!-- RECEIVED FROM row -->
+    <tr >
+        <td style="font-weight:bold; border:1px solid #000; width:24%;">RECEIVED FROM:</td>
+        <td colspan="5" style="border:1px solid #000; width:24%;">{!receivedFrom}</td>
+    </tr>
+    <!-- RECEIVED DATE row -->
+    <tr>
+        <td style="font-weight:bold; border:1px solid #000; width:24%;">RECEIVED DATE:</td>
+        <td style="border:1px solid #000; width:24%;">{!receivedDate}</td>
+        <td  style="font-weight:bold; border:1px solid #000; width:13%;">TIME:</td>
+        <td colspan="2" style="border:1px solid #000; width:13%;">{!attendedTime}</td>
+    </tr>
+    <tr>
+            <td style="color:#000; font-weight:bold; border:1px solid #000;">ATTENDED DATE:</td>
+            <td style="border:1px solid #000;">{!attendedDate}</td>
+            <td style=" color:#000; font-weight:bold; border:1px solid #000;">TIME:</td>
+            <td colspan="2" style="border:1px solid #000;">{!attendedTime}</td>
+        </tr>
+    <!-- CUSTOMER BP / CONTACT / ATTENDED DATE row -->
+    <tr>
+        <td style="background:#000; color:#fff; font-weight:bold; border:1px solid #000;">CUSTOMER BP NO.</td>
+        <td style="border:1px solid #000;">{!customerBPNumber}</td>
+        <td style="background:#000; color:#fff; font-weight:bold; border:1px solid #000;">CONTACT NO.:</td>
+        <td colspan="3" style="border:1px solid #000;">{!contactNumber}</td>
+    </tr>
+    
+
+
+        <!-- NATURE OF WORK / TEST (BLACK BAR) -->
+        <tr>
+            <td colspan="3"
+                style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;">
+                NATURE OF WORK / TYPE OF REQUEST
+            </td>
+            <td colspan="2"
+                style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;">
+                TEST
+            </td>
+        </tr>
+
+        <!-- 1 -->
+        <tr>
+            <td colspan="3" style="border:1px solid #000;">
+                [ ] 1) OLD METER REPLACEMENT UNDER MAINTENANCE
+                <apex:outputText value=" {!IF(oldMeterReplacement,'(TICKED)','')}" />
+            </td>
+            <td style="border:1px solid #000;">LEAK TEST WITH SOAP SOLUTION</td>
+            <td style="border:1px solid #000;">{!leakTestWithSoap}</td>
+        </tr>
+
+        <!-- 2 -->
+        <tr>
+            <td colspan="3" style="border:1px solid #000;">
+                [ ] 2) METER NOT RUNNING
+                <apex:outputText value=" {!IF(meterNotRunning,'(TICKED)','')}" />
+            </td>
+            <td style="border:1px solid #000;">PNEUMATIC PRESSURE TEST AT 32 MBAR</td>
+            <td style="border:1px solid #000;">{!pneumaticTest}</td>
+        </tr>
+
+        <!-- 3 + 4 -->
+        <tr>
+            <td colspan="3" style="border:1px solid #000;">
+                [ ] 3) METER SOUND
+                <apex:outputText value=" {!IF(meterSound,'(TICKED)','')}" />
+                &nbsp;&nbsp;
+                [ ] 4) COUNTER DEFECTIVE / SMOKEY GLASS
+                <apex:outputText value=" {!IF(counterDefective,'(TICKED)','')}" />
+            </td>
+            <td style="border:1px solid #000;">GASCOSEEKER READING (LEAKAGE ONLY)</td>
+            <td style="border:1px solid #000;">{!gasLeakReading}</td>
+        </tr>
+
+        <!-- 5 + 6 -->
+        <tr>
+            <td colspan="3" style="border:1px solid #000;">
+                [ ] 5) FAULTY METER
+                <apex:outputText value=" {!IF(faultyMeter,'(TICKED)','')}" />
+                &nbsp;&nbsp;
+                [ ] 6) OTHER
+                <apex:outputText value=" {!IF(otherWork,'(TICKED)','')}" />
+            </td>
+            <td style="border:1px solid #000;">
+                SURAKSHA RUBBER TUBE / NEOPRENE RUBBER TUBE / OTHER
+            </td>
+            <td style="border:1px solid #000;">{!rubberTubeType}</td>
+        </tr>
+
+        <!-- RUBBER TUBE CONDITION -->
+        <tr>
+            <td colspan="3" style="border:1px solid #000;"></td>
+            <td style="border:1px solid #000;">RUBBER TUBE CONDITION</td>
+            <td style="border:1px solid #000;">{!rubberTubeCondition}</td>
+        </tr>
+
+        <!-- ENSURE NO GAS LEAK -->
+        <tr>
+            <td colspan="3" style="border:1px solid #000;"></td>
+            <td style="border:1px solid #000;">
+                ENSURE NO GAS LEAKAGE BEFORE LEAVING THE SITE
+            </td>
+            <td style="border:1px solid #000;">{!ensureNoGasLeak}</td>
+        </tr>
+
+        <!-- REASON -->
+        <tr>
+            <td colspan="5"
+                style="font-weight:bold;border:1px solid #000;">
+                REASON:
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" style="border:1px solid #000;">{!reasonText}</td>
+        </tr>
+
+        <!-- ACTION TAKEN -->
+        <tr>
+            <td colspan="5"
+                style="font-weight:bold;border:1px solid #000;">
+                ACTION TAKEN:
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" style="border:1px solid #000;">{!actionTaken}</td>
+        </tr>
+
+        <!-- MATERIAL USED / RECOVERED -->
+        <tr>
+            <td colspan="3"
+                style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;">
+                MATERIAL USED
+            </td>
+            <td colspan="2"
+                style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;">
+                MATERIAL RECOVERED
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="border:1px solid #000;">
+                1. New Meter<br/>
+                2. 1/2 O-ring (2 nos)
+            </td>
+            <td colspan="2" style="border:1px solid #000;">
+                1. Old Meter
+            </td>
+        </tr>
+
+        <!-- METER DETAILS HEADER -->
+        <tr>
+            <td style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;"></td>
+            <td style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;">MAKE</td>
+            <td style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;">SERIAL NO.</td>
+            <td style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;">METER READING</td>
+            <td style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;">REMARK IF ANY</td>
+        </tr>
+        <!-- OLD METER -->
+        <tr>
+            <td style="font-weight:bold;border:1px solid #000;">OLD METER</td>
+            <td style="border:1px solid #000;">{!oldMeterMake}</td>
+            <td style="border:1px solid #000;">{!oldMeterSerial}</td>
+            <td style="border:1px solid #000;">{!oldMeterReading}</td>
+            <td style="border:1px solid #000;">{!oldMeterRemark}</td>
+        </tr>
+        <!-- NEW METER -->
+        <tr>
+            <td style="font-weight:bold;border:1px solid #000;">NEW METER</td>
+            <td style="border:1px solid #000;">{!newMeterMake}</td>
+            <td style="border:1px solid #000;">{!newMeterSerial}</td>
+            <td style="border:1px solid #000;">{!newMeterReading}</td>
+            <td style="border:1px solid #000;">{!newMeterRemark}</td>
+        </tr>
+
+        <!-- SIGNATURE / CONTRACTOR DETAILS -->
+        <tr>
+            <td style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;">
+                CONTRACTOR TECHNICIAN
+            </td>
+            <td style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;">
+                CONTRACTOR SUPERVISER
+            </td>
+            <td style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;">
+                NAME OF CONTRACTOR
+            </td>
+            <td colspan="2"
+                style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;">
+                WORK HAS BEEN DONE
+            </td>
+        </tr>
+        <tr>
+            <td style="border:1px solid #000;">
+                NAME: {!contractorTechnician}<br/>SIGN:
+            </td>
+            <td style="border:1px solid #000;">
+                NAME: {!contractorSupervisor}<br/>SIGN:
+            </td>
+            <td style="border:1px solid #000;">{!contractorName}</td>
+            <td style="text-align:center;border:1px solid #000;">
+                [ ] SATISFACTORILY<br/>
+                <apex:outputText value="{!IF(workSatisfactory,'(TICKED)','')}"/>
+            </td>
+            <td style="text-align:center;border:1px solid #000;">
+                [ ] NON-SATISFACTORILY<br/>
+                <apex:outputText value="{!IF(workNotSatisfactory,'(TICKED)','')}"/>
+            </td>
+        </tr>
+
+        <!-- ANY REMARKS -->
+        <tr>
+            <td colspan="5"
+                style="background-color:#000;color:#fff;font-weight:bold;border:1px solid #000;">
+                ANY REMARKS (OPTIONAL)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" style="border:1px solid #000;">{!additionalRemarks}</td>
+        </tr>
+        <tr>
+            <td colspan="5" style="font-size:6px;text-align:right;border:1px solid #000;">
+                * Customer's signature is compulsory
+            </td>
+        </tr>
+    </table>
+</apex:page>

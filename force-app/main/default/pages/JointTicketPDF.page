@@ -1,0 +1,234 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 10-11-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   19-08-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<apex:page controller="JointTicketPDFController" renderAs="pdf">
+    <html>
+        <head>
+            <style  type="text/css" media="print">
+                .underline-field {
+                    display: inline-block;
+                    border-bottom: 1px solid black;
+                    width: 300px;
+                    text-align: left;
+                    height: 18px;
+                    padding: 2px 5px;
+                    vertical-align: bottom;
+                    font-family: 'Times New Roman';
+                }
+                .text-bold{
+                    font-weight: 600 !important;
+                }
+            </style>
+        </head>
+    <body>
+             <!-- Header -->
+    <table width="100%">
+        <tr>
+            <td style="width: 25%;">
+                <img src="{!$Resource.MGL_Logo}" style="height: 70px;" />
+            </td>
+            <td style="width: 50%; text-align: center;">
+                <div style="font-family: 'Times New Roman'; font-size: 17px;">MAHANAGAR GAS LIMITED</div>
+                <div style="font-family: 'Times New Roman'; font-size: 15px;">JOINT TICKET</div>
+            </td>
+            <td style="width: 25%;"></td>
+        </tr>
+    </table>
+    
+    <br/>
+    
+    <!-- Retail Details -->
+<div style="font-family: 'Times New Roman'; font-size: 14px;">
+
+        <!-- Row 1 -->
+        <div style="margin-bottom: 10px;">
+            <span>NAME OF CNG RETAIL OUTLET</span>
+            <span style="display: inline-block;
+            border-bottom: 1px solid black;
+            width: 240px;
+            text-align: left;
+            height: 18px;
+            padding: 2px 5px;
+            vertical-align: bottom;
+            font-family: 'Times New Roman';font-weight: 600 !important;" class="text-bold">{!ticket.Account.Name}</span>
+
+            <span>LOCATION</span>
+            <span style="display: inline-block;
+            border-bottom: 1px solid black;
+            width: 150px;
+            text-align: left;
+            height: 18px;
+            padding: 2px 5px;
+            vertical-align: bottom;
+            font-family: 'Times New Roman';font-weight: 600 !important;" class="text-bold">{!ticket.Account.Location__c}</span>
+        </div>
+
+        <!-- Row 2 -->
+        <div style="margin-bottom: 10px;">
+            <span>NAME OF REPRESENTATIVE COMPANY</span>
+            <span style="display: inline-block;
+            border-bottom: 1px solid black;
+            width: 428px;
+            text-align: left;
+            height: 18px;
+            padding: 2px 5px;
+            vertical-align: bottom;
+            font-family: 'Times New Roman';font-weight: 600 !important;" class="text-bold">{!ticket.Account.Representative_Company__c}</span>
+        </div>
+
+        <!-- Row 3 -->
+        <div style="margin-bottom: 4px;">
+            <span>Sale for the period</span>
+            <span style="display: inline-block;
+            border-bottom: 1px solid black;
+            width: 150px;
+            text-align: left;
+            height: 18px;
+            padding: 2px 5px;
+            vertical-align: bottom;
+            font-family: 'Times New Roman';font-weight: 600 !important;" class="text-bold">{!formattedFromDate}</span>
+
+            <span style="margin-left: 10px;">to</span>
+            <span style="display: inline-block;
+            border-bottom: 1px solid black;
+            width: 150px;
+            text-align: left;
+            height: 18px;
+            padding: 2px 5px;
+            vertical-align: bottom;
+            font-family: 'Times New Roman';font-weight: 600 !important;" class="text-bold">{!formattedToDate}</span>
+        </div>
+
+        <!-- Row 4 -->
+        <div>
+            <span>(Starting at 0600 hrs and ending at 0600 hrs)</span>
+        </div>
+
+    </div>
+
+    
+    <br/>
+    
+    <!-- Dispenser Table -->
+    <apex:outputPanel rendered="{!useDualColumn}">
+    <table width="100%" border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse; font-family: 'Times New Roman'; font-size: 13px; text-align: center;">
+        
+        <!-- Common heading -->
+        <tr>
+            <th colspan="8"><b>Dispenser wise break-up of Sale</b></th>
+        </tr>
+
+        <!-- Column headers -->
+        <tr>
+            <th>Disp. Pts</th>
+            <th>Opening Reading</th>
+            <th>Closing Reading</th>
+            <th>Difference</th>
+            <th>Disp. Pts</th>
+            <th>Opening Reading</th>
+            <th>Closing Reading</th>
+            <th>Difference</th>
+        </tr>
+
+        <!-- 11 rows for both left and right -->
+        <apex:repeat value="{!ROW_COUNT}" var="i">
+            <tr>
+                <!-- Left side -->
+                <td style="min-height: 15px;">{!dispenserListLeft[i-1].pointName}</td>
+                <td style="min-height: 15px;">{!dispenserListLeft[i-1].opening}</td>
+                <td style="min-height: 15px;">{!dispenserListLeft[i-1].closing}</td>
+                <td style="min-height: 15px;">{!dispenserListLeft[i-1].difference}</td>
+
+                <!-- Right side -->
+                <td style="min-height: 15px;">{!dispenserListRight[i-1].pointName}</td>
+                <td style="min-height: 15px;">{!dispenserListRight[i-1].opening}</td>
+                <td style="min-height: 15px;">{!dispenserListRight[i-1].closing}</td>
+                <td style="min-height: 15px;">{!dispenserListRight[i-1].difference}</td>
+            </tr>
+        </apex:repeat>
+
+        <!-- Total row -->
+        <tr>
+            <td colspan="8" style="text-align: left;"><b>Total Dispensing Point Sale (a) (Kg) = {!totalSale}</b></td>
+        </tr>
+    </table>
+</apex:outputPanel>
+    <br/>
+    
+    <!-- Reading Table -->
+    <table width="100%" border="1" cellpadding="4" cellspacing="0" style="font-family: 'Times New Roman'; font-size: 13px; text-align: center; border-collapse: collapse;">
+        <colgroup>
+            <col style="width: 30%;" />
+            <col style="width: 20%;" />
+            <col style="width: 50%;" />
+        </colgroup>
+        <tr>
+            <td>Reading of</td>
+            <td>Total Quantity (Kg)</td>
+            <td>Reasons</td>
+        </tr>
+        <tr>
+            <td>Calibration</td>
+            <td>{!totalCalibration}</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Jumping</td>
+            <td>{!totalJumping}</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Others</td>
+            <td>{!totalOthers}</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Total Reading (b) (Kg)</td>
+            <td>{!totalReadingJump}</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+    
+    <br/>
+    <div style="font-family: 'Times New Roman'; font-size: 13px; text-align: center;">
+        Total Gas Consumption C = (a - b) = <span style="font-weight: 600 !important;" class="text-bold">{!overallQuantity}</span> Kg
+    </div>
+    
+    <br/>
+    
+    <!-- Final Summary -->
+    <table width="100%" border="1" cellpadding="4" cellspacing="0" style="font-family: 'Times New Roman'; font-size: 13px; text-align: center; border-collapse: collapse;page-break-inside: avoid;">
+        <tr>
+            <td rowspan="2">Name of Consumption</td>
+            <td rowspan="2">Qty in Kg</td>
+            <td colspan="3">Authorized Signatory</td>
+        </tr>
+        <tr>
+            <td>Retail Outlet</td>
+            <td>MGL</td>
+            <td>OMC</td>
+        </tr>
+        <tr>
+            <td>Total Sale (C)</td>
+            <td style="padding:10px;font-weight: 600 !important;" class="text-bold">{!overallQuantity}</td>
+            <td style="width: 250px; height: 140px;">
+                <img src="{!fileDownloadUrl}" style="width: 100%; height: 100%;" />
+            </td>
+            <td>
+                <div>{!ticket.Assigned_Meter_Reader__r.RelatedRecord.Name}<br/>{!checkOutDate} {!checkOutTime}</div>
+                <div>Approved By <br/>{!ticket.Approvar_User__r.Name}<br/>{!approvarDate} {!approvarTime}</div>
+            </td>
+            <td style="padding:40px;"></td>
+        </tr>
+    </table>
+        </body>
+    </html>
+   
+</apex:page>

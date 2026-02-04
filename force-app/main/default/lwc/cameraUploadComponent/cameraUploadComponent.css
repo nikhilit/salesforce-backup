@@ -1,0 +1,319 @@
+.step-container {
+    margin: 1rem 0;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.step-indicator {
+    margin-right: 1rem;
+    text-align: center;
+    min-width: 30px;
+}
+
+.step-number {
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    line-height: 26px;
+}
+
+.checkmark {
+    /* color: green;
+    font-size: 1.2rem; */
+    content: '✓';
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: bold;
+    border: 2px solid white;
+    background: #4caf50;
+    color: #fff;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.upload-placeholder {
+    /* background-color: #fdd;
+    border: 2px dashed #ccc;
+    display: inline-block;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer; */
+
+    display: block;
+    background: #f3f3f3;
+    padding: 32px;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    height: 100px;
+}
+
+label.upload-placeholder:has(img.image-preview) {
+    padding: 0;
+}
+
+.upload-placeholder input[type="file"] {
+    display: none;
+}
+
+.camera-icon {
+    font-size: 2rem;
+}
+
+.image-preview {
+    max-width: 100%;
+    /* border: 1px solid #ccc; */
+    margin-bottom: 0.5rem;
+
+    opacity: 1;
+    border-radius: 10px;
+    background: palegreen;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.remove-button {
+    /* background: transparent;
+    color: red;
+    border: none;
+    cursor: pointer; */
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    background: #ff000000;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.camera-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background: #000; */
+    /* padding: 1rem; */
+}
+
+
+
+.full-height-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* ensures video covers container without distortion */
+    display: block;
+}
+
+.show-camera-page {
+    display: block !important;
+}
+
+.hide-camera-page {
+    display: none !important;
+}
+
+.fullscreen-camera {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #353333;
+    z-index: 1000;
+}
+
+.camera-container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* padding: 1rem; */
+    box-sizing: border-box;
+}
+
+.camera-close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.camera-header {
+    text-align: center;
+    /* color: white; */
+    /* margin-top: 1rem; */
+    /* position: relative; */
+    padding: 1rem;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    background: transparent;
+    /* border-bottom: 1px solid #ccc; */
+}
+
+.camera-body {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 70vh;
+}
+
+.camera-view,
+.captured-image {
+    /* max-height: 80%; */
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.camera-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+    gap: 2rem;
+}
+
+.circle-button {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: white;
+    border: none;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.circle-button.main-button {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.take-picture-button {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 4px solid white;
+    background-color: #ffffff10;
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+}
+
+.flash-icon {
+    float: right;
+    margin-right: 1rem;
+}
+
+.video-frame-wrapper {
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    /* aspect-ratio: 3 / 4; Adjust as needed */
+    overflow: hidden;
+    position: relative;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-frame-wrapper-ios {
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 3 / 4;
+    margin: auto;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.camera-view {
+    width: 100%;
+    /* height: auto; */
+    border: 1px solid #ccc;
+    transform-origin: center center;
+    transition: transform 0.15s ease-out;
+    /* height: 100%; */
+    max-height: 100%;
+    /* object-fit: contain; */
+}
+
+.camera-controls-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    margin-bottom: 3rem;
+}
+
+.flash-icon-left {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.capture-icon {
+    align-self: center;
+}
+
+.zoom-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0.5rem 0;
+}
+
+.zoom-label {
+    font-weight: bold;
+    min-width: 3rem;
+    text-align: center;
+}

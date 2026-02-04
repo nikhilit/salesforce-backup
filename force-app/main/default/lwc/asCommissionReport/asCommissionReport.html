@@ -1,0 +1,25 @@
+<template>
+    <lightning-card title="Generate Commission Report">
+        <div class="slds-p-around_medium">
+            <lightning-input type="date" name="startDate" label="Start Date" value={startDate} onchange={handleStartDateChange}></lightning-input>
+            <lightning-input type="date" name="endDate" label="End Date" value={endDate} onchange={handleEndDateChange}></lightning-input>
+            <lightning-input type="text" name="batchLot" label="Batch Lot No. (optional)" value={batchLot} onchange={handleBatchLotChange}></lightning-input>
+
+            <!-- NEW FILE UPLOAD INPUT -->
+            <div class="slds-m-top_medium">
+                <lightning-input type="file" label="Upload BP Number CSV (optional)" onchange={handleFileChange} accept=".csv"></lightning-input>
+            </div>
+
+            <div class="slds-m-top_medium">
+                <lightning-button variant="brand" label="Generate Commission Report" onclick={onGenerate} title="Generate Commission Report"></lightning-button>
+            </div>
+
+            <template if:true={error}>
+                <div class="slds-text-color_error slds-m-top_small">{error}</div>
+            </template>
+            <template if:true={info}>
+                <div class="slds-text-color_success slds-m-top_small">{info}</div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

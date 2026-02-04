@@ -1,0 +1,121 @@
+<template>
+    <lightning-card>
+<template if:true={showCOWorkOrderLineItemPage}>
+    <template if:true={workOrderLineItems}>
+
+        <div class="slds-grid slds-wrap slds-gutters">
+<template for:each={workOrderLineItems} for:item="item">
+    <div
+        key={item.recordId}
+        class="slds-col slds-size_1-of-2 slds-p-around_small"
+    >
+        <div
+            class="slds-box slds-box_x-small slds-theme_default workorder-box"
+            data-id={item.recordId}
+            data-name={item.name}
+            onclick={handleOpenModal}
+            style="height:46px;border: 1px solid darkblue;"
+        >
+            <div class="slds-grid slds-grid_vertical-align-center" style="height:100%;">
+
+                <!-- TEXT : 80% -->
+                <div class="slds-col slds-size_4-of-5 slds-text-align_center">
+                    <span class="slds-text-heading_x-small">
+                        {item.name}
+                    </span>
+                </div>
+
+                <!-- ICON : 20% -->
+                <div class="slds-col slds-size_1-of-5 slds-text-align_right">
+                    <lightning-icon
+                        icon-name="utility:chevronright"
+                        size="xx-small"
+                        class="blue-utility-icon"
+                        alternative-text="Open">
+                    </lightning-icon>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+            <!-- <template for:each={workOrderLineItems} for:item="item">
+                <div
+                    key={item.recordId}
+                    class="slds-col slds-size_1-of-2 slds-p-around_small"
+                >
+                    <div
+                        class="slds-box slds-box_x-small slds-theme_default workorder-box"
+                        data-id={item.recordId}
+                        data-name={item.name}
+                        onclick={handleOpenModal}
+                    >
+                        <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                            
+                            <div>
+                                <p class="slds-text-title_caps slds-text-color_weak">
+                                    {item.index}.
+                                </p>
+                                <p class="slds-text-heading_x-small slds-truncate">
+                                    {item.name}
+                                </p>
+                            </div>
+
+                            <lightning-icon
+                                icon-name="utility:chevronright"
+                                size="xx-small" class="blue-utility-icon"
+                                alternative-text="Open">
+                            </lightning-icon>
+
+                        </div>
+                    </div>
+                </div>
+            </template> -->
+
+        </div>
+
+    </template>
+</template>
+        <!-- <template if:true={showCOWorkOrderLineItemPage}>
+        <template if:true={workOrderLineItems}>
+            <ul class="list">
+                <template for:each={workOrderLineItems} for:item="item">
+                    <li key={item.recordId}   data-name={item.name} class="list-item" data-id={item.recordId} onclick={handleOpenModal}>
+                        <span class="index">{item.index}.</span>
+                        <span class="name">{item.name}</span>
+                        <span class="arrow">></span>
+                    </li>
+                </template>
+            </ul>
+        </template>
+
+        </template> -->
+
+        <template if:true={showEnterRiserDetails}>
+
+       <!-- <c-riser-details-for-riser-replacement-comp work-order-line-item-name={workOrderLineItemName} work-order-line-item-id={workOrderLineItemId} oncancel={handleCancel} record-id={recordId}></c-riser-details-for-riser-replacement-comp> -->
+
+       <c-riser-details-for-riser-replacement-offline work-order-line-item-name={workOrderLineItemName} work-order-line-item-id={workOrderLineItemId} oncancel={handleCancel} record-id={recordId}></c-riser-details-for-riser-replacement-offline>
+
+       <!--commented <c-riser-details-for-riser-replacement-day-wise work-order-line-item-name={workOrderLineItemName} work-order-line-item-id={workOrderLineItemId} oncancel={handleCancel} record-id={recordId}></c-riser-details-for-riser-replacement-day-wise> -->
+
+        </template>
+
+
+       <div style="margin-top:5rem;">
+
+
+        <template if:true={showBPDetails}>
+
+            <c-bp-details-based-on-connection-comp oncancel={handleCancel} record-id={recordId}> </c-bp-details-based-on-connection-comp>
+
+            <!-- <c-bp-details-based-on-connection-offline-comp oncancel={handleCancel} record-id={recordId}> </c-bp-details-based-on-connection-offline-comp> -->
+
+
+        </template>
+
+        </div>
+
+       
+    </lightning-card>
+</template>

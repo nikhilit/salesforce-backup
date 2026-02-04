@@ -1,0 +1,49 @@
+<template>
+    <template if:true={hasInstallationRecords}>
+        <lightning-card>
+            <!-- Scrollable wrapper -->
+            <div class="slds-scrollable_x">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Installation</th>
+                            <th scope="col">Date From</th>
+                            <th scope="col">Date To</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={installationData} for:item="row">
+                            <tr key={row.ANLAGE}>
+                                <td>{row.ANLAGE}</td>
+                                <td>
+                                    <lightning-formatted-date-time 
+                                        value={row.AB}
+                                        year="numeric" month="2-digit" day="2-digit">
+                                    </lightning-formatted-date-time>
+                                </td>
+                                <td>
+                                    <lightning-formatted-date-time 
+                                        value={row.BIS}
+                                        year="numeric" month="2-digit" day="2-digit">
+                                    </lightning-formatted-date-time>
+                                </td>
+                                <td>{row.STRING3}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </lightning-card>
+    </template>
+   <template if:true={statusMessage}>
+    <p class="slds-text-color_default slds-text-body_regular slds-p-around_medium" style="color: black;">
+        {statusMessage}
+    </p>
+</template>
+
+
+    <template if:true={error}>
+        <p class="slds-text-color_error slds-p-around_medium">{error}</p>
+    </template>
+</template>

@@ -1,0 +1,63 @@
+<template>
+
+    <div class="slds-p-around_medium">
+        <lightning-combobox
+                name="agent"
+                label="Select Agent"
+                value={selectedAgentId}
+                options={agentOptions}
+                onchange={handleAgentChange}
+                placeholder="Choose an agent"
+                required>
+            </lightning-combobox>
+
+        <lightning-input
+                type="datetime"
+                name="startDate"
+                label="Start Date"
+                value={selectedDateTime}
+                onchange={handleDateTimeChange} >
+            </lightning-input>
+              <lightning-input
+                type="datetime"
+                name="endDate"
+                label="End Date"
+                value={selectedEndDateTime}
+                onchange={handleEndDateTimeChange} >
+            </lightning-input>
+        <!-- <lightning-record-picker 
+         object-api-name="ServiceTerritoryMember" data-id={agentFilter.ServiceResourceId} placeholder="Search Agent..." label="Search Agent" variant="label-hidden"
+              filter={agentFilter}   display-info={displayInfo}
+   matching-info={matchingInfo}  onchange={handlePickerChange}
+             >
+        </lightning-record-picker> -->
+
+          <!-- <div class="slds-m-top_medium">
+           
+          
+        </div> -->
+
+        <div class="slds-m-top_medium">
+
+             <!-- <lightning-button variant="neutral" label="Back" onclick={handleBack}>
+            </lightning-button> &nbsp;&nbsp; -->
+
+
+            <template if:true={assignButton}>
+            <lightning-button variant="brand" label="Assign Agent" onclick={handleAssignAgent}>
+            </lightning-button>
+            </template>
+            <template if:true={showMessage}>
+            <b>{showMessage}</b>
+            </template>
+        </div>
+
+        
+
+        <template if:true={isLoading}>
+                <div class="slds-m-top_medium">
+                    <lightning-spinner alternative-text="Processing"></lightning-spinner>
+                </div>
+            </template>
+    </div>
+</template>

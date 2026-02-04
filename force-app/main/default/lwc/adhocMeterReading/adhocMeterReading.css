@@ -1,0 +1,16 @@
+.success-text {
+    color: green;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.error-text {
+    color: red;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.slds-p-around_medium {
+    max-width: 500px;
+    margin: auto;
+}

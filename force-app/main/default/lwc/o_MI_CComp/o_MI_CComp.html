@@ -1,0 +1,376 @@
+<template>
+
+
+    
+
+            <div class="slds-grid slds-wrap">
+
+                <template if:true={isload}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+                           
+
+             
+
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Gas Used For" name="gasUsedFor" value={iAndCReport.gasUsedFor}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+                  <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="SAP Equipment No" name="sapEquipmentNo" value={iAndCReport.sapEquipmentNo}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Meter Serial No" name="meterSerialNo" value={iAndCReport.meterSerialNo}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Type Of Meter" name="typeOfMeter" value={iAndCReport.typeOfMeter}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Meter Reading" name="meterReading" value={iAndCReport.meterReading}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Meter Make" name="meterMake" value={iAndCReport.meterMake}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+                
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Meter Manufacturing Year" name="meterManufacturingYear" value={iAndCReport.meterManufacturingYear}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+                  <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Capacity (SCMH)" name="capacitySCMH" value={iAndCReport.capacitySCMH}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+                  <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Meter Qmin" name="meterQmin" value={iAndCReport.meterQmin}
+                        onchange={handleICReport} required></lightning-input>
+                  </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Regulator Type" name="regulatorType" value={iAndCReport.regulatorType}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+                  <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Regulator Make" name="regulatorMake" value={iAndCReport.regulatorMake}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+                  <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Regulator Capacity (SCMH)" name="regulatorCapacitySCMH" value={iAndCReport.regulatorCapacitySCMH}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Regulator Supply Pressure" name="regulatorSupplyPressure" value={iAndCReport.regulatorSupplyPressure}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+
+
+
+            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="isolateGasSupply" label="Isolate the gas supply at the downstream of meter" value={iAndCReport.isolateGasSupply}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="connectDigitalPressure" label="Connect Digital pressure gauge at vent point" value={iAndCReport.connectDigitalPressure}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+          <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkSetPressure" label="Check the set pressure of regulator keeping the other vent valve open" value={iAndCReport.checkSetPressure}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="pressureObservedDesign" label="If pressure observed above design pressure, then adjust regulator setting to maintain supply pressure at design specification." value={iAndCReport.pressureObservedDesign}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+
+                  <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkReliefPressure" label="Check the relief pressure setting of regulator and if found deviated then set the relief to its design pressure" value={iAndCReport.checkReliefPressure}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkSSVSetting" label="Check the SSV setting of regulator and if found deviated then set the SSV to its design pressure" value={iAndCReport.checkSSVSetting}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+                  <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkLockUpPressure" label="Check the lock up pressure of regulator" value={iAndCReport.checkLockUpPressure}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="closeInletValue" label="Close the inlet valve of Regulating skid" value={iAndCReport.closeInletValue}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+              <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="depressuriseTheSkid" label="Depressurise the skid" value={iAndCReport.depressuriseTheSkid}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="openCheckStrainerCondition" label="Open strainer and Check strainer condition" value={iAndCReport.openCheckStrainerCondition}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+              <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="cleanStrainer" label="Clean the strainer and If required replace the strainer" value={iAndCReport.cleanStrainer}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="malfunctioningRegulator" label="In case of malfunctioning of regulator or major corrosion of regulator body, replace the regulator" value={iAndCReport.malfunctioningRegulator}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+              <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkMeterCounter" label="Check meter counter and replace the meter if the counter found damaged or counter is not moving" value={iAndCReport.checkMeterCounter}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkSignBoards" label="Check sign boards, meter support, fittings and other material and replace in case found damage or corroded" value={iAndCReport.checkSignBoards}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkPipeCondition" label="Check the condition of pipe and replace the pipe section in case of corrosion or damage. Test the fabricated spool piece at 1,5 times of the operating pressure before replacing the damage/corroded section" value={iAndCReport.checkPipeCondition}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkMeterBody" label="Check meter body for any corrosion. Paint the corroded part in case of minor corrosion or replace meter in case of major corrosion or damage" value={iAndCReport.checkMeterBody}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+              
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkCrimpPosition" label="Check the crimp position, GI/HDPE sleeve and crimp guard is in proper condition. Replace with new material, if found damaged or not in good condition " value={iAndCReport.checkCrimpPosition}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkAllClamps" label="Check all clamps on upstream piping and replace in case of damage or missingg " value={iAndCReport.checkAllClamps}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+
+
+            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkAllTesting" label="Check that all testing points are properly plugged. Install plug in case any plugfound missing" value={iAndCReport.checkAllTesting}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="carryOutLeakTest" label="Carry out leak test by soap solution from crimp fitting to meter outlet valve. If leakage found, arrest the leakage" value={iAndCReport.carryOutLeakTest}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+                  <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="carryOutPainting" label="Carry out painting of all piping installed from RIV to meter outlet" value={iAndCReport.carryOutPainting}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkAllSeals" label="Check that all seals (Manufacture and MGL) at meter and regulators are intact" value={iAndCReport.checkAllSeals}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+              <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkMGLSeal" label="Check that MGL seal at Electronic meter is intact" value={iAndCReport.checkMGLSeal}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkForAnyIllegalTapping" label="Check for any illegal tapping at the upstream of meter and if found escalate to EIC" value={iAndCReport.checkForAnyIllegalTapping}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+            <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkAllValves" label="Check that all valves are operative and in good condition. Replace valve in case of damage or non operational" value={iAndCReport.checkAllValves}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkAllStudnuts" label="Check that all stud-nuts across flanges are tightened properly" value={iAndCReport.checkAllStudnuts}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkLevelingSR" label="Check the leveling /alignment of the SR foundation" value={iAndCReport.checkLevelingSR}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkConditionOfFoundation" label="Check the condition of foundation and foundation bolt of Service Regulator and do the rectification if found damage" value={iAndCReport.checkConditionOfFoundation}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="checkConditionOfFRP" label="Check the condition of FRP cover of SR and replace if found damaged or broken" value={iAndCReport.checkConditionOfFRP}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                   <lightning-combobox name="openOutletValve" label="Open the outlet valve at downstream of meter." value={iAndCReport.openOutletValve}
+                    options={yesNoOptions} onchange={handleICReport} required>
+                </lightning-combobox>
+                </div>
+
+
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Observation if any" name="observationifany" value={iAndCReport.observationifany}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+                 
+
+              <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Pressure Before setting Regulator (mbar/bar)" name="pbsRegulator" value={iAndCReport.pbsRegulator}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Pressure Before setting SSV (mbar/bar)" name="pbsSSV" value={iAndCReport.pbsSSV}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+                 
+
+              <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Pressure Before setting Relief (mbar/bar)" name="pbsRelief" value={iAndCReport.pbsRelief}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+              <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Pressure Before setting Lock Pressure (mbar/bar)" name="pbsLockPressure" value={iAndCReport.pbsLockPressure}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Pressure After setting Regulator (mbar/bar)" name="pasRegulator" value={iAndCReport.pasRegulator}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+
+                 <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Pressure After setting SSV (mbar/bar)" name="pasSSV" value={iAndCReport.pasSSV}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+                 
+
+              <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Pressure After setting Relief (mbar/bar)" name="pasRelief" value={iAndCReport.pasRelief}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+              <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Pressure After setting Lock Pressure (mbar/bar)" name="pasLockPressure" value={iAndCReport.pasLockPressure}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+
+
+             <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Seal Mechanical Meter" name="sealMechanicalMeter" value={iAndCReport.sealMechanicalMeter}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+              <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Seal Electronic Meter" name="sealElectronicMeter" value={iAndCReport.sealElectronicMeter}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Seal Regulator" name="sealRegulator" value={iAndCReport.sealRegulator}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+              <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Seal Lock Details" name="sealLockDetails" value={iAndCReport.sealLockDetails}
+                        onchange={handleICReport} required></lightning-input>
+                </div>
+
+                
+
+              
+            </div>
+
+            <div class="slds-p-around_medium" style="margin-left:8.7rem;">
+
+                <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+
+            </div>
+
+
+</template>

@@ -1,0 +1,83 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 07-10-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   29-09-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <div class="slds-is-relative">
+        <!--SPINNER SECTION-->
+        <template if:true={spinner}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+        <div class="slds-modal__header">
+            <h1 class="slds-modal__title slds-hyphenate">
+                Add Meter Reading Orders
+            </h1>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-2 slds-p-around--small">
+                    <c-custom-lookup-component obj-name="Meter_Reading_Schedule__c"
+                        input-label="Select Meter Reading Schedule" onlookupselected={handleMRSSelection}
+                        disabled={disableLookup} onnolookupselected={handleMRSSelection} default-name={selectedMRSName}
+                        search-field-name="MRS_Custom_Name__c">
+                    </c-custom-lookup-component>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around--small"></div>
+                <div class="slds-col slds-size_1-of-1 slds-p-around--small">
+                    <article class="slds-card slds-card_boundary" style="overflow: auto;">
+                        <div
+                            class="slds-border--bottom slds-card__header slds-grid slds-p-bottom--x-small slds-theme--shade">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <lightning-icon icon-name="standard:account" size="small"
+                                        alternative-text="account">
+                                    </lightning-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        Meter Reading Orders ({recordCount})
+                                    </h2>
+                                </div>
+                                <div class="slds-no-flex slds-p-left--small">
+                                    <lightning-input type="search" placeholder="Search the list" onchange={handleSearch}
+                                        variant="label-hidden">
+                                    </lightning-input>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-1 slds-p-around--x-small" if:false={showTable}>
+                                    <c-illustration-component message="No Unallocated MRO Found!!">
+                                    </c-illustration-component>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-p-around--x-small table-container"
+                                    if:true={showTable} onscroll={handleScroll}>
+                                    <lightning-datatable key-field="Id" data={mRORecord} columns={mRSColumns}
+                                        is-loading={isLoading} onrowselection={getSelectedName}>
+                                    </lightning-datatable>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <footer class="slds-card__footer" style="justify-content: space-between;">
+            <div>
+                <h1 class="slds-text-heading_small">{selectedMRORecCount}</h1>
+            </div>
+            <div>
+                <lightning-button variant="neutral" label="Cancel" onclick={handleCancel}></lightning-button>
+                <lightning-button variant="brand" label="Assign" onclick={handleSubmit} class="slds-m-left_x-small">
+                </lightning-button>
+            </div>
+        </footer>
+    </div>
+</template>

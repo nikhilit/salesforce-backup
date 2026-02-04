@@ -1,0 +1,64 @@
+<template>
+    <lightning-card title="CSV Bulk Importer" icon-name="standard:document">
+        <div class="slds-p-horizontal_small slds-p-vertical_small">
+                
+            <!-- File Upload -->
+
+            <lightning-card title="CSV Bulk Importer">
+        <lightning-file-upload
+            label="Upload CSV File"
+            name="csvUploader"
+            record-id={recordId}
+            accept=".csv"
+            multiple=false
+            onuploadfinished={handleUploadFinished}>
+        </lightning-file-upload>
+
+        <template if:true={fileUploaded}>
+            <p class="slds-p-top_medium">✅ File uploaded successfully.</p>
+            <lightning-button
+                label="Start Processing"
+                onclick={startProcessing}>
+            </lightning-button>
+        </template>
+    </lightning-card>
+
+            <!-- <lightning-file-upload
+                label="Upload CSV"
+                name="fileUploader"
+                accept=".csv"
+                record-id={recordId}
+                onuploadfinished={handleUploadFinished}
+                multiple=false
+            ></lightning-file-upload> -->
+
+            <!-- Show Start Button after upload -->
+            <template if:true={uploadedFileId}>
+                <div class="slds-m-top_medium">
+                    <lightning-button
+                        label="Start Import"
+                        variant="brand"
+                        onclick={handleStartImport}>
+                    </lightning-button>
+                </div>
+            </template>
+
+            <!-- Progress -->
+            <template if:true={processingId}>
+                <div class="slds-m-top_medium">
+                    <p>Job started: {processingId}</p>
+                    <lightning-progress-bar value={progressPercent} variant="base"></lightning-progress-bar>
+                    <div class="slds-m-top_small">
+                        <p>Processed rows: {processedRows} / {totalRows}</p>
+                        <p>Success: {successCount} | Failed: {failureCount}</p>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Error -->
+            <template if:true={errorMessage}>
+                <div class="slds-text-color_error slds-m-top_small">{errorMessage}</div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

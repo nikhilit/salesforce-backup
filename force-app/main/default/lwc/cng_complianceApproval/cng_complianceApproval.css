@@ -1,0 +1,41 @@
+.action-container {
+    display: flex;
+    gap: 16px;
+}
+
+.action-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.approve {
+    border-color: #22c55e;
+}
+
+.approve .icon {
+    color: #22c55e;
+}
+
+.reject {
+    border-color: #ef4444;
+}
+
+.reject .icon {
+    color: #ef4444;
+}
+
+.action-btn:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

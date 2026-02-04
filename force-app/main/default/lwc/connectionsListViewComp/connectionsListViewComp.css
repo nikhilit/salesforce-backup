@@ -1,0 +1,60 @@
+.custom-container{
+	color : black;
+}/* Allow long text to wrap inside table cells */
+.wrap-text {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+tr {
+    cursor: pointer;
+}
+
+tr:active {
+    background-color: #f3f3f3;
+}
+.connection-card {
+    cursor: pointer;
+}
+
+.connection-card:hover{
+	background-color: #aec7f387;
+	border:1px solid #7aa4ed;
+}
+
+.field {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    margin-bottom: 0.25rem;
+}
+
+/* Emphasis */
+.field.name {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.field.building {
+    color: #444;
+    font-size: 0.9rem;
+}
+
+.field.address {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+/* Tap feedback */
+.connection-card:active {
+    background-color: #f3f3f3;
+}
+
+
+/* Improve mobile readability */
+@media (max-width: 768px) {
+    .slds-table td {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+}

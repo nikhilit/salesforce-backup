@@ -1,0 +1,16 @@
+.drag-container {
+	border: 2px dashed #d8dde6;
+	background: #f4f6f9;
+	border-radius: 0.5rem;
+	transition: border-color 0.2s ease;
+}
+
+.drag-over {
+	border-color: #1589ee;
+	background: #e1f5fe;
+}
+
+.datatable-disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}

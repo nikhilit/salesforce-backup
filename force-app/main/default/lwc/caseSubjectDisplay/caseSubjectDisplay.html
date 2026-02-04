@@ -1,0 +1,13 @@
+<template>
+    <template if:true={subject}>
+        <div class="slds-grid slds-wrap slds-p-around_x-small"
+             style="background-color: white; border: 1px solid #d8dde6; border-radius: 0.5rem;">
+            <div class="slds-col slds-size_1-of-4 slds-text-title_bold">
+                Subject:
+            </div>
+            <div class="slds-col slds-size_3-of-4 slds-truncate" title={subject}>
+                {subject}
+            </div>
+        </div>
+    </template>
+</template>

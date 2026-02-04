@@ -1,0 +1,169 @@
+<template>
+    <div class="card">
+       
+        
+        <div class="receivables-tabs">
+            <div class="tab-header">
+                <div class={receivablesTabClass} onclick={selectReceivablesTab}>Receivables</div>
+                <div class={downPaymentsTabClass} onclick={selectDownPaymentsTab}>Down payments</div>
+                <div class={totalsTabClass} onclick={selectTotalsTab}>Totals</div>
+                <div class={chronologyTabClass} onclick={selectChronologyTab}>Chronology</div>
+            </div>
+            <div class="tab-content">
+                <template if:true={isReceivablesTabActive}>
+    <div class="sap-table-container">
+        <table class="sap-table">
+            <thead>
+                <tr>
+                    <th>Doc Number</th>
+                    <th>Amount</th>
+                    <th>Business Partner</th>
+                    <th>Contract Account</th>
+                    <th>Currency</th>
+                    <th>Net Due Date</th>
+                    <th>Text</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={receivableRows} for:item="row">
+                    <tr key={row.Id}>
+                        <td>{row.Doc_Number__c}</td>
+                        <td>{row.Amount__c}</td>
+                        <td>{row.businessPartnerName}</td>
+                        <td>{row.Contract_Account__c}</td>
+                        <td>{row.Currency__c}</td>
+                        <td>{row.Net_Due_date__c}</td>
+                        <td>{row.Text__c}</td>
+                        
+                    </tr>
+                </template>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="1" style="background:#fff9b0; font-weight:bold;">Receivables Total INR</td>
+                    <td style="background:#fff9b0; font-weight:bold; text-align:right;">
+                        {receivablesTotalFormatted}
+                    </td>
+                    <td colspan="7"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</template>
+
+   <template if:true={isDownPaymentsTabActive}>
+    <div class="sap-table-container">
+        <table class="sap-table">
+            <thead>
+                <tr>
+                  
+                    <th>Doc.Number</th>
+                    <th>Pos. Date</th>
+                    <th>Doc.Date</th>
+                    <th>Due Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={downPaymentRows} for:item="row">
+                    <tr key={row.Id}>
+                       
+                        <td>{row.Name}</td>
+                        <td>{row.Start_Date__c}</td>
+                        <td>{row.CreatedDate}</td>
+                        <td>{row.Return_Date__c}</td>
+                        <td>{row.Description__c}</td>
+                        <td>{row.Cash_Amount__c}</td>
+                    </tr>
+                </template>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="background:#fff9b0; font-weight:bold;">Cash sec. deposits&nbsp;&nbsp;INR</td>
+                    <td style="background:#fff9b0; font-weight:bold; text-align:right;">
+                        {downPaymentsTotalFormatted}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</template>
+
+
+<template if:true={isTotalsTabActive}>
+    <div class="sap-totals-table-container">
+        <table class="sap-totals-table">
+            <tr>
+                <td colspan="4" class="sap-totals-header">
+                    <span class="sap-totals-bold">
+                        Business Partner {businessPartnerName}&nbsp;&nbsp;
+                        <template if:true={dueDate}>
+                            &nbsp;&nbsp;Due Date {dueDate}
+                        </template>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="sap-totals-label">INR</td>
+                <td class="sap-totals-label">Total</td>
+                <td class="sap-totals-label">Due</td>
+            </tr>
+            <tr>
+                <td class="sap-totals-row-label">Cash Sec. Dep. Pymts</td>
+                <td class="sap-totals-value">{downPaymentsTotalFormatted}</td>
+                <td class="sap-totals-value">{downPaymentsTotalFormatted}</td>
+            </tr>
+        </table>
+    </div>
+</template>
+
+
+         <template if:true={isChronologyTabActive}>
+    <div class="sap-table-container">
+        <table class="sap-table">
+            <thead>
+                <tr>
+                    <th>Due date</th>
+                    <th>Text</th>
+                    <th>Cur</th>
+                    <th>Debit</th>
+                    <th>CreditMemo</th>
+                    <th>Down Pymt</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={chronologyRows} for:item="row">
+                    <tr key={row.Id}>
+                        <td>{row.Net_Due_Date__c}</td>
+                        <td>{row.Text__c}</td>
+                        <td>{row.Currency__c}</td>
+                        <td>{row.Debit_Amt__c}</td>
+                        <td>{row.Credit_Amt__c}</td>
+                        <td>{row.Down_Payment__c}</td>
+                       
+                    </tr>
+                </template>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>*</td>
+                    <td></td>
+                    <td>INR</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyDebitTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyCreditTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyDownPymtTotalFormatted}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</template>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</template>

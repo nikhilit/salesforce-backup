@@ -1,0 +1,56 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 21-05-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   08-05-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <article class="slds-card slds-is-relative" style="overflow: hidden;">
+        <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+        <div
+            class="slds-border--bottom slds-card__header slds-grid slds-m-around--none slds-p-around--small slds-theme_shade">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <lightning-icon icon-name='standard:contact' alternative-text='contact' title='Contact'>
+                    </lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>Customer Meter Number Update</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-p-around_xx-small">
+                    <c-custom-input-field-component input-label="Old Meter Number" input-value={oldMeterNumber}
+                        disabled="true">
+                    </c-custom-input-field-component>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-p-around_xx-small">
+                    <c-custom-input-field-component input-label="New Meter Number" input-type="number" onchange={handleFieldChange}
+                        data-field-name="newMeterNumber" required input-value={newMeterNumber}>
+                    </c-custom-input-field-component>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-p-around_xx-small">
+                    <c-custom-input-field-component input-label="Remarks" onchange={handleFieldChange}
+                        data-field-name="remarks" input-type="textarea" input-value={remarks}>
+                    </c-custom-input-field-component>
+                </div>
+            </div>
+        </div>
+        <footer class="slds-card__footer">
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCancel} class="slds-p-right_x-small">
+            </lightning-button>
+            <lightning-button variant="brand" label="Submit" onclick={handleSave} class="slds-p-left_x-small">
+            </lightning-button>
+        </footer>
+    </article>
+</template>

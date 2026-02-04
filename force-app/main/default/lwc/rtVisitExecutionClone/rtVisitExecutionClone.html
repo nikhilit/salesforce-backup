@@ -1,0 +1,724 @@
+<template>
+
+    <template if:true={showEnableMessage}>
+        <div class="slds-modal__header">
+            <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate"></h1>
+        </div>
+
+        <div class="slds-modal__content slds-is-relative" id="modal-content-id-1" style="font-size: larger;">
+            <div class="slds-p-around_large slds-box slds-theme_default">
+                <h1 class="slds-text-align_center slds-m-bottom_large">{message}</h1>
+
+                <template if:true={showPaidMessage}>
+                    <div class="slds-text-align_center slds-m-bottom_large">
+                        <p class="slds-text-body_regular slds-m-bottom_small">
+                            <strong>Payment Mode:</strong> {paymentMode}
+                        </p>
+                        <lightning-formatted-url
+                            value={pdfReceiptUrl}
+                            label="Tap here to view Receipt"
+                            target="_blank"
+                            class="slds-m-bottom_medium">
+                        </lightning-formatted-url>
+                    </div>
+
+                    <div class="slds-p-around_medium slds-box slds-theme_default">
+                        <lightning-input 
+                            type="text" 
+                            value={accountAlternatePhone} 
+                            onkeydown={handleKeyDown} 
+                            onchange={handleInput} 
+                            label="Alternate Mobile No"
+                            class="slds-m-bottom_medium">
+                        </lightning-input>
+
+                        <lightning-button 
+                            label="Send SMS To Customer" 
+                            variant="brand" 
+                            onclick={sendPayMsg}>
+                        </lightning-button>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <div class="slds-modal__footer slds-text-align_center">
+            <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+        </div>  
+    </template>
+    
+    <template if:false={showEnableMessage}>
+
+       <!-- <c-as-acc-validator-utility work-order-id={recordId}></c-as-acc-validator-utility> ! -->
+         <!-- <c-as-acc-validator-utility-clone work-order-id={recordId}></c-as-acc-validator-utility-clone> -->
+
+
+        <template if:true={load}>
+            <div class="spinner-overlay">
+                <lightning-spinner alternative-text="Saving..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+        
+        <template if:true={accountView}>
+            <lightning-card>
+    
+                <template if:true={accountDetails}> 
+                    <div class="account-container">
+
+                        <!-- Contact Info -->
+                        <div class="section">
+                            <h3>Customer Information</h3>
+                            <template if:true={isGoCollect}> 
+                                <div class="row"><span class="label">Name:</span> <span class="value">{workOrder.Customer_Full_Name__c}</span></div>
+                                <div class="row"><span class="label">Phone:</span> <span class="value">{maskedPhNo}</span></div>
+                                <div class="row"><span class="label">BP Number:</span> <span class="value">{account.BP_Number__c}</span></div>
+                                <div class="row"><span class="label">CA Number:</span> <span class="value">{account.CA_Number__c}</span></div>
+                                <template if:false={isRandomVisit}> 
+                                    <div class="row"><span class="label">Building Name:</span> <span class="value">{account.Building_name__c}</span></div>
+                                    <div class="row"><span class="label">Floor</span> <span class="value">{account.Floor__c}</span></div>
+                                    <div class="row"><span class="label">Flat:</span> <span class="value">{account.Room__c}</span></div>
+                                    <div class="row"><span class="label">Wing:</span> <span class="value">{account.Wing__c}</span></div>
+                                    <div class="row"><span class="label">Colony:</span> <span class="value">{account.Colony__c}</span></div>
+                                    <div class="row"><span class="label">Visit Date:</span> <span class="value">{formattedVisitDateTime}</span></div>
+                                    <template if:true={workOrder}>
+                                        <div class="row"><span class="label">Visit Remarks:</span> <span class="value">{remarks}</span></div>
+                                        <div class="row"><span class="label">Other Visit Remarks:</span> <span class="value">{otherRemarks}</span></div>
+                                        <div class="row"><span class="label">FollowUp Date:</span> <span class="value">{formattedFollowUpDate}</span></div>
+                                    </template>
+                                    <div class="row"><span class="label">Disconnection Notice No.:</span> <span class="value">{workOrder.Disconnection_Notice_No__c}</span></div>
+                                    <div class="row"><span class="label">Disconnection Notice Date:</span> <span class="value">{formattedDisconnectionDate}</span></div>
+                                </template>
+                            </template>
+
+                            <template if:true={isFieldSense}> 
+                                <div class="row"><span class="label">CA Number:</span> <span class="value">{account.CA_Number__c}</span></div>
+                                <div class="row"><span class="label">Invoice Number:</span> <span class="value">{account.Inv_No__c}</span></div>
+                                <div class="row"><span class="label">Customer Name:</span> <span class="value">{workOrder.Customer_Full_Name__c}</span></div>
+                                <div class="row"><span class="label">Billing Portion:</span> <span class="value">{account.Portion__c}</span></div>
+                                <div class="row"><span class="label">Pin Code:</span> <span class="value">{account.BillingPostalCode}</span></div>
+                                <div class="row"><span class="label">Location:</span> <span class="value">{account.Location__c}</span></div>
+                                <div class="row"><span class="label">Mobile Number:</span> <span class="value">{maskedPhNo}</span></div>
+                                <div class="row"><span class="label">Email Id:</span> <span class="value">{account.Email_Id__c}</span></div>
+                            </template>
+                        </div>
+
+                        <template if:true={isGoCollect}> 
+                            <div class="section">
+                                <h3>Billing Information</h3>
+                                <template if:true={workOrder}>
+
+                                    <div class="rowSec">
+                                        <ul class="slds-accordion" style="width: 100%;">
+                                            <li class="slds-accordion__list-item">
+                                                <section class={chevronClassDueAmt} style="padding: 2px;">
+
+                                                    <div class="slds-accordion__summary">
+                                                        <h2 class="slds-accordion__summary-heading headingSec">
+                                                            <button class="slds-button slds-button_reset slds-accordion__summary-action" 
+                                                                    aria-controls="DueAmount"
+                                                                    data-id="DueAmount"
+                                                                    onclick={toggleSection}
+                                                                    aria-expanded={isOpenDueAmt} 
+                                                                    title="Due Amount">
+                                                                
+                                                                <template if:true={isOpenDueAmt}>
+                                                                    <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                                                                </template>
+
+                                                                <template if:false={isOpenDueAmt}>
+                                                                    <lightning-icon icon-name="utility:chevronright" size="x-small"></lightning-icon>
+                                                                </template>
+
+                                                                <span class="slds-accordion__summary-content slds-accordion__summary-action">
+                                                                    <span class="slds-truncate" title="Due Amount">
+                                                                        Due Amount
+                                                                    </span>
+                                                                    <span class="slds-truncate slds-text-align_right slds-grow"
+                                                                        title={workOrder.Due_Amount__c}>
+                                                                        ₹{workOrder.Due_Amount__c}
+                                                                    </span>
+                                                                </span>
+                                                            </button>
+                                                        </h2>
+                                                    </div>
+
+                                                    <template if:true={isOpenDueAmt}>
+                                                        <div class="slds-accordion__content" id="DueAmount">
+                                                            <ul>
+                                                                <li class="row">
+                                                                    <span class="label">B4 Due:</span>
+                                                                    <span class="value">₹{workOrder.B4DUE__c}</span>
+                                                                </li>
+                                                                <li class="row">
+                                                                    <span class="label">NOT Due:</span>
+                                                                    <span class="value">₹{workOrder.NOTDUE__c}</span>
+                                                                </li>
+                                                                <li class="row">
+                                                                    <span class="label">0 - 30 days:</span>
+                                                                    <span class="value">₹{workOrder.X0_30__c}</span>
+                                                                </li>
+                                                                <li class="row">
+                                                                    <span class="label">31 - 60 days:</span>
+                                                                    <span class="value">₹{workOrder.X31_60__c}</span>
+                                                                </li>
+                                                                <li class="row">
+                                                                    <span class="label">61 - 90 days:</span>
+                                                                    <span class="value">₹{workOrder.X61_90__c}</span>
+                                                                </li>
+                                                                <li class="row">
+                                                                    <span class="label">91 - 180 days:</span>
+                                                                    <span class="value">₹{workOrder.X91_180__c}</span>
+                                                                </li>
+                                                                <li class="row">
+                                                                    <span class="label">181 - 365 days:</span>
+                                                                    <span class="value">₹{workOrder.X181_365__c}</span>
+                                                                </li>
+                                                                <li class="row">
+                                                                    <span class="label">1 - 2 Year:</span>
+                                                                    <span class="value">₹{workOrder.X1_2YR__c}</span>
+                                                                </li>
+                                                                <li class="row">
+                                                                    <span class="label">2 - 3 Year:</span>
+                                                                    <span class="value">₹{workOrder.X2_3YR__c}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>    
+                                                    </template>
+
+                                                </section>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="rowSec">
+                                        <ul class="slds-accordion" style="width: 100%;">
+                                            <li class="slds-accordion__list-item">
+                                                <section class={chevronClassLastReceivable} style="padding: 2px;">
+
+                                                    <!-- Accordion Header -->
+                                                    <div class="slds-accordion__summary">
+                                                        <h2 class="slds-accordion__summary-heading headingSec">
+                                                            <button class="slds-button slds-button_reset slds-accordion__summary-action" 
+                                                                    aria-controls="Last3Receivables"
+                                                                    data-id="Last3Receivables"
+                                                                    onclick={toggleSection}
+                                                                    aria-expanded={isOpenLastReceivable} 
+                                                                    title="Last 3 Payment History">
+
+                                                                <template if:true={isOpenLastReceivable}>
+                                                                    <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                                                                </template>
+                                                                <template if:false={isOpenLastReceivable}>
+                                                                    <lightning-icon icon-name="utility:chevronright" size="x-small"></lightning-icon>
+                                                                </template>
+
+                                                                <span class="slds-accordion__summary-content slds-accordion__summary-action">
+                                                                    <span class="slds-truncate" title="Last 3 Receivables">
+                                                                        Last 3 Payment History
+                                                                    </span>
+                                                                </span>
+                                                            </button>
+                                                        </h2>
+                                                    </div>
+
+                                                    <!-- Accordion Body -->
+                                                    <template if:true={isOpenLastReceivable}>
+                                                        <div class="slds-accordion__content" id="Last3Receivables">
+                                                            <template if:true={last3Receivables.length}>
+                                                                <div style="overflow-x:auto; max-width:100%;">
+                                                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                                                        <thead>
+                                                                            <tr class="slds-line-height_reset">
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Transaction Id">Transaction Id</div>
+                                                                                </th>
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Payment Date">Payment Date</div>
+                                                                                </th>
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Payment Amount">Payment Amount</div>
+                                                                                </th>
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Source of Payment">Source of Payment</div>
+                                                                                </th>
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Payment Mode">Payment Mode</div>
+                                                                                </th>
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Bank Name">Bank Name</div>
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <template for:each={last3Receivables} for:item="rec">
+                                                                                <tr key={rec.id}>
+                                                                                    <td data-label="Document Number">
+                                                                                        <div class="slds-truncate" title={rec.transactionId}>
+                                                                                            {rec.transactionId}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td data-label="Posting Date">
+                                                                                        <div class="slds-truncate" title={rec.postingDate}>
+                                                                                            <lightning-formatted-date-time 
+                                                                                                value={rec.postingDate}
+                                                                                                year="numeric" month="short" day="2-digit">
+                                                                                            </lightning-formatted-date-time>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td data-label="Payment Amount">
+                                                                                        <div class="slds-truncate" title={rec.paymentAmount}>
+                                                                                            {rec.paymentAmount}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td data-label="Source of Payment">
+                                                                                        <div class="slds-truncate" title={rec.sourceOfPayment}>
+                                                                                            {rec.sourceOfPayment}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td data-label="Payment Mode">
+                                                                                        <div class="slds-truncate" title={rec.paymentMode}>
+                                                                                            {rec.paymentMode}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td data-label="Bank Name">
+                                                                                        <div class="slds-truncate" title={rec.bankName}>
+                                                                                            {rec.bankName}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </template>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </template>
+                                                            <template if:false={last3Receivables.length}>
+                                                                <p>No receivables found</p>
+                                                            </template>
+                                                        </div>    
+                                                    </template>
+
+                                                </section>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="rowSec">
+                                        <ul class="slds-accordion" style="width: 100%;">
+                                            <li class="slds-accordion__list-item">
+                                                <section class={chevronClassLastBill} style="padding: 2px;">
+
+                                                    <div class="slds-accordion__summary">
+                                                        <h2 class="slds-accordion__summary-heading headingSec">
+                                                            <button class="slds-button slds-button_reset slds-accordion__summary-action" 
+                                                                    aria-controls="Last3BillContent"
+                                                                    data-id="Last3Bill"
+                                                                    onclick={toggleSection}
+                                                                    aria-expanded={isOpenLastBill} 
+                                                                    title="Last 3 Bill History">
+                                                                
+                                                                <template if:true={isOpenLastBill}>
+                                                                    <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                                                                </template>
+
+                                                                <template if:false={isOpenLastBill}>
+                                                                    <lightning-icon icon-name="utility:chevronright" size="x-small"></lightning-icon>
+                                                                </template>
+
+                                                                <span class="slds-accordion__summary-content slds-accordion__summary-action">
+                                                                    <span class="slds-truncate" title="Last 3 Bill History">
+                                                                        Last 3 Bill History
+                                                                    </span>
+                                                                </span>
+                                                            </button>
+                                                        </h2>
+                                                    </div>
+                                                    <template if:true={isOpenLastBill}>
+                                                        <div class="slds-accordion__content" id="Last3BillContent">
+                                                            <template if:true={last3Billings}>
+                                                                <div class="slds-scrollable_x">
+                                                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th></th> 
+                                                                                <th>Print Doc Number</th>
+                                                                                <th>Bill Date</th>
+                                                                                <th>Due Amount</th>
+                                                                                <th>Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <template for:each={last3Billings} for:item="bill">
+                                                                                <tr key={bill.OPBEL}>
+                                                                                    <td>
+                                                                                        <lightning-input 
+                                                                                            key={bill.Id}
+                                                                                            type="radio"
+                                                                                            name="billGroup"  
+                                                                                            value={bill.OPBEL}      
+                                                                                            data-printdoc={bill.OPBEL}
+                                                                                        
+                                                                                            onchange={handleCheckBoxChange}>
+                                                                                        </lightning-input>
+                                                                                    </td>
+                                                                                    <td>{bill.OPBEL}</td>
+                                                                                    <td>{bill.BLDAT}</td>
+                                                                                    <td>{bill.TOTAL_AMNT}</td>
+                                                                                    <td>
+                                                                                        <lightning-button-icon 
+                                                                                            icon-name="doctype:pdf"
+                                                                                            size="small"
+                                                                                            alternative-text="View PDF"
+                                                                                            title="View PDF"
+                                                                                            class="pdf-icon"
+                                                                                            data-printdoc={bill.OPBEL}
+                                                                                            onclick={getPdf}>
+                                                                                        </lightning-button-icon>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </template>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <template if:true={ifChecked}>
+                                                                    <div>
+                                                                    <lightning-combobox
+                                                                        name="preference"
+                                                                        label="Select Preference"
+                                                                        value={selectedPreference}
+                                                                        placeholder="Choose Preference"
+                                                                        options={preferenceOptions}
+                                                                        onchange={handleChange}>
+                                                                    </lightning-combobox>
+                                                                    <!-- onchange={handlePhoneChange} -->
+                                                                    <lightning-input 
+                                                                        type="text" 
+                                                                        value={accountAlternatePhone} 
+                                                                        onkeydown={handleKeyDown} 
+                                                                        onchange={handleInput} 
+                                                                        label="Alternate Mobile no">
+                                                                    </lightning-input>
+                                                                    </br>
+                                                                    <lightning-button label="Send To Customer" onclick={getPdfList} varaiant="brand"></lightning-button>
+                                                                    </div>
+                                                                </template>
+                                                            </template>
+                                                            <template if:true={hasNoBillings}>
+                                                                <div class="slds-text-color_weak slds-m-around_small">
+                                                                    No billing records found for this account.
+                                                                </div>
+                                                            </template>
+                                                        </div>    
+                                                    </template>
+                                                </section>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!--Last 3 Cheque Bounce Details -->
+                                    <div class="rowSec">
+                                        <ul class="slds-accordion" style="width: 100%;">
+                                            <li class="slds-accordion__list-item">
+                                                <section class={chevronClassCheque} style="padding: 2px;">
+
+                                                    
+                                                    <div class="slds-accordion__summary">
+                                                        <h2 class="slds-accordion__summary-heading headingSec">
+                                                            <button class="slds-button slds-button_reset slds-accordion__summary-action" 
+                                                                    aria-controls="Last3ChequeBounce"
+                                                                    data-id="Last3ChequeBounce"
+                                                                    onclick={toggleSection}
+                                                                    aria-expanded={isLastChequeBounce} 
+                                                                    title="Last 3 Cheque Bounce Details">
+
+                                                                <template if:true={isLastChequeBounce}>
+                                                                    <lightning-icon icon-name="utility:chevrondown" size="x-small"></lightning-icon>
+                                                                </template>
+                                                                <template if:false={isLastChequeBounce}>
+                                                                    <lightning-icon icon-name="utility:chevronright" size="x-small"></lightning-icon>
+                                                                </template>
+
+                                                                <span class="slds-accordion__summary-content slds-accordion__summary-action">
+                                                                    <span class="slds-truncate" title="Last 3 Cheque Bounce">
+                                                                        Last 3 Cheque Bounce
+                                                                    </span>
+                                                                </span>
+                                                            </button>
+                                                        </h2>
+                                                    </div>
+
+                                                    
+                                                    <template if:true={isLastChequeBounce}>
+                                                        <div class="slds-accordion__content" id="Last3ChequeBounce">
+                                                            <template if:true={last3ChequeBounce.length}>
+                                                                <div style="overflow-x:auto; max-width:100%;">
+                                                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                                                        <thead>
+                                                                            <tr class="slds-line-height_reset">
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Due Date">Due Date</div>
+                                                                                </th>
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Current Balance">Current Balance</div>
+                                                                                </th>
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Posting Date">Posting Date</div>
+                                                                                </th>
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Document Date">Document Date</div>
+                                                                                </th>
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Cheque Number">Cheque Number</div>
+                                                                                </th>
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Cheque Date">Cheque Date</div>
+                                                                                </th>
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Cheque Rec Date">Cheque Rec Date</div>
+                                                                                </th>
+                                                                                <th scope="col">
+                                                                                    <div class="slds-truncate" title="Return Reason">Return Reason</div>
+                                                                                </th>
+                                                                                
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <template for:each={last3ChequeBounce} for:item="rec">
+                                                                                <tr key={rec.id}>
+                                                                                    <td data-label="Due Date">
+                                                                                        <div class="slds-truncate" title={rec.dueDate}>
+                                                                                            {rec.dueDate}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td data-label="Current Balance">
+                                                                                        <div class="slds-truncate" title={rec.currentBalance}>
+                                                                                            {rec.currentBalance}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td data-label="Posting Date">
+                                                                                        <div class="slds-truncate" title={rec.postingDate}>
+                                                                                            {rec.postingDate}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td data-label="Document Date">
+                                                                                        <div class="slds-truncate" title={rec.documentDate}>
+                                                                                            {rec.documentDate}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td data-label="Cheque Number">
+                                                                                        <div class="slds-truncate" title={rec.chequeNumber}>
+                                                                                            {rec.chequeNumber}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td data-label="Cheque Date">
+                                                                                        <div class="slds-truncate" title={rec.chequeDate}>
+                                                                                            {rec.chequeDate}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td data-label="Cheque Rec Date">
+                                                                                        <div class="slds-truncate" title={rec.chequeRecDate}>
+                                                                                            {rec.chequeRecDate}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td data-label="Return Reason">
+                                                                                        <div class="slds-truncate" title={rec.returnReason}>
+                                                                                            {rec.returnReason}
+                                                                                        </div>
+                                                                                    </td>
+        
+                                                                                </tr>
+                                                                            </template>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </template>
+                                                            <template if:false={last3ChequeBounce.length}>
+                                                                <p>No cheque bounces found</p>
+                                                            </template>
+                                                        </div>    
+                                                    </template>
+
+                                                </section>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+
+                        <!-- Action Buttons -->
+                        <div class="button-container">
+                            <lightning-button label="Select Payment Option" onclick={handleTakeReading} class="slds-m-right_small" variant="brand"></lightning-button>
+                        </div>
+
+                    </div>
+                </template>
+
+                <template if:true={showSelectPaymentMethodScreen}>
+                    <div class="modal-container">
+                        <div class="modal">
+
+                            <!-- Back Arrow at the top -->
+                            <!-- <div class="back-arrow" onclick={handleBackFromPaymentMethod}>←</div> -->
+                            <lightning-button label="Back" onclick={handleBackFromPaymentMethod}></lightning-button>
+
+                            <h2 class="modal-title" style="margin-top: 25px;">Choose Payment Method</h2>
+                            <div class="payment-methods">
+                                <template if:true={isGoCollect}>
+                                    <button class="payment-option" onclick={handleUpiPayment}>📱 UPI Payment</button>
+                                    <button class="payment-option" onclick={handleCardPayment}>💳 MPOS Machine</button>
+                                    <button class="payment-option" onclick={handleChequePayment}>🏦 Cheque Payment</button>
+                                    <!-- <button class="payment-option" onclick={handleCashPayment}>💵 SMS Link </button> -->
+                                </template>
+
+                                <template if:true={isFieldSense}>
+                                    <button class="payment-option" onclick={handleUpiPayment}>📱 UPI Payment</button>
+                                    <button class="payment-option" onclick={handleChequePayment}>🏦 Cheque Payment</button>
+                                </template>
+                            </div>
+
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={showPayModeScreen}>
+                    <div class="modal-container">
+                        <div class="modal">
+
+                            <!-- Back Arrow at the top -->
+                            <!-- <div class="back-arrow" onclick={handleBackFromPayMode}>←</div> -->
+                            <lightning-button label="Back" onclick={handleBackFromPayMode}></lightning-button>
+
+                            <template lwc:if={showPaymentRequestPOS}>
+                                <c-as-payment-request record-id={recordId} pay-type="M-POS"></c-as-payment-request>
+                            </template>
+
+                            <template lwc:if={showPaymentRequestQRcode}>
+                                <c-as-payment-request record-id={recordId} pay-type="QR Code"></c-as-payment-request>
+                            </template>
+
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={showChequeChoiceScreen}>
+                        <div class="modal-container">
+                        <div class="modal">
+                            <h2 class="modal-title">Is Post Dated Cheque?</h2>
+
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" name="paymentType" value="full" style="margin-right: 2px;" onchange={handlePostDatedCheque} />
+                                    Yes 
+                                </label>
+                                <label>
+                                    <input type="radio" name="paymentType" value="partial" style="margin-right: 2px;" onchange={handleCheque} />
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+    
+                <!-- <template lwc:if={showPdc}>
+                    <c-as-pdc-requested record-id={recordId} pay-type="PDC"></c-as-pdc-requested>
+                </template> -->
+
+                <template lwc:if={showPdc}>
+                    <c-as-pdc-requested-Clone record-id={recordId} pay-type="PDC"></c-as-pdc-requested-Clone>
+                </template>
+
+
+                <!-- Cheque Payment Fields -->
+                <template if:true={showChequeForm}>
+                    <div class="cheque-form slds-p-around_medium slds-box slds-theme_default">
+                        <lightning-input label="MICR Code" value={micrCode} onchange={handleMicrChange} data-id="micrCode"></lightning-input>
+                        <lightning-input label="Bank Name" value={bankName} disabled></lightning-input>
+                        <lightning-input label="Branch Name" value={branchName} disabled></lightning-input>
+                        <lightning-input label="IFSC Code" value={Ifsc} disabled></lightning-input>
+                        <lightning-input label="Cheque Number" value={chequeNumber} onchange={handleChequeInputChange} data-id="chequeNumber" required></lightning-input>
+                        <lightning-input type="date" label="Cheque Date" value={chequeDate} onchange={handleChequeInputChange} data-id="chequeDate" required></lightning-input>
+                        <lightning-input label="CA Number" value={caNumber} onchange={handleChequeInputChange} data-id="caNumber" required disabled></lightning-input>
+                        <lightning-input type="number" label="Cheque Amount" value={chequeAmount} onchange={handleChequeInputChange} data-id="chequeAmount" required disabled></lightning-input>
+                    </div> 
+
+                    <!-- Image Upload -->
+                    <div class="slds-box slds-theme_default slds-p-around_medium slds-m-top_medium">
+                        <div class="slds-m-bottom_medium">
+                            <c-r-t-camer-uploadcomp image-list={photoUploadSlots} onchange={handleFile}></c-r-t-camer-uploadcomp>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button Centered -->
+                    <div class="slds-m-top_medium slds-align_absolute-center">
+                        <lightning-button label="Submit" onclick={handleChequeSubmit} variant="brand"></lightning-button>
+                    </div>
+                </template>
+
+                <template if:true={error}>
+                    <div class="slds-text-color_error slds-m-around_medium">
+                        Error loading account details: {errorMessage}
+                    </div>
+                </template>
+
+                <template if:true={isLoading}>
+                    <lightning-spinner 
+                        alternative-text="Loading PDF..." 
+                        size="medium" 
+                        variant="brand">
+                    </lightning-spinner>
+                </template>
+
+            </lightning-card>
+        </template>
+
+        <!-- PDF Modal -->
+        <!-- Full Screen PDF Page -->
+        <!-- Full Screen PDF Page -->
+        <template if:true={showPdfPage}>
+            <div class="pdf-fullscreen-container">
+                <!-- Header -->
+                <div class="pdf-header slds-p-around_medium slds-border_bottom">
+                    <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                        <div class="slds-col">
+                            <lightning-button icon-name="utility:back"
+                                            variant="neutral"
+                                            label="Back"
+                                            onclick={goBack}>
+                            </lightning-button>
+                        </div>
+                        <div class="slds-col slds-text-align_center" style="margin-left: -84px;">
+                            <h2 class="slds-text-heading_medium">PDF Document</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zoomable area -->
+                <div class="pdf-scroll-container">
+                    <div class="pdf-zoom-wrapper">
+                        <iframe
+                            src={pdfUrl}
+                            class="pdf-iframe"
+                            title="PDF Document"
+                            width="100%"
+                            height="100%"
+                            style="border:none;">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+    </template>
+
+    <!-- Loading Spinner -->
+    <template if:true={isLoading}>
+        <div class="spinner-overlay">
+            <lightning-spinner 
+                alternative-text="Loading PDF..." 
+                size="medium" 
+                variant="brand">
+            </lightning-spinner>
+        </div>
+    </template>
+    
+</template>

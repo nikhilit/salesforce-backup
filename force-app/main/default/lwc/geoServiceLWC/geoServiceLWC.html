@@ -1,0 +1,32 @@
+<template>
+    <lightning-card title="Reverse Geocode">
+        <div class="slds-p-around_medium">
+            <lightning-input 
+                label="Latitude" 
+                type="number" 
+                value={lat} 
+                step="0.0000001"
+                onchange={handleLatChange}>
+            </lightning-input>
+
+            <lightning-input 
+                label="Longitude" 
+                type="number" 
+                value={lng} 
+                step="0.0000001"
+                onchange={handleLngChange}>
+            </lightning-input>
+
+            <lightning-button 
+                label="Get Address" 
+                variant="brand" 
+                class="slds-m-top_medium"
+                onclick={handleSubmit}>
+            </lightning-button>
+
+            <template if:true={address}>
+                <p class="slds-m-top_medium"><strong>Address:</strong> {address}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

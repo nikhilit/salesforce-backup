@@ -1,0 +1,144 @@
+<apex:page controller="FRLPDFController" applyHtmlTag="false" showHeader="false" renderAs="pdf" standardStylesheets="false">
+    <head>
+        <style type="text/css" media="print">
+            @page 
+            { 
+            size: A4;
+                margin-top: 5cm;
+                margin-bottom: 5cm;
+                margin-left: 1cm;
+                margin-right: 1cm;  
+            
+                @top-center {
+                    content: element(FirstPageheader);
+                }
+                @bottom-right {
+                    content: element(pageFirstfooter);
+                    
+                }
+            }
+            .pageNumber:before {
+                content:  counter(page);
+            }
+            .pageCount:before {
+                content: counter(pages);
+            }
+            div.FirstPageheader {
+                
+                display: block;
+                position: running(FirstPageheader);
+                /* border:1px solid yellow; */
+            }
+            div.pageFirstfooter {
+  
+                
+                position: running(pageFirstfooter);
+            }
+
+            table 
+            {
+                font-size: 14px;
+                margin: 0;
+                    padding: 0;
+                    line-height: 1.5;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            .table-content{
+                width: 100%;
+            }
+            .text-style 
+            {
+                font-family: 'Times New Roman', Times, serif; !important;
+                font-size: 14px  !important;
+            }
+        </style>
+    </head>
+      <body style="">
+        <div class="FirstPageheader">
+            <table style="width: 100%; padding-bottom: 6px;">
+                <tr>
+                    <td style="width: 22%; text-align: left; vertical-align: middle;">
+                        <img src="{!URLFOR($Resource.MGL_Logo)}" alt="Logo" style="width: 100px; height: auto;"/>
+                    </td>
+                    <td style="width: 56%; text-align: center; vertical-align: middle;">
+                        <h2 style="margin: 0; font-size: 20px;">MAHANAGAR GAS LIMITED</h2>
+                    </td>
+                    <td style="width: 22%; text-align: left; font-size: 12px; vertical-align: top;">
+                        
+                        <div>
+                            Pay &amp; Accounts Building,<br/>
+                            Ground Floor,<br/>
+                            Bandra Kurla Complex,<br/>
+                            Bandra (East),<br/>
+                            Mumbai 400 051<br/>
+                            Customer Helpline Nos.<br/>
+                            68674500 / 61564500<br/>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+          
+    <!--   <div class="pageFirstfooter">
+    <!-- Full-width HR 
+    <hr style="margin: 0 0 0 0; border: 0; border-top: 1px solid #000; width: 100%;" />
+
+   <div style="padding: 0 12px; font-size: 11px; line-height: 1.2;">
+        <p style="margin: 2px 0;">Beware of fraudulent activities prevalent under the name of Mahanagar Gas Ltd.</p>
+        <p style="margin: 2px 0;">This is a computer generated form requiring no signature and represents our record of transaction with you.</p>
+        <p style="margin: 2px 0;">Any exception to the details above should be advised to us within 7 days.</p>
+        <p style="margin: 2px 0;">
+            Regd. Office: MGL House, G-33 Block, Bandra-Kurla Complex, Bandra (East) Mumbai - 400 051.<br/>
+            Website: <a href="http://www.mahanagargas.com" target="_blank">www.mahanagargas.com</a><br/>
+            Facsimile (022) 26592156 / CIN No. L40200MH1995PLC088133
+        </p>
+     <img src="{!URLFOR($Resource.mglcautionimage)}" 
+     style="width:100%; height:auto; display:block; margin-top:5px;" />
+
+
+    </div>
+</div> -->
+          <div class="pageFirstfooter">
+
+    <hr style="margin: 0; border: 0; border-top: 1px solid #000; width: 100%;" />
+
+    <!-- Text Section (padded) -->
+    <div style="padding: 0 12px; font-size: 8px; line-height: 1;">
+        <p style="margin: 2px 0;">Beware of fraudulent activities prevalent under the name of Mahanagar Gas Ltd.</p>
+        <p style="margin: 2px 0;">This is a computer generated form requiring no signature and represents our record of transaction with you.</p>
+        <p style="margin: 2px 0;">Any exception to the details above should be advised to us within 7 days.</p>
+        <p style="margin: 2px 0;">
+            Regd. Office: MGL House, G-33 Block, Bandra-Kurla Complex, Bandra (East) Mumbai - 400 051. Website: <a href="http://www.mahanagargas.com" target="_blank">www.mahanagargas.com</a><br/>
+            Facsimile (022) 26592156 / CIN No. L40200MH1995PLC088133
+        </p>
+    </div>
+
+    <!-- Full Width Image Section -->
+   <div style="padding: 0 12px; font-size: 11px; line-height: 1;">
+    <img src="{!URLFOR($Resource.mglcautionimage)}" 
+         style="width:100%; max-height:50px; object-fit:contain; display:block;" />
+</div>
+
+
+</div>
+
+    
+        <div class="content">
+       
+           <div style="margin-top: 15px; font-size: 14px;margin-bottom: 0px">
+         
+                <apex:outputText value="{!templateBody}" escape="false"/>
+            </div>
+            <div style="font-size: 14px; line-height: 1.4;">
+                
+                <p>Thank you,</p>
+                <div style="text-align: right;">
+                    <p>Yours truly,</p>
+                    <p><strong>Mr. Paresh Chanpur</strong><br/>Chief Manager - CRM</p>
+                </div>
+            </div>
+            
+          
+        </div>
+    </body>
+</apex:page>

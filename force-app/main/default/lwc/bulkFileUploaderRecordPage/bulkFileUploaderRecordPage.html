@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Bulk Upload Job Status">
+        <div class="slds-p-around_medium">
+            <template if:true={state.progressMessage}>
+                <p class="slds-text-color_weak slds-m-top_small">{state.progressMessage}</p>
+            </template>
+
+            <template if:true={state.isProcessing}>
+                <lightning-progress-bar value={state.jobProgress} variant="base" class="slds-m-top_small">
+                </lightning-progress-bar>
+            </template>
+
+            <template if:true={state.jobMessage}>
+                <p class="slds-text-color_weak slds-m-top_small">{state.jobMessage}</p>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

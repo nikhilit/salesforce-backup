@@ -1,0 +1,709 @@
+<template>
+    <lightning-card title="Work Orders" icon-name="standard:work_order">
+
+        <!-- TOP RIGHT BUTTONS -->
+        <div class="top-right-buttons" slot="actions">
+            <!-- Notifications Badge -->
+            <div class="notification-wrapper">
+                <lightning-button
+                    icon-name="utility:notification"
+                    onclick={toggleNotificationPanel}
+                    variant="base"
+                    class="notification-btn">
+                </lightning-button>
+                <template if:true={notificationBadge}>
+                    <span class="notification-badge">{notificationBadge}</span>
+                </template>
+            </div>
+
+            <!-- Analytics Button -->
+            <lightning-button
+                label="Analytics"
+                icon-name="utility:chart"
+                onclick={toggleAnalytics}
+                disabled={isLoading}
+                variant="base">
+            </lightning-button>
+
+            <!-- Advanced Filters Button -->
+            <lightning-button
+                label="Filters"
+                icon-name="utility:filter"
+                onclick={toggleFilterPanel}
+                disabled={isLoading}
+                variant={filterButtonVariant}>
+            </lightning-button>
+
+            <!-- Import/Export Button -->
+            <lightning-button
+                label="Import/Export"
+                icon-name="utility:upload"
+                onclick={toggleImportExportModal}
+                disabled={isLoading}
+                variant="brand">
+            </lightning-button>
+        </div>
+
+        <!-- NOTIFICATION PANEL -->
+        <template if:true={showNotificationPanel}>
+            <div class="modal-backdrop" onclick={toggleNotificationPanel}></div>
+            <div class="notification-panel modal-container slds-box slds-theme_default">
+                <div class="modal-header">
+                    <h3 class="slds-text-heading_small">Notifications</h3>
+                    <lightning-button
+                        variant="bare"
+                        icon-name="utility:close"
+                        onclick={toggleNotificationPanel}
+                        class="close-btn">
+                    </lightning-button>
+                </div>
+                
+                <template if:true={notifications}>
+                    <div class="notification-list">
+                        <template for:each={notifications} for:item="notif">
+                            <div key={notif.id} class="notification-item">
+                                <span class="notification-badge-small"></span>
+                                <div class="notification-content">
+                                    <p class="notification-message">{notif.message}</p>
+                                    <span class="notification-time">{notif.timestamp}</span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <template if:false={notifications}>
+                    <div class="empty-state">
+                        <p>No notifications yet</p>
+                    </div>
+                </template>
+
+                <div class="modal-actions">
+                    <lightning-button
+                        label="Clear All"
+                        variant="neutral"
+                        onclick={clearNotifications}>
+                    </lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!-- ANALYTICS DASHBOARD -->
+        <template if:true={showAnalytics}>
+            <div class="modal-backdrop" onclick={toggleAnalytics}></div>
+            <div class="analytics-modal modal-container slds-box slds-theme_default">
+                <div class="modal-header">
+                    <h3 class="slds-text-heading_small">📊 Analytics Dashboard</h3>
+                    <lightning-button
+                        variant="bare"
+                        icon-name="utility:close"
+                        onclick={toggleAnalytics}
+                        class="close-btn">
+                    </lightning-button>
+                </div>
+
+                <div class="analytics-content">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-label">Total Records</span>
+                            <span class="metric-value">{metrics.totalRecords}</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Current Page</span>
+                            <span class="metric-value">{records.length}</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Selected Records</span>
+                            <span class="metric-value">{selectedRowCount}</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Last Updated</span>
+                            <span class="metric-value">{lastAnalyticsUpdate}</span>
+                        </div>
+                    </div>
+
+                    <div class="distribution-section">
+                        <h4>Field Distribution</h4>
+                        <template for:each={metrics.statusBreakdown} for:item="item">
+                            <div key={item} class="distribution-bar">
+                                <span class="bar-label">{item}</span>
+                                <div class="bar-container">
+                                    <div class="bar-fill"></div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <lightning-button
+                        label="Refresh"
+                        variant="brand"
+                        onclick={loadAnalytics}
+                        disabled={isLoading}>
+                    </lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!-- ADVANCED FILTER PANEL -->
+        <template if:true={showFilterPanel}>
+            <div class="modal-backdrop" onclick={toggleFilterPanel}></div>
+            <div class="filter-panel modal-container slds-box slds-theme_default">
+                <div class="modal-header">
+                    <h3 class="slds-text-heading_small">⚙️ Advanced Filters</h3>
+                    <lightning-button
+                        variant="bare"
+                        icon-name="utility:close"
+                        onclick={toggleFilterPanel}
+                        class="close-btn">
+                    </lightning-button>
+                </div>
+
+                <div class="filter-content">
+                    <!-- Filter Logic Operator -->
+                    <div class="filter-operator-section">
+                        <label>Match:</label>
+                        <lightning-combobox
+                            value={filterOperator}
+                            options={filterOperatorOptions}
+                            onchange={handleFilterOperatorChange}
+                            disabled={isFilterDisabled}>
+                        </lightning-combobox>
+                    </div>
+
+                    <!-- Filter Rows -->
+                    <div class="filter-rows">
+                        <template for:each={filters} for:item="filter">
+                            <div key={filter.id} class="filter-row">
+                                <lightning-combobox
+                                    class="filter-field"
+                                    data-id={filter.id}
+                                    name="field"
+                                    value={filter.field}
+                                    options={filterFieldOptions}
+                                    placeholder="Select Field"
+                                    onchange={handleFilterChange}>
+                                </lightning-combobox>
+
+                                <lightning-combobox
+                                    class="filter-operator"
+                                    data-id={filter.id}
+                                    name="operator"
+                                    value={filter.operator}
+                                    options={filterOperatorList}
+                                    onchange={handleFilterChange}>
+                                </lightning-combobox>
+
+                                <lightning-input
+                                    class="filter-value"
+                                    data-id={filter.id}
+                                    name="value"
+                                    value={filter.value}
+                                    placeholder="Value"
+                                    onchange={handleFilterChange}>
+                                </lightning-input>
+
+                                <lightning-button
+                                    variant="base"
+                                    icon-name="utility:delete"
+                                    data-id={filter.id}
+                                    onclick={removeFilter}
+                                    class="delete-btn">
+                                </lightning-button>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Add Filter Button -->
+                    <lightning-button
+                        label="+ Add Filter"
+                        variant="neutral"
+                        onclick={addFilter}
+                        class="add-filter-btn">
+                    </lightning-button>
+
+                    <!-- Saved Presets -->
+                    <div class="presets-section">
+                        <h4>Saved Presets</h4>
+                        <template for:each={filterPresets} for:item="preset">
+                            <lightning-button
+                                key={preset.id}
+                                label={preset.name}
+                                data-id={preset.id}
+                                onclick={loadFilterPreset}
+                                class="preset-btn">
+                            </lightning-button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Filter Actions -->
+                <div class="modal-actions">
+                    <lightning-button
+                        label="Save Preset"
+                        variant="neutral"
+                        onclick={saveFilterPreset}>
+                    </lightning-button>
+
+                    <lightning-button
+                        label="Clear Filters"
+                        variant="neutral"
+                        onclick={clearFilters}>
+                    </lightning-button>
+
+                    <lightning-button
+                        label="Apply Filters"
+                        variant="brand"
+                        onclick={applyFilters}>
+                    </lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!-- RECORD DETAILS MODAL -->
+        <template if:true={showDetailsModal}>
+            <div class="modal-backdrop" onclick={closeDetailsModal}></div>
+            <div class="details-modal modal-container slds-box slds-theme_default">
+                <div class="modal-header">
+                    <h3 class="slds-text-heading_small">Record Details</h3>
+                    <lightning-button
+                        variant="bare"
+                        icon-name="utility:close"
+                        onclick={closeDetailsModal}
+                        class="close-btn">
+                    </lightning-button>
+                </div>
+
+                <template if:true={selectedRecord}>
+                    <div class="details-content">
+                        <div class="details-section">
+                            <h4>Record Information</h4>
+                            <div class="details-grid">
+                                <template for:each={selectedColumns} for:item="col">
+                                    <div key={col} class="detail-row">
+                                        <span class="detail-label">{col}:</span>
+                                        <span class="detail-value">{selectedRecord[col]}</span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <template for:each={relatedRecords} for:item="related">
+                            <div key={related.type} class="details-section">
+                                <h4>{related.type}</h4>
+                                <template if:true={related.records}>
+                                    <div class="related-list">
+                                        <template for:each={related.records} for:item="rec">
+                                            <div key={rec.Id} class="related-item">
+                                                <a href="{getRecordUrl(rec.Id)}" target="_blank">{rec.Name}</a>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </template>
+            <lightning-input
+                type="search"
+                variant="label-hidden"
+                placeholder="Search Work Orders..."
+                onchange={handleSearch}>
+            </lightning-input>
+        </div>
+
+        <!-- CENTERED SEARCH BAR -->
+        <div class="search-section">
+            <lightning-input
+                type="search"
+                variant="label-hidden"
+                placeholder="Search Work Orders..."
+                onchange={handleSearch}>
+            </lightning-input>
+        </div>
+
+        <!-- CENTERED ACTION BUTTONS -->
+        <div class="button-section">
+            <lightning-combobox
+                variant="label-hidden"
+                value={pageSize}
+                options={pageSizeOptions}
+                onchange={handlePageSizeChange}
+                disabled={isLoading}>
+            </lightning-combobox>
+
+            <lightning-button
+                label="Export to CSV"
+                icon-name="utility:download"
+                onclick={exportToCSV}
+                disabled={isLoading}>
+            </lightning-button>
+
+            <lightning-button
+                label="Reset Default"
+                icon-name="utility:refresh"
+                onclick={resetToDefault}
+                disabled={isLoading}>
+            </lightning-button>
+
+            <!-- UNDO RESET -->
+            <template if:true={canUndoReset}>
+                <lightning-button
+                    label="Undo Reset"
+                    icon-name="utility:undo"
+                    onclick={undoReset}
+                    disabled={isLoading}>
+                </lightning-button>
+            </template>
+
+            <lightning-button
+                label="Select Columns"
+                icon-name="utility:settings"
+                variant="brand"
+                onclick={toggleColumnSelector}
+                disabled={isLoading}>
+            </lightning-button>
+        </div>
+
+        <!-- COLUMN SELECTOR MODAL -->
+        <template if:true={showColumnSelector}>
+            <div class="modal-backdrop"></div>
+            <div class="column-selector modal-container slds-box slds-theme_default">
+
+                <h3 class="slds-text-heading_small slds-m-bottom_small">
+                    Select & Reorder Columns
+                </h3>
+
+                <lightning-dual-listbox
+                    source-label="Available Fields"
+                    selected-label="Visible Columns"
+                    options={fieldOptions}
+                    value={draftSelectedColumns}
+                    onchange={handleDraftColumnChange}>
+                </lightning-dual-listbox>
+
+                <!-- DRAG & DROP -->
+                <div class="slds-m-top_small">
+                    <template for:each={draftSelectedColumns} for:item="col">
+                        <div key={col}
+                             draggable="true"
+                             data-id={col}
+                             class="slds-box slds-m-bottom_x-small"
+                             ondragstart={handleDragStart}
+                             ondragover={allowDrop}
+                             ondrop={handleDrop}>
+                            {col}
+                        </div>
+                    </template>
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="slds-grid slds-grid_align-end slds-m-top_small">
+                    <lightning-button
+                        label="Cancel"
+                        variant="neutral"
+                        class="slds-m-right_small"
+                        onclick={handleCancel}>
+                    </lightning-button>
+
+                    <lightning-button
+                        label="Apply"
+                        variant="brand"
+                        onclick={handleApply}>
+                    </lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!-- MASS IMPORT/EXPORT MODAL -->
+        <template if:true={showImportExportModal}>
+            <div class="modal-backdrop"></div>
+            <div class="import-export-modal modal-container slds-box slds-theme_default">
+                
+                <div class="modal-header">
+                    <h3 class="slds-text-heading_small">Mass Import / Export</h3>
+                    <lightning-button
+                        variant="bare"
+                        icon-name="utility:close"
+                        onclick={toggleImportExportModal}
+                        class="close-btn">
+                    </lightning-button>
+                </div>
+
+                <!-- TABS -->
+                <div class="modal-tabs">
+                    <button 
+                        class={importTabClass}
+                        onclick={switchToImportTab}>
+                        📥 Import Data
+                    </button>
+                    <button 
+                        class={exportTabClass}
+                        onclick={switchToExportTab}>
+                        📤 Export Data
+                    </button>
+                </div>
+
+                <!-- IMPORT TAB -->
+                <template if:true={isImportTab}>
+                    <div class="tab-content">
+                        <h4>Upload CSV File to Import</h4>
+                        
+                        <!-- File Upload -->
+                        <div class="upload-section">
+                            <input 
+                                type="file" 
+                                id="fileInput"
+                                accept=".csv"
+                                onchange={handleFileSelect}
+                                class="file-input">
+                            <label for="fileInput" class="file-label">
+                                📁 Choose CSV File (or drag & drop)
+                            </label>
+                        </div>
+
+                        <!-- Preview -->
+                        <template if:true={importFileSelected}>
+                            <div class="preview-section">
+                                <h4>Preview (First 5 Rows)</h4>
+                                <table class="preview-table">
+                                    <thead>
+                                        <tr>
+                                            <template for:each={importPreviewHeaders} for:item="col">
+                                                <th key={col}>{col}</th>
+                                            </template>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={importPreviewRows} for:item="row">
+                                            <tr key={row.id}>
+                                                <template for:each={row.data} for:item="cell">
+                                                    <td key={cell.id}>{cell.value}</td>
+                                                </template>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                                
+                                <div class="import-stats">
+                                    <p>📊 Total Rows to Import: <strong>{totalImportRows}</strong></p>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Import Actions -->
+                        <div class="modal-actions">
+                            <lightning-button
+                                label="Cancel"
+                                variant="neutral"
+                                onclick={toggleImportExportModal}
+                                class="slds-m-right_small">
+                            </lightning-button>
+
+                            <template if:true={importFileSelected}>
+                                <lightning-button
+                                    label="Import Records"
+                                    variant="brand"
+                                    onclick={confirmImport}
+                                    disabled={isLoading}>
+                                </lightning-button>
+                            </template>
+                        </div>
+
+                        <!-- Import Instructions -->
+                        <div class="instructions">
+                            <h5>📋 CSV Format Requirements:</h5>
+                            <ul>
+                                <li>First row must contain column headers</li>
+                                <li>Headers must match Salesforce field API names</li>
+                                <li>Example: WorkOrderNumber, Status, Priority, Subject</li>
+                                <li>Use existing field values (e.g., "Active", "Pending" for Status)</li>
+                                <li>Leave ID column empty for new records</li>
+                            </ul>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- EXPORT TAB -->
+                <template if:true={isExportTab}>
+                    <div class="tab-content">
+                        <h4>Export Current Records</h4>
+
+                        <!-- Export Options -->
+                        <div class="export-options">
+                            <div class="option-group">
+                                <label>
+                                    <input 
+                                        type="radio" 
+                                        name="exportType" 
+                                        value="all"
+                                        checked
+                                        onchange={handleExportTypeChange}>
+                                    <span>Export All Records (Current Page)</span>
+                                </label>
+                            </div>
+
+                            <div class="option-group">
+                                <label>
+                                    <input 
+                                        type="radio" 
+                                        name="exportType" 
+                                        value="selected"
+                                        onchange={handleExportTypeChange}
+                                        disabled={noSelectedRows}>
+                                    <span>Export Selected Records ({selectedRowCount})</span>
+                                </label>
+                            </div>
+
+                            <div class="option-group">
+                                <label>
+                                    <input 
+                                        type="checkbox" 
+                                        checked={includeIds}
+                                        onchange={handleIncludeIdsChange}>
+                                    <span>Include Record IDs (for updates)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Export Format -->
+                        <div class="format-section">
+                            <h5>Export Format:</h5>
+                            <div class="format-options">
+                                <lightning-button
+                                    label="📄 CSV"
+                                    onclick={exportAsCSV}
+                                    disabled={isLoading}>
+                                </lightning-button>
+
+                                <lightning-button
+                                    label="📊 Excel"
+                                    onclick={exportAsExcel}
+                                    disabled={isLoading}>
+                                </lightning-button>
+
+                                <lightning-button
+                                    label="📋 PDF"
+                                    onclick={exportAsPDF}
+                                    disabled={isLoading}>
+                                </lightning-button>
+                            </div>
+                        </div>
+
+                        <!-- Export Stats -->
+                        <div class="export-stats">
+                            <p>📊 Records to Export: <strong>{exportRecordCount}</strong></p>
+                            <p>📋 Columns to Export: <strong>{selectedColumnsCount}</strong></p>
+                        </div>
+
+                        <!-- Export Actions -->
+                        <div class="modal-actions">
+                            <lightning-button
+                                label="Cancel"
+                                variant="neutral"
+                                onclick={toggleImportExportModal}>
+                            </lightning-button>
+                        </div>
+                    </div>
+                </template>
+
+            </div>
+        </template>
+
+        <!-- ERROR MESSAGE -->
+        <template if:true={error}>
+            <div class="error-message">
+                {error}
+            </div>
+        </template>
+
+        <!-- LOADING SPINNER -->
+        <template if:true={isLoading}>
+            <div class="spinner-container">
+                <lightning-spinner
+                    alternative-text="Loading"
+                    size="medium">
+                </lightning-spinner>
+            </div>
+        </template>
+
+        <!-- INLINE EDITING PANEL -->
+        <template if:true={editingMode}>
+            <div class="inline-edit-panel">
+                <h4 class="edit-title">✏️ Editing Record: {editingRecordId}</h4>
+                <div class="edit-fields-grid">
+                    <template for:each={selectedColumns} for:item="col">
+                        <div key={col} class="edit-field">
+                            <label>{col}</label>
+                            <lightning-input
+                                data-field={col}
+                                value="{editingData[col]}"
+                                onchange={handleEditChange}>
+                            </lightning-input>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="edit-actions">
+                    <lightning-button
+                        label="Cancel"
+                        variant="neutral"
+                        onclick={cancelInlineEdit}
+                        disabled={isLoading}>
+                    </lightning-button>
+                    <lightning-button
+                        label="Save Changes"
+                        variant="brand"
+                        onclick={saveInlineEdit}
+                        disabled={isLoading}>
+                    </lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!-- DATA TABLE WITH INLINE EDIT -->
+        <div class="datatable-wrapper" onscroll={handleScroll}>
+            <div class="datatable-toolbar">
+                <template if:true={hasActiveFilters}>
+                    <span class="filter-badge">🔍 {filterCount} Filter(s) Active</span>
+                </template>
+                <template if:true={realtimeEnabled}>
+                    <span class="realtime-badge">🔴 Live Sync Active</span>
+                </template>
+            </div>
+
+            <lightning-datatable
+                key-field="Id"
+                data={records}
+                columns={columns}
+                onrowselection={handleRowSelection}
+                onsort={handleSort}
+                sorted-by={sortBy}
+                sorted-direction={sortDirection}
+                class="datatable-container"
+                ondblclick={startInlineEdit}>
+            </lightning-datatable>
+        </div>
+        <div class="pagination-bar">
+            <lightning-button
+                label="Previous"
+                onclick={previousPage}
+                disabled={disablePreviousBtn}>
+            </lightning-button>
+
+            <span class="pagination-text">
+                Page {pageNumber} of {totalPages}
+            </span>
+
+            <lightning-button
+                label="Next"
+                onclick={nextPage}
+                disabled={disableNextBtn}>
+            </lightning-button>
+        </div>
+
+    </lightning-card>
+</template>

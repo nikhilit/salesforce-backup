@@ -1,0 +1,52 @@
+<template>
+    <template if:true={isVisible}>
+        <lightning-card title="Customer Not Available TPE">
+            <div class="slds-p-around_medium">
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </template>
+
+                <lightning-combobox
+                    label="Reason"
+                    options={reasonOptions}
+                    value={reason}
+                    onchange={handleReasonChange}
+                    required>
+                </lightning-combobox>
+                
+                <template if:true={imageUploadPage}>
+                <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-1">
+                <div>
+                    <c-o_-m-camera-upload-comp
+                        image-list={photoUploadSlots}
+                        onchange={handleFile}>
+                    </c-o_-m-camera-upload-comp>
+                </div> 
+                </div>
+            </div>
+            </template>
+
+                <!-- <lightning-input
+                    type="date"
+                    label="Follow-Up Date"
+                    onchange={handleDateChange}
+                    required>
+                </lightning-input> -->
+
+                <lightning-textarea
+                    label="Remarks"
+                    value={remarks}
+                    onchange={handleRemarksChange}>
+                </lightning-textarea>
+
+                <lightning-button
+                    label="Submit"
+                    variant="brand"
+                    onclick={handleSubmit}
+                    class="slds-m-top_medium">
+                </lightning-button>
+            </div>
+        </lightning-card>
+    </template>
+</template>

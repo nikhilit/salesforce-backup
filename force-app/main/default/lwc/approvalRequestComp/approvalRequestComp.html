@@ -1,0 +1,504 @@
+<!--
+  @description       : 
+  @author            : Zanak Meshram
+  @last modified on  : 08-01-2025
+  @last modified by  : Zanak Meshram
+  Modifications Log
+  Ver   Date         Author          Modification
+  1.0   08-01-2025   Zanak Meshram   Initial Version
+-->
+<template>
+    <template if:true={isDesktop}>    
+    <div style="height:100vh;">
+        <lightning-card title="Approval Requests" icon-name="action:approval" icon-size="small">
+            <template if:true={approvalRequests}>
+
+
+                <!-- <fieldset class="slds-form-element" role="radiogroup" style="padding-inline: 1rem;">
+                    <div class="slds-form-element__control slds-grid ">
+
+
+
+                        <div class="slds-visual-picker slds-visual-picker_medium slds-col" data-tab="IndentOrder"
+                            onclick={handleCardChange}>
+                            <input type="radio" id="visual-picker-59" checked value="visual-picker-59" name="Visit" />
+                            <label for="visual-picker-59">
+                                <span
+                                    class="slds-visual-picker__figure slds-visual-picker__text slds-align_absolute-center"
+                                    style="height: 80px; width:auto;">
+                                    <span>
+
+                                        <span class="slds-text-heading_large">{indentOrderLength}</span>
+                                        <span class="slds-text-title">Indent Order</span>
+                                    </span>
+                                </span>
+                                <span class="slds-visual-picker__body">
+
+                                </span>
+                                <span class="slds-icon_container slds-visual-picker__text-check">
+                                    <svg class="slds-icon slds-icon-text-check slds-icon_x-small" aria-hidden="true">
+                                        <use
+                                            xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#check">
+                                    </svg>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="slds-visual-picker slds-visual-picker_medium slds-col" data-tab="BlockedOrder"
+                            onclick={handleCardChange}>
+                            <input type="radio" id="visual-picker-61" value="visual-picker-61" name="Visit" />
+                            <label for="visual-picker-61">
+                                <span
+                                    class="slds-visual-picker__figure slds-visual-picker__text slds-align_absolute-center"
+                                    style="height: 80px; width:auto;">
+                                    <span>
+                                        <span class="slds-text-heading_large">{blockedOrderLength}</span>
+                                        <span class="slds-text-title">Blocked Order</span>
+                                    </span>
+                                </span>
+                                <span class="slds-visual-picker__body">
+
+                                </span>
+                                <span class="slds-icon_container slds-visual-picker__text-check">
+                                    <svg class="slds-icon slds-icon-text-check slds-icon_x-small" aria-hidden="true">
+                                        <use
+                                            xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#check">
+                                    </svg>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="slds-visual-picker slds-visual-picker_medium slds-col" data-tab="Prospect"
+                            onclick={handleCardChange}>
+                            <input type="radio" id="visual-picker-51" value="visual-picker-51" name="Visit" />
+                            <label for="visual-picker-51">
+                                <span
+                                    class="slds-visual-picker__figure slds-visual-picker__text slds-align_absolute-center"
+                                    style="height: 80px; width:auto;">
+                                    <span>
+                                        <span class="slds-text-heading_large">{prospectLength}</span>
+                                        <span class="slds-text-title">Prospect </span>
+                                    </span>
+                                </span>
+                                <span class="slds-visual-picker__body">
+
+                                </span>
+                                <span class="slds-icon_container slds-visual-picker__text-check">
+                                    <svg class="slds-icon slds-icon-text-check slds-icon_x-small" aria-hidden="true">
+
+                                        <use
+                                            xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#check">
+                                        </use>
+
+                                    </svg>
+                                </span>
+                            </label>
+                        </div>
+
+                         <div class="slds-visual-picker slds-visual-picker_medium slds-col" data-tab="Project"
+                            onclick={handleCardChange}>
+                            <input type="radio" id="visual-picker-58" value="visual-picker-58" name="Visit" />
+                            <label for="visual-picker-58">
+                                <span
+                                    class="slds-visual-picker__figure slds-visual-picker__text slds-align_absolute-center"
+                                    style="height: 80px; width:auto;">
+                                    <span>
+                                        <span class="slds-text-heading_large">{allResultLength}</span>
+                                        <span class="slds-text-title">Project</span>
+                                    </span>
+                                </span>
+                                <span class="slds-visual-picker__body">
+
+                                </span>
+                                <span class="slds-icon_container slds-visual-picker__text-check">
+                                    <svg class="slds-icon slds-icon-text-check slds-icon_x-small" aria-hidden="true">
+
+                                        <use
+                                            xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#check">
+                                        </use>
+
+                                    </svg>
+                                </span>
+                            </label>
+                        </div> -
+
+                        <div class="slds-visual-picker slds-visual-picker_medium slds-col" data-tab="Quote"
+                            onclick={handleCardChange}>
+                            <input type="radio" id="visual-picker-69" value="visual-picker-69" name="Visit" />
+                            <label for="visual-picker-69">
+                                <span
+                                    class="slds-visual-picker__figure slds-visual-picker__text slds-align_absolute-center"
+                                    style="height: 80px; width:auto;">
+                                    <span>
+                                        <span class="slds-text-heading_large">{quoteLength}</span>
+                                        <span class="slds-text-title">Quote</span>
+                                    </span>
+                                </span>
+                                <span class="slds-visual-picker__body">
+
+                                </span>
+                                <span class="slds-icon_container slds-visual-picker__text-check">
+                                    <svg class="slds-icon slds-icon-text-check slds-icon_x-small" aria-hidden="true">
+                                        <use
+                                            xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#check">
+                                    </svg>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="slds-visual-picker slds-visual-picker_medium slds-col" data-tab="PJPPlan"
+                            onclick={handleCardChange}>
+                            <input type="radio" id="visual-picker-10" value="visual-picker-10" name="Visit" />
+                            <label for="visual-picker-10">
+                                <span
+                                    class="slds-visual-picker__figure slds-visual-picker__text slds-align_absolute-center"
+                                    style="height: 80px; width:auto;">
+                                    <span>
+                                        <span class="slds-text-heading_large">{pjpLength}</span>
+                                        <span class="slds-text-title">PJP Plan</span>
+                                    </span>
+                                </span>
+                                <span class="slds-visual-picker__body">
+
+                                </span>
+                                <span class="slds-icon_container slds-visual-picker__text-check">
+                                    <svg class="slds-icon slds-icon-text-check slds-icon_x-small" aria-hidden="true">
+                                        <use
+                                            xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#check">
+                                    </svg>
+                                </span>
+                            </label>
+                        </div>
+
+                    </div>
+                </fieldset> -->
+
+                <div style="padding-inline: 1rem; margin-top:2rem;">
+                    <div class="slds-card"
+                        style="border-top:1px solid #8080807d; border-left:1px solid #8080807d; border-right:1px solid #8080807d;  margin-top:-15px; border-radius:2px;">
+
+                        <article class="slds-card">
+                            <div>
+                                <header style="padding: 0.4rem;"
+                                    class="slds-media slds-media_center slds-has-flexi-truncate">
+                                    <div style="padding: 0.5rem;">
+
+                                        <lightning-icon icon-name="standard:visits" size="small"
+                                            alternative-text="Visit" class="slds-m-right_small"></lightning-icon>
+                                    </div>
+
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-card__header-title">
+                                            <a href="#" class="slds-card__header-link slds-truncate" title="Visits">
+                                                <span>My Approvals</span>
+                                            </a>
+                                        </h2>
+                                    </div>
+                                    <div class="slds-no-flex">
+                                        <div>
+                                            <lightning-button label="Approve Selected" onclick={openApproveModal}
+                                                class="slds-m-right_small">
+                                            </lightning-button>
+                                            <lightning-button label="Reject Selected" onclick={openRejectModal}
+                                                variant="destructive">
+                                            </lightning-button>
+                                        </div>
+                                    </div>
+                                </header>
+                            </div>
+                        </article>
+
+                        <lightning-datatable key-field="id" data={approvalRequests} columns={columns}
+                            hide-checkbox-column={hideCheckbox} max-row-selection="10">
+                        </lightning-datatable>
+
+                    </div>
+                </div>
+            </template>
+            <template if:true={error}>
+                <div class="slds-m-around_medium slds-text-color_error">
+                    {error}
+                </div>
+            </template>
+
+            
+
+            <template if:true={isModalOpen}>
+                
+                <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <h2 class="slds-text-heading_medium">{approvalHeader}</h2>
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close" onclick={closeModal}>
+                                <lightning-icon icon-name="utility:close" alternative-text="close" size="small">
+                                </lightning-icon>
+                            </button>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+
+                            <lightning-spinner if:true={isSpinner} alternative-text="Loading" size="small"></lightning-spinner>
+
+                            <!-- <template for:each={selectedApprovals} for:item="approval">
+                                <div key={approval.id} class="slds-box slds-m-bottom_small"> -->
+                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                                        <thead>
+                                            <tr class="slds-line-height_reset">
+                                                <th class="slds-text-title_caps table-header-text" scope="col">
+                                                    <div class="slds-truncate" title="Approval Name">Approval Name</div>
+                                                </th>
+                                                <th class="slds-text-title_caps table-header-text" scope="col">
+                                                    <div class="slds-truncate" title="Comments">Comments</div>
+                                                </th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <template for:each={selectedApprovals} for:item="approval">
+                                    
+                                                <tr key={approval.workItemIds} class="slds-hint-parent" >
+                                                    
+                                                    <td scope="row">
+                                                        {approval.ProcessInstanceTargetObjectName}
+                                                        <!-- <lightning-input type="text" name="Approval Name" formatter="text" step="0.01"
+                                                            variant="label-hidden" data-id={approval.Id} value={approval.recordName} readonly>
+                                                        </lightning-input> -->
+                                                      
+                                                    </td>
+                                                    <td scope="row">
+                                                        <lightning-input type="text" name="Comment" min="0" step="0.01"
+                                                           data-id={approval.workItemIds}  variant="label-hidden" 
+                                                            onchange={handleCommentChange}>
+                                                        </lightning-input>
+                                                    </td>
+                                                    
+                                                </tr>
+                                    
+                                            </template>
+                                        </tbody>
+                                    
+                                           
+                                    </table>
+                                    <!-- <p><strong>Approval Name:</strong> {approval.recordName}</p>
+                                    <lightning-textarea label="Comments" id={approval.id}
+                                        onchange={handleCommentChange}>
+                                    </lightning-textarea> -->
+                                <!-- </div> -->
+                            <!-- </template> -->
+                        </div>
+                        <footer class="slds-modal__footer" style="display: flex;">
+                            <div>
+                                Common Comments :
+                            </div>
+                            <div style="margin-left: -16px; width: 11rem;">
+                               
+                            <input type="text" name="Common Comment" onchange={handleCommonComment}/>
+                        </div>
+                        
+                        <div style="text-align: right; margin-left:9rem;">
+                            <lightning-button class="slds-align_right" variant="neutral" label="Cancel" onclick={closeModal}></lightning-button>&nbsp;&nbsp;&nbsp;
+                            <lightning-button class="slds-align_right" variant="brand" label="Submit" onclick={handleSubmit}></lightning-button>
+                        </div>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open">
+                
+                </div>
+            </template>
+            <!-- <template if:true={isModalOpen2}>
+                <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <h2 class="slds-text-heading_medium">Reject Details</h2>
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close" onclick={closeModal}>
+                                <lightning-icon icon-name="utility:close" alternative-text="close" size="small">
+                                </lightning-icon>
+                            </button>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <template for:each={selectedApprovals} for:item="approval">
+                                <div key={approval.id} class="slds-box slds-m-bottom_small">
+                                    <p><strong>Approval Name:</strong> {approval.recordName}</p>
+                                    <lightning-textarea label="Comments" id={approval.id}
+                                        onchange={handleCommentChange}>
+                                    </lightning-textarea>
+                                </div>
+                            </template>
+                        </div>
+                        <footer class="slds-modal__footer">
+                            <lightning-butto variant="neutral" label="Cancel" onclick={closeModal}></lightning-button>
+                            <lightning-button variant="brand" label="Submit" onclick={handleSubmit}></lightning-button>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template> -->
+        </lightning-card>
+    </div>
+    </template>
+   
+  <template if:true={isMobile}>
+    <div class="slds-p-around_x-small" style="height:100vh;">
+
+        <lightning-card title="Approval Requests" icon-name="action:approval" icon-size="small">
+
+            <template if:true={approvalRequests}>
+
+                <!-- Header -->
+                <div class="slds-p-horizontal_x-small slds-m-top_small">
+                    <div class="slds-grid slds-grid_align-spread slds-wrap">
+                        <div class="slds-text-heading_small">
+                            My Approvals
+                        </div>
+                        <div class="slds-button-group" role="group">
+                            <lightning-button
+                                label="Approve"
+                                onclick={openApproveModal}
+                                class="slds-m-right_x-small">
+                            </lightning-button>
+                            <lightning-button
+                                label="Reject"
+                                onclick={openRejectModal}
+                                variant="destructive">
+                            </lightning-button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Datatable with horizontal scroll -->
+                <div class="slds-scrollable_x slds-m-top_small">
+                    <lightning-datatable
+                        key-field="id"
+                        data={approvalRequests}
+                        columns={columns}
+                        hide-checkbox-column={hideCheckbox}
+                        max-row-selection="10">
+                    </lightning-datatable>
+                </div>
+
+            </template>
+
+            <template if:true={error}>
+                <div class="slds-m-around_medium slds-text-color_error">
+                    {error}
+                </div>
+            </template>
+
+            <!-- Modal (same UI, mobile-width container) -->
+            <template if:true={isModalOpen}>
+                <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container slds-modal__container_small">
+
+                        <header class="slds-modal__header">
+                            <h2 class="slds-text-heading_medium">{approvalHeader}</h2>
+                            <button
+                                class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close"
+                                onclick={closeModal}>
+                                <lightning-icon icon-name="utility:close" size="small"></lightning-icon>
+                            </button>
+                        </header>
+
+                        <div class="slds-modal__content slds-p-around_small">
+                            <lightning-spinner if:true={isSpinner} size="small"></lightning-spinner>
+
+                            <div class="slds-scrollable_x">
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Approval Name</th>
+                                            <th scope="col">Comments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <template for:each={selectedApprovals} for:item="approval">
+                                            <tr key={approval.workItemIds}>
+                                                <td>{approval.ProcessInstanceTargetObjectName}</td>
+                                                <td>
+                                                    <lightning-input
+                                                        type="text"
+                                                        data-id={approval.workItemIds}
+                                                        variant="label-hidden"
+                                                        onchange={handleCommentChange}>
+                                                    </lightning-input>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- <footer class="slds-modal__footer slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-1 slds-m-bottom_x-small">
+                                <lightning-input
+                                    type="text"
+                                    label="Common Comments"
+                                    onchange={handleCommonComment}>
+                                </lightning-input>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1 slds-text-align_right">
+                                <lightning-button
+                                    variant="neutral"
+                                    label="Cancel"
+                                    onclick={closeModal}>
+                                </lightning-button>
+                                <lightning-button
+                                    class="slds-m-left_small"
+                                    variant="brand"
+                                    label="Submit"
+                                    onclick={handleSubmit}>
+                                </lightning-button>
+                            </div>
+                        </footer> -->
+                        <footer class="slds-modal__footer slds-grid slds-wrap">
+
+    <div class="slds-size_1-of-1 slds-m-bottom_small slds-text-align_left">
+        <div class="slds-form-element">
+            <label class="slds-form-element__label">
+                Common Comments :
+            </label>
+            <div class="slds-form-element__control">
+                <input
+                    type="text"
+                    class="slds-input"
+                    onchange={handleCommonComment}/>
+            </div>
+        </div>
+    </div>
+
+    <div class="slds-size_1-of-1 slds-text-align_right">
+        <lightning-button
+            variant="neutral"
+            label="Cancel"
+            onclick={closeModal}>
+        </lightning-button>
+
+        <lightning-button
+            class="slds-m-left_small"
+            variant="brand"
+            label="Submit"
+            onclick={handleSubmit}>
+        </lightning-button>
+    </div>
+
+</footer>
+
+
+
+
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+
+        </lightning-card>
+    </div>
+</template>
+
+
+       
+</template>

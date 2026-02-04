@@ -1,0 +1,75 @@
+/* Card */
+.card {
+    border: 1px solid #939393;
+    border-radius: 4px;
+    background: #fff;
+    margin-top:10px;
+    font-family: 'Montserrat';
+}
+
+/* Header */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size:18px;
+}
+
+/* Table */
+.table-container {
+    overflow-x: auto;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.custom-table th {
+    border: 1px solid #939393;
+    padding: 10px;
+    text-align: left;
+    font-size: 13px;
+    color:rgba(0, 0, 0, 0.6);
+}
+.custom-table td {
+    padding: 10px;
+    text-align: left;
+    font-size: 13px;
+}
+
+.custom-table th {
+    cursor: pointer;
+}
+
+.custom-table tr:hover {
+    background: #f9f9f9;
+}
+
+.no-data {
+    text-align: center;
+    padding: 20px;
+    color: #939393;
+}
+
+/* Sort icons */
+.sort-icon::after {
+    content: '⇅';
+    font-size: 10px;
+    margin-left: 6px;
+}
+
+.sort-icon.asc::after {
+    content: '↑';
+}
+
+.sort-icon.desc::after {
+    content: '↓';
+}

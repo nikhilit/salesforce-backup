@@ -1,0 +1,41 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 19-11-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   23-10-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <lightning-input type="file" accept="image/*;capture=camera" onchange={handleFileChange} capture="environment"></lightning-input>
+    <template if:true={filename}>
+        <p>Selected File: {filename}</p>
+        <p>File Modified Time (ISO): {fileModifiedTime}</p>
+        <p>Current Time (ISO): {currentTime}</p>
+        <p>File Data: {fileData}</p>
+    </template>
+
+    <div style="display: inline-block;">
+        <sharinpix-upload-button-custom-lwc
+            record-id={recordId}
+            permission-id={permissionId}
+            enable-toast={enableToast}
+            enable-image-sync={enableImageSync}
+            enable-action={enableAction}
+            file-extensions={fileExtensions}>
+
+            <span class="slds-button slds-button_brand">
+                <lightning-icon size="x-small" icon-name="utility:upload" variant="inverse"></lightning-icon>
+                <span>&nbsp;&nbsp;Custom Upload Photos</span>
+            </span>
+        </sharinpix-upload-button-custom-lwc>
+    </div>
+
+    <lightning-button
+        label="Take Photo (Deeplink)..."
+        onclick={handleTakePhoto}
+        variant="brand"
+    ></lightning-button>
+</template>

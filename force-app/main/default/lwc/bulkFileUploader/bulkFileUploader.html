@@ -1,0 +1,40 @@
+<template>
+    <lightning-card title={cardTitle} icon-name="utility:upload">
+        <div class="slds-p-around_medium">
+             <!-- <lightning-combobox
+                name="module"
+                label="Select Module"
+                value={value}
+                options={options}
+                onchange={handleChange} >
+            </lightning-combobox> -->
+            <!-- <lightning-layout>
+                <lightning-layout-item size="12">
+                    <lightning-formatted-text value={moduleLabel}></lightning-formatted-text>
+                </lightning-layout-item>
+            </lightning-layout> -->
+
+            <lightning-file-upload disabled={state.isProcessing} label="Upload XLS File" name="xlsUploader"
+                accept=".xls,.xlsx" record-id={userId} onuploadfinished={handleUploadFinished}>
+            </lightning-file-upload>
+
+            <template if:true={state.progressMessage}>
+                <p class="slds-text-color_weak slds-m-top_small">{state.progressMessage}</p>
+            </template>
+
+            <template if:true={state.isProcessing}>
+                <lightning-progress-bar value={state.jobProgress} variant="base" class="slds-m-top_small">
+                </lightning-progress-bar>
+                <p class="slds-m-top_small">{state.jobMessage}</p>
+            </template>
+
+            <template if:true={state.bulkImportId}>
+                <a href="javascript:void(0);" onclick={navigateToBulkImportStatusRecord}
+                    class="slds-text-link slds-m-top_small">
+                    Track Bulk Import Status
+                </a>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

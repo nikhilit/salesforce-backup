@@ -1,0 +1,33 @@
+.custom-container{
+	color : black;
+}
+.preview-list {
+    margin-top: 10px;
+}
+
+.preview-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    background: #f3f2f2;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+.hidden-file-input {
+    display: none;
+}
+.section-header {
+    display: flex;
+    justify-content: space-between;  /* Push title left & icon right */
+    align-items: center;             /* Vertically center them */
+}
+.upload-icon {
+    cursor: pointer;
+}
+/* .full-width-btn lightning-button {
+    width: 100%;
+}
+
+.full-width-btn .slds-button {
+    width: 100%;
+} */

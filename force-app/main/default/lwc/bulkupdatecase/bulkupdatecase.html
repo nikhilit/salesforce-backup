@@ -1,0 +1,19 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-horizontal_medium slds-p-vertical_small">
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <lightning-formatted-text label="Case Number" value={caseData.CaseNumber}></lightning-formatted-text>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <lightning-formatted-date-time label="Created Date" value={caseData.CreatedDate}></lightning-formatted-date-time>
+        </div>
+    </div>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <lightning-formatted-text label="Created By" value={caseData.CreatedByName}></lightning-formatted-text>
+        </div>
+    </div>
+        </div>
+    </lightning-card>
+</template>

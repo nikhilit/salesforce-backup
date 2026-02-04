@@ -1,0 +1,58 @@
+<!-- fileUpload.html -->
+<template>
+    <h1>File Upload</h1>
+
+    <!-- File selection controls. Always displayed.
+         Set `accept="*/*"` to allow uploads of any type of file. -->
+    <div>
+        <lightning-input
+                type="file"
+                name="fileUploader"
+                label="Select files to upload"
+                multiple="true"
+                accept="image/*"
+                onchange={handleFilesInputChange}
+            >
+            </lightning-input>
+        </div>
+
+    <!-- If a file is selected, display additional input controls. -->
+    <div if:true={fileName}>
+
+        <!-- Show the filename (read-only) -->
+        <p>Selected file:</p>
+        <p>{fileName}</p>
+        
+        <!-- Form fields for upload details -->
+        <div class="inputs">
+            <lightning-input
+                type="text"
+                label="Title"
+                value={titleValue}
+                onchange={handleTitleInputChange}
+            ></lightning-input>
+            <lightning-input
+                type="text"
+                label="Description"
+                value={descriptionValue}
+                onchange={handleDescriptionInputChange}
+            ></lightning-input>
+        </div>
+
+        <!-- Button to actually do the upload (enqueued as a draft) -->
+        <button
+            class="slds-button slds-button_brand slds-var-m-top_medium"
+            disabled={uploadingFile}
+            onclick={handleUploadClick}
+        >
+            <label>Upload</label>
+        </button>
+    </div>
+
+    <!-- If there are errors, show them here -->
+    <div if:true={errorMessage}>
+        <lightning-card title="Error">
+            <div class="card-body">{errorMessage}</div>
+        </lightning-card>
+    </div>
+</template>

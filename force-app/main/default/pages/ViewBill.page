@@ -1,0 +1,12 @@
+<apex:page controller="WorkOrderBillController">
+    <apex:outputPanel rendered="{!NOT(ISBLANK(billUrl))}">
+        <script>
+            // Automatically redirect
+            window.location.href = "{!billUrl}";
+        </script>
+    </apex:outputPanel>
+
+    <apex:outputPanel rendered="{!ISBLANK(billUrl)}">
+        <p style="color:red;">No Bill URL found for this Work Order.</p>
+    </apex:outputPanel>
+</apex:page>

@@ -1,0 +1,43 @@
+<template>
+    <lightning-card title="Update Work Order End Date" icon-name="standard:work_order">
+        <div class="slds-p-around_medium">
+            <lightning-input 
+                label="Batch Lot" 
+                value={batchLot} 
+                onchange={handleBatchLotChange}
+                required>
+            </lightning-input>
+
+            <lightning-input 
+                label="End Date" 
+                type="date" 
+                value={endDate}
+                onchange={handleEndDateChange}
+                required>
+            </lightning-input>
+
+            <div class="slds-m-top_medium">
+                <lightning-button 
+                    variant="brand" 
+                    label="Update" 
+                    onclick={handleUpdateClick}
+                    disabled={isLoading}>
+                </lightning-button>
+            </div>
+
+            <template if:true={isLoading}>
+                <div class="slds-m-top_medium">
+                    <lightning-spinner alternative-text="Processing..." size="small"></lightning-spinner>
+                </div>
+            </template>
+
+            <template if:true={message}>
+                <div class="slds-m-top_medium slds-text-color_success">{message}</div>
+            </template>
+
+            <template if:true={error}>
+                <div class="slds-m-top_medium slds-text-color_error">{error}</div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

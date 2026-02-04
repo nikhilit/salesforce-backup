@@ -1,0 +1,18 @@
+.container {
+    padding: 12px;
+}
+
+.row {
+    display: flex;
+    margin-bottom: 18px;
+}
+
+.label {
+    width: 180px;
+    font-weight: 600;
+    color: #4a4a4a;
+}
+
+.value {
+    color: #2e2e2e;
+}

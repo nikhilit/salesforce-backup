@@ -1,0 +1,44 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 19-05-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   07-05-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <div class="slds-grid slds-wrap" if:true={actionSection}>
+        <div class="slds-col slds-size_1-of-1 slds-p-around_x-small slds-align--absolute-center">
+            <button class="slds-button slds-button_brand slds-button_stretch" name="contactUpdate"
+                onclick={redirectToFlow} data-flow="Customer_Contact_Update">
+                Contact Update
+            </button>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-p-around_x-small slds-align--absolute-center">
+            <button class="slds-button slds-button_brand slds-button_stretch" name="meterNumberUpdate"
+                onclick={redirectToFlow} data-flow="Update_Meter_Number_on_business_partner">
+                Meter Update
+            </button>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-p-around_x-small slds-align--absolute-center">
+            <button class="slds-button slds-button_brand slds-button_stretch" name="addressUpdate"
+                onclick={redirectToFlow} data-flow="Customer_Address_Update">
+                Address Update
+            </button>
+        </div>
+    </div>
+
+    <template if:true={addressUpdate}>
+        <c-customer-address-update-comp record-id={recordId}></c-customer-address-update-comp>
+    </template>
+    <template if:true={contactUpdate}>
+        <c-customer-contact-update-component record-id={recordId} oncancel={handleBack}>
+        </c-customer-contact-update-component>
+    </template>
+    <template if:true={meterNumberUpdate}>
+        <c-customer-meter-number-update-component record-id={recordId} oncancel={handleBack}>
+        </c-customer-meter-number-update-component>
+    </template>
+</template>

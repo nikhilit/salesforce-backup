@@ -1,0 +1,23 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 07-11-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   07-11-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+   <div class="slds-grid slds-wrap">
+      <div class="slds-col slds-size_1-of-1 slds-p-bottom--medium">
+         <lightning-combobox label="Select PDF Type" options={options} onchange={handleChange} value={defaultValue}>
+         </lightning-combobox>
+      </div>
+      <div class="slds-col slds-size_1-of-1">
+         <div>
+            <iframe src={getURL} width="100%" height="800px" style="border:none;"></iframe>
+         </div>
+      </div>
+   </div>
+</template>

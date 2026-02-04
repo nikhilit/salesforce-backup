@@ -1,0 +1,499 @@
+<template>
+  <template if:true={isCustomerAvailable}>
+
+    <template if:true={load}>
+      <lightning-spinner class="spinner-message" variant="brand" alternative-text="Processing"></lightning-spinner>
+    </template>
+
+    <lightning-record-edit-form object-api-name="WorkOrder" record-id={recordId} data-id="meter-form"
+      onsuccess={handleSuccess}
+      onerror={handleError}>
+
+      <lightning-messages></lightning-messages>
+
+    <template if:true={FirstPage}>
+    
+
+      <lightning-card>
+        <div class="slds-p-around_medium">
+
+          <!-- 1. Current (Old) Meter Number -->
+          <div class="slds-form-element slds-m-bottom_medium">
+            <label class="slds-form-element__label input-label">Current (Old) Meter Number</label>
+            <div class="slds-form-element__control">
+              <lightning-formatted-text value={previousMeterNumberDisplay}></lightning-formatted-text>
+            </div>
+          </div>
+
+          <!-- 2. Meter Reading (previous) -->
+          <!-- <div class="slds-form-element slds-m-bottom_medium">
+            <label class="slds-form-element__label">Meter Reading (Previous)</label>
+            <div class="slds-form-element__control">
+              <lightning-formatted-text value={previousMeterReadingDisplay}></lightning-formatted-text>
+            </div>
+          </div> -->
+
+          <!-- Old Meter Photo (always visible; required if Not Replaced) -->
+          <!-- <div class="section-spacing slds-m-bottom_medium">
+            <label class="input-label slds-m-bottom_x-small">Old Meter Photo</label>
+            <c-o_-m-camera-upload-comp image-list={oldMeterPhotoSlots} onchange={handleOldMeterPhotoUpload}></c-o_-m-camera-upload-comp>
+          </div> -->
+
+          <!-- New Meter Number entry -->
+          <div class="slds-form-element slds-m-bottom_small">
+            <lightning-input
+              type="text"
+              name="New_Meter_Number"
+              label="New Meter Number"
+              placeholder="Enter new meter number"
+              value={newMeterNumber}
+              onchange={handleNewMeterNumberChange}>
+            </lightning-input>
+          </div>
+
+          <!-- Validate button -->
+          <div class="slds-m-vertical_medium">
+            <lightning-button label="Validate" variant="neutral" onclick={handleValidateClick}></lightning-button>
+          </div>
+
+       <!-- ---------- AFTER VALIDATION: Show rest (only after click Validate or auto-validate) ---------- -->
+      <template if:true={showAfterValidation}>
+
+        <!-- If numbers do NOT match: ALREADY REPLACED FLOW (display-only text + storage + new meter photo & reading) -->
+        <template if:true={showMeterAlreadyReplacedDisplay}>
+          <div class="section-spacing">
+            <lightning-formatted-text value="Meter already replaced" class="slds-text-heading_small"></lightning-formatted-text>
+          </div>
+
+          <div class="slds-form-element section-spacing">
+            <lightning-combobox label="Select Storage Location (SAP)"
+                                value={storageLocation}
+                                options={storageLocationOptions}
+                                onchange={handleStorageLocationChange}>
+            </lightning-combobox>
+          </div>
+
+          <div class="slds-form-element section-spacing">
+            <label class="input-label">New Meter Image</label>
+            <div class="camera-wrapper">
+              <c-o_-m-camera-upload-comp
+                image-list={newMeterPhotoSlots}
+                onchange={handleNewMeterPhotoUpload}>
+              </c-o_-m-camera-upload-comp>
+            </div>
+          </div>
+
+          <div class="slds-form-element section-spacing">
+            <lightning-input type="text" name="New_Meter_Reading" label="New Meter Reading"
+              value={newMeterReading} onchange={handleNewMeterReadingChange} required>
+            </lightning-input>
+          </div>
+        </template>
+
+        <!-- If numbers MATCH: NOT REPLACED FLOW (display-only + Old Meter Reading + ensure Old Meter Photo captured) -->
+        <template if:true={showMeterNotReplacedDisplay}>
+          <div class="section-spacing">
+            <lightning-formatted-text value="Meter not replaced" class="slds-text-heading_small"></lightning-formatted-text>
+          </div>
+
+          <div class="slds-form-element section-spacing">
+            <lightning-input type="text" name="Old_Meter_Reading_Captured" label="Old Meter Reading (capture)"
+              value={oldMeterReadingCaptured} onchange={handleOldMeterReadingChange} required>
+            </lightning-input>
+          </div>
+
+          <!-- show old meter photo uploader again if technician didn't upload earlier or to add more -->
+          <div class="slds-form-element section-spacing">
+            <label class="input-label">Old Meter Photo (if not already captured)</label>
+            <div class="camera-wrapper">
+              <c-o_-m-camera-upload-comp
+                image-list={oldMeterPhotoSlots}
+                onchange={handleOldMeterPhotoUpload}>
+              </c-o_-m-camera-upload-comp>
+            </div>
+          </div>
+        </template>
+      </template>
+
+
+          <!-- ---------- Recurring Steps (these appear after validation as you requested) ---------- -->
+          <div class="section-spacing">
+            <!-- Outside Disconnection -->
+            <lightning-input type="checkbox"
+                            label="Disconnection from outside"
+                            checked={isDisconnectionRequired}
+                            onchange={handleDisconnectionChange}>
+            </lightning-input>
+
+            <template if:true={showDisconnectionRemark}>
+              <lightning-textarea label="Remarks"
+                                  value={disconnectionRemark}
+                                  onchange={handleDisconnectionRemark}
+                                  data-required="true">
+              </lightning-textarea>
+            </template>
+          </div>
+
+          <!-- RIV Closed: only visible when leakage was found before MCV -->
+          <template if:true={showLeakageBeforeMCV}>
+            <div class="section-spacing">
+              <lightning-input type="checkbox" label="RIV Closed" checked={rivClosed} onchange={handleRIVClosed}></lightning-input>
+
+              <template if:true={rivClosed}>
+                <div class="slds-p-top_small">
+                  <label class="input-label">RIV Closed - Photo</label>
+                  <div class="camera-wrapper">
+                    <c-o_-m-camera-upload-comp image-list={rivClosedPhotoSlots} onchange={handleRivClosedPhotoUpload}></c-o_-m-camera-upload-comp>
+                  </div>
+                  <template if:true={rivClosedPhotoMissing}>
+                    <div class="slds-text-color_error slds-m-top_xx-small">Please capture/upload at least one photo for RIV Closed.</div>
+                  </template>
+                </div>
+              </template>
+            </div>
+          </template>
+
+          <!-- MCV Plugged -->
+          <div class="section-spacing">
+            <lightning-input type="checkbox" label="MCV Plugged" checked={isMCVPluggingRequired} onchange={handleMCVChange}></lightning-input>
+
+            <template if:true={isMCVPluggingRequired}>
+              <lightning-textarea label="Remarks" value={mcvPluggingRemark} onchange={handleMCVPluggingRemark}></lightning-textarea>
+
+              <div class="slds-p-top_small">
+                <label class="input-label">MCV Plugged - Photo </label>
+                <div class="camera-wrapper">
+                  <c-o_-m-camera-upload-comp image-list={mcvPluggingPhotoSlots} onchange={handleMcvPluggingPhotoUpload}></c-o_-m-camera-upload-comp>
+                </div>
+                <template if:true={mcvPluggingPhotoMissing}>
+                  <div class="slds-text-color_error slds-m-top_xx-small">Please capture/upload at least one photo for MCV plugged.</div>
+                </template>
+              </div>
+            </template>
+          </div>
+
+          <!-- Meter Condition checkboxes + remark + photo for each -->
+          <div class="section-spacing slds-m-bottom_medium">
+            <label class="slds-form-element__label">Meter Condition</label>
+
+            <div class="slds-grid slds-wrap condition-row slds-p-top_small">
+
+              <!-- Meter Sound -->
+              <div class="slds-col slds-size_1-of-1 slds-p-bottom_x-small">
+                <lightning-input type="checkbox" label="Meter Sound" checked={addMeterSound} onchange={handleMeterSound}></lightning-input>
+                <template if:true={addMeterSound}>
+                  <lightning-textarea label="Remarks" value={meterSoundRemarks} onchange={handleMeterSoundRemarks}></lightning-textarea>
+                  <c-o_-m-camera-upload-comp image-list={meterSoundPhotoSlots} onchange={handleMeterSoundPhotoUpload}></c-o_-m-camera-upload-comp>
+                </template>
+              </div>
+
+              <!-- Old Meter Rusted -->
+              <div class="slds-col slds-size_1-of-1 slds-p-bottom_x-small">
+                <lightning-input type="checkbox" label="Old Meter Rusted" checked={oldMeterRusted} onchange={handleOldMeterRusted}></lightning-input>
+                <template if:true={oldMeterRusted}>
+                  <lightning-textarea label="Remarks" value={oldMeterRustedRemarks} onchange={handleOldMeterRustedRemarks}></lightning-textarea>
+                  <c-o_-m-camera-upload-comp image-list={oldMeterRustedPhotoSlots} onchange={handleOldMeterRustedPhotoUpload}></c-o_-m-camera-upload-comp>
+                </template>
+              </div>
+
+              <!-- Counter Defective / Smokey -->
+              <div class="slds-col slds-size_1-of-1 slds-p-bottom_x-small">
+                <lightning-input type="checkbox" label="Counter Defective / Smokey" checked={counterDefectiveSmoke} onchange={handleCounterDefective}></lightning-input>
+                <template if:true={counterDefectiveSmoke}>
+                  <lightning-textarea label="Remarks" value={counterDefectiveRemarks} onchange={handleCounterDefectiveRemarks}></lightning-textarea>
+                  <c-o_-m-camera-upload-comp image-list={counterDefectivePhotoSlots} onchange={handleCounterDefectivePhotoUpload}></c-o_-m-camera-upload-comp>
+                </template>
+              </div>
+
+              <!-- Meter Faulty -->
+              <div class="slds-col slds-size_1-of-1 slds-p-bottom_x-small">
+                <lightning-input type="checkbox" label="Meter Faulty" checked={meterFaulty} onchange={handleMeterFaulty}></lightning-input>
+                <template if:true={meterFaulty}>
+                  <lightning-textarea label="Remarks" value={meterFaultyRemarks} onchange={handleMeterFaultyRemarks}></lightning-textarea>
+                  <c-o_-m-camera-upload-comp image-list={meterFaultyPhotoSlots} onchange={handleMeterFaultyPhotoUpload}></c-o_-m-camera-upload-comp>
+                </template>
+              </div>
+
+              <!-- Meter Not Running -->
+              <div class="slds-col slds-size_1-of-1 slds-p-bottom_x-small">
+                <lightning-input type="checkbox" label="Meter Not Running" checked={meterNotRunning} onchange={handleMeterNotRunning}></lightning-input>
+                <template if:true={meterNotRunning}>
+                  <lightning-textarea label="Remarks" value={meterNotRunningRemarks} onchange={handleMeterNotRunningRemarks}></lightning-textarea>
+                  <c-o_-m-camera-upload-comp image-list={meterNotRunningPhotoSlots} onchange={handleMeterNotRunningPhotoUpload}></c-o_-m-camera-upload-comp>
+                </template>
+              </div>
+
+            </div><!-- condition-row -->
+          </div>
+
+          <!-- Meter Not Replaced checkbox -->
+          <!-- <div class="section-spacing">
+            <lightning-input type="checkbox" label="Meter not replaced?" checked={isMeterNotReplaced} onchange={handleMeterNotReplacedChange}></lightning-input>
+          </div>
+
+          <template if:true={isMeterNotReplaced}>
+            <div class="slds-form-element section-spacing">
+              <lightning-input type="text" name="Old_Meter_Reading" label="Old Meter Reading" value={oldMeterReadingCaptured} onchange={handleOldMeterReadingChange} required></lightning-input>
+            </div>
+
+            <div class="section-spacing">
+              <label class="input-label">Old Meter Photo (required)</label>
+              <c-o_-m-camera-upload-comp image-list={oldMeterPhotoSlots} onchange={handleOldMeterPhotoUpload}></c-o_-m-camera-upload-comp>
+            </div>
+          </template> -->
+
+          <!-- Mandatory recurring steps (always visible) -->
+          
+
+          <div class="section-spacing">
+            <label class="slds-form-element__label">Leakage Test</label>
+            <lightning-combobox options={gasLeakageOptions} value={gasLeakageObserved} onchange={handleGasLeakageChange}></lightning-combobox>
+          </div>
+          <!-- Case Number (Only when Leakage Test = Yes) -->
+      <template if:true={showLeakageCaseNumber}>
+        <div class="section-spacing">
+          <lightning-input
+            type="text"
+            label="Case Number"
+            value={leakageCaseNumber}
+            onchange={handleLeakageCaseNumberChange}>
+          </lightning-input>
+        </div>
+      </template>
+
+
+          <!-- Inlet / Outlet Rectification (insert after Leakage / MCV related markup) -->
+           
+
+              <!-- ---------- Inlet/Outlet Rectification (appears after Leakage test) ---------- -->
+<div class="section-spacing">
+  <lightning-combobox
+    name="Inlet_Outlet_Rectification_Required"
+    label="Inlet/Outlet Rectification Required"
+    options={inletOutletOptions}
+    value={inletOutletValue}
+    onchange={handleInletOutletChange}>
+  </lightning-combobox>
+</div>
+
+<template if:true={showInletOutletRectification}>
+  <div class="section-spacing">
+    <label class="input-label">Rectification using old meter</label>
+    <div class="slds-m-top_x-small">
+      <lightning-input 
+        type="checkbox"
+        label="Old meter is working after rectification?"
+        checked={oldMeterWorking}
+        onchange={handleOldMeterWorkingChange}>
+      </lightning-input>
+    </div>
+
+    <!-- If old meter working -> show dropdown of rectification remarks (required) -->
+    <template if:true={showRectificationRemarkDropdown}>
+      <div class="slds-m-top_small">
+        <lightning-combobox
+          name="rectificationRemark"
+          label="Remarks"
+          options={rectificationRemarkOptions}
+          value={rectificationRemark}
+          onchange={handleRectificationRemarkChange}>
+        </lightning-combobox>
+      </div>
+
+      <!-- <div class="slds-m-top_small">
+        <lightning-button label="Close Rectification" variant="brand" onclick={handleRectificationClose}></lightning-button>
+      </div> -->
+    </template>
+
+  </div>
+</template>
+
+
+
+          <div class="section-spacing">
+            <label class="slds-form-element__label">Rubber Hose Condition</label>
+            <lightning-combobox options={rubberHoseOptions} value={rubberHoseCondition} onchange={handleRubberHoseCondition}></lightning-combobox>
+          </div>
+
+          <!-- Unsafe & Inaccessible flows -->
+          <div class="section-spacing">
+            <lightning-input type="checkbox" label="Meter Unsafe" checked={meterUnsafe} onchange={handleMeterUnsafe}></lightning-input>
+            <lightning-input type="checkbox" label="Meter Inaccessible" checked={meterInaccessible} onchange={handleMeterInaccessible}></lightning-input>
+          </div>
+
+          <template if:true={meterUnsafe}>
+            <div class="section-spacing unsafe-flow">
+              <lightning-textarea label="Remarks" value={meterUnsafeRemarks} onchange={handleMeterUnsafeRemarks}></lightning-textarea>
+            </div>
+
+            <div class="section-spacing">
+              <c-o_-m-camera-upload-comp image-list={meterUnsafePhotoSlots} onchange={handleUnsafePhotoUpload}></c-o_-m-camera-upload-comp>
+            </div>
+
+            <div class="section-spacing">
+              <lightning-input type="file" label="Upload Unsafe Letter" onchange={handleUnsafeLetterFileChange}></lightning-input>
+              <template if:true={unsafeLetterFileName}>
+                <p>Selected File: {unsafeLetterFileName}</p>
+              </template>
+            </div>
+
+            <div class="slds-m-top_small">
+              <lightning-input type="checkbox" label="Customer ready to shift" checked={meterUnsafeReadyToShift} onchange={handleMeterUnsafeReadyToShift}></lightning-input>
+            </div>
+
+            <!-- <template if:true={meterUnsafeReadyToShift}>
+              <div class="slds-m-top_small">
+                <lightning-button label="Proceed" variant="brand" onclick={handleProceedFromUnsafe}></lightning-button>
+              </div>
+            </template> -->
+          </template>
+
+          <template if:true={meterInaccessible}>
+            <div class="section-spacing inaccessible-flow">
+              <lightning-textarea label="Remarks" value={meterInaccessibleRemarks} onchange={handleMeterInaccessibleRemarks}></lightning-textarea>
+
+              <div class="slds-m-top_small">
+                <c-o_-m-camera-upload-comp image-list={meterInaccessiblePhotoSlots} onchange={handleMeterInaccessiblePhotoUpload}></c-o_-m-camera-upload-comp>
+              </div>
+
+              <div class="slds-m-top_small">
+                <lightning-input type="checkbox" label="Customer ready to shift" checked={meterInaccessibleReadyToShift} onchange={handleMeterInaccessibleReadyToShift}></lightning-input>
+              </div>
+
+              <!-- <template if:true={meterInaccessibleReadyToShift}>
+                <div class="slds-m-top_small">
+                  <lightning-button label="Proceed" variant="brand" onclick={handleProceedFromInaccessible}></lightning-button>
+                </div>
+              </template> -->
+            </div>
+          </template>
+
+          <!-- New Meter Photo & Reading (When Already Replaced) -->
+          <template if:true={isMeterAlreadyReplaced}>
+            <div class="section-spacing">
+              <label class="input-label">New Meter Photo</label>
+              <c-o_-m-camera-upload-comp image-list={newMeterPhotoSlots} onchange={handleNewMeterPhotoUpload}></c-o_-m-camera-upload-comp>
+            </div>
+
+            <div class="slds-form-element section-spacing">
+              <lightning-input type="text" label="New Meter Reading" value={newMeterReading} onchange={handleNewMeterReadingChange}></lightning-input>
+            </div>
+          </template>
+
+          <!-- Alternate phone, correct address, occupant type -->
+          <div class="section-spacing">
+            <lightning-input type="tel" label="Alternate Phone Number" value={alternatePhone} onchange={handleAlternatePhone}></lightning-input>
+            <lightning-textarea label="Correct Address" value={correctAddress} onchange={handleCorrectAddress}></lightning-textarea>
+          </div>
+
+          <div class="section-spacing">
+            <lightning-radio-group label="Occupant Type" options={customerTenantOptions} value={customerOrTenant} onchange={handleCustomerTenant}></lightning-radio-group>
+          </div>
+
+          <template if:true={isTenant}>
+            <div class="section-spacing">
+              <lightning-input type="text" label="Tenant Name" value={tenantName} onchange={handleTenantName}></lightning-input>
+              <lightning-input type="tel" label="Tenant Mobile Number" value={tenantMobile} onchange={handleTenantMobile}></lightning-input>
+            </div>
+          </template>
+
+          <!-- Before & After Meter Photo Upload -->
+          <template if:true={showBeforeAfterMeterUpload}>
+            <div class="section-spacing">
+              <label class="input-label">Before & After Meter Replacement Photos</label>
+              <c-o_-m-camera-upload-comp image-list={meterImageUploadSlots} onchange={handleMeterFileUpload}></c-o_-m-camera-upload-comp>
+            </div>
+          </template>
+
+          <!-- Reversal Correction Details -->
+          <template if:true={showReversalImages}>
+            <div class="section-spacing">
+              <label class="input-label">Reversal (Inlet/Outlet) Photos</label>
+              <c-o_-m-camera-upload-comp image-list={reversalPhotoUploadSlots} onchange={handleReversalFile}></c-o_-m-camera-upload-comp>
+              <lightning-textarea name="Reversal_Correction_Details__c" label="Reversal Correction Details" value={reversalCorrectionDetails} onchange={handleCorrectionChange}></lightning-textarea>
+            </div>
+          </template>
+
+          <!-- Gas Type -->
+            <div class="section-spacing">
+              <label class="input-label">Gas Type</label>
+              <lightning-input label="Gas Type" name="Gas_Type__c" value={gasType} onchange={handleGasTypeTextChange}></lightning-input>
+            </div>
+
+          <!-- Gas Leak / MCV flows -->
+          <template if:true={showGasLeakage}>
+            <div class="section-spacing">
+              <lightning-combobox label="Gas Leakage Observed?" options={gasLeakageOptions} value={gasLeakageObserved} onchange={handleGasLeakageChange}></lightning-combobox>
+            </div>
+          </template>
+
+          <template if:true={showMCVStatus}>
+            <div class="section-spacing">
+              <lightning-combobox label="MCV Status" options={mcvStatusOptions} value={mcvStatus} onchange={handleMCVStatusChange}></lightning-combobox>
+            </div>
+          </template>
+
+          <template if:true={showGasDetectorReading}>
+            <div class="section-spacing">
+              <lightning-input label="First Reading of the gas detector" value={gasDetectorReading} onchange={handleGasDetectorReadingChange}></lightning-input>
+            </div>
+          </template>
+
+          <template if:true={showMCVClosed}>
+            <div class="section-spacing">
+              <lightning-combobox label="MCV Closed" options={mcvClosedOptions} value={mcvClosed} onchange={handleMCVClosedChange}></lightning-combobox>
+            </div>
+
+            <template if:true={showMCVClosedPhotoUpload}>
+              <div class="section-spacing">
+                <label class="input-label">Photo of Plugged MCV</label>
+                <c-o_-m-camera-upload-comp image-list={mcvClosedPhotoSlots} onchange={handleMCVClosedPhotoUpload}></c-o_-m-camera-upload-comp>
+                <template if:true={mcvClosedPhotoMissing}>
+                  <div class="slds-text-color_error slds-m-top_x-small">Please capture at least one photo of the plugged MCV.</div>
+                </template>
+              </div>
+            </template>
+          </template>
+
+          <!-- BP Number -->
+          <template if:true={showBPNumber}>
+            <div class="section-spacing">
+              <label class="slds-form-element__label">BP Number</label>
+              <div class="slds-form-element__control">
+                <lightning-formatted-text value={bpNumber}></lightning-formatted-text>
+              </div>
+            </div>
+          </template>
+
+          <!-- Submit -->
+          <div class="slds-m-top_medium slds-align_absolute-center">
+            <lightning-button variant="brand" label="Save" onclick={handleSubmitClick} disabled={isload}></lightning-button>
+          </div>
+
+          <template if:true={isload}>
+            <lightning-spinner class="spinner-message" variant="brand" alternative-text="Processing"></lightning-spinner>
+          </template>
+
+        </div> <!-- end slds-p-around_medium -->
+      </lightning-card>
+
+    
+    </template>
+    </lightning-record-edit-form>
+    <!-- Final image capture page -->
+    <template if:true={showFinalPage}>
+      <lightning-card title="Meter Replacement - Image Capture">
+        <div class="slds-p-around_medium">
+          <c-o_-m-camera-upload-comp image-list={photoUploadSlots} max-count="10" onchange={handleFinalImageUpload}></c-o_-m-camera-upload-comp>
+
+          <lightning-combobox name="Final Remarks" label="Final Remarks" value={finalRemark} options={finalRemarksOptions} onchange={handleFinalRemarkChange}></lightning-combobox>
+
+          <div style="margin-left:6rem; margin-top:1rem;">
+            <lightning-button label="Submit Final Details" variant="brand" onclick={handleFinalSubmit} disabled={isload}></lightning-button>
+          </div>
+        </div>
+      </lightning-card>
+    </template>
+
+  </template>
+</template>

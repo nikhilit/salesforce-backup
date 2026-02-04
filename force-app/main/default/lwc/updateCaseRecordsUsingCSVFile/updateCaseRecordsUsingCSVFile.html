@@ -1,0 +1,18 @@
+<template>
+    <lightning-card title="Case CSV Import">
+        <div class="slds-m-around_medium">
+
+            <lightning-file-upload
+                label="Upload CSV File"
+                name="fileUploader"
+                accept=".csv"
+                onuploadfinished={handleUploadFinished}>
+            </lightning-file-upload>
+
+            <template if:true={showSpinner}>
+                <lightning-spinner alternative-text="Processing..."></lightning-spinner>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,313 @@
+<template>
+    
+    <template if:true={closeCard}>
+         <!-- <template if:true={isload}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template> -->
+    <lightning-card title="Site Details">
+        <template if:true={isload}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+        <div class="slds-p-around_medium">
+            <template if:true={showAvailabilitySelection}>
+    <lightning-combobox label="Is Customer Available?" value={selectedOption} placeholder="Select an option"
+        options={availabilityOptions} onchange={handleSelection}>
+    </lightning-combobox>
+</template>
+
+
+            <!-- No = Show CNA Domestic Meter component -->
+            <template if:true={showCnaDomestic}>
+
+                <template if:true={lastUnavailableDate}>
+    <div class="slds-p-bottom_small slds-text-color_weak">
+        <lightning-formatted-date-time 
+            value={lastUnavailableDate}
+            year="numeric" 
+            month="long" 
+            day="2-digit" 
+            hour="2-digit" 
+            minute="2-digit">
+        </lightning-formatted-date-time>
+        <p>Previous visit with "Customer Unavailable"</p>
+    </div>
+</template>
+
+
+                <lightning-card title="Customer Unavailable">
+        <lightning-combobox label="Reason"
+            options={reasonOptions}
+            value={selectedReason}
+            onchange={handleReasonChange}>
+        </lightning-combobox>
+
+        <template if:true={showRemarks}>
+            <lightning-textarea label="Remarks" value={remarks} onchange={handleRemarks}></lightning-textarea>
+        </template>
+
+        <template if:true={imageUploadPage}>
+                <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-1">
+                <div>
+                    <c-o_-m-camera-upload-comp
+                        image-list={photoUploadSlots}
+                        onchange={handleFile}>
+                    </c-o_-m-camera-upload-comp>
+                </div> 
+                </div>
+            </div>
+            </template>
+
+            <template if:true={showFollowUpConfirmed}>
+
+                  <lightning-combobox
+                                    name="followUpDate"
+                                    label="Is follow up date confirmed with user?"
+                                    value={followUpValue}
+                                    placeholder="Select an option"
+                                    options={followUpDateOptions}
+                                    onchange={handleFollowUpDate} required=true>
+                                </lightning-combobox>
+
+            
+ <template if:true={showFollowUpConfirmedRemarks}>
+               
+         <lightning-input type="datetime" name="startDate" label="Follow Up Date" value={selectedDateTime} onchange={handleDateTimeChange} >
+
+        </lightning-input>
+            <lightning-textarea label="Remarks" value={remarks} onchange={handleRemarks} required=true></lightning-textarea>
+        </template>
+       
+
+           
+
+        <template if:true={showFollowUpDateSection}>
+
+            <template if:true={followUpCount}>
+
+           <h1 style="margin-top:1rem;"><b>Follow-Up Created :{followUpCount}</b>  </h1> 
+
+            </template>
+
+  <lightning-input type="datetime" name="startDate" label="Follow Up Date" value={selectedDateTime} onchange={handleDateTimeChange} required >
+
+  </lightning-input>
+    <!-- <lightning-input
+        type="date"
+        label="Follow-Up Visit Date"
+        value={followUpDate}
+        onchange={handleFollowUpDateChange}>
+    </lightning-input> -->
+</template>
+
+ </template>
+
+ 
+    </lightning-card>
+            </template>
+
+            <!-- CNA = Show Photo Upload -->
+            <template if:true={showCnaPhotoUpload}>
+                <!-- <lightning-input type="file" label="Upload CNA Photo" onchange={handleCnaPhotoUpload}></lightning-input>
+                <template if:true={uploadedFileName}>
+                    <p class="slds-text-body_regular slds-m-top_small">Uploaded: {uploadedFileName}</p>
+                </template> -->
+                <lightning-input type="file" label="Upload CNA Photo" accept="*/*"
+                     onchange={handleFileChange}></lightning-input>
+ 
+                <template if:true={fileName}>
+                    <p style="margin-left: 20px;">File Name: {fileName}</p>
+                   
+                </template>  
+                 <div style="margin-top:1rem;margin-left:7rem;">
+              <lightning-button label="Save" onclick={handleCNAUploadFile}></lightning-button>
+
+
+                    </div>
+            </template>
+
+            <!-- Yes = Show Domestic Meter Checking component -->
+            <template if:true={showDomesticMeterCheck}>
+                <!-- Step 1: Meter Availability -->
+                <lightning-combobox label="Is Meter Available?" value={isMeterAvailable} options={yesNoOptions}
+                    onchange={handleMeterAvailability}>
+                </lightning-combobox>
+
+
+<template if:true={showMeterUnavailableSection}>
+
+     <lightning-combobox label="Select Reason"
+            options={reasonOptionsMeter}
+            value={selectedReasons}
+            onchange={handleReasonChangeMeter}>
+        </lightning-combobox>
+
+    <!-- <lightning-checkbox-group
+        label="Select Reason"
+        options={reasonOptionsMeter}
+        value={selectedReasons}
+        onchange={handleReasonChangeMeter}>
+    </lightning-checkbox-group> -->
+
+    <!-- Show textarea if 'Miscellaneous' selected -->
+    <template if:true={showMiscellaneous}>
+        <lightning-textarea label="Miscellaneous" value={reasonNoMeter}
+                        onchange={handleReasonNoMeter}>
+                    </lightning-textarea>
+    </template>
+
+    <!-- Show upload if 'Permanent Disconnection' selected -->
+    <template if:true={showPermanentDisconnection}>
+       <c-o_-m-camera-upload-comp image-list={meterUnavailablePhotos} onchange={handleFileMeter}>
+        </c-o_-m-camera-upload-comp>
+    </template>
+
+</template>
+
+
+                <!-- If Meter Available = Yes -->
+                <template if:true={showGasUsageQuestion}>
+                    <!-- Ask: Is Customer Using Gas -->
+                    <lightning-combobox label="Is Customer Using Gas?" value={isUsingGas} options={yesNoOptions}
+                        onchange={handleGasUsage}>
+                    </lightning-combobox>
+                </template>
+
+                <!-- If Meter Available = Yes AND Using Gas = No -->
+                <template if:true={showGasNotUsedSection}>
+                    
+                    <lightning-input  label="Meter Number" type="text" value={meterNumberGas} onchange={handleMeterNumberGas}>
+                    </lightning-input>
+
+                   
+
+                    <c-o_-m-camera-upload-comp image-list={gasNotUsedPhotos} onchange={handleFileGas}>
+                    </c-o_-m-camera-upload-comp>
+
+                    <lightning-input label="Meter Reading" type="text" value={meterReading}
+                                    onchange={handleReading}>
+                                </lightning-input>
+
+                    <lightning-textarea label="Reason Gas Not Used" type="text" value={reasonGasNotUsed}
+                        onchange={handleReasonGasNotUsed}>
+                    </lightning-textarea>
+
+                </template>
+
+                <!-- If Meter Available = Yes AND Using Gas = Yes -->
+                <template if:true={showMeterExecutionSection}>
+                    <lightning-input label="Meter Number" value={meterNumber} onchange={handleMeterNumber}>
+                    </lightning-input>
+
+                      <lightning-combobox
+                            name="meterMake"
+                            label="Meter Make"
+                            value={meterMake}
+                            options={meterMakeOptions}
+                            onchange={handleMeterMakeChange}>
+                        </lightning-combobox>
+
+
+                    <lightning-combobox
+    name="leakTest"
+    label="Leak Test with Soap Solution"
+    value={leakTestValue}
+    placeholder="Select an option"
+    options={leakTestOptions}
+    onchange={handleLeakTestChange}>
+</lightning-combobox>
+
+
+
+                    <!-- Image Upload Section -->
+                    <template if:false={imagesSubmitted}>
+                        <div class="image-upload-section">
+                            <!-- To show all 4 upload camera icons
+                                <c-o_-m-camera-upload-comp image-list={photoUploadSlotsYes} onchange={handleFileYes}>
+                            </c-o_-m-camera-upload-comp> -->
+
+                              <c-o_-m-camera-upload-comp image-list={photoUploadSlotsYesMeterInstallation} onchange={handleFileYesMeterInstallation}>
+                            </c-o_-m-camera-upload-comp>
+
+                             <lightning-input type="text" label="Before Meter Reading" value={beforeMeterReading}
+                                    onchange={handleBeforeReading}    pattern="\d{1,5}(\.\d{0,3})?">
+                                </lightning-input>
+
+                               <c-o_-m-camera-upload-comp image-list={photoUploadSlotsYesBeforeMeterReading} onchange={handleFileYesBeforeMeterReading}>
+                            </c-o_-m-camera-upload-comp>   
+
+                            <c-o_-m-camera-upload-comp image-list={photoUploadSlotsYesStoveBurning} onchange={handleFileYesStoveBurning}>
+                            </c-o_-m-camera-upload-comp>   
+
+                             <lightning-input type="text" label="After Meter Reading" value={afterMeterReading}
+                                    onchange={handleAfterReading}  pattern="\d{1,5}(\.\d{0,3})?">
+                                </lightning-input>
+
+                              <c-o_-m-camera-upload-comp image-list={photoUploadSlotsYesAfterMeterPhoto} onchange={handleFileYesAfterMeterReading}>
+                            </c-o_-m-camera-upload-comp>      
+
+
+                            <!-- <lightning-input type="number" label="Before Meter Reading" value={beforeMeterReading}
+                                    onchange={handleBeforeReading} min="1" max="99999" >
+                                </lightning-input> -->
+
+                                <!-- <lightning-input type="number" label="After Meter Reading" value={afterMeterReading}
+                                    onchange={handleAfterReading} min="1" max="99999">
+                                </lightning-input> -->
+
+                                 <!--  need to uncomment
+                                    <lightning-input type="text" label="Before Meter Reading" value={beforeMeterReading}
+                                    onchange={handleBeforeReading}    pattern="\d{1,5}(\.\d{0,3})?">
+                                </lightning-input>
+
+                                  <lightning-input type="text" label="After Meter Reading" value={afterMeterReading}
+                                    onchange={handleAfterReading}  pattern="\d{1,5}(\.\d{0,3})?">
+                                </lightning-input> -->
+
+                            <lightning-combobox label="Meter Status" value={meterStatus} options={statusOptions}
+                                onchange={handleStatusChange}>
+                            </lightning-combobox>
+                       
+
+                            <template if:true={isNotRunning}>
+                                <lightning-textarea label="Abnormal Reading Reason / Remark" value={reason}
+                                    onchange={handleReason}>
+                                </lightning-textarea>
+                            </template>
+
+                            <lightning-combobox
+    name="gasLeakageCheck"
+    label="Ensure No Gas Leakage Before Leaving Site"
+    value={gasLeakageCheckValue}
+    placeholder="Select an option"
+    options={gasLeakageOptions}
+    onchange={handleGasLeakageChange}>
+</lightning-combobox>
+
+
+                        </div>
+                    </template>
+
+                </template>
+            </template>
+        </div>
+
+        <template if:true={showSubmitButton}>
+        <div style="margin-left:7rem; margin-top:1rem;">
+            <lightning-button label="Submit" onclick={handleSubmit}></lightning-button>
+
+        </div>
+
+        </template>
+
+        <!-- <template if:true={showCustomerYesSubmitButton}>
+        <div style="margin-left:7rem; margin-top:1rem;">
+            <lightning-button label="Submit Yes" onclick={handleCustomerYesSubmit}></lightning-button>
+
+        </div>
+
+        </template> -->
+    </lightning-card>
+
+    </template>
+</template>

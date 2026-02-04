@@ -1,0 +1,93 @@
+<template>
+    <div class="work-order-list-container">
+
+        <!-- Header -->
+        <div class="header-section slds-grid slds-grid_align-spread slds-grid_vertical-align-center"
+             style="padding: 0.5rem 1rem; background-color: #0170bc;">
+            
+            <div class="icon-container">
+                <lightning-icon icon-name="utility:back"
+                                size="small"
+                                class="custom-white-icon"
+                                style="--slds-c-icon-color-foreground-default: white; cursor: pointer;"
+                                onclick={handleBack}
+                                title="Back">
+                </lightning-icon>
+            </div>
+
+            <div class="header-title slds-text-heading_small slds-text-color_inverse">
+                Completed Work Orders
+                <div class="slds-text-body_small slds-text-color_inverse-weak">
+                    <template if:true={showOfflineListView}>
+                        <lightning-icon icon-name="utility:offline" size="x-small"></lightning-icon>
+                        Offline • 
+                    </template>
+                    {workOrders.length} records
+                </div>
+            </div>
+
+            <div class="icon-container">
+                <lightning-button-icon icon-name="utility:refresh" 
+                                      variant="bare" 
+                                      alternative-text="Refresh" 
+                                      title="Refresh"
+                                      onclick={refreshData}
+                                      class="slds-m-left_x-small"
+                                      style="--slds-c-button-color-foreground-default: white; cursor: pointer;"
+                                      disabled={isNavigating}>
+                </lightning-button-icon>
+            </div>
+        </div>
+
+        <!-- Offline Content -->
+        <template if:true={showOfflineListView}>
+            <div class="slds-p-around_medium main-content">
+                <template if:true={isLoading}>
+                    <div class="slds-text-align_center slds-p-around_large">
+                        <lightning-spinner alternative-text="Loading Work Orders..." size="medium"></lightning-spinner>
+                    </div>
+                </template>
+
+                <template if:false={isLoading}>
+                    <template if:true={hasData}>
+                        <div class="slds-card datatable-container">
+                            <div class="slds-card__header slds-grid slds-grid_align-spread">
+                                <h2 class="slds-text-heading_small">Completed Work Orders</h2>
+                                <div class="slds-text-body_small slds-text-color_weak">
+                                    Total: {workOrders.length}
+                                </div>
+                            </div>
+                            <div class="slds-card__body">
+                                <lightning-datatable
+                                    key-field="id"
+                                    data={workOrders}
+                                    columns={columns}
+                                    hide-checkbox-column
+                                    show-row-number-column
+                                    wrap-text-max-lines="3"
+                                    class="work-order-datatable">
+                                </lightning-datatable>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template if:false={hasData}>
+                        <div class="slds-notify slds-notify_alert slds-alert_info slds-m-top_medium">
+                            <span class="slds-assistive-text">Info</span>
+                            <span class="slds-icon_container slds-icon-utility-info slds-m-right_x-small">
+                                <lightning-icon icon-name="utility:info" size="small"></lightning-icon>
+                            </span>
+                            <div>
+                                <h2>No Work Orders Available</h2>
+                                <p class="slds-m-top_x-small">
+                                    Please go online to sync data from your list view.
+                                </p>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+            </div>
+        </template>
+
+    </div>
+</template>

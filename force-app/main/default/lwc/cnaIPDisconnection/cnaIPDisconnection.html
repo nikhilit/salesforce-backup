@@ -1,0 +1,79 @@
+<template>
+
+     <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+
+    <template if:true={showForm}>
+        <lightning-card title="Unsuccessful Visit Details">
+            <lightning-combobox
+                label="Reason for Unsuccessful Visit"
+                value={selectedReason}
+                options={reasonOptions}
+                onchange={handleReasonChange}
+                required>
+            </lightning-combobox>
+
+            <template if:true={showRemarks}>
+    <lightning-textarea
+        label="Remarks"
+        value={notes}
+        onchange={handleNotesChange}
+        required
+        class="slds-m-top_medium">
+    </lightning-textarea>
+</template>
+
+
+
+            <template if:true={imageUploadPage}>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1">
+            <c-o_-m-camera-upload-comp
+                image-list={photoUploadSlots}
+                onchange={handleFile}>
+            </c-o_-m-camera-upload-comp>
+        </div> 
+    </div>
+</template>
+
+
+<template if:true={showFollowUpDate}>
+    <div>
+    <!-- <lightning-input
+        type="date"
+        label="Follow-Up Visit Date"
+        value={followUpDate}
+        onchange={handleFollowUpDateChange}
+        required
+        class="slds-m-top_medium">
+    </lightning-input> -->
+     <lightning-input
+                type="datetime"
+                name="startDate"
+                label="Follow-Up Visit Date"
+                value={selectedDateTime}
+                onchange={handleDateTimeChange} 
+                required>
+
+     </lightning-input>
+    </div>
+</template>
+
+
+       
+
+
+        <div style="margin-left:4rem; margin-top:1.5rem;">
+            <lightning-button
+                label="Submit Unsuccessful Visit"
+                onclick={handleSubmit}
+                class="slds-m-top_medium"
+                variant="brand">
+            </lightning-button>
+
+        </div>
+        </lightning-card>
+    </template>
+</template>

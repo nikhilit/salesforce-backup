@@ -1,0 +1,373 @@
+<template>
+    <lightning-card title="Case List View" icon-name="standard:case">
+        <div class="slds-p-around_x-small">
+
+            <!-- Action Buttons -->
+            <section class="slds-box slds-m-bottom_x-small">
+                <div style="display: flex; justify-content: end; gap: 10px;">
+                    <lightning-button label="Filter" onclick={toggleFilterSidebar} variant="brand"></lightning-button>
+                    <lightning-button label="Update Case" onclick={toggleAssignSidebar} variant="brand"></lightning-button>
+                </div>
+            </section>
+
+            <!-- Main Content Area with Department Stats and Cases -->
+            <div class="main-content-container">
+
+                <!-- Left Side - Department Statistics -->
+                <div class="department-stats-sidebar">
+                    <div class="slds-box">
+                        <h3 class="slds-text-heading_small slds-m-bottom_small">Department Case Counts</h3>
+                                        
+                        <!-- Department List -->
+                        <div class="department-list">
+                            <template for:each={departmentCaseCounts} for:item="dept">
+                               <div key={dept.departmentName} class="dept-badge">
+                                    <span class="dept-name">{dept.departmentName}</span>
+                                    <span class="dept-name"> - </span>
+                                    <span class="dept-count">{dept.caseCount}</span>
+                                </div>
+                            </template>
+
+                            <template if:true={isDepartmentListEmpty}>
+                                <div class="slds-text-align_center slds-text-color_weak slds-p-vertical_medium">
+                                    No department data available
+                                </div>
+                            </template>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+                <!-- Right Side - Cases DataTable -->
+                <div class="cases-main-content">
+                    <section class="slds-box slds-m-bottom_medium">
+
+                        <!-- Header -->
+                        <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                            <div class="slds-text-heading_small">Cases</div>
+                            <div class="slds-text-body_regular slds-text-align_right">
+                                <div class="slds-text-heading_small">
+                                    Total Cases: <strong>{totalSize}</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Search Bar -->
+                        <lightning-input
+                            type="search"
+                            label="Search Cases"
+                            placeholder="Search cases..."
+                            value={searchKey}
+                            onchange={handleSearch}>
+                        </lightning-input>
+                        
+                        <!-- Selection Controls -->
+                        <div class="slds-grid slds-grid_align-spread slds-m-top_small">
+                            <div class="slds-text-body_regular">
+                                <strong>{selectedCount}</strong> case(s) selected out of <strong>{totalSize}</strong> total
+                            </div>
+                            
+                            <!-- In the template, replace the numeric input section with this: -->
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="page-size-input">
+                                    Page Size:
+                                </label>
+                                <div class="slds-form-element__control">
+                                    <input 
+                                        type="text" 
+                                        id="page-size-input"
+                                        class="slds-input" 
+                                        placeholder="Enter page size"
+                                        value={pageSizeInput}
+                                        onchange={handlePageSizeChange}
+                                        style="width: 120px;"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <!-- Spinner -->
+                        <template if:true={isLoading}>
+                            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                        </template>
+
+                        <!-- No Cases -->
+                        <template if:true={showNoCasesMessage}>
+                            <div class="slds-text-align_center slds-p-vertical_large">
+                                <div class="slds-text-heading_medium slds-text-color_weak">
+                                    No cases found matching your criteria
+                                </div>
+                                <div class="slds-text-body_regular slds-m-top_small">
+                                    Try adjusting your filters or search terms
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Datatable -->
+                        <lightning-datatable
+                            data={pagedData}
+                            columns={columns}
+                            key-field="Id"
+                            onsort={handleSort}
+                            onrowselection={handleRowSelection}
+                            onrowaction={handleRowAction}
+                            selected-rows={selectedCaseIds}
+                            show-row-number-column="true">
+                        </lightning-datatable>
+
+                        <!-- Pagination -->
+                        <div class="slds-m-top_small slds-grid slds-grid_align-spread slds-align_absolute-center">
+                            <lightning-button 
+                                label="Previous" 
+                                onclick={handlePrevPage} 
+                                disabled={isPrevDisabled}
+                                class="slds-m-right_medium">
+                            </lightning-button>
+
+                            <span class="slds-m-horizontal_small slds-text-body_regular">
+                                Page {pageNumber} of {totalPages}
+                            </span>
+
+                            <lightning-button 
+                                label="Next" 
+                                onclick={handleNextPage} 
+                                disabled={isNextDisabled}
+                                class="slds-m-left_medium">
+                            </lightning-button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Sidebar -->
+        <div class={filterSidebarClass}>
+            <div class="cart-header">
+                <h2 class="slds-text-heading_medium">Filters</h2>
+                <div class="cart-header-right">
+                    <button class="close-button" onclick={closeFilterSidebar}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="cart-items slds-scrollable slds-var-m-around--small">
+                <div class="slds-grid slds-wrap slds-gutters">
+
+                    <!-- All Picklists -->
+                    <div class="slds-col slds-size_1-of-1">
+                        <c-multi-select-combo-picklist
+                            label="Department"
+                            options={departmentOptions}
+                            selected-values={selectedDepartments}
+                            onchange={handleMultiSelectChange}>
+                        </c-multi-select-combo-picklist>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1">
+                        <c-multi-select-combo-picklist
+                            label="Category"
+                            options={categoryOptions}
+                            selected-values={selectedCategories}
+                            onchange={handleMultiSelectChange}>
+                        </c-multi-select-combo-picklist>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1">
+                        <c-multi-select-combo-picklist
+                            label="Type"
+                            options={typeOptions}
+                            selected-values={selectedTypes}
+                            onchange={handleMultiSelectChange}>
+                        </c-multi-select-combo-picklist>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1">
+                        <c-multi-select-combo-picklist
+                            label="Sub Type"
+                            options={subTypeOptions}
+                            selected-values={selectedSubTypes}
+                            onchange={handleMultiSelectChange}>
+                        </c-multi-select-combo-picklist>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1">
+                        <c-multi-select-combo-picklist
+                            label="Value"
+                            options={valueOptions}
+                            selected-values={selectedValues}
+                            onchange={handleMultiSelectChange}>
+                        </c-multi-select-combo-picklist>
+                    </div>
+
+                    <template if:true={showStatusFilter}>
+                        <div class="slds-col slds-size_1-of-1">
+                            <c-multi-select-combo-picklist
+                                label="Status"
+                                options={statusOptions}
+                                selected-values={selectedStatuses}
+                                onchange={handleMultiSelectChange}>
+                            </c-multi-select-combo-picklist>
+                        </div>
+                    </template>
+
+                    <template if:true={showOriginFilter}>
+                        <div class="slds-col slds-size_1-of-1">
+                            <c-multi-select-combo-picklist
+                                label="Origin"
+                                options={originOptions}
+                                selected-values={selectedOrigins}
+                                onchange={handleMultiSelectChange}>
+                            </c-multi-select-combo-picklist>
+                        </div>
+                    </template>
+
+                    <div class="slds-col slds-size_1-of-1">
+                        <c-multi-select-combo-picklist
+                            label="Case Source"
+                            options={caseSourceOptions}
+                            selected-values={selectedCaseSources}
+                            onchange={handleMultiSelectChange}>
+                        </c-multi-select-combo-picklist>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1">
+                        <c-multi-select-combo-picklist
+                            label="Case Owner"
+                            options={caseOwnerOptions}
+                            selected-values={selectedCaseOwners}
+                            onchange={handleMultiSelectChange}>
+                        </c-multi-select-combo-picklist>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1">
+                        <label class="slds-form-element__label" style="color: black;">Department Responded On</label>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input
+                            label="From Date"
+                            type="date"
+                            value={departmentRespondedFrom}
+                            onchange={handleDepartmentRespondedFromChange}>
+                        </lightning-input>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input
+                            label="To Date"
+                            type="date"
+                            value={departmentRespondedTo}
+                            onchange={handleDepartmentRespondedToChange}>
+                        </lightning-input>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_small">
+                    <lightning-button label="Filter" variant="brand" onclick={applyFilters}></lightning-button>
+                    <lightning-button label="Clear" class="slds-m-left_small" onclick={clearFilters}></lightning-button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assign Sidebar -->
+        <template if:true={showAssignSidebar}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+
+                    <header class="slds-modal__header">
+                        <h2 class="slds-text-heading_medium">Update Case</h2>
+                        <button class="slds-button slds-button_icon slds-modal__close" 
+                                title="Close" onclick={closeAssignSidebar}>
+                            ✖
+                        </button>
+                    </header>
+
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <div class="slds-grid slds-wrap slds-gutters">
+
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input label="Case Number" value={selectedCaseNumber} disabled></lightning-input>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input label="Date/Time Opened" value={selectedCaseOpenedDate} disabled></lightning-input>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input label="Created By" value={selectedCaseCreatedBy} disabled></lightning-input>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-combobox 
+                                    label="Case Owner"
+                                    value={updateForm.OwnerId}
+                                    options={assignedToOptions}
+                                    data-name="OwnerId"
+                                    onchange={handleUpdateFieldChange}>
+                                </lightning-combobox>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-combobox 
+                                    label="Status"
+                                    value={updateForm.Status}
+                                    options={statusOptions}
+                                    data-name="Status"
+                                    required
+                                    onchange={handleUpdateFieldChange}>
+                                </lightning-combobox>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-combobox 
+                                    label="Department/Responsible Person"
+                                    value={updateForm.Assigned_To__c}
+                                    options={assignedToOptions}
+                                    data-name="Assigned_To__c"
+                                    onchange={handleUpdateFieldChange}>
+                                </lightning-combobox>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-textarea 
+                                    label="Case Comments"
+                                    value={updateForm.Comments}
+                                    data-name="Comments"
+                                    onchange={handleUpdateFieldChange}
+                                    placeholder="Enter comments for case update"
+                                    required>
+                                </lightning-textarea>
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-input 
+                                    type="checkbox" 
+                                    label="Is Approved on SAP"
+                                    checked={updateForm.Outstanding_Payment_Cleared__c}
+                                    data-name="Outstanding_Payment_Cleared__c"
+                                    onchange={handleUpdateFieldChange}>
+                                </lightning-input>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <footer class="slds-modal__footer">
+                        <lightning-button label="Cancel" onclick={closeAssignSidebar}></lightning-button>
+                        <lightning-button label="Save" variant="brand" onclick={handleUpdateCase}
+                                         disabled={isAssignLoading}></lightning-button>
+                    </footer>
+
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+    </lightning-card>
+</template>

@@ -1,0 +1,46 @@
+<template>
+
+    <div class="slds-p-around_medium">
+        <lightning-combobox
+                name="agent"
+                label="Select Contractor"
+                value={selectedAgentId}
+                options={agentOptions}
+                onchange={handleAgentChange}
+                placeholder="Choose an contractor"
+                required>
+            </lightning-combobox>
+
+        <!-- <lightning-input
+                type="datetime"
+                name="startDate"
+                label="Start Date"
+                value={selectedDateTime}
+                onchange={handleDateTimeChange} >
+            </lightning-input>
+              <lightning-input
+                type="datetime"
+                name="endDate"
+                label="End Date"
+                value={selectedEndDateTime}
+                onchange={handleEndDateTimeChange} >
+            </lightning-input> -->
+    
+
+        <div class="slds-m-top_medium">
+            <template if:true={assignButton}>
+            <lightning-button variant="brand" label="Assign Contractor" onclick={handleAssignAgent}>
+            </lightning-button>
+            </template>
+            <template if:true={showMessage}>
+            <b>{showMessage}</b>
+            </template>
+        </div>
+
+        <template if:true={isLoading}>
+                <div class="slds-m-top_medium">
+                    <lightning-spinner alternative-text="Processing"></lightning-spinner>
+                </div>
+            </template>
+    </div>
+</template>

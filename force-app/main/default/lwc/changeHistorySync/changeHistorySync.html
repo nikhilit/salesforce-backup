@@ -1,0 +1,68 @@
+<template>
+    <lightning-card>
+        <!-- Spinner when loading -->
+        <template if:true={isLoading}>
+            <div class="slds-is-relative">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={statusMessage}>
+            <div class="slds-grid slds-p-horizontal_medium slds-p-vertical_x-small">
+                <div class="slds-col_bump-left">
+                    <lightning-button 
+                        variant="brand-outline" 
+                        icon-name="utility:refresh" 
+                        label="Refresh" 
+                        onclick={handleRefresh}>
+                    </lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <template if:true={sapData}>
+            <div class="slds-scrollable_x">
+<table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                    <thead>
+                        <tr>
+                            <th>Update Date</th>
+                            <th>Update Time</th>
+                            <th>Username</th>
+                            <th>Field Name</th>
+                            <th>Text Field Name</th>
+                            <th>New Value</th>
+                            <th>Old Value</th>
+                            <th>Value</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={sapData} for:item="row">
+                            <tr key={row.UDATE}>
+                                 <td>
+    <lightning-formatted-date-time 
+        value={row.UDATE}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+                                <td>{row.UTIME}</td>
+                                <td>{row.USERNAME}</td>
+                                <td>{row.FLDNAME}</td>
+                                <td>{row.TFLDNAME}</td>
+                                <td>{row.F_NEW}</td>
+                                <td>{row.F_OLD}</td>
+                                <td>{row.KEYVAL}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <p class="slds-text-color_error slds-p-around_medium">{error}</p>
+        </template>
+    </lightning-card>
+</template>

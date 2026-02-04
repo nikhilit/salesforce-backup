@@ -1,0 +1,109 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 28-01-2026
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   28-01-2026   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+
+    <!-- Loading Spinner -->
+    <template if:true={isLoading}>
+        <div class="slds-align_absolute-center" style="height: 200px;">
+            <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+        </div>
+    </template>
+
+    <!-- Replace Dispenser Form -->
+    <template if:true={showForm}>
+        <div>
+            <lightning-card>
+                <h2 slot="title" class="slds-text-heading_medium">
+                    <div>Replace Dispenser</div>
+                    <div class="slds-text-body_small slds-text-color_success slds-m-top_xx-small">
+                        New Dispenser: {newDispenserName}
+                    </div>
+                </h2>
+
+                <div class="slds-p-around_medium slds-grid slds-wrap slds-gutters_x-small">
+
+                    <!-- Opening Reading -->
+                    <div class="slds-m-bottom_small slds-col slds-size_1-of-2">
+                        <lightning-input label="Opening Reading" type="number" step="0.01" value={openingReading}
+                            onchange={handleOpeningReadingChange} required>
+                        </lightning-input>
+                    </div>
+
+                    <!-- Closing Reading -->
+                    <div class="slds-m-bottom_small slds-col slds-size_1-of-2">
+                        <lightning-input label="Closing Reading" type="number" step="0.01" value={closingReading}
+                            onchange={handleClosingReadingChange} required>
+                        </lightning-input>
+                    </div>
+
+                    <!-- Difference Display -->
+                    <div class="slds-m-top_small slds-col slds-size_1-of-2">
+                        <div class="slds-text-title">
+                            Difference: <strong>{difference}</strong>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="slds-m-top_medium slds-col slds-size_1-of-1 slds-align_absolute-center">
+                        <lightning-button label="Save" variant="brand" onclick={handleSave}>
+                        </lightning-button>
+
+                        <lightning-button label="Cancel" onclick={handleCancel} class="slds-m-left_small">
+                        </lightning-button>
+                    </div>
+
+                </div>
+
+            </lightning-card>
+        </div>
+    </template>
+
+    <!-- NOTIFICATION MODAL -->
+    <template if:true={showModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <header class={modalHeaderClass}>
+                    <h2 class="slds-text-heading_medium">{modalTitle}</h2>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium">
+                    <div class="slds-media slds-align_absolute-center" style="align-items: center;">
+                        <div class="slds-media__figure">
+                            <div class={modalIconClass}>
+                                <lightning-icon icon-name={modalIconName} size="medium" variant={modalIconVariant}>
+                                </lightning-icon>
+                            </div>
+                        </div>
+                        <div class="slds-media__body">
+                            <p class="slds-text-body_regular">{modalMessage}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <template if:true={showSecondaryButton}>
+                        <lightning-button label={secondaryButtonLabel} onclick={handleSecondaryAction}
+                            class="slds-m-right_small">
+                        </lightning-button>
+                    </template>
+                    <lightning-button variant={primaryButtonVariant} label={primaryButtonLabel}
+                        onclick={handlePrimaryAction}>
+                    </lightning-button>
+                </footer>
+
+            </div>
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+</template>

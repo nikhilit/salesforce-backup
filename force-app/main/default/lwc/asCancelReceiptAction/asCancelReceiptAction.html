@@ -1,0 +1,60 @@
+<template>
+    <lightning-quick-action-panel header="Cancel Receipt">
+
+        <!-- Content wrapper -->
+        <div class="slds-p-around_small slds-is-relative">
+
+            <!-- FORM -->
+            <template if:true={isLoaded}>
+                <template if:false={isValid}>
+                    <p style="color:red;">Payment is NOT valid (older than 7 days || null)</p>
+                </template>
+                <template if:true={isValid}>
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-combobox
+                                name="cancelReason"
+                                label="Select Cancellation Reason"
+                                value={value}
+                                options={options}
+                                onchange={handleChange}
+                                required>
+                            </lightning-combobox>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1">
+                            <lightning-textarea 
+                                name="remarks" 
+                                label="Remarks" 
+                                placeholder="type here..." 
+                                onchange={handleChange}>
+                            </lightning-textarea>
+                        </div>
+                    
+                    </div>
+                </template>
+            </template>
+
+            <!-- SPINNER -->
+            <template if:false={isLoaded}>
+                <div class="loading-overlay">
+                    <lightning-spinner alternative-text="Loading..."></lightning-spinner>
+                </div>
+            </template>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div slot="footer">
+            <lightning-button
+                type = "submit"
+                variant="brand"
+                label="Submit"
+                class="slds-m-left_x-small"
+                onclick={handleSubmit}
+                disabled={disableSubmit}
+            ></lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+</template>

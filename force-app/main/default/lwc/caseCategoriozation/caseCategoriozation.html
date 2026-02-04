@@ -1,0 +1,634 @@
+<template>
+    <lightning-card>
+         
+        <div class="slds-p-around_medium">
+
+            <!-- Display Mode -->
+            <template if:false={isEditing}>
+                <!-- Department -->
+                <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                    <div class="slds-col slds-size_3-of-12 slds-text-title">Department</div>
+                    <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{selectedDepartment}</div>
+                    <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                        <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                            onclick={enableEdit} variant="bare" class="slds-m-left_x-small grey-icon">
+                        </lightning-button-icon>
+                    </div>
+                </div>
+
+                <!-- Category -->
+                <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                    <div class="slds-col slds-size_3-of-12 slds-text-title">Category</div>
+                    <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{selectedCategory}</div>
+                    <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                        <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                            onclick={enableEdit} variant="bare" class="slds-m-left_x-small grey-icon">
+                        </lightning-button-icon>
+                    </div>
+                </div>
+
+                <!-- Type -->
+                <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                    <div class="slds-col slds-size_3-of-12 slds-text-title">Type</div>
+                    <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{typevalue}</div>
+                    <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                        <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                            onclick={enableEdit} variant="bare" class="slds-m-left_x-small grey-icon">
+                        </lightning-button-icon>
+                    </div>
+                </div>
+
+                <!-- Sub Type -->
+                <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                    <div class="slds-col slds-size_3-of-12 slds-text-title">Sub Type</div>
+                    <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{selectedSubType}</div>
+                    <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                        <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                            onclick={enableEdit} variant="bare" class="slds-m-left_x-small grey-icon">
+                        </lightning-button-icon>
+                    </div>
+                </div>
+
+                <!-- Value 1 -->
+                <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                    <div class="slds-col slds-size_3-of-12 slds-text-title">Value 1</div>
+                    <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{selectedValue}</div>
+                    <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                        <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                            onclick={enableEdit} variant="bare" class="slds-m-left_x-small grey-icon">
+                        </lightning-button-icon>
+                    </div>
+                </div>
+
+                <template if:true={showPDReason}>
+                    <div class="slds-grid slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">
+                            PD Reason
+                        </div>
+                        <div class="slds-col slds-size_7-of-12">
+                            {pdReason}
+                        </div>
+                        <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                            <lightning-button-icon
+                                icon-name="utility:edit"
+                                onclick={enableEdit}
+                                variant="bare">
+                            </lightning-button-icon>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Transfer Type & Name Transfer Mode -->
+                <!-- <template if:true={showNameTransferDetails}>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">
+                            Transfer Type
+                        </div>
+                        <div class="slds-col slds-size_7-of-12 slds-text-body_regular">
+                            {transferType}
+                        </div>
+                        <div class="slds-col slds-size_2-of-12"></div>
+                    </div>
+
+                    <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">
+                            Name Transfer Mode
+                        </div>
+                        <div class="slds-col slds-size_7-of-12 slds-text-body_regular">
+                            {nameTransferMode}
+                        </div>
+                        <div class="slds-col slds-size_2-of-12"></div>
+                    </div>
+                </template> -->
+
+
+                <template if:true={showNewAddressField}>
+                    <!-- <div class="slds-grid slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">
+                            New Address
+                        </div>
+                        <div class="slds-col slds-size_7-of-12">
+                            {newAddress}
+                        </div>
+                    </div> -->
+                    
+                    <template if:false={isNewAddressEditing}>
+                        <div class="slds-grid slds-border_bottom slds-p-vertical_small">
+                            <div class="slds-col slds-size_3-of-12 slds-text-title">
+                                New Address
+                            </div>
+
+                            <div class="slds-col slds-size_7-of-12 slds-text-body_regular">
+                                {newAddress}
+                            </div>
+
+                            <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                                <lightning-button-icon
+                                    icon-name="utility:edit"
+                                    alternative-text="Edit New Address"
+                                    onclick={enableNewAddressEdit}
+                                    variant="bare"
+                                    disabled={isAnyInlineEditing}
+                                    class="slds-m-left_x-small grey-icon">
+                                </lightning-button-icon>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- EDIT MODE -->
+                    <template if:true={isNewAddressEditing}>
+                        <div class="slds-form-element slds-p-vertical_small">
+                            <label>
+                                <abbr class="slds-required">*</abbr> New Address
+                            </label>
+                            <div class="slds-form-element__control">
+                                <lightning-textarea
+                                    value={newAddress}
+                                    onchange={handleNewAddressChange}
+                                    placeholder="Enter new address">
+                                </lightning-textarea>
+                            </div>
+                        </div>
+
+                        <div class="slds-m-top_medium slds-grid">
+                            <lightning-button
+                                variant="brand"
+                                label="Save"
+                                onclick={handleSaveNewAddress}>
+                            </lightning-button>
+
+                            <lightning-button
+                                variant="neutral"
+                                label="Cancel"
+                                onclick={handleCancelNewAddress}>
+                            </lightning-button>
+
+                        </div>
+                    </template>
+
+                </template>
+
+
+                <template if:true={showAmountField}>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">Amount</div>
+                        <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{amount}</div>
+                        <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                            <lightning-button-icon
+                                icon-name="utility:edit"
+                                alternative-text="Edit"
+                                onclick={enableEdit}
+                                variant="bare"
+                                class="slds-m-left_x-small grey-icon">
+                            </lightning-button-icon>
+                        </div>
+                    </div>
+                </template>
+
+
+                <!-- New Salutation - Display Mode (Title Error only) -->
+                <template if:true={showTitleErrorFields}>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">
+                            New Salutation
+                        </div>
+
+                        <div class="slds-col slds-size_7-of-12 slds-text-body_regular">
+                            {newSalutation}
+                        </div>
+
+                        <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                            <lightning-button-icon
+                                icon-name="utility:edit"
+                                alternative-text="Edit"
+                                onclick={enableEdit}
+                                variant="bare"
+                                class="slds-m-left_x-small grey-icon">
+                            </lightning-button-icon>
+                        </div>
+                    </div>
+                </template>
+
+
+                <template if:true={meterisSelected}>
+                    <!-- Meter Reading -->
+                    <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">Meter Reading</div>
+                        <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{meterReading}</div>
+                        <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                                onclick={enableEdit} variant="bare" class="slds-m-left_x-small grey-icon">
+                            </lightning-button-icon>
+                        </div>
+                    </div>
+                    </template>
+                 
+                <!-- Billing Shortfall Fields - Display Mode -->
+                <template if:true={showBillingShortfallFields}>
+                    <!-- Meter Reading -->
+                    <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">Meter Reading</div>
+                        <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{meterReading}</div>
+                        <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                                onclick={enableEdit} variant="bare" class="slds-m-left_x-small grey-icon">
+                            </lightning-button-icon>
+                        </div>
+                    </div>
+
+                    <!-- From Date -->
+                    <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">From Date</div>
+                        <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{fromDate}</div>
+                        <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                                onclick={enableEdit} variant="bare" class="slds-m-left_x-small grey-icon">
+                            </lightning-button-icon>
+                        </div>
+                    </div>
+
+                    <!-- Number of Months -->
+                    <!-- <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">Number of Months</div>
+                        <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{numberOfMonths}</div>
+                        <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                                onclick={enableEdit} variant="bare" class="slds-m-left_x-small grey-icon">
+                            </lightning-button-icon>
+                        </div>
+                    </div> -->
+
+                    <!-- To Date -->
+                    <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">To Date</div>
+                        <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{toDate}</div>
+                        <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                                onclick={enableEdit} variant="bare" class="slds-m-left_x-small grey-icon">
+                            </lightning-button-icon>
+                        </div>
+                    </div>
+                </template>
+
+               
+
+                <!-- Display CRM Contact Update Fields - CONDITIONAL -->
+                <template if:true={showNewEmailField}>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">New Email ID</div>
+                        <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{newEmailId}</div>
+                        <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                                onclick={enableEdit} variant="bare" class="slds-m-left_x-small grey-icon">
+                            </lightning-button-icon>
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={showNewContactField}>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">New Contact</div>
+                        <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{newContact}</div>
+                        <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit"
+                                onclick={enableEdit} variant="bare" class="slds-m-left_x-small grey-icon">
+                            </lightning-button-icon>
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={showNameCorrectionFields}>
+                    <div class="slds-grid slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">New First Name</div>
+                        <div class="slds-col slds-size_7-of-12">{newFirstName}</div>
+                    </div>
+
+                    <div class="slds-grid slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">New Middle Name</div>
+                        <div class="slds-col slds-size_7-of-12">{newMiddleName}</div>
+                    </div>
+
+                    <div class="slds-grid slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">New Last Name</div>
+                        <div class="slds-col slds-size_7-of-12">{newLastName}</div>
+                    </div>
+                </template>
+
+
+                <!-- Remarks (separate editing) -->
+                <template if:false={isRemarksEditing}>
+                    <div class="slds-grid slds-grid_vertical-align-center slds-border_bottom slds-p-vertical_small">
+                        <div class="slds-col slds-size_3-of-12 slds-text-title">Remarks</div>
+                        <div class="slds-col slds-size_7-of-12 slds-text-body_regular">{remarks}</div>
+                        <div class="slds-col slds-size_2-of-12 slds-text-align_right">
+                            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit Remarks"
+                                onclick={enableRemarksEdit} variant="bare" disabled={isAnyInlineEditing} class="slds-m-left_x-small grey-icon">
+                            </lightning-button-icon>
+                        </div>
+                    </div>
+                </template>
+                
+                <template if:true={isRemarksEditing}>
+                    <div class="slds-form-element slds-p-vertical_small">
+                        <label for="remarks">Remarks</label>
+                        <div class="slds-form-element__control">
+                            <lightning-textarea 
+                                value={remarks}
+                                placeholder="Enter remarks"
+                                onchange={handleRemarksChange}
+                                class="wide-combobox">
+                            </lightning-textarea>
+                        </div>
+                    </div>
+
+                    <div class="slds-m-top_medium slds-grid">
+                        <!-- <lightning-button variant="brand" label="Save" class="slds-m-right_small"
+                            onclick={handleSave}>
+                        </lightning-button>
+                        <lightning-button variant="neutral" label="Cancel" onclick={handleCancelRemarks}>
+                        </lightning-button> -->
+                        <lightning-button
+                            variant="brand"
+                            label="Save"
+                            onclick={handleSaveRemarks}>
+                        </lightning-button>
+
+                        <lightning-button
+                            variant="neutral"
+                            label="Cancel"
+                            onclick={handleCancelRemarks}>
+                        </lightning-button>
+
+                    </div>
+                </template>
+            </template>
+
+            <!-- Edit Mode (Main fields) -->
+            <template if:true={isEditing}>
+                <!-- Department -->
+                <div class="slds-m-bottom_small">
+                    <lightning-combobox
+                        label="Department"
+                        value={selectedDepartment}
+                        options={departmentOptions}
+                        placeholder="Select Department"
+                        onchange={handleDepartmentChange}>
+                    </lightning-combobox>
+                </div>
+
+                <!-- Category -->
+                <div class="slds-m-bottom_small">
+                    <lightning-combobox
+                        label="Category"
+                        value={selectedCategory}
+                        options={categoryOptions}
+                        placeholder="Select Category"
+                        onchange={handleCategoryChange}
+                        disabled={isCategoryDisabled}>
+                    </lightning-combobox>
+                </div>
+
+                <!-- Type -->
+                <div class="slds-m-bottom_small">
+                    <lightning-combobox
+                        label="Type"
+                        value={selectedType}
+                        options={typeOptions}
+                        placeholder="Select Type"
+                        onchange={handleTypeChange}
+                        disabled={isTypeDisabled}>
+                    </lightning-combobox>
+                </div>
+
+                <!-- Sub Type -->
+                <div class="slds-m-bottom_small">
+                    <lightning-combobox
+                        label="Sub Type"
+                        value={selectedSubType}
+                        options={subTypeOptions}
+                        placeholder="Select Sub Type"
+                        onchange={handleSubTypeChange}
+                        disabled={isSubTypeDisabled}>
+                    </lightning-combobox>
+                </div>
+
+                <!-- Value 1 -->
+                <div class="slds-m-bottom_small">
+                    <lightning-combobox
+                        label="Value 1"
+                        value={selectedValue}
+                        options={valueOptions}
+                        placeholder="Select Value"
+                        onchange={handleValueChange}
+                        disabled={isValueDisabled}>
+                    </lightning-combobox>
+                </div>
+
+                <template if:true={showPDReason}>
+                    <div class="slds-m-bottom_small">
+                        <lightning-combobox
+                            label="PD Reason"
+                            value={pdReason}
+                            options={pdReasonOptions}
+                            onchange={handlePDReasonChange}
+                            required>
+                        </lightning-combobox>
+                    </div>
+                </template>
+
+                <template if:true={showNewAddressField}>
+                    <div class="slds-m-bottom_small">
+                        <lightning-textarea
+                            label="New Address"
+                            value={newAddress}
+                            onchange={handleNewAddressChange}
+                            required>
+                        </lightning-textarea>
+                    </div>
+                </template>
+
+                
+
+
+
+                <template if:true={showAmountField}>
+                    <div class="slds-m-bottom_small">
+                        <lightning-input
+                            label="Amount"
+                            type="number"
+                            value={amount}
+                            onchange={handleAmountChange}
+                            required
+                            step="0.01"
+                            message-when-bad-input="Enter a valid number"
+                            message-when-value-missing="Amount is required">
+                        </lightning-input>
+                    </div>
+                </template>
+
+
+                <!-- CRM Contact Update Fields - CONDITIONAL (IN EDIT MODE) -->
+                <template if:true={showNewEmailField}>
+                    <div class="slds-m-bottom_small">
+                        <lightning-input
+                            label="New Email ID"
+                            type="email"
+                            value={newEmailId}
+                            placeholder="Enter new email address"
+                            onchange={handleNewEmailChange}
+                            required>
+                        </lightning-input>
+                    </div>
+                </template>
+
+                <template if:true={showNewContactField}>
+                    <div class="slds-m-bottom_small">
+                        <lightning-input
+                            label="New Contact"
+                            type="tel"
+                            value={newContact}
+                            placeholder="Enter new contact number"
+                            onchange={handleNewContactChange}
+                            required
+                            pattern="[0-9]{10}"
+                            message-when-pattern-mismatch="Please enter a valid 10-digit contact number">
+                        </lightning-input>
+                    </div>
+                </template>
+
+                <template if:true={showTitleErrorFields}>
+                    <lightning-combobox
+                        label="New Salutation"
+                        value={newSalutation}
+                        options={salutationOptions}
+                        onchange={handleNewSalutationChange}
+                        required={isNewSalutationRequired}>
+                    </lightning-combobox>
+
+                </template>
+
+
+
+
+                <template if:true={showNameCorrectionFields}>
+                    <div class="slds-m-bottom_small">
+                        <lightning-input
+                            label="New First Name"
+                            value={newFirstName}
+                            onchange={handleNewFirstNameChange}
+                            required>
+                        </lightning-input>
+                    </div>
+
+                    <div class="slds-m-bottom_small">
+                        <lightning-input
+                            label="New Middle Name"
+                            value={newMiddleName}
+                            onchange={handleNewMiddleNameChange}>
+                        </lightning-input>
+                    </div>
+
+                    <div class="slds-m-bottom_small">
+                        <lightning-input
+                            label="New Last Name"
+                            value={newLastName}
+                            onchange={handleNewLastNameChange}
+                            required>
+                        </lightning-input>
+                    </div>
+                </template>
+
+
+                <template if:true={meterisSelected}>
+                    <!-- Meter Reading -->
+                    <div class="slds-m-bottom_small">
+                        <lightning-input
+                            label="Meter Reading"
+                            type="text"
+                            value={meterReading}
+                            placeholder="Enter meter reading"
+                            onchange={handleMeterReadingChange}
+                            required={meterisSelectedAMR}>
+                        </lightning-input>
+                    </div>
+                    </template>
+                <!-- Billing Shortfall Fields - Edit Mode -->
+                <template if:true={showBillingShortfallFields}>
+                    <!-- Meter Reading -->
+                    <div class="slds-m-bottom_small">
+                        <lightning-input
+                            label="Meter Reading"
+                            type="text"
+                            value={meterReading}
+                            placeholder="Enter meter reading"
+                            onchange={handleMeterReadingChange}
+                            required={areBillingShortfallFieldsRequired}>
+                        </lightning-input>
+                    </div>
+
+                    <!-- From Date -->
+                    <div class="slds-m-bottom_small">
+                        <lightning-input
+                            label="From Date"
+                            type="date"
+                            value={fromDate}
+                            disabled
+                            class="readonly-input"
+                        >
+                        </lightning-input>
+                    </div>
+
+                    <!-- Number of Months -->
+                    <!-- <div class="slds-m-bottom_small">
+                        <lightning-input
+                            label="Number of Months"
+                            type="text"
+                            value={numberOfMonths}
+                            placeholder="Enter number of months"
+                            onchange={handleNumberOfMonthsChange}
+                            required={areBillingShortfallFieldsRequired}>
+                        </lightning-input>
+                    </div> -->
+
+                    <!-- To Date -->
+                    <div class="slds-m-bottom_small">
+                        <lightning-input
+                            label="To Date"
+                            type="date"
+                            value={toDate}
+                            disabled
+                            class="readonly-input">
+                        </lightning-input>
+                    </div>
+                </template>
+
+
+                <!-- Remarks -->
+                <div class="slds-form-element slds-p-vertical_small slds-p-horizontal_small">
+                    <label for="remarks">
+                        <abbr class="slds-required" title="required">*</abbr> Remarks
+                    </label>
+                    <div class="slds-form-element__control">
+                        <lightning-textarea 
+                            name="remarks"
+                            id="remarks"
+                            value={remarks}
+                            placeholder="Enter remarks"
+                            onchange={handleRemarksChange}>
+                        </lightning-textarea>
+                    </div>
+                </div>
+
+
+                <!-- Save / Cancel -->
+                <div class="slds-m-top_medium slds-grid">
+                    <lightning-button variant="brand" label="Save" class="slds-m-right_small"
+                        onclick={handleSave}>
+                    </lightning-button>
+                    <lightning-button variant="neutral" label="Cancel" onclick={handleCancel}>
+                    </lightning-button>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

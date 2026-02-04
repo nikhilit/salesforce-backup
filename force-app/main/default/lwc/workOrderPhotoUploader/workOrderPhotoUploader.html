@@ -1,0 +1,47 @@
+<template>
+    <lightning-card title="Work Order Photo Capture">
+        <div class="slds-m-around_medium">
+            <video autoplay playsinline muted style="width: 100%; max-height: 300px;"></video>
+            <canvas style="display: none;"></canvas>
+
+            <!-- Capture Button -->
+            <lightning-button
+                label="Capture Photo"
+                onclick={capturePhoto}
+                class="slds-m-top_small"
+                variant="brand">
+            </lightning-button>
+
+            <!-- Status Dropdown -->
+            <lightning-combobox
+                label="Update Work Order Status"
+                value={statusValue}
+                options={statusOptions}
+                onchange={handleStatusChange}
+                class="slds-m-top_medium">
+            </lightning-combobox>
+
+            <!-- Manual Sync Button -->
+            <lightning-button
+                label="Sync Now"
+                onclick={handleManualSync}
+                class="slds-m-top_small"
+                variant="neutral">
+            </lightning-button>
+
+            <!-- Photo Preview -->
+            <template if:true={photoList.length}>
+                <div class="slds-m-top_medium">
+                    <p class="slds-text-title_bold">Preview:</p>
+                    <div class="slds-grid slds-wrap">
+                        <template for:each={photoList} for:item="photo">
+                            <div key={photo.name} class="slds-col slds-size_1-of-2 slds-p-around_x-small">
+                                <img src={photo.content} alt={photo.name} style="width: 100%; border-radius: 6px;" />
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,14 @@
+.custom-container{
+	color : black;
+}
+
+.hidden-file-input {
+  display: none; /* hide native file control text */
+}
+
+.upload-placeholder input[type="file"] {
+    display: none;
+}
+.upload-placeholder {
+     display: block;
+}

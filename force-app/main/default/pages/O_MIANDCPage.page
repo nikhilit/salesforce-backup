@@ -1,0 +1,390 @@
+<apex:page renderAs="pdf" applyBodyTag="false" controller="O_MIANDCContr">
+   
+        <body style="border:1px solid black;">
+
+            <!-- Header -->
+            <div style="border-bottom : 1px solid black; height:23px; text-align:center; margin-top:1px;">MAHANAGAR GAS LIMITED</div>
+            <div style="border-bottom : 1px solid black; height:17px; text-align:center; margin-top:1px; font-size:12px;">QUALITY SYSTEM RECORD</div>
+
+            <table style="width:100%; margin-top:1px; border-bottom:1px solid black;">
+                <tr>
+                    <td style="font-size:12px;">RECORD NO : {!wONumber}</td>
+                    <td style="font-size:12px;">Issue Date : {!issueDate}</td>
+                </tr>
+                <tr>
+                    <td style="font-size:12px;">TITLE : MAINTENANCE/BREAKDOWN SERVICE REPORT FOR COMMERCIAL INSTALLATIONS</td>
+                    <td style="font-size:12px;">Page : 1 of 2</td>
+                </tr>
+               
+            </table>
+
+            <!-- Details Section -->
+            <table style="width:100%; margin-top:12px; border-bottom:1px solid black; border-collapse: collapse;"  border="1">
+                <tr style="font-size:14px;">
+                    <td>Date : {!issueDate}</td>
+                    <td>Activity Start time:{!checkInTimeStamp}</td>
+                    <td >Activity End time:{!issueDate} </td>
+                </tr>
+                <tr style="font-size:14px;">
+                    <td >BP No: {!bpNumber}</td>
+                    <td >Name of Customer: {!customerName}</td>
+                    <td >Gas Used for:{!gasUsedFor}</td>
+                </tr>
+                <tr style="font-size:14px;">
+                    <td >SAP Equipment No.: {!SAPEquipmentNo}</td>
+                    <td >SAP Order No.: {!wONumber}</td>
+                    <td >District:{!district}</td>
+                </tr>
+                <tr style="font-size:14px;">
+                    <td >Meter Sr. No:{!meterSerialNo}</td>
+                    <td >Contact No:{!contactNumber}</td>
+                    <td >Type of Meter:{!typeOfMeter}</td>
+                </tr>
+                <tr style="font-size:14px;">
+                    <td >Meter Reading:{!meterReading}</td>
+                    <td >Meter Make:{!meterMake}</td>
+                    <td >Meter Manufacturing Year:{!meterManufacturingYear}</td>
+                </tr>
+                <tr style="font-size:14px;">
+                    <td >Capacity (SCMH):{!capacity}</td>
+                    <td >Meter Qmin:{!meterQmin}</td>
+                     <td >Regulator Type:{!regulatoryType}</td>
+
+                </tr>
+                <tr style="font-size:14px;">
+                    <td >Regulator Make:{!regulatorMake}</td>
+                    <td >Regulator Capacity (SCMH):{!regulatorCapacity}</td>
+                    <td >Regulator Supply Pressure:{!regulatorySupplyPressure}</td>
+                </tr>
+               
+            </table>
+            <table title="Work Done" style="height:25px; margin-top:20px;">
+            
+            <td>Work Done</td>
+            
+            </table>
+
+            <!-- Work Done Table -->
+            <table style="width:100%; border-top:1px solid black; border-bottom:1px solid black; border-collapse: collapse;"  border="1">
+                <tr>
+                    <td style="width:8%;">Sr.No.</td>
+                    <td style="width:82%;">Description</td>
+                    <td style="width:10%;">Remarks</td>
+                </tr>
+             <tr>
+             <td>1</td>
+             <td >Isolate the gas supply at the downstream of meter</td>
+              <td>{!isolateGasSupply}</td>
+             </tr>
+             
+              <tr>
+             <td>2</td>
+             <td >Connect Digital pressure gauge at vent point</td>
+              <td>{!connectDigitalPressure}</td>
+             </tr>
+             
+              <tr>
+             <td>3</td>
+             <td >Check the set pressure of regulator keeping the other vent valve open</td>
+              <td>{!CheckSetPressure}</td>
+             </tr>
+             
+              <tr>
+             <td>4</td>
+             <td >If pressure observed above design pressure, then adjust regulator setting to maintain supply pressure at design specification.</td>
+              <td>{!pressureObserved}</td>
+             </tr>
+             
+              <tr>
+             <td>5</td>
+             <td >Check the relief pressure setting of regulator and if found deviated then set the relief to its design pressure</td>
+              <td>{!checkReliefPressure}</td>
+             </tr>
+             
+              <tr>
+             <td>6</td>
+             <td >Check the SSV setting of regulator and if found deviated then set the SSV to its design pressure</td>
+              <td>{!checkSSVSetting}</td>
+             </tr>
+             
+              <tr>
+             <td>7</td>
+             <td >Check the lock up pressure of regulator</td>
+              <td>{!checkLockPressure}</td>
+             </tr>
+             
+              <tr>
+             <td>8</td>
+             <td >Close the inlet valve of Regulating skid</td>
+              <td>{!closeInletValue}</td>
+             </tr>
+             
+              <tr>
+             <td>9</td>
+             <td >Depressurise the skid</td>
+              <td>{!depressuriseSkid}</td>
+             </tr>
+             
+              <tr>
+             <td>10</td>
+             <td >Open strainer and Check strainer condition.</td>
+              <td>{!openStrainer}</td>
+             </tr>
+             
+             <tr>
+             <td>11</td>
+             <td >Clean the strainer and If required replace the strainer</td>
+              <td>{!clearnStrainer}</td>
+             </tr>
+             
+              <tr>
+             <td>12</td>
+             <td >In case of malfunctioning of regulator or major corrosion of regulator body, replace the regulator</td>
+              <td>{!malfunctioningOrCorrosionRegulatory}</td>
+             </tr>
+             
+              <tr>
+             <td>13</td>
+             <td >Check meter counter and replace the meter if the counter found damaged or counter is not moving</td>
+              <td>{!checkMeterCounter}</td>
+             </tr>
+             
+              <tr>
+             <td>14</td>
+             <td >Check sign boards, meter support, fittings and other material and replace in case found damage or corroded</td>
+              <td>{!checkSignBoards}</td>
+             </tr>
+             
+              <tr>
+             <td>15</td>
+             <td >Check the condition of pipe and replace the pipe section in case of corrosion or
+                damage. Test the fabricated spool piece at 1,5 times of the operating pressure
+                before replacing the damage/corroded section</td>
+              <td>{!checkPipeCondition}</td>
+             </tr>
+             
+              <tr>
+             <td>16</td>
+             <td >Check meter body for any corrosion. Paint the corroded part in case of minor
+                corrosion or replace meter in case of major corrosion or damage</td>
+              <td>{!checkMeterBody}</td>
+             </tr>
+             
+              <tr>
+             <td>17</td>
+             <td >Check the crimp position, GI/HDPE sleeve and crimp guard is in proper
+                    condition. Replace with new material, if found damaged or not in good condition
+</td>
+              <td>{!checkCrimpPosition}</td>
+             </tr>
+             
+              <tr>
+             <td>18</td>
+             <td >Check all clamps on upstream piping and replace in case of damage or missingg</td>
+              <td>{!checkClamps}</td>
+             </tr>
+             
+              <tr>
+             <td>19</td>
+             <td >Check that all testing points are properly plugged. Install plug in case any plugfound missing</td>
+              <td>{!checkPointsProperlyPlugged}</td>
+             </tr>
+             
+             
+              <tr>
+             <td>20</td>
+             <td >Carry out leak test by soap solution from crimp fitting to meter outlet valve. If leakage found, arrest the leakage</td>
+              <td>{!carryOutLeakTest}</td>
+             </tr>
+             
+             <tr>
+             <td>21</td>
+             <td >Carry out painting of all piping installed from RIV to meter outlet</td>
+              <td>{!carryOutPainting}</td>
+             </tr>
+             
+              <tr>
+             <td>22</td>
+             <td >Check that all seals (Manufacture and MGL) at meter and regulators are intact</td>
+              <td>{!checkAllSeals}</td>
+             </tr>
+             
+              <tr>
+             <td>23</td>
+             <td >Check that MGL seal at Electronic meter is intact</td>
+              <td>{!checkMGLSeal}</td>
+             </tr>
+             
+              <tr>
+             <td>24</td>
+             <td >Check for any illegal tapping at the upstream of meter and if found escalate to EIC</td>
+              <td>{!checkIllegalTapping}</td>
+             </tr>
+             
+              <tr>
+             <td>25</td>
+             <td >Check that all valves are operative and in good condition. Replace valve in case of damage or non operational</td>
+              <td>{!checkAllValuesOperative}</td>
+             </tr>
+             
+              <tr>
+             <td>26</td>
+             <td >Check that all stud-nuts across flanges are tightened properly</td>
+              <td>{!checkAllStudnuts}</td>
+             </tr>
+             
+              <tr>
+             <td>27</td>
+             <td >Check the leveling /alignment of the SR foundation</td>
+              <td>{!checkLevelingOfSR}</td>
+             </tr>
+             
+              <tr>
+             <td>28</td>
+             <td >Check the condition of foundation and foundation bolt of Service Regulator and do the rectification if found damage</td>
+              <td>{!checkFoundationConditionAndBolt}</td>
+             </tr>
+             
+              <tr>
+             <td>29</td>
+             <td >Check the condition of FRP cover of SR and replace if found damaged or broken</td>
+              <td>{!checkConditionFRPCover}</td>
+             </tr>
+             
+              <tr>
+             <td>30</td>
+             <td >Open the outlet valve at downstream of meter.</td>
+              <td>{!openOutletValue}</td>
+             </tr>
+             
+            </table>
+            
+            <table>
+            <td style="height:40px; margin-top:40px;">Details of Spares used</td>
+            </table>
+            
+             <table style="width:100%; border-top:1px solid black; border-collapse: collapse;"  border="1">
+                
+                <tr class="bold">
+                    <td style="width:10%;">Sr. No.</td>
+                    <td style="width:20%;">Material No.</td>
+                    <td style="width:50%;">Description</td>
+                    <td style="width:20%;">Quantity</td>
+                </tr>
+                <apex:variable var="materialIndex" value="{!0}" />
+
+           <apex:repeat value="{!lstMaterialConsumption}" var="item">
+               <apex:variable var="materialIndex" value="{!materialIndex + 1}" />
+
+    <tr>
+        <td>{!materialIndex}</td>
+        <td>{!item.Item_Code__c}</td>
+        <td>{!item.Item_description__c}</td>
+        <td>{!item.Quantity__c}</td>
+    </tr>
+</apex:repeat>
+                <!--<tr>
+                    <td>1</td>
+                    <td>Meter and wires</td>
+                    <td>Meter and wires used during the meter chagement</td>
+                    <td>10 ft wire and new meter</td>
+                </tr> -->
+               
+            </table>
+
+            <!-- Observation Section -->
+            <table style="border-top:1px solid black; width:100%;">
+                <tr>
+                    <td class="bold">Observation if any (Aesthetic Look, Painting, Rusting, Cabinet door issues, etc)
+                    <br/>
+                    {!anyObservation}</td>
+                </tr>
+                <tr>
+                    <td style="height:50px;"></td>
+                </tr>
+            </table>
+
+            <!-- Pressure Settings Section -->
+            <table style="width:100%; border-top:1px solid black;">
+                
+                    <td>Pressure Settings</td>
+                </table>
+                <table style="border-top:1px solid black; border-collapse: collapse;"  border="1">
+                <tr style="border-top:1px solid black;">
+                    <td style="width:25%;">Details</td>
+                    <td style="width:18%;">Regulator (mbar/bar)</td>
+                    <td style="width:18%;">SSV (mbar/bar)</td>
+                    <td style="width:18%;">Relief (mbar/bar)</td>
+                    <td style="width:18%;">Lock Pressure (mbar/bar)</td>
+                </tr>
+                <tr>
+                    <td>Pressure Before setting</td>
+                    <td>{!pBSRegulator}</td>
+                    <td>{!pBSSSV}</td>
+                    <td>{!pBSRelief}</td>
+                    <td>{!pBSLockPressure}</td>
+                </tr>
+                <tr>
+                    <td>Pressure After setting</td>
+                    <td>{!pASRegulator}</td>
+                    <td>{!pASSSV}</td>
+                    <td>{!pASRelief}</td>
+                    <td>{!pASLockPressure}</td>
+                </tr>
+            </table>
+
+            <!-- Seal Details Section -->
+            <table style="border-top:1px solid black; border-bottom:1px solid black; width:100%; border-collapse: collapse;"  border="1">
+                <tr>
+                    <td class="bold" style="width:40%;">Seal Details</td>
+                    <td class="bold" style="width:60%;">Seal 1</td>
+                </tr>
+                <tr>
+                    <td>Mechanical Meter</td>
+                    <td>{!sealMechanicalMeter}</td>
+                </tr>
+                <tr>
+                    <td>Electronic Meter</td>
+                    <td>{!sealElectronicMeter}</td>
+                </tr>
+                <tr>
+                    <td>Regulator</td>
+                    <td>{!sealRegulator}</td>
+                </tr>
+                <tr>
+                    <td>Lock Details</td>
+                    <td>{!sealLockDetails}</td>
+                </tr>
+            </table>
+
+            <!-- Signatures Section -->
+            <table style="width:100%;">
+                <tr>
+                    <td style="width:50%;"><b>Prepared By:</b></td>
+                    <td style="width:50%;"><b>Checked By:</b></td>
+                </tr>
+                
+               
+                <tr>
+                    <td>Sign:</td>
+                    <td>Sign:</td>
+                </tr>
+                <tr>
+                    <td>Name:{!technicianName}</td>
+                    <td>Name:{!agencySupervisor }</td>
+                </tr>
+                <tr>
+                    <td>Designation: Technician Name</td>
+                    <td>Designation: Agency Supervisor</td>
+                </tr>
+            </table>
+
+            <!-- Footer -->
+            <table style="border-top:1px solid black; width:100%;">
+                    <td style="width:50%;"><b>Approved by :</b><br/>HOD (O&amp;M)</td>
+                    
+                    <td style="width:50%;"><b>Issued by :</b><br/>ISO Representative (O&amp;M)</td>
+            </table>
+
+        </body>
+</apex:page>

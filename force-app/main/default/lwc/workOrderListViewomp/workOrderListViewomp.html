@@ -1,0 +1,68 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-around_medium slds-is-relative">
+
+            <!-- Spinner -->
+            <template if:true={isLoading}>
+                <lightning-spinner
+                    alternative-text="Loading work orders"
+                    size="medium">
+                </lightning-spinner>
+            </template>
+       <template if:false={isLoading}>
+            <div class="slds-grid slds-grid_align-end slds-m-bottom_small">
+                    <lightning-button
+                        label="Refresh"
+                        icon-name="utility:refresh"
+                        variant="neutral"
+                        onclick={handleRefresh}
+                        disabled={isLoading}>
+                    </lightning-button>
+                </div>
+       </template>
+            <!-- Work Order List -->
+            <template if:true={workorderlist.length}>
+                <div class="slds-m-top_medium">
+                    <template for:each={workorderlist} for:item="conn">
+                        <div
+                            key={conn.Id}
+                            class="slds-box slds-m-bottom_small slds-theme_default"
+                            data-id={conn.Id}
+                            onclick={handleRowClick} style="border:1px solid black;"
+                        >
+                            <p class="slds-text-heading_small slds-m-bottom_xx-small">
+                                <b>{conn.WorkOrderNumber.value}</b>
+                            </p>
+
+                            <p class="slds-text-body_regular">
+                                <strong>Agent:  </strong>
+                                <template if:true={conn.Agent__r}>
+                                    {conn.Agent__r.Name.value}
+                                </template>
+                                <template if:false={conn.Agent__r}>
+                                    —
+                                </template>
+                            </p>
+
+                           <p class="slds-text-body_regular slds-truncate">
+                        <strong>Approval Status: </strong>
+                        {conn.Approval_Status__c.value}
+                    </p>
+
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- No Results -->
+            <template if:true={noResults}>
+                <div
+                    class="slds-text-align_center slds-p-vertical_large slds-text-title_bold"
+                >
+                    No work orders found.
+                </div>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

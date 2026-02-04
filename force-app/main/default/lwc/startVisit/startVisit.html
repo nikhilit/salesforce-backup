@@ -1,0 +1,356 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 23-01-2026
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   08-08-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+	<template if:true={isLoading}>
+		<div class="spinner-container">
+			<lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+		</div>
+	</template>
+	<template if:false={isLoading}>
+		<!-- <lightning-card title="Information" icon-name="standard:account"> -->
+		<!-- <div class="account-container slds-p-around_small">
+          <template if:true={workOrder}>
+              <div class="section">
+                <h3>Outlet Details</h3>
+                <div class="row"><span class="label">Customer:</span> <span class="value">{workOrder.Name}</span></div>
+                <div class="row"><span class="label">Address:</span> <span class="value">{workOrder.BillingStreet}, {workOrder.BillingCity}</span></div>
+                <div class="row"><span class="label">Outlet:</span> <span class="value">{workOrder.Outlet_Name__c}</span></div>
+                <div class="row"><span class="label">Contact:</span> <span class="value">{workOrder.Phone}</span></div>
+              </div>
+          </template>
+          <template if:true={profileData}>
+            <div class="section">
+              <h3>Customer Details</h3> -->
+		<!-- <div class="row"><span class="label">Customer Name:</span> <span class="value">{profileData.customerName}</span></div> -->
+		<!-- <div class="row"><span class="label">BP Number:</span> <span class="value">{profileData.bpNumber}</span></div>
+              <div class="row"><span class="label">CA Number:</span> <span class="value">{profileData.caNumber}</span></div>
+              <div class="row"><span class="label">Dispenser Number:</span> <span class="value">{profileData.dispenserNumber}</span></div>
+              <div class="row"><span class="label">Location:</span> <span class="value">{profileData.location}</span></div>
+            </div>
+          </template>
+          <div class="section">
+            <h3>Visit Info</h3>
+            <div class="row"><span class="label">Scheduled Date/Time:</span> <span class="value">{workOrder.Scheduled_Date__c}</span></div>
+            <lightning-map map-markers={lstMarkers} zoom-level="15" markers-title="Current Location"></lightning-map>
+          </div>
+        </div> -->
+		<!-- </lightning-card> -->
+
+		<lightning-card title="Dispenser Meter Readings" icon-name="standard:maintenance_work_order" class="slds-is-relative">
+			<lightning-spinner if:true={spinner} alternative-text="Loading..." size="medium" class="spinner-message"></lightning-spinner>
+			<div class="account-container slds-p-around_small">
+				<!-- Datatable View -->
+				<template if:false={isEditMode}>
+					<div class="section">
+						<h3>Summary</h3>
+						<div class="slds-grid slds-gutters slds-m-bottom_medium">
+							<div class="slds-col">
+								<lightning-input type="date" name="fromDate" label="From Date" value={fromDate}
+									onchange={handleDateChange} required max={yesterdayDate}>
+								</lightning-input>
+							</div>
+							<div class="slds-col">
+								<lightning-input type="date" name="toDate" label="To Date" value={toDate}
+									onchange={handleDateChange} required max={yesterdayDate}>
+								</lightning-input>
+							</div>
+						</div>
+						<lightning-layout multiple-rows>
+							<template for:each={dispenserPoints} for:item="disp">
+								<lightning-layout-item key={disp.Id} size="12" class="slds-p-bottom--x-small">
+									<div class="slds-card slds-p-bottom--x-small slds-box slds-theme_default"
+										style={disp.dispStyle}>
+										<div class="slds-grid slds-wrap slds-grid_align-spread">
+											<div>
+												<h3 class="slds-text-heading_small slds-m-bottom_x-small">
+													{disp.Dispenser_Name__c}
+												</h3>
+												<p>
+													<strong>Opening Reading: </strong>
+													{disp.Opening_Reading__c}
+												</p>
+												<p>
+													<strong>Closing Reading: </strong>
+													{disp.Closing_Reading__c}
+												</p>
+												<p style={disp.diffStyle}>
+													<strong>Difference: </strong>
+													{disp.Difference_Of_Open_and_Close_Reading__c}
+												</p>
+											</div>
+											<div style="display: flex; flex-direction: column;">
+												<lightning-button-icon icon-name="utility:edit" variant="brand"
+													alternative-text="Edit" title="Edit" size="small"
+													onclick={handleEdit} data-id={disp.Id}>
+												</lightning-button-icon>
+
+												<template if:true={disp.showDelete}>
+													<lightning-button-icon icon-name="utility:delete" variant="destructive"
+														alternative-text="Delete" title="Delete" size="small"
+														data-id={disp.Id} class="slds-m-top_x-small"
+														onclick={handleDelete}>
+													</lightning-button-icon>
+												</template>
+											</div>
+										</div>
+									</div>
+								</lightning-layout-item>
+							</template>
+						</lightning-layout>
+
+
+						<!-- <div class="row slds-m-bottom_x-small">
+							<span class="label">Total Dispending Point Sale (a) (Kg):</span>
+							<span class="value">{Total_Dispensing_Sale}</span>
+						</div> -->
+						<div
+							class="slds-text-color_error slds-p-right--small slds-p-left--small slds-p-bottom--x-small">
+							<strong>Total Dispensing Point Sale (a) (Kg): {Total_Dispensing_Sale}</strong>
+						</div>
+
+						<div class="slds-grid slds-wrap slds-gutters_medium">
+
+							<!-- Calibration Card -->
+							<div class="slds-col slds-size_1-of-1">
+								<div class="slds-box slds-m-bottom--x-small slds-theme_default">
+									<h4 class="slds-text-heading_small slds-m-bottom_x-small">Reading Of: Calibration
+									</h4>
+									<p><strong>Total Quantity:</strong> {summary.calibrationQty}</p>
+									<p><strong>Reason:</strong> {summary.calibrationReason}</p>
+								</div>
+							</div>
+
+							<!-- Jumping Card -->
+							<div class="slds-col slds-m-bottom--x-small slds-size_1-of-1">
+								<div class="slds-box slds-theme_default">
+									<h4 class="slds-text-heading_small slds-m-bottom_x-small">Reading Of: Jumping</h4>
+									<p><strong>Total Quantity:</strong> {summary.jumpingQty}</p>
+									<p><strong>Reason:</strong> {summary.jumpingReason}</p>
+								</div>
+							</div>
+
+							<!-- Others Card -->
+							<div class="slds-col slds-m-bottom--x-small slds-size_1-of-1">
+								<div class="slds-box slds-theme_default">
+									<h4 class="slds-text-heading_small slds-m-bottom_x-small">Reading Of: Others</h4>
+									<p><strong>Total Quantity:</strong> {summary.otherQty}</p>
+									<p><strong>Reason:</strong> {summary.otherReason}</p>
+								</div>
+							</div>
+						</div>
+						<div class="slds-text-color_error slds-p-right--small slds-p-left--small">
+							<strong>Total Reading (b) (kg): {summary.totalReadingB}</strong>
+						</div>
+						<div
+							class="slds-text-color_error slds-p-right--small slds-p-left--small slds-p-bottom--x-small">
+							<strong>Total Gas Consumption (c) = (a - b) (kg): {summary.totalGasConsumption}</strong>
+						</div>
+						<div class="section">
+							<lightning-combobox name="idType" label="CNG Remark" value={cngRemark}
+								options={identificationOptions} onchange={handleCngRemarkChange}>
+							</lightning-combobox>
+							<template if:true={openRemark}>
+								<lightning-textarea label="Remarks" value={remarks} placeholder="Enter Remarks"
+									onchange={handleRemarkChange}>
+								</lightning-textarea>
+							</template>
+							<div class="slds-grid slds-wrap">
+								<div class="slds-size_1-of-1">
+									<!-- <lightning-input type="file" label="Authorised Signature"
+										onchange={handleImageUpload} multiple accept="image/jpeg,image/png,image/jpg"
+										disabled={disabled} required>
+									</lightning-input> -->
+									<!-- <div>Authorized Signature</div> -->
+									<c-camera-upload-component image-list={photoUploadSlots} low-quality=true
+										onchange={handleSignatureUpload}></c-camera-upload-component>
+								</div>
+								<!-- <div class="slds-size_1-of-2 slds-text-align--right">
+									<template if:true={images}>
+										<div class="slds-grid slds-wrap slds-m-top_medium">
+												<div
+													class="slds-col slds-medium-size_1-of-3 slds-p-around_small">
+													<img src={images.previewUrl} alt={images.fileName}
+														style="max-width: 70%; height: 52px; border-radius: 0.5rem;" />
+													<div class="slds-m-top_small">
+													</div>
+												</div>
+										</div>
+									</template>
+								</div> -->
+							</div>
+						</div>
+
+
+
+
+
+						<div class="button-container">
+							<lightning-button label="End Visit" variant="brand" onclick={handleEndVisit}>
+							</lightning-button>
+
+							<!-- <lightning-button label="Capture Photo" variant="neutral" onclick={startFlow}>
+							</lightning-button> -->
+						</div>
+					</div>
+				</template>
+
+
+
+
+				<!-- Edit View -->
+				<template if:true={isEditMode}>
+					<div class="section">
+						<template if:true={isReplaceModeClick}>
+							<h3>Edit Dispenser: {selectedDispenser.Dispenser_Name__c}</h3>
+						</template>
+						<template if:false={isReplaceModeClick}>
+							<h3>Create Dispenser: {selectedDispenser.displayTitle}</h3>
+						</template>
+						<lightning-input type="number" label="Opening Reading" name="Opening_Reading__c"
+							value={selectedDispenser.Opening_Reading__c} onchange={handleSingleFieldChange}>
+						</lightning-input>
+
+						<lightning-input type="number" label="Closing Reading" name="Closing_Reading__c"
+							value={selectedDispenser.Closing_Reading__c} onchange={handleSingleFieldChange}>
+						</lightning-input>
+						<template if:false={isReplaceModeClick}>
+							<lightning-input type="number" label="Difference"
+								name="Difference_Of_Open_and_Close_Reading__c"
+								value={selectedDispenser.Difference_Of_Open_and_Close_Reading__c}
+								onchange={handleSingleFieldChange} disabled>
+							</lightning-input>
+						</template>
+						<template if:false={isReplaceMode}>
+							<lightning-input type="text" label="Remarks" name="Remark__c"
+								value={selectedDispenser.Remark__c} onchange={handleSingleFieldChange}
+								required={remarkRequired} disabled>
+							</lightning-input>
+
+							<lightning-input type="number" label="Calibration Qty" name="Calibration_Qty__c"
+								value={selectedDispenser.Calibration_Qty__c} onchange={handleSingleFieldChange}>
+							</lightning-input>
+
+							<lightning-input type="text" label="Calibration Reason" name="Calibration_Reason__c"
+								value={selectedDispenser.Calibration_Reason__c} onchange={handleSingleFieldChange}
+								required={calibReasonRequired}></lightning-input>
+
+							<lightning-input type="number" label="Jumping Qty" name="Jumping_Qty__c"
+								value={selectedDispenser.Jumping_Qty__c} onchange={handleSingleFieldChange}>
+							</lightning-input>
+
+							<lightning-input type="text" label="Jumping Reason" name="Jumping_Reason__c"
+								value={selectedDispenser.Jumping_Reason__c} onchange={handleSingleFieldChange}
+								required={jumpReasonRequired}></lightning-input>
+
+							<lightning-input type="number" label="Other Qty" name="Other_Qty__c"
+								value={selectedDispenser.Other_Qty__c} onchange={handleSingleFieldChange}>
+							</lightning-input>
+
+							<lightning-input type="text" label="Other Reason" name="Other_Reason__c"
+								value={selectedDispenser.Other_Reason__c} onchange={handleSingleFieldChange}
+								required={otherReasonRequired}></lightning-input>
+						</template>
+						<div class="slds-m-top_medium">
+							<lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+							<template if:false={isReplaceMode}>
+								<lightning-button label="Replace" variant="destructive" class="slds-m-left_small"
+									onclick={handleReplaceInEdit}></lightning-button>
+							</template>
+							<lightning-button label="Cancel" variant="neutral" class="slds-m-left_small"
+								onclick={cancelEdit}>
+							</lightning-button>
+						</div>
+					</div>
+				</template>
+
+
+			</div>
+		</lightning-card>
+	</template>
+	<template if:true={showOkModal}>
+		<section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<header class="slds-modal__header">
+					<h2 class="slds-text-heading_medium">Confirm</h2>
+				</header>
+				<div class="slds-modal__content slds-p-around_medium">
+					<div class="slds-grid slds-wrap">
+						<div class="slds-col slds-size_1-of-1">
+							<template if:false={imageCaptured}>
+								<!-- <lightning-input type="file" label="Take selfie" onchange={handleSelfieUpload} multiple
+								accept="image/jpeg,image/png,image/jpg" disabled={disabled} required>
+							</lightning-input> -->
+								<c-camera-upload-component image-list={photoUploadSlots} onchange={handleSelfieUpload}
+									front-camera=true>
+								</c-camera-upload-component>
+
+							</template>
+						</div>
+						<div class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-text-color_success">
+							<template if:true={imageCaptured}>
+								Image Captured Successfully
+							</template>
+						</div>
+					</div>
+					<!-- <p class="slds-align--absolute-center"> -->
+
+					<!-- </p> -->
+				</div>
+				<div class="slds-modal__footer">
+					<lightning-button variant="brand" label="OK" onclick={handleSaveClick}></lightning-button>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open"></div>
+	</template>
+
+	<template if:true={showAlertScreen}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">Confirm</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p class="slds-align--absolute-center">
+                        {alertMessage}
+                    </p>
+                </div>
+                <div class="slds-modal__footer">
+                    <lightning-button variant="brand" label="Yes" onclick={handleSaveAlert} class="slds-p-right_x-small"></lightning-button>
+					<lightning-button variant="neutral" label="No" onclick={handleCloseAlert}></lightning-button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+	<template if:true={showDeleteConfirmation}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">Confirm Delete</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p class="slds-align--absolute-center">
+                        Are you sure you want to delete this record?
+                    </p>
+                </div>
+                <div class="slds-modal__footer">
+                    <lightning-button variant="destructive" label="Yes" onclick={handleConfirmDelete} class="slds-p-right_x-small"></lightning-button>
+					<lightning-button variant="neutral" label="No" onclick={handleCancelDelete}></lightning-button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+</template>

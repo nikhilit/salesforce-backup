@@ -1,0 +1,191 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 26-11-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   27-10-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <template if:true={isButtonView}>
+
+        <!-- R&T List Btns -->     
+        <template if:true={isRTUser}>
+            <lightning-button label="Upload Record" onclick={showUploadRecordBtn} ></lightning-button>&emsp;
+            <lightning-button label="Assign To Agency/Agent" onclick={showAssignAgencyBtn} disabled={disableRecSelectionBtn}></lightning-button>&emsp;
+            <lightning-button label="Withdraw Allocation" onclick={showWithdrawBtn} disabled={disableRecSelectionBtn}></lightning-button>&emsp;
+            <lightning-button label="Update Visit EndDate" onclick={showVisitEndDateBtn}></lightning-button>&emsp;
+        </template>
+        <!-- R&T List Btns -->
+
+        <!-- Metering List Btns -->
+        <template if:true={isMeteringUser}>
+            <lightning-button label="Re-Assign Meter Reader" onclick={showReAssignMeterReader} ></lightning-button>&emsp;
+            <lightning-button label="Approval" onclick={showApprovalBtn} ></lightning-button>&emsp;
+            <lightning-button label="Send Email" onclick={showSendEmailBtn} ></lightning-button>&emsp;
+            <lightning-button label="Generate Bulk PDF" onclick={showBulkUploadPdfBtn} ></lightning-button>
+        </template>
+        <!-- Metering List Btns -->
+
+         <!--O&M WorkOrder List view buttons -->
+
+        <template if:true={ipdDMCAICUsers}>
+            <lightning-button label="Assign To Agent" onclick={showAssignToAgentButton} ></lightning-button>
+        </template>
+        
+             <template if:true={rubberhoseAicUser}>
+             <lightning-button style="padding: 1%;" label="Assign To Contractor" onclick={showAssignToContractorButton} ></lightning-button>
+        </template>
+        <!-- &nbsp;&nbsp; -->
+
+        <!--IPD AND DMC Supervisor -->
+
+        &nbsp;&nbsp;
+
+         <template if:true={ipdDMCContractorUsers}>
+            <lightning-button label="Contractor Approval" onclick={showContractorApprovalButton} ></lightning-button>
+        </template>
+        <!-- &nbsp;&nbsp; -->
+
+         <!--IPD AND DMC AIC -->
+
+         <template if:true={omaicusers}>
+            <lightning-button label="AIC Approval" onclick={showAICApprovalButton} ></lightning-button>
+        </template> &nbsp; &nbsp;
+        <template if:true={omaaicusersAFS}>
+            <lightning-button label="AIC Afs Approval" onclick={showAICApprovalAfsButton} ></lightning-button>
+        </template> &nbsp; &nbsp;
+
+        <template if:true={omaicusersMR}>
+            <lightning-button label="AIC approval" onclick={showAICApprovalMRButton} ></lightning-button>
+        </template> 
+         <template if:true={omBulkAICWorkorderCloser}>
+            <lightning-button label="Bulk AIC WorkOrder Clouser" onclick={showomBulkAICWorkorderCloserComp} ></lightning-button>
+        </template>
+        <template if:true={omBulkAgencyAgent}>
+            <lightning-button label="Bulk DRS Mapping AFS" onclick={showomBulkOMWorkAgencyAgentComp} ></lightning-button>
+        </template>
+         <template if:true={omAfBulkAICWorkorderCloser}>
+            <lightning-button label="Bulk AIC WorkOrder Close Reconnection/Disconnection" onclick={showomAfBulkAICWorkorderCloserComp} ></lightning-button>
+        </template>
+
+             <template if:true={rubberhoseAicUser}>      
+            <lightning-button label="AIC Work Order Closure" onclick={showAICWorkOrderCloseButton} style="padding:1%"></lightning-button>
+        </template>
+        <template if:true={afterSalesAicUser}>      
+            <lightning-button label="AIC Work Order Closure" onclick={showAICWorkOrderCloseButton} style="padding:1%"></lightning-button>
+        </template>
+        <template if:true={rubberhoseAicUser}>     
+            <lightning-button label="Withdraw Allocation" onclick={handleshowAICWorkOrderWithdraw} style="padding:1%"></lightning-button>
+        </template>
+         <template if:true={rubberhoseContractor}>     
+            <lightning-button label="Assign To Agency/Agent" onclick={handleassignagencyagent} style="padding:1%"></lightning-button>
+        </template>
+        <template if:true={aftersalesusers}>     
+            <lightning-button label="DRS Mapping on Afs Work Order" onclick={handleassignagencyagentafs} style="padding:1%"></lightning-button>
+        </template>
+
+        <template if:true={mrAicUser}>     
+            <lightning-button label="Assign To Agency/Agent" onclick={handleMRAICAgencyAgentChange} style="padding:1%"></lightning-button>
+        </template>
+    <!--O&M WorkOrder List view buttons -->
+
+    </template> 
+
+
+    <!-- R&T Apps -->
+    <template if:true={isUploadRecordBtnSelected}>
+        <c-as-csv-uploader object-api-name="WorkOrder"></c-as-csv-uploader>
+    </template>
+    <template if:true={isAssignAgencyBtnSelected}>
+        <c-agency-selector-for-r-t reactive-value={idsList}></c-agency-selector-for-r-t>
+    </template>
+    <template if:true={isWithdrawBtnSelected}>
+        <c-as-unallocate-service reactive-value={idsList}></c-as-unallocate-service>
+    </template>
+    <template if:true={isVisitEndDateBtnSelected}>
+        <c-as-update-work-order-end-date></c-as-update-work-order-end-date>
+    </template>
+    <!-- R&T Apps -->
+
+    <!-- Metering Apps -->
+    <template if:true={isBulkUploadBtnSelected}>
+        <c-work-orderbulk-upload-component record-ids={idsList}></c-work-orderbulk-upload-component>
+    </template>
+    <template if:true={isApprovalBtnSelected}>
+        <c-work-order-bulk-approval-component record-ids={idsList}></c-work-order-bulk-approval-component>
+    </template>
+    <template if:true={isReAssignMeterReaderSelected}>
+        <c-work-order-bulk-meter-reader-assignment record-ids={idsList}></c-work-order-bulk-meter-reader-assignment>
+    </template>
+    <template if:true={isSendEmailBtnSelected}>
+        <c-work-order-bulk-approval-component record-ids={idsList} mode="send_email"></c-work-order-bulk-approval-component>
+    </template>
+
+    <!-- Metering Apps -->
+
+
+   
+
+    <!--O&M Components -->
+
+ <template if:true={showAssignServiceAppointmentComp}>
+        <c-assign-service-appointment-to-agent-comp reactive-value={idsList}></c-assign-service-appointment-to-agent-comp>
+    </template>
+
+     <template if:true={showAsOMCaseCSVUploaderComp}>
+        <c-as-o-m-case-c-s-v-uploader ></c-as-o-m-case-c-s-v-uploader>
+    </template>
+
+     <template if:true={showAsOMWorkOrderCSVUploaderComp}>
+        <c-as-o-m-work-order-c-s-v-uploader ></c-as-o-m-work-order-c-s-v-uploader>
+    </template>
+
+    <template if:true={showAsOMWorkAgencyAgentUploaderComp}>
+        <c-as-o-m-agency-agent-excel-uploader ></c-as-o-m-agency-agent-excel-uploader>
+    </template>
+
+
+
+             <template if:true={showContractorApprovalComp}>
+        <c-contractor-approval-comp reactive-value={idsList}></c-contractor-approval-comp>
+    </template>
+
+     <template if:true={showAICApprovalComp}>
+        <c-aic-approval-comp reactive-value={idsList}></c-aic-approval-comp>
+    </template>
+<template if:true={showAICApprovalAfsComp}>
+        <c-aic-approval-afs-comp reactive-value={idsList}></c-aic-approval-afs-comp>
+    </template>
+             <template if:true={showAICWorkOrderCloseComp}>
+        <c-aic-workorder-closure-comp reactive-value={idsList}></c-aic-workorder-closure-comp>
+    </template>
+
+             <template if:true={showAssignContractorComp}>
+        <c-o-m-assignto-contractor-comp reactive-value={idsList}></c-o-m-assignto-contractor-comp>
+    </template>
+             <template if:true={showAICWorkOrderWithdraw}>
+
+       <c-aic-rubber-hose-withdraw-allocation reactive-value={idsList}></c-aic-rubber-hose-withdraw-allocation>
+
+    </template>
+
+    <template if:true={showAsssignagencyagent}>
+        <c-o-m-assign-agencyand-agent-comp reactive-value={idsList}></c-o-m-assign-agencyand-agent-comp>
+    </template>
+
+    <template if:true={showAsssignagencyagentAfs}>
+        <c-o-m-assign-agencyand-agent-afs-comp reactive-value={idsList}></c-o-m-assign-agencyand-agent-afs-comp>
+    </template>
+
+    <template if:true={showAICApprovalMRComp}>
+        <c-aicapprovalmeterreplacementcomp reactive-value={idsList}></c-aicapprovalmeterreplacementcomp>
+    </template>
+
+     <template if:true={showAssignAgencyAgentMR}>
+        <c-o-m-assign-agencyand-agent-m-r-comp reactive-value={idsList}></c-o-m-assign-agencyand-agent-m-r-comp>
+    </template>
+
+</template>

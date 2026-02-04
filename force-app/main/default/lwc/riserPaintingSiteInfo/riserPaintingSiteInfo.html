@@ -1,0 +1,114 @@
+<template>
+    <!-- Page 1: Initial Site Details -->
+    <template if:false={showFormPage}>
+        <div class="form-section">
+            <lightning-input 
+                class="input-field"
+                label="Number of Floors" 
+                type="number" 
+                value={floors} 
+                onchange={handleFloors}>
+            </lightning-input>
+
+            <lightning-input 
+                class="input-field"
+                label="Number of Risers" 
+                type="number" 
+                value={risers} 
+                onchange={handleRisers}>
+            </lightning-input>
+
+            <template for:each={riserTypes} for:item="riser" for:index="index">
+                <lightning-combobox
+                    class="input-field"
+                    key={riser.key}
+                    label={riser.label}
+                    value={riser.type}
+                    data-index={index}
+                    onchange={handleRiserType}
+                    options={typeOptions}>
+                </lightning-combobox>
+            </template>
+
+            <template if:true={imageUploadPage}>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1">
+                        <c-o_-m-camera-upload-comp
+                            image-list={photoUploadSlots}
+                            onchange={handleFile}>
+                        </c-o_-m-camera-upload-comp>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <!-- Page 2: Riser Activity Form -->
+    <!-- Page 2: Riser Activity Form -->
+<template if:true={showFormPage}>
+
+    <!-- IF FORM IS DISABLED (after success toast) -->
+    <template if:true={formDisabled}>
+        <div class="slds-text-align_center slds-p-around_medium slds-text-color_success">
+            <lightning-icon icon-name="utility:success" alternative-text="Success" class="slds-m-right_small"></lightning-icon>
+            <p>All riser data and photos submitted successfully. Thank you!</p>
+        </div>
+    </template>
+
+    <!-- ELSE, show spinner or form -->
+    <template if:false={formDisabled}>
+        <!-- SPINNER -->
+        <template if:true={isSubmitting}>
+            <div class="slds-align_absolute-center slds-m-top_medium">
+                <lightning-spinner alternative-text="Submitting..." size="large"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- FORM CONTENT -->
+        <template if:false={isSubmitting}>
+            <template if:true={hasForms}>
+                <div class="form-container">
+                    <h2 class="riser-title">{currentRiserLabel}</h2>
+
+                    <template for:each={forms} for:item="form">
+                        <div key={form.Id} class="form-card">
+                            <template if:true={form.dataTypeIsText}>
+                                <lightning-input
+                                    label={form.label}
+                                    data-id={form.Id}
+                                    value={form.response}
+                                    onchange={handleChange}
+                                    class="form-input">
+                                </lightning-input>
+                            </template>
+                            <template if:true={form.dataTypeIsBoolean}>
+                                <lightning-input
+                                    type="checkbox"
+                                    label={form.label}
+                                    data-id={form.Id}
+                                    checked={form.isChecked}
+                                    onchange={handleChange}
+                                    class="form-checkbox">
+                                </lightning-input>
+                            </template>
+                        </div>
+                    </template>
+
+                    <div class="button-container">
+                        <lightning-button
+                            label={riserButtonLabel}
+                            onclick={handleSave}
+                            variant="brand">
+                        </lightning-button>
+                    </div>
+                </div>
+            </template>
+
+            <template if:false={hasForms}>
+                <div class="no-data">No form questions available.</div>
+            </template>
+        </template>
+    </template>
+</template>
+
+</template>

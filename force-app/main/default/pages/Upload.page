@@ -1,0 +1,6 @@
+<apex:page standardController="Staging__c" extensions="StagingController" lightningStylesheets="true">
+<apex:form >
+<apex:commandButton action="{!startBatch}" value="Process CSV"/>
+</apex:form>
+    
+</apex:page>

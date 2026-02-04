@@ -1,0 +1,263 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 21-05-2025
+  @last modified by  : Kartik Patkar Appstrail 
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   21-05-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <lightning-card title="Customer Address Update">
+
+        <!-- Step 1: Field Update -->
+        <template if:true={showFieldUpdate}>
+            <div class="slds-grid slds-wrap">
+
+                <!-- Old Flat / New Flat -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="Old Flat" 
+                        input-value={flat} 
+                        disabled>
+                    </c-custom-input-field-component>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="New Flat" 
+                        onchange={handleInputChange}
+                        data-field-name="newFlat"  
+                        input-value={newFlat}>
+                    </c-custom-input-field-component>
+                </div>
+
+                <!-- Old Floor / New Floor -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="Old Floor" 
+                        input-value={floor} 
+                        disabled>
+                    </c-custom-input-field-component>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="New Floor" 
+                        onchange={handleInputChange}
+                        data-field-name="newFloor"  
+                        input-value={newFloor}>
+                    </c-custom-input-field-component>
+                </div>
+
+                <!-- Old Wing / New Wing -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="Old Wing" 
+                        input-value={wing} 
+                        disabled>
+                    </c-custom-input-field-component>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="New Wing" 
+                        onchange={handleInputChange}
+                        data-field-name="newWing"  
+                        input-value={newWing}>
+                    </c-custom-input-field-component>
+                </div>
+
+                <!-- Old Plot / New Plot -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="Old Plot" 
+                        input-value={plot} 
+                        disabled>
+                    </c-custom-input-field-component>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="New Plot" 
+                        onchange={handleInputChange}
+                        data-field-name="newPlot"  
+                        input-value={newPlot}>
+                    </c-custom-input-field-component>
+                </div>
+
+                <!-- Old Colony / New Colony -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="Old Colony" 
+                        input-value={colony} 
+                        disabled>
+                    </c-custom-input-field-component>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="New Colony" 
+                        onchange={handleInputChange}
+                        data-field-name="newColony"  
+                        input-value={newColony}>
+                    </c-custom-input-field-component>
+                </div>
+
+                <!-- Old Road / New Road -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="Old Road Name" 
+                        input-value={roadName} 
+                        disabled>
+                    </c-custom-input-field-component>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="New Road Name" 
+                        onchange={handleInputChange}
+                        data-field-name="newRoadName"  
+                        input-value={newRoadName}>
+                    </c-custom-input-field-component>
+                </div>
+
+                <!-- Old Location / New Location -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="Old Location" 
+                        input-value={location} 
+                        disabled>
+                    </c-custom-input-field-component>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="New Location" 
+                        onchange={handleInputChange}
+                        data-field-name="newLocation"  
+                        input-value={newLocation}>
+                    </c-custom-input-field-component>
+                </div>
+
+                <!-- Old Building / New Building -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="Old Building Name" 
+                        input-value={building} 
+                        disabled>
+                    </c-custom-input-field-component>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="New Building Name" 
+                        onchange={handleInputChange}
+                        data-field-name="newBuildName"  
+                        input-value={newBuildName}>
+                    </c-custom-input-field-component>
+                </div>
+
+                <!-- Old Society / New Society -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="Old Society Name" 
+                        input-value={society} 
+                        disabled>
+                    </c-custom-input-field-component>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="New Society Name" 
+                        onchange={handleInputChange}
+                        data-field-name="newSocietyName"  
+                        input-value={newSocietyName}>
+                    </c-custom-input-field-component>
+                </div>
+
+                <!-- Old Customer / New Customer -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="Old Customer Name" 
+                        input-value={customerName} 
+                        disabled>
+                    </c-custom-input-field-component>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="New Customer Name" 
+                        onchange={handleInputChange}
+                        data-field-name="newCustomerName"  
+                        input-value={newCustomerName}>
+                    </c-custom-input-field-component>
+                </div>
+
+                <!-- Old BP / New BP -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="Old BP Number" 
+                        input-value={bpNumber} 
+                        disabled>
+                    </c-custom-input-field-component>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="New BP Number" 
+                        onchange={handleInputChange}
+                        data-field-name="newBPNumber"  
+                        input-value={newBPNumber}>
+                    </c-custom-input-field-component>
+                </div>
+
+                <!-- Remarks -->
+                <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <c-custom-input-field-component 
+                        input-label="Remarks" 
+                        onchange={handleInputChange}
+                        data-field-name="remarks" 
+                        input-type="textarea" 
+                        input-value={remarks}>
+                    </c-custom-input-field-component>
+                </div>
+
+                <!-- Buttons -->
+                <div class="slds-p-around_medium" style="margin-left:10.8rem;">
+                    <lightning-button label="Cancel" variant="neutral" onclick={handleCancel}></lightning-button>
+                    &nbsp;&nbsp;&nbsp;
+                    <lightning-button label="Next" variant="brand" onclick={handleNext}></lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!-- Step 2: File Upload -->
+        <template if:true={showFileUpload}>
+            <template for:each={documentTypes} for:item="types">
+                <div key={types.value} class="slds-p-around_small" data-label={types.label}>
+                    <div class="slds-grid slds-box slds-m-bottom_medium slds-align_absolute-center" style="height: 3.5rem;">
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                            <p class="slds-text-heading_small">{types.label}</p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-around_small slds-text-align_right">
+                            <template if:true={types.fileName}>
+                                <span style="font-size:12px;">{types.fileName}</span>
+                                <lightning-button-icon icon-name="utility:close" 
+                                    alternative-text="Clear" 
+                                    class="slds-m-left_x-small"
+                                    onclick={handleClearFile}
+                                    data-label={types.label}
+                                    variant="bare"
+                                    size="small">
+                                </lightning-button-icon>
+                            </template>
+                            <template if:false={types.fileName}>
+                                <lightning-input style="font-size:11px;" type="file" accept="*/*" 
+                                    onchange={handleFileChange} data-label={types.label}>
+                                </lightning-input>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <div class="slds-p-around_medium" style="margin-left:10.8rem;">
+                <lightning-spinner if:true={isLoading} alternative-text="Uploading..."></lightning-spinner>
+                <lightning-button label="Previous" variant="neutral" onclick={handlePrevious}></lightning-button>
+                &nbsp;&nbsp;&nbsp;
+                <lightning-button label="Save" variant="brand" onclick={handleUpload}></lightning-button>
+            </div>
+        </template>
+    </lightning-card>
+</template>

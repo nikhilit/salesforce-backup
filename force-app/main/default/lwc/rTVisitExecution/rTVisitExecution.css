@@ -1,0 +1,347 @@
+/* .slds-accordion__summary-action {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%; 
+}
+
+.slds-accordion__summary-action .slds-truncate:first-of-type {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.slds-accordion__summary-action .slds-text-align_right {
+    flex-shrink: 0; 
+    margin-left: auto; 
+} */
+
+.pdf-fullscreen-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f3f3f3;
+}
+
+.pdf-scroll-container {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    touch-action: none; /* required to handle custom pinch/pan */
+}
+
+.pdf-zoom-wrapper {
+    width: 100%;
+    height: 100%;
+    transform-origin: 0 0;
+    transition: transform 0.03s linear; /* quick smoothing */
+    will-change: transform;
+}
+
+/* Important: iframe must NOT receive touch events otherwise container won't get them */
+.pdf-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: none; /* allow touches to hit wrapper/container */
+}
+
+
+
+
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.5); /* Optional semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Make sure it stays on top */
+}
+
+
+.rowSec {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    border-bottom: 1px solid #eee;
+}
+
+.bottom {
+    margin-bottom: 8px;
+}
+
+.headingSec { 
+    font-size: 1rem;
+    font-weight: 900;
+}
+
+.account-container {
+    background-color: #f4f6f9;
+    padding: 0rem 0.5rem;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.1;
+    color: #333;
+}
+
+.section {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+}
+
+h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1b5297;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    border-left: 4px solid #1b96ff;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.label {
+    font-weight: 600;
+    color: #444;
+    flex: 1.5;
+}
+
+.value {
+    color: #222;
+    flex: 2;
+    text-align: right;
+}
+
+/* .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 1rem;
+    margin-bottom: 3px;
+} */
+
+.button-container {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    text-align: center;
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+    
+    /* ✅ Prevent overlap with Android/iOS navigation bars */
+    padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 8px);
+    z-index: 10;
+}
+
+.lightning-button {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+
+.modal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 1000;
+}
+
+.modal {
+    background-color: white;
+    border-radius: 8px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.modal-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.input-label {
+    display: block;
+    margin: 0.5rem 0 0.3rem;
+    font-weight: 500;
+}
+
+.textarea {
+    width: 100%;
+    height: 80px;
+    resize: vertical;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.action-button {
+    margin-top: 1rem;
+    padding: 0.7rem 1.2rem;
+    background-color: #0070d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.payment-option {
+    padding: 1rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: 1px solid #1b96ff;
+    background-color: #f0f8ff;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align: left;
+}
+
+.payment-option:hover {
+    background-color: #dbeeff;
+}
+
+.input-row {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-box {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.back-arrow {
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    color: #1b5297;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+}
+.secondary {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+/* Spinner overlay */
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Full Screen PDF Container */
+.pdf-fullscreen-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: white;
+    z-index: 9000;
+    display: flex;
+    flex-direction: column;
+}
+
+/* PDF Header */
+.pdf-header {
+    background: #f3f2f2;
+    border-bottom: 1px solid #dddbda;
+    flex-shrink: 0;
+}
+
+.back-button {
+    min-width: 80px;
+}
+
+/* PDF Content Area */
+.pdf-content {
+    flex: 1;
+    width: 100%;
+    height: calc(100vh - 80px); /* Subtract header height */
+    overflow: hidden;
+}
+
+.pdf-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Loading Spinner */
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Mobile Optimization */
+@media (max-width: 480px) {
+    .pdf-header {
+        padding: 1rem;
+    }
+    
+    .back-button {
+        min-width: 60px;
+    }
+    
+    h2.slds-text-heading_medium {
+        font-size: 1.1rem;
+    }
+}
+
+/* Ensure it covers everything */
+:host {
+    position: relative;
+}

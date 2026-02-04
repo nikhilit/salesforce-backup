@@ -1,0 +1,911 @@
+<template>
+    <div class="modal-bg">
+        <div class="center-container">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+            </template>
+
+            <template if:true={isVisible}>
+                <div style="display: flex; flex-wrap: wrap;">
+                    <!-- Section 1 -->
+                    <div style="width:60%;">
+                        <div class="slds-grid slds-wrap slds-grid_vertical slds-gutters equal-height-card">
+                            <div class="slds-col slds-size_1-of-1">
+                                <div class="slds-theme_default" style="box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); border-radius: 4px;
+    margin-top: 6px;">
+                                    <div class="slds-media slds-media_center" style="margin-left:5px; padding: 4px;">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon icon-name="standard:case" alternative-text="Case"
+                                                title="Case" size="small"></lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <div><strong>Create New Case</strong></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-grid slds-wrap" style="padding: 6px;">
+                                        <div
+                                            class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                            <c-custom-input-field-component-c-r-m input-type="option"
+                                                input-label="Department" name="Department__c"
+                                                options={departmentOptions} input-value={form.Department__c}
+                                                onchange={handleChange} required>
+                                            </c-custom-input-field-component-c-r-m>
+                                        </div>
+                                        <!-- Category -->
+                                        <div
+                                            class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                            <c-custom-input-field-component-c-r-m input-type="option"
+                                                input-label="Category" name="Category__c" options={categoryOptions}
+                                                input-value={form.Category__c} onchange={handleChange} required disabled={isCategoryDisabled}>
+                                            </c-custom-input-field-component-c-r-m>
+                                        </div>
+
+
+                                        <!-- Type -->
+                                        <template if:false={hastype}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Type" name="Type__c" options={typeOptions}
+                                                    input-value={typeValue} onchange={handleChange}
+                                                    disabled={isTypeDisabled}>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+                                        <template if:true={hastype}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Type" name="Type__c" options={typeOptions}
+                                                    input-value={form.Type__c} onchange={handleChange}
+                                                    disabled={isTypeDisabled} required>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+                                        <!-- Subtype -->
+                                        <template if:false={hassubtype}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Subtype" name="Sub_Type__c"
+                                                    options={subTypeOptions} input-value={form.Sub_Type__c}
+                                                    onchange={handleChange} disabled={isSubTypeDisabled}>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+                                        <template if:true={hassubtype}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Subtype" name="Sub_Type__c"
+                                                    options={subTypeOptions} input-value={form.Sub_Type__c}
+                                                    onchange={handleChange} disabled={isSubTypeDisabled} required>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+
+                                        <!-- Value 1 -->
+                                        <template if:false={hasValue1}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Value 1" name="Value_1__c" options={valueOptions}
+                                                    input-value={form.Value_1__c} onchange={handleChange}
+                                                    disabled={isValue1Disabled}>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+                                        <template if:true={hasValue1}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Value 1" name="Value_1__c" options={valueOptions}
+                                                    input-value={form.Value_1__c} onchange={handleChange}
+                                                    disabled={isValue1Disabled} required>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+
+                                        <!-- PD Reason -->
+                                        <template if:true={showPDReason}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m
+                                                    input-type="option"
+                                                    input-label="PD Reason"
+                                                    name="PD_Reason__c"
+                                                    options={options.PD_Reason__c}
+                                                    input-value={form.PD_Reason__c}
+                                                    onchange={handleChange}
+                                                    required>
+                                                </c-custom-input-field-component-c-r-m>
+
+                                            </div>
+                                        </template>
+
+                                        <!-- New Address (only for Redevelopment of society) -->
+                                        <template if:true={showNewAddressField}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_2-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m
+                                                    input-label="New Address"
+                                                    name="New_Address__c"
+                                                    value={form.New_Address__c}
+                                                    onchange={handleFieldChange}
+                                                    type="text"
+                                                    required>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+
+                                        <!-- Value 2-8 -->
+                                        <template if:true={showValue2}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Value 2" name="Value_2__c" options={options.Value_2__c}
+                                                    input-value={form.Value_2__c} onchange={handleChange}
+                                                    disabled={isValue2Disabled} required>
+                                                </c-custom-input-field-component-c-r-m>
+
+                                            </div>
+                                        </template>
+
+                                        <template if:true={showValue3}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Value 3" name="Value_3__c" options={options.Value_3__c}
+                                                    input-value={form.Value_3__c} onchange={handleChange}
+                                                    disabled={isValue3Disabled} required>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+
+                                        <template if:true={showValue4}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Value 4" name="Value_4__c" options={options.Value_4__c}
+                                                    input-value={form.Value_4__c} onchange={handleChange}
+                                                    disabled={isValue4Disabled} required>
+                                                </c-custom-input-field-component-c-r-m>
+
+                                            </div>
+                                        </template>
+
+                                        <template if:true={showValue5}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Value 5" name="Value_5__c" options={options.Value_5__c}
+                                                    input-value={form.Value_5__c} onchange={handleChange}
+                                                    disabled={isValue5Disabled} required>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+
+                                        <template if:true={showValue6}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Value 6" name="Value_6__c" options={options.Value_6__c}
+                                                    input-value={form.Value_6__c} onchange={handleChange}
+                                                    disabled={isValue6Disabled} required>
+                                                </c-custom-input-field-component-c-r-m>
+
+                                            </div>
+                                        </template>
+
+                                        <template if:true={showValue7}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Value 7" name="Value_7__c" options={options.Value_7__c}
+                                                    input-value={form.Value_7__c} onchange={handleChange}
+                                                    disabled={isValue8Disabled} required>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+
+                                        <template if:true={showValue8}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Value 8" name="Value_8__c" options={options.Value_8__c}
+                                                    input-value={form.Value_8__c} onchange={handleChange}
+                                                    disabled={isValue8Disabled} required>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+
+                                        <template if:true={showAmountField}>
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m 
+                                                    input-type="number"
+                                                    input-label="Amount"
+                                                    name="Amount__c"
+                                                    value={form.Amount__c}
+                                                    onchange={handleChange}
+                                                    required={isAmountRequired}
+                                                >
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+
+
+
+
+                                        <!-- Name Correction Fields -->
+                                        <template if:true={showNewSalutationField}>
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m 
+                                                    input-type="option"
+                                                    input-label="New Salutation"
+                                                    name="New_Salutation__c"
+                                                    options={salutationOptions}
+                                                    input-value={form.New_Salutation__c}
+                                                    onchange={handleChange}
+                                                    required={showNewSalutationField}
+                                                >
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+
+                                        <template if:true={showNameCorrectionFields}>
+
+                                            <!-- New First Name -->
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m 
+                                                    input-label="New First Name"
+                                                    name="New_First_Name__c" 
+                                                    value={form.New_First_Name__c}
+                                                    onchange={handleFieldChange} 
+                                                    type="text"
+                                                    required={showNameCorrectionFields}>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                            
+                                            <!-- New Middle Name -->
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m 
+                                                    input-label="New Middle Name"
+                                                    name="New_Middle_Name__c" 
+                                                    value={form.New_Middle_Name__c}
+                                                    onchange={handleFieldChange} 
+                                                    type="text"
+                                                    >
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                            
+                                            <!-- New Last Name -->
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m 
+                                                    input-label="New Last Name"
+                                                    name="New_Last_Name__c" 
+                                                    value={form.New_Last_Name__c}
+                                                    onchange={handleFieldChange} 
+                                                    type="text"
+                                                    required={showNameCorrectionFields}>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+                                        <!-- Add this after your existing fields in the template -->
+                                        <template if:true={showCustomerContactFields}>
+                                            <!-- New Email ID - Show for Email Address OR Mobile No & Email Address -->
+                                            <template if:true={showNewEmailField}>
+                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                    <c-custom-input-field-component-c-r-m 
+                                                        input-label="New Email ID"
+                                                        name="New_email_id__c" 
+                                                        value={form.New_email_id__c}
+                                                        onchange={handleFieldChange} 
+                                                        type="email"
+                                                        required={showNewEmailField}>
+                                                    </c-custom-input-field-component-c-r-m>
+                                                </div>
+                                            </template>
+                                            
+                                            <!-- New Contact - Show for Mobile No OR Mobile No & Email Address -->
+                                            <template if:true={showNewContactField}>
+                                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                    <c-custom-input-field-component-c-r-m 
+                                                        input-label="New Contact"
+                                                        name="New_Contact__c" 
+                                                        value={form.New_Contact__c}
+                                                        onchange={handleFieldChange} 
+                                                        type="text"
+                                                        required={showNewContactField}>
+                                                    </c-custom-input-field-component-c-r-m>
+                                                </div>
+                                            </template>
+                                        </template>
+                                        <!-- Add this after your existing Meter_reading__c field -->
+                                        <template if:true={showBillingShortfallFields}>
+                                            <!-- Meter Reading (user editable) -->
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m 
+                                                    input-label="Meter Reading"
+                                                    name="Meter_reading__c" 
+                                                    value={form.Meter_reading__c}
+                                                    onchange={handleFieldChange} 
+                                                    type="text"
+                                                    required={areBillingShortfallFieldsRequired}>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                            
+                                            <!-- From Date (auto-set, greyed out, NOT editable) -->
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m
+                                                    input-label="From Date" 
+                                                    input-type="date"
+                                                    input-active="false"
+                                                    name="From_Date__c"
+                                                    data-field-name="From_Date__c"
+                                                    data-field-api="From_Date__c"
+                                                    input-value={form.From_Date__c}
+                                                    disabled="true"
+                                                    style="pointer-events:none; opacity:0.5;">
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+
+                                            <!-- Number of Months is now hard-coded in JS as 6 and NOT shown in UI -->
+
+                                            <!-- To Date (auto-calculated, greyed out, NOT editable) -->
+                                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m
+                                                    input-label="To Date" 
+                                                    input-type="date"
+                                                    input-active="false"
+                                                    name="To_Date__c"
+                                                    data-field-name="To_Date__c"
+                                                    data-field-api="To_Date__c"
+                                                    input-value={form.To_Date__c}
+                                                    disabled="true"
+                                                    style="pointer-events:none; opacity:0.5;">
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+
+
+
+                                        <template if:true={isMetering}>
+                                            
+                                         <div
+                                            class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                            <c-custom-input-field-component-c-r-m input-label="Meter Reading"
+                                                name="Meter_reading__c" value={form.Meter_reading__c}
+                                                onchange={handleFieldChange} required={isMeteringAMR}> type="text">
+                                            </c-custom-input-field-component-c-r-m>
+                                        </div>
+                                        </template>
+                                        <div
+                                            class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                            <c-custom-input-field-component-c-r-m input-label="Send SMS To"
+                                                name="Send_SMS_to__c" value={form.Send_SMS_to__c}
+                                                onchange={handleFieldChange} type="text">
+                                            </c-custom-input-field-component-c-r-m>
+                                        </div>
+                                     <template if:true={isNameTransferRelated}>
+    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+        <c-custom-input-field-component-c-r-m
+            input-type="option"
+            input-label="Transfer Type"
+            name="Transfer_Type__c"
+            input-value={form.Transfer_Type__c}
+            options={transfertypes}
+            onchange={handleChange} required>
+        </c-custom-input-field-component-c-r-m>
+    </div>
+</template>
+
+
+                                        <template if:true={showNameTransferMode}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Name Transfer Mode" name="Name_Transfer_Mode__c"
+                                                    input-value={form.Name_Transfer_Mode__c}
+                                                    options={nameTransferModeOptions} onchange={handleChange} required>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+
+
+                                        <!-- Refund Fields -->
+                                        <template if:true={isRefundRelated}>
+                                            <!-- Mode of Payment Field (always shown for refund cases) -->
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-type="option"
+                                                    input-label="Mode of Payment" name="Mode_Of_Payment__c"
+                                                    input-value={form.Mode_Of_Payment__c}
+                                                    options={options.Mode_Of_Payment__c} onchange={handleChange}>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                            <div
+                                                    class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                    <c-custom-input-field-component-c-r-m input-label="Refund Amount"
+                                                        name="Refund_Amount__c" formatter="currency" step="0.01"
+                                                        value={form.Refund_Amount__c} onchange={handleFormChange}>
+                                                    </c-custom-input-field-component-c-r-m>
+                                                </div>
+
+                                            <!-- Bank Details (only shown when Mode is Online) -->
+                                            <template if:true={showBankDetails}>
+                                                <!-- Refund Amount -->
+                                                
+
+                                                <!-- Request Submission Date -->
+                                                <div
+                                                    class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                    <c-custom-input-field-component-c-r-m
+                                                        input-label="Request Submission Date" input-type="date"
+                                                        input-active="true" name="Request_Submission_Date__c"
+                                                        data-field-name="Request_Submission_Date__c"
+                                                        data-field-api="Request_Submission_Date__c"
+                                                        input-value={form.Request_Submission_Date__c}
+                                                        onchange={handleFieldChange}>
+                                                    </c-custom-input-field-component-c-r-m>
+                                                </div>
+
+                                                <!-- Account Holder Name -->
+                                                <div
+                                                    class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                    <c-custom-input-field-component-c-r-m
+                                                        input-label="Account Holder Name" input-type="text"
+                                                        name="Account_Holder_Name__c" maxlength="50"
+                                                        input-value={form.Account_Holder_Name__c}
+                                                        onchange={handleFormChange}>
+                                                    </c-custom-input-field-component-c-r-m>
+                                                </div>
+
+                                                <!-- Bank Name -->
+                                                <div
+                                                    class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                    <c-custom-input-field-component-c-r-m input-label="Bank Name"
+                                                        name="Bank_Name__c" maxlength="30"
+                                                        input-value={form.Bank_Name__c} onchange={handleFormChange}>
+                                                    </c-custom-input-field-component-c-r-m>
+                                                </div>
+
+                                                <!-- Branch Name -->
+                                                <div
+                                                    class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                    <c-custom-input-field-component-c-r-m input-label="Branch Name"
+                                                        name="Branch_Name__c" maxlength="20"
+                                                        input-value={form.Branch_Name__c} onchange={handleFormChange}>
+                                                    </c-custom-input-field-component-c-r-m>
+                                                </div>
+
+                                                <!-- Account Type -->
+                                                <div
+                                                    class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                    <c-custom-input-field-component-c-r-m input-type="option"
+                                                        input-label="Account Type" name="Account_Type__c"
+                                                        input-value={form.Account_Type__c}
+                                                        options={options.Account_Type__c} onchange={handleChange}>
+                                                    </c-custom-input-field-component-c-r-m>
+                                                </div>
+
+                                                <!-- IFSC Code -->
+                                                <div
+                                                    class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                    <c-custom-input-field-component-c-r-m input-label="IFSC Code"
+                                                        name="IFSC_Code__c" maxlength="11"
+                                                        input-value={form.IFSC_Code__c} onchange={handleFormChange}>
+                                                    </c-custom-input-field-component-c-r-m>
+                                                </div>
+
+                                                <!-- Account Number -->
+                                                <div
+                                                    class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                    <c-custom-input-field-component-c-r-m input-label="Account Number"
+                                                        name="Account_Number__c" input-value={form.Account_Number__c}
+                                                        input-type="number" onchange={handleFormChange}>
+                                                    </c-custom-input-field-component-c-r-m>
+                                                </div>
+                                            </template>
+                                        </template>
+
+                                        <!-- Origin, Priority, Repeat Case -->
+                                        <!-- Origin -->
+                                        <div
+                                            class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                            <c-custom-input-field-component-c-r-m input-type="option"
+                                                input-label="Contact Direction" name="Contact_Directions__c" options={contactDirections}
+                                                input-value={form.Contact_Directions__c} onchange={handleChange} required>
+                                            </c-custom-input-field-component-c-r-m>
+                                        </div>
+                                        <!-- Contacted By Field -->
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                            <c-custom-input-field-component-c-r-m 
+                                                input-label="Contacted By"
+                                                name="Contacted_By__c" 
+                                                value={form.Contacted_By__c}
+                                                onchange={handleFieldChange} 
+                                                type="text">
+                                            </c-custom-input-field-component-c-r-m>
+                                        </div>
+
+                               
+                                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                            <c-custom-input-field-component-c-r-m 
+                                                input-label="Relationship to Owner"
+                                                name="Relationship_to_the_owner__c" 
+                                                value={form.Relationship_to_the_owner__c}
+                                                onchange={handleFieldChange} 
+                                                type="text">
+                                            </c-custom-input-field-component-c-r-m>
+                                        </div> 
+                                        <div
+                                            class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                            <c-custom-input-field-component-c-r-m input-type="option"
+                                                input-label="Origin" name="Origin" options={options.Origin}
+                                                input-value={form.Origin} onchange={handleChange} required>
+                                            </c-custom-input-field-component-c-r-m>
+                                        </div>
+                                        <!-- Show only when Origin = Telephone (API value '1') -->
+                                        <template if:true={showCallReceivedFrom}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m
+                                                    input-label="Call Received From"
+                                                    name="Call_Received_From__c"
+                                                    value={form.Call_Received_From__c}
+                                                    onchange={handleFieldChange}
+                                                    type="tel" required>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+
+
+                                        <div
+                                            class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                            <c-custom-input-field-component-c-r-m input-type="option"
+                                                input-label="Sub-Origin" name="Sub_Origin__c"
+                                                options={options.Sub_Origin__c} input-value={form.Sub_Origin__c}
+                                                onchange={handleChange} disabled={isSubOriginDisabled}>
+                                            </c-custom-input-field-component-c-r-m>
+                                        </div>
+
+                                        <!-- Priority -->
+                                        <div
+                                            class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                            <c-custom-input-field-component-c-r-m input-type="option"
+                                                input-label="Priority" name="Priority" options={options.Priority}
+                                                input-value={form.Priority} onchange={handlePriorityChange} required>
+                                            </c-custom-input-field-component-c-r-m>
+                                        </div>
+                                        <template if:true={showTicketNumber}>
+                                            <div
+                                                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-p-around_x-small">
+                                                <c-custom-input-field-component-c-r-m input-label="Ticket Number"
+                                                    name="Ticket_Number__c" maxlength="50"
+                                                    input-value={form.Ticket_Number__c} onchange={handleFormChange}
+                                                    required>
+                                                </c-custom-input-field-component-c-r-m>
+                                            </div>
+                                        </template>
+                                        <!-- Remarks (Textarea) -->
+                                        <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                                            <div class="input-box" style="position: relative;" title="Remarks">
+
+                                                <textarea
+            data-id="desc"
+            rows="4"
+            class="input-1 field"
+            onfocus={setFocusTrue}
+            onblur={unsetFocusFalse}
+            value={form.Remarks__c}
+            oninput={handleDescChange}
+            placeholder="Remarks">
+        </textarea>
+                                            </div>
+                                        </div>
+                                        <div class="button-section">
+                                            <!-- <div class="info-block">
+                                                <span class="label">Department:</span>
+                                                <template if:true={department}>
+                                                    <lightning-badge label={department} class="badge badge-red">
+                                                    </lightning-badge>
+                                                </template>
+                                            </div> -->
+
+                                            <div class="info-block">
+                                                <span class="label">SPOC:</span>
+                                                <template if:true={spoc}>
+                                                    <lightning-badge label={spoc} class="badge badge-green">
+                                                    </lightning-badge>
+                                                </template>
+                                            </div>
+
+                                            <div class="info-block" style="margin-right:12px;">
+                                                <span class="label">TAT(in days):</span>
+                                                <template if:true={tatDays}>
+                                                    <lightning-badge label={tatDays} class="badge badge-blue">
+                                                    </lightning-badge>
+                                                </template>
+                                            </div>
+
+                                            <lightning-button variant="brand" label="Create Case" onclick={handleSubmit}
+                                                disabled={isLoading}>
+                                            </lightning-button>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- Upload Document Section inside 70% panel -->
+
+                        </div>
+                    </div>
+                    <div style="width:40%;">
+
+
+
+                        <div class="slds-grid slds-wrap slds-grid_vertical slds-gutters equal-height-card">
+                            <!-- Section 1 -->
+                            <div class="slds-col slds-size_1-of-1">
+
+                                <!--Upload Document-->
+                                <div class="slds-box slds-theme_default">
+                                    <div class="slds-media slds-media_center">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon icon-name="standard:case" alternative-text="Case"
+                                                title="Case" size="small">
+                                            </lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <div><strong>Recent Cases</strong></div>
+                                        </div>
+                                    </div>
+
+                                    <template if:true={cases.length}>
+                                        <lightning-datatable key-field="Id" data={cases} columns={caseColumns}
+                                            hide-checkbox-column onrowaction={handleCaseClick}>
+                                        </lightning-datatable>
+                                    </template>
+                                </div>
+                                <div class="slds-box2 slds-theme_default"
+                                    style="margin-right:0px; margin-bottom: 1rem;">
+                                    <div class="slds-media slds-media_center" style="padding: 0.5rem;">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon icon-name="standard:document" alternative-text="Document"
+                                                title="Document" size="small"></lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <div><strong>Upload Document</strong></div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap slds-gutters" style="padding: 0.5rem;">
+
+                                        <!-- Document Type Selection -->
+                                        <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                                            <template if:true={isNameTransferRelated}>
+                                                <!-- Show document uploader component for Name Transfer cases -->
+                                                  <template for:each={categories} for:item="category">
+                        <div key={category.Id} class="slds-m-bottom_small">
+                            <div class="slds-checkbox">
+                                <input type="checkbox" 
+                                       id={category.Id}
+                                       checked={category.checked}
+                                       onchange={handleCategorySelect}
+                                       data-id={category.Id} />
+                                <label class="slds-checkbox__label" for={category.Id}>
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label">
+                                       {category.Category_Name__c}
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="slds-p-left_large">
+                                <template for:each={category.options} for:item="option">
+                                    <div key={option.Id} class="slds-checkbox slds-m-top_xx-small">
+                                        <input type="checkbox"
+                                               id={option.Id}
+                                               value={option.Id}
+                                               checked={option.checked}
+                                               onchange={handleDocumentSelect} />
+                                        <label class="slds-checkbox__label" for={option.Id}>
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label">
+                                                {option.Option_Name__c}
+                                                <template if:true={option.Is_Required__c}>
+                                                    <lightning-icon icon-name="utility:required"
+                                                                    size="x-small"
+                                                                    class="slds-m-left_xx-small">
+                                                    </lightning-icon>
+                                                </template>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                                            </template>
+                                            <template if:false={isNameTransferRelated}>
+                                                <!-- Show checkboxes for non-Name Transfer cases -->
+                                                <div class="slds-form-element">
+                                                    <label class="slds-form-element__label">Select Document Types</label>
+                                                    <div class="slds-form-element__control">
+                                                        <template for:each={docTypeOptions} for:item="option">
+                                                            <div key={option.value} class="slds-checkbox">
+                                                                <input type="checkbox"
+                               id={option.value}
+                               name="docType"
+                               value={option.value}
+                               checked={option.checked}
+                               onchange={handleCheckboxChange}
+                               class="slds-checkbox__input" />
+                                                                <label class="slds-checkbox__label" for={option.value}>
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label">{option.label}</span>
+                        </label>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+
+                                        <!-- Description Field (Always Visible) -->
+                                        <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                                            <div class="slds-form-element">
+                                                <div class="input-box" style="position: relative;" title="Description">
+                                                    <textarea
+                data-id="doc-desc"
+                rows="4"
+                class="input-1 field slds-textarea"
+                onfocus={setFocusTrue}
+                onblur={unsetFocusFalse}
+                value={docdescription}
+                onchange={handleDocDescChange}
+                placeholder="Description">
+            </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- File Upload Field (Always Visible) -->
+                                        <div class="slds-col slds-size_1-of-1 slds-p-around_x-small">
+                                            <div class="slds-form-element">
+                                                <lightning-file-upload label="Select File" name="fileUploader"
+                                                    accept={acceptedFormats} record-id={recordId} multiple
+                                                    onuploadfinished={handleFileUploadFinished}></lightning-file-upload>
+                                            </div>
+                                        </div>
+
+                                        <!-- Uploaded Documents Table (Always Visible if files exist) -->
+                                        <template if:true={uploadedDocuments.length}>
+                                            <div class="slds-col slds-size_1-of-1 slds-p-horizontal_small">
+                                                <div class="slds-text-title slds-m-bottom_x-small">
+                                                    <strong>Uploaded Documents</strong></div>
+                                                <div class="slds-scrollable_x" style="width: 100%;">
+                                                    <table
+                                                        class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered"
+                                                        style="width: 100%;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">File Name</th>
+                                                                <th scope="col">Description</th>
+                                                                <th scope="col">Preview</th>
+                                                                <th scope="col">Discard</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <template for:each={uploadedDocuments} for:item="doc">
+                                                                <tr key={doc.documentId}>
+                                                                    <td>{doc.fileName}</td>
+                                                                    <td>{doc.description}</td>
+                                                                    <td>
+                                                                        <a href={doc.previewUrl} target="_blank">
+                                                                            <lightning-icon icon-name="utility:preview"
+                                                                                size="x-small"
+                                                                                alternative-text="Preview">
+                                                                            </lightning-icon>
+                                                                        </a>
+                                                                    </td>
+                                           <td>
+                 <lightning-button-icon 
+    icon-name="utility:delete"
+    alternative-text="Delete" 
+    onclick={handleDiscardFile}
+    data-id={doc.documentId}
+    variant="destructive"
+    size="medium"
+    class="icon-btn"
+></lightning-button-icon>
+
+                </td>
+
+                                                                </tr>
+                                                            </template>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </template>
+
+                                    </div>
+
+
+                                </div>
+                                <!--- Upload Document Ends here-->
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <template if:true={showDuplicateConfirm}>
+    <section
+        role="dialog"
+        tabindex="-1"
+        aria-modal="true"
+        class="slds-modal slds-fade-in-open"
+    >
+        <div class="slds-modal__container">
+
+            <!-- Header -->
+            <header class="slds-modal__header">
+                <h2 class="slds-text-heading_medium">
+                    Duplicate Case Found
+                </h2>
+            </header>
+
+            <!-- Body -->
+            <div class="slds-modal__content slds-p-around_large slds-text-align_center">
+
+                <lightning-icon
+                    icon-name="utility:warning"
+                    size="medium"
+                    variant="warning"
+                    class="slds-m-bottom_medium">
+                </lightning-icon>
+
+                <p class="slds-text-body_regular slds-m-bottom_small">
+                    A similar <strong>open</strong> case already exists.
+                </p>
+
+                <p class="slds-text-body_regular">
+                    Do you want to continue creating a new case?
+                </p>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="slds-modal__footer slds-grid slds-grid_align-end">
+                <lightning-button
+                    label="Cancel"
+                    variant="neutral"
+                    onclick={handleDuplicateCancel}>
+                </lightning-button>
+
+                <lightning-button
+                    label="Yes, Create Case"
+                    variant="brand"
+                    class="slds-m-left_small"
+                    onclick={handleDuplicateYes}>
+                </lightning-button>
+            </footer>
+
+        </div>
+    </section>
+
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+
+
+</template>

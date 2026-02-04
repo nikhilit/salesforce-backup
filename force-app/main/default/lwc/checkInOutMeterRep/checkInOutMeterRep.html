@@ -1,0 +1,33 @@
+<template>
+    <template if:true={requestInProgress}>
+        <lightning-spinner alternative-text="Getting location..." size="medium">
+        </lightning-spinner>
+    </template>
+
+    <div class="slds-modal__header">
+        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Check In/Out</h1>
+    </div>
+
+    <div class="slds-modal__content   slds-is-relative" id="modal-content-id-1" style="font-size: larger;">
+
+        <!-- <div style="display:flex; padding: 1rem;"> -->
+        <template if:true={showMap}>
+            <lightning-map map-markers={lstMarkers} zoom-level="15" markers-title="Current Location"></lightning-map>
+        </template>
+        <template if:true={showEnableMessage}>
+            <h1 style="text-align:center;">Already Checked In</h1>
+        </template>
+        <!-- </div> -->
+    </div>
+    <div class="slds-modal__footer" style="border-radius:0px">
+        <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>&nbsp;&nbsp;&nbsp;
+
+        <template if:true={checkIn}>
+            <lightning-button label="Start Job" onclick={handleCheckIn}></lightning-button>
+        </template>
+        <template if:true={checkOut}>
+            <lightning-button label="End Job" onclick={handleCheckOut}></lightning-button>
+        </template>
+    </div>
+
+</template>

@@ -1,0 +1,36 @@
+<template>
+    <lightning-card title="Update Case Status">
+        <div class="slds-p-around_medium">
+            <template if:true={isLoading}>
+                <div class="slds-is-relative">
+                    <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+            <!-- Status -->
+            <lightning-combobox
+                name="status"
+                label="Status"
+                value={status}
+                options={statusOptions}
+                onchange={handleStatusChange} required>
+            </lightning-combobox>
+
+            <!-- Add New Comment -->
+            <lightning-textarea
+                label="Add New Comment"
+                value={newComment}
+                onchange={handleCommentChange} required>
+            </lightning-textarea>
+         
+
+            <!-- Actions -->
+            <div class="slds-m-top_medium">
+<lightning-button 
+        variant="brand" 
+        label="Save" 
+        onclick={handleSave} 
+        disabled={isLoading}>
+    </lightning-button>            </div>
+        </div>
+    </lightning-card>
+</template>

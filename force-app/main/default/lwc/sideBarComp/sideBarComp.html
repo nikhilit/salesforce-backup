@@ -1,0 +1,210 @@
+<template>
+  <template if:true={account}>
+    <!-- SECTION 1: Personal & Contact Info -->
+    <div class="profile-card">
+      <div class="header">
+        <div style="display: flex;">
+          <img src={dearlerImageUrl} class="avatar" />
+          <div class="name-location" onclick={navigateToAccount} data-id={account.Id}>
+            <!-- <h2 class="name">{account.FirstName__c} {account.LastName__c}</h2> -->
+              <h2 class="name clickable">
+              {account.Full_Name__c}
+            </h2>
+            <p class="location">{account.City__c}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info">
+        <!-- Basic Info -->
+        <div class="info-row slds-grid">
+          <div class="slds-col slds-size_1-of-3 label">
+            <lightning-icon icon-name="utility:user" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+            BP Number
+          </div>
+          <div class="slds-col slds-size_2-of-3 value">{account.BP_Number__c}</div>
+        </div>
+
+        <div class="info-row slds-grid">
+          <div class="slds-col slds-size_1-of-3 label">
+            <lightning-icon icon-name="utility:groups" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+            CA Number
+          </div>
+          <!-- <div class="slds-col slds-size_2-of-3 value bold">{account.Contract_Account__c}</div> -->
+          <template if:true={hasValidServiceContract}>
+                    <div class="slds-col slds-size_2-of-3 value bold clickable-link" onclick={navigateToRecord} data-id={account.Service_Contract__r.Id} data-object="ServiceContract"> {account.Contract_Account__c}</div>
+                 </template>
+              <template if:false={hasValidServiceContract}><div class="slds-col slds-size_2-of-3 value bold">  N/A</div> </template>
+        </div>
+         <div class="info-row slds-grid">
+          <div class="slds-col slds-size_1-of-3 label">
+            <lightning-icon icon-name="utility:number_input" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+            CO Number
+          </div>
+          <!-- <div class="slds-col slds-size_2-of-3 value bold">{connectionName}</div> -->
+          <template if:true={hasValidIdConnection}>
+                    <div class="slds-col slds-size_2-of-3 value bold clickable-link" onclick={navigateToRecord} data-id={account.Premise__r.Connection__r.Id} data-object="Connection__c"> {account.Premise__r.Connection_Name__c}</div>
+                 </template>
+              <template if:false={hasValidIdConnection}><div class="slds-col slds-size_2-of-3 value bold">  N/A</div> </template>
+        </div>
+        <div class="info-row slds-grid">
+           <div style="display: flex; align-items: center;" class="slds-col slds-size_1-of-3 label">
+             <lightning-icon icon-name="utility:number_input" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+               <span style="white-space: normal;">Application</span>
+                 </div> 
+          <!-- <div class="slds-col slds-size_2-of-3 value bold" onclick={navigateToApplication} data-id={idnumber.Id}>{idnumber.ID_Number__c}</div> -->
+                <template if:true={hasValidIdNumber}>
+                    <div class="slds-col slds-size_2-of-3 value bold clickable-link" onclick={navigateToRecord} data-id={idnumber.Id} data-object="Identification_Number__c"> {idnumber.ID_Number__c}</div>
+                 </template>
+              <template if:false={hasValidIdNumber}><div class="slds-col slds-size_2-of-3 value bold">  N/A</div> </template>
+        </div>
+        <div class="info-row slds-grid">
+          <div class="slds-col slds-size_1-of-3 label">
+            <lightning-icon icon-name="utility:number_input" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+            Premise
+          </div>
+          <!-- <div class="slds-col slds-size_2-of-3 value bold" onclick={navigateTopremise} data-id={account.Premise__r.Id}>{premisename}</div> -->
+        <template if:true={hasValidIdPremise}>
+                    <div class="slds-col slds-size_2-of-3 value bold clickable-link" onclick={navigateToRecord} data-id={account.Premise__r.Id} data-object="Premise__c"> {premisename}</div>
+                 </template>
+              <template if:false={hasValidIdPremise}><div class="slds-col slds-size_2-of-3 value bold">  N/A</div> </template>
+        </div>
+         <div style="border-bottom: 1px solid #e0e0e0; margin: 10px 0;"></div>
+          <div class="info-row slds-grid">
+          <div style="display: flex; align-items: center;" class="slds-col slds-size_1-of-3 label">
+             <lightning-icon icon-name="utility:number_input" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+               <span style="white-space: normal;">Meter Number</span>
+                 </div>
+          <!-- <div class="slds-col slds-size_2-of-3 value bold" onclick={navigateToMeter} data-id={device.Id}>{device.Name}</div> -->
+         <template if:true={hasValidIdDevice}>
+                    <div class="slds-col slds-size_2-of-3 value bold clickable-link" onclick={navigateToRecord} data-id={device.Id} data-object="device__c"> {device.Name}</div>
+                 </template>
+              <template if:false={hasValidIdDevice}><div class="slds-col slds-size_2-of-3 value bold">  N/A</div> </template>
+        </div>
+          <div class="info-row slds-grid">
+          <div style="display: flex; align-items: center;" class="slds-col slds-size_1-of-3 label">
+             <lightning-icon icon-name="utility:date_input" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+               <span style="white-space: normal;">Date Of Installation</span>
+                 </div>
+          <div class="slds-col slds-size_2-of-3 value bold">{account.Installation_Valid_From__c}</div>
+        </div>
+        <div class="info-row slds-grid">
+          <div class="slds-col slds-size_1-of-3 label">
+            <lightning-icon icon-name="utility:date_input" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+           Move In Date
+          </div>
+          <div class="slds-col slds-size_2-of-3 value bold">{account.Move_In_Date__c}</div>
+        </div>
+
+        <div class="info-row slds-grid">
+          <div style="display: flex; align-items: center;" class="slds-col slds-size_1-of-3 label">
+             <lightning-icon icon-name="utility:date_input" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+               <span style="white-space: normal;">Move Out Date</span>
+                 </div>
+          <div class="slds-col slds-size_2-of-3 value bold">{account.Move_Out_Date__c}</div>
+        </div>
+
+        <div class="info-row slds-grid">
+          <div style="display: flex; align-items: center;" class="slds-col slds-size_1-of-3 label">
+             <lightning-icon icon-name="utility:status_code" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+               <span style="white-space: normal;">Customer Status</span>
+                 </div>
+          <div class="slds-col slds-size_2-of-3 value bold">{status}</div>
+        </div>
+
+      </div>
+    <div style="border-bottom: 1px solid #e0e0e0; margin: 10px 0;"></div>
+
+
+    <!-- SECTION 2: Other Details -->
+    
+      <div class="info">
+        <!-- Remaining Fields -->
+        <div class="info-row slds-grid">
+          <div class="slds-col slds-size_1-of-3 label">
+            <lightning-icon icon-name="utility:home" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+           Floor
+          </div>
+          <div class="slds-col slds-size_2-of-3 value bold">{account.Floor__c}</div>
+        </div>
+        <div class="info-row slds-grid">
+          <div style="display: flex; align-items: center;" class="slds-col slds-size_1-of-3 label">
+             <lightning-icon icon-name="utility:home" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+               <span style="white-space: normal;">Room Number</span>
+                 </div>
+          <div class="slds-col slds-size_2-of-3 value bold">{account.Room__c}</div>
+        </div>
+         
+        <div class="info-row slds-grid">
+          <div class="slds-col slds-size_1-of-3 label">
+            <lightning-icon icon-name="utility:home" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+            Building Code
+          </div>
+          <div class="slds-col slds-size_2-of-3 value bold">{account.Building_Code__c}</div>
+        </div>
+
+        <div class="info-row slds-grid">
+          <div class="slds-col slds-size_1-of-3 label">
+            <lightning-icon icon-name="utility:location" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+            Address
+          </div>
+          <div class="slds-col slds-size_2-of-3 value bold">
+            {account.Street__c}, {account.City__c}, {account.Postal_Code__c}
+          </div>
+        </div>
+
+
+      
+ <div style="border-bottom: 1px solid #e0e0e0; margin: 10px 0;"></div>
+        <div class="info-row slds-grid">
+          <div style="display: flex; align-items: center;" class="slds-col slds-size_1-of-3 label">
+             <lightning-icon icon-name="utility:money" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+               <span style="white-space: normal;">Security Deposit</span>
+                 </div>
+          <div class="slds-col slds-size_2-of-3 value bold">₹{requestamount}</div>
+        </div>
+
+
+        <div class="info-row slds-grid">
+          <div style="display: flex; align-items: center;" class="slds-col slds-size_1-of-3 label">
+             <lightning-icon icon-name="utility:display_text" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+               <span style="white-space: normal;">Last meter reading</span>
+                 </div>
+          <div class="slds-col slds-size_2-of-3 value bold">{device.Last_MR_Recorded__c}</div>
+        </div>
+ <div class="info-row slds-grid">
+          <div style="display: flex; align-items: center;" class="slds-col slds-size_1-of-3 label">
+             <lightning-icon icon-name="utility:date_input" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+               <span style="white-space: normal;"> Date of Last meter reading</span>
+                 </div>
+          <div class="slds-col slds-size_2-of-3 value bold">{device.Last_MR_Date__c}</div>
+        </div>
+
+        </div>
+         <div style="border-bottom: 1px solid #e0e0e0; margin: 10px 0;"></div>
+           <div class="info-row slds-grid">
+          <div class="slds-col slds-size_1-of-3 label">
+            <div style="display: flex; align-items: center;">
+             <lightning-icon icon-name="utility:display_text" size="x-small" class="icon slds-m-right_xx-small"></lightning-icon>
+               <span style="white-space: normal;">Disconnection Reason</span>
+                 </div>
+               </div>
+          <div class="slds-col slds-size_2-of-3 value bold">{account.Blocking_Reason__c}</div>
+        </div>
+      </div>
+    
+    
+  </template>
+
+   <template if:true={isLoading}>
+    <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+</template>
+
+<template if:false={isLoading}>
+    <template if:false={account}>
+        <div class="slds-p-around_medium">
+            <p style="color: #999;">No BP Found.</p>
+        </div>
+    </template>
+</template>
+</template>

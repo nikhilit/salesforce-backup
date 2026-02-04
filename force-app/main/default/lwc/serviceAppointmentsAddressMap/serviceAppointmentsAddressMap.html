@@ -1,0 +1,295 @@
+<!--
+  @description       : 
+  @author            : Shashank.shekhar@appstrail.com
+  @group             : 
+  @last modified on  : 17-09-2025
+  @last modified by  : Kartik Patkar, Appstrail
+-->
+<template>
+    <template if:true={secondPage}>
+        <div class="custom-container slds-is-relative">
+
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+
+            <!-- Header -->
+            <template if:true={flag}>
+                <div class="section-header slds-grid slds-grid_align-spread slds-grid_vertical-align-center"
+                    style="background-color: #57c062;">
+                    <lightning-icon style="--slds-c-icon-color-foreground-default: white;" icon-name="utility:back"
+                        size="small" class="custom-white-icon" onclick={handleBack}>
+                    </lightning-icon>
+
+                    <div class="header-title">
+                        Premises
+                    </div>
+
+                    <lightning-icon style="--slds-c-icon-color-foreground-default: white;" icon-name="utility:search"
+                        size="small" class="custom-white-icon" if:false={searchToggle} onclick={handleSearch}>
+                    </lightning-icon>
+                    <lightning-icon style="--slds-c-icon-color-foreground-default: white;" icon-name="utility:close"
+                        size="small" class="custom-white-icon" if:true={searchToggle} onclick={handleSearch}>
+                    </lightning-icon>
+                </div>
+                <div class="slds-border_bottom slds-p-around_x-small" if:true={searchToggle}>
+                    <c-custom-input-field-component onchange={filterGroups} input-type="search"
+                        placeholder="Search this list...">
+                    </c-custom-input-field-component>
+                </div>
+
+                <div class="custom-section">
+                    <!-- Appointments exist -->
+                    <template if:true={hasAppointments}>
+
+                        <template for:each={appointmentGroups} for:item="group">
+                            <div key={group.buildingName}>
+                                <template if:true={flag}>
+                                    <ul class="building-list">
+                                        <li class="building-card" data-building={group.buildingName}
+                                            onclick={toggleBuilding}>
+                                            <div class="slds-grid slds-wrap slds-grid_align-spread">
+                                                <div class="slds-col slds-size_1-of-1">
+                                                    <div class="slds-grid" style="width: 100%;">
+                                                        <div class="slds-col slds-size_3-of-4">
+                                                            <div class="slds-media slds-media_center"
+                                                                style="width: 100%;">
+                                                                <div class="slds-media__figure">
+                                                                    <div class="emoji-wrapper">
+                                                                        🏢
+                                                                    </div>
+                                                                </div>
+                                                                <div class="slds-media__body">
+                                                                    <div class="building-header">
+                                                                        <div
+                                                                            style="display: flex;justify-content: space-between;">
+                                                                            <div class="building-name">
+                                                                                {group.buildingName}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-col slds-size_1-of-4 slds-p-left--xx-small">
+                                                            <div class="card card-total" onclick={toggleSubCountSection}
+                                                                data-building={group.buildingName}>
+                                                                <span class="card-label">Total</span>
+                                                                <div>
+                                                                    <strong style="text-align: end;">
+                                                                        {group.appointments.length}
+                                                                    </strong>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-1">
+                                                    <div class="building-address">
+                                                        <div>{group.buildingStreet}</div>
+                                                        <div>{group.buildingArea}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="slds-grid slds-gutters_direct-xx-small slds-p-top_small"
+                                                if:true={group.statusSection}>
+                                                <template for:each={group.statusCounts} for:item="statusCount">
+                                                    <div class="slds-col slds-size_1-of-4" key={statusCount.label}>
+                                                        <div class="card" style={statusCount.cssStyle}
+                                                            data-card={statusCount.label}>
+                                                            <span class="card-label">{statusCount.label}</span>
+                                                            <div>
+                                                                <strong style="text-align: end;">{statusCount.count}
+                                                                </strong>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+
+                                </template>
+
+                                <!-- Show appointments if expanded -->
+                                <template if:true={group.isExpanded}>
+                                    <!-- <template if:false={flag}>
+                                    <div class="section-header slds-grid slds-grid_align-spread slds-grid_vertical-align-center"
+                                        style="margin-left: -2px; margin-right: -2px; margin-top: -5px; background-color: #57c062;">
+                                        <lightning-icon style="--slds-c-icon-color-foreground-default: white;"
+                                            icon-name="utility:back" size="small" class="custom-white-icon"
+                                            onclick={handleBacktoaddress}>
+                                        </lightning-icon>
+
+                                        <div class="header-title">
+                                            Bookwalk Sequence
+                                        </div>
+
+                                        <lightning-icon style="--slds-c-icon-color-foreground-default: white;"
+                                            icon-name="utility:search" size="small" class="custom-white-icon"
+                                            if:false={searchToggle} onclick={handleSearch}>
+                                        </lightning-icon>
+                                        <lightning-icon style="--slds-c-icon-color-foreground-default: white;"
+                                            icon-name="utility:close" size="small" class="custom-white-icon"
+                                            if:true={searchToggle} onclick={handleSearch}>
+                                        </lightning-icon>
+                                    </div>
+
+
+                                    <div>
+                                        <template for:each={group.appointments} for:item="appt">
+                                            <div key={appt.id}>
+                                                <div class="appointment-card appointment-clickable slds-m-bottom_small"
+                                                    data-id={appt.id} data-account-id={appt.Account}
+                                                    onclick={handleAppointmentClick}>
+                                                    <div class="appt-header">
+                                                        <div class="appt-account-name">{appt.accountName}</div>
+                                                        <div class={appt.statusClass}>M.No:{appt.meterNumber}</div>
+                                                    </div>
+                                                    <div class="appt-subject">{appt.buildingName}</div>
+                                                    <div class="appt-summary">{appt.DetailAccountSummary}</div>
+                                                    <div class="appt-datetime">
+                                                        <lightning-formatted-date-time value={appt.schedStartTime}
+                                                            year="numeric" month="short" day="2-digit" hour="2-digit"
+                                                            minute="2-digit">
+                                                        </lightning-formatted-date-time>
+                                                    </div>
+                                                </div>
+                                                <div class="line-break"></div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template> -->
+                                </template>
+                            </div>
+                        </template>
+                    </template>
+
+                    <!-- No Appointments -->
+                    <template if:false={hasAppointments}>
+                        <p class="slds-text-body_regular slds-text-align_center" style="font-size: 15px;">No
+                            appointments
+                            for Today.</p>
+                    </template>
+
+                    <!-- Spinner -->
+                    <template if:true={isLoading}>
+                        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                    </template>
+
+                    <!-- Error -->
+                    <template if:true={error}>
+                        <div class="slds-text-color_error">{error}</div>
+                    </template>
+
+                </div>
+
+            </template>
+
+            <template if:true={showAppointmentScreen}>
+                <template if:false={flag}>
+                    <div class="section-header slds-grid slds-grid_align-spread slds-grid_vertical-align-center"
+                        style=" background-color: #57c062;">
+                        <lightning-icon style="--slds-c-icon-color-foreground-default: white;" icon-name="utility:back"
+                            size="small" class="custom-white-icon" onclick={handleBacktoaddress}>
+                        </lightning-icon>
+
+                        <div class="header-title">
+                            Appointments
+                        </div>
+
+                        <lightning-icon style="--slds-c-icon-color-foreground-default: white;"
+                            icon-name="utility:search" size="small" class="custom-white-icon"
+                            onclick={handleAppointmentSearch} if:false={appointmentSearchToggle}>
+                        </lightning-icon>
+                        <lightning-icon style="--slds-c-icon-color-foreground-default: white;" icon-name="utility:close"
+                            size="small" class="custom-white-icon" onclick={handleAppointmentSearch}
+                            if:true={appointmentSearchToggle}>
+                        </lightning-icon>
+                    </div>
+                    <div class="slds-border_bottom slds-p-around_x-small" if:true={appointmentSearchToggle}>
+                        <c-custom-input-field-component onchange={filterAppointmentSearch} input-type="search"
+                            placeholder="Search this list...">
+                        </c-custom-input-field-component>
+                    </div>
+                    <div class="list-section" style="height: 90vh;overflow: auto;">
+                        <template if:false={hasAppointments}>
+                            <p class="slds-text-body_regular slds-text-align_center" style="font-size: 15px;">
+                                No appointments for Today.
+                            </p>
+                        </template>
+                        <template for:each={appointmentsList} for:item="appt">
+                            <div key={appt.id} class="slds-border--bottom">
+                                <div class="appointment-card appointment-clickable" data-id={appt.id}
+                                    data-account-id={appt.Account} onclick={handleAppointmentClick}>
+                                    <div class="slds-grid">
+                                        <div class="slds-media slds-col slds-size_3-of-4">
+                                            <!-- <div class="slds-media__figure">
+                                                <lightning-icon icon-name="utility:user" size="x-small"
+                                                    style="--slds-c-icon-color-foreground-default: #57c062;">
+                                                </lightning-icon>
+                                            </div> -->
+                                            <div class="slds-media__body">
+                                                <div class="appt-header">
+                                                    <div class="appt-account-name">{appt.customerName}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-4" >
+                                            <div class="card" style={appt.cssStyle}>
+                                                <span class="card-label card-badge">{appt.label}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-grid slds-wrap">
+                                        <div class="slds-col slds-size_2-of-4">
+                                            <p>BP No.: <span class="appt-summary">{appt.BPNumber}</span></p>
+                                        </div>
+                                        <div class="slds-col slds-size_2-of-4">
+                                            <p>Meter No.: <span class="appt-summary">{appt.meterNumber}</span></p>
+                                        </div>
+                                        <template if:false={cngCategory}>
+                                            <!-- <div class="slds-col slds-size_4-of-4">
+                                                <div class="appt-summary">{appt.DetailAccountSummary}</div>
+                                            </div> -->
+                                            <div class="slds-col slds-size_1-of-4">
+                                                <p>Plot: <span class="appt-summary">{appt.plot}</span></p>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-4">
+                                                <p>Wing: <span class="appt-summary">{appt.wing}</span></p>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-4">
+                                                <p>Floor: <span class="appt-summary">{appt.floor}</span></p>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-4">
+                                                <p>Flat: <span class="appt-summary">{appt.flat}</span></p>
+                                            </div>
+                                        </template>
+                                        <template if:true={cngCategory}>
+                                            <div class="slds-col slds-size_2-of-4">
+                                                <div class="appt-summary">Location: {appt.location}</div>
+                                            </div>
+                                            <div class="slds-col slds-size_2-of-4">
+                                                <div class="appt-summary">Zone: {appt.zone}</div>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-4">
+                                                <div class="appt-summary">Representative Company:
+                                                    {appt.representativeCompany}</div>
+                                            </div>
+                                        </template>
+                                        <!-- <div class="slds-col slds-size_1-of-4">
+                                            <div class="card" style={appt.cssStyle}>
+                                                <span class="card-label card-badge">{appt.label}</span>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </template>
+</template>

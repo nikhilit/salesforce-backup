@@ -1,0 +1,30 @@
+<!-- O_MRiserAllWorkOrder.html -->
+<template>
+    <div class="work-order-list-container">
+        <div class="header-section slds-grid slds-grid_align-spread slds-grid_vertical-align-center"
+             style="padding: 0.5rem 1rem; background-color: #0170bc;">
+            
+            <div class="icon-container">
+                <lightning-icon icon-name="utility:back"
+                                size="small"
+                                class="custom-white-icon"
+                                style="--slds-c-icon-color-foreground-default: white;"
+                                onclick={handleBack}>
+                </lightning-icon>
+            </div>
+
+            <div class="header-title slds-text-heading_small slds-text-color_inverse">
+                <!-- Work Orders - {selectedStatus} -->
+            </div>
+
+            <div class="icon-container">
+                <!-- Empty for alignment -->
+            </div>
+        </div>
+        
+        <div class="slds-p-around_medium">
+            <p>Click on the back icon to go back to the Dashboard</p>
+            <lightning-spinner alternative-text="Loading" size="medium" if:true={isLoading}></lightning-spinner>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,97 @@
+<template>
+    <div class="slds-box slds-theme_default">
+
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+
+        <template if:false={isAssigned}>
+            <!-- Row 1: Agency & Agent -->
+            <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-combobox
+                        name="agentSelect"
+                        label="Select Agent"
+                        value={selectedAgentId}
+                        options={agentOptions} 
+                        onchange={handleAgentChange}
+                        placeholder="-- Select an Agent --">
+                    </lightning-combobox>
+                </div>
+
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-combobox
+                        name="agencySelect"
+                        label="Select Agency"
+                        value={selectedAgencyId}
+                        options={agencyOptions}
+                        onchange={handleAgencyChange}
+                        placeholder="-- Select an Agency --">
+                    </lightning-combobox>
+                </div>
+            </div>
+
+            <!-- Row 2: Work Type -->
+            <!-- <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-combobox
+                        label="Work Type"
+                        value={selectedWorkTypeId}
+                        options={workTypeOptions}
+                        placeholder="-- Select a Work Type --"
+                        onchange={handleWorkTypeChange}>
+                    </lightning-combobox>
+                </div>
+            </div> -->
+
+            <!-- Row 3: Start / End Date -->
+            <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input
+                        type="date"
+                        label="Start Date"
+                        value={startDate}
+                        onchange={handleStartDateChange}
+                        required>
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input
+                        type="date"
+                        label="End Date"
+                        value={endDate}
+                        min={startDate}
+                        onchange={handleEndDateChange}
+                        required>
+                    </lightning-input>
+                </div>
+            </div>
+
+            <!-- Row 4: Reset Button -->
+            <div class="slds-grid slds-wrap slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning-button label="Reset" onclick={handleReset}></lightning-button>
+                </div>
+            </div>
+
+            <!-- Assign Button -->
+            <lightning-button
+                label="Assign"
+                onclick={handleAssign}
+                disabled={isAssignDisabled}
+                class="slds-m-top_medium">
+            </lightning-button>
+            
+        </template>
+
+        <!-- Success -->
+        <template if:true={isAssigned}>
+            <div class="slds-text-color_success slds-m-top_medium">
+                Work Order assigned successfully.
+            </div>
+        </template>
+
+    </div>
+</template>

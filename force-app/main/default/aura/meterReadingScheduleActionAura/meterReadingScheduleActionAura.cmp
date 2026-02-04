@@ -1,0 +1,23 @@
+<aura:component implements="flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,flexipage:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,force:hasRecordId,force:hasSObjectName,lightning:isUrlAddressable,force:appHostable" 
+                access="global">
+    <aura:html tag="style">
+        .slds-modal__content{
+            overflow-x:hidden !important;
+            padding:0;
+            margin:0;
+            height : unset !important;
+            max-height: unset !important;
+        }
+        .slds-modal__container {
+            margin: 0 auto; !important;
+            max-width: 50rem !important;
+            width:50% !important;d
+            min-width: 640px; !important;
+        }
+        .cuf-content {
+            padding: 0 !important;
+        }
+    </aura:html>
+
+    <c:meteringWorkOrderAllocationAction/>
+</aura:component>

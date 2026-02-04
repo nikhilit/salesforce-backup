@@ -1,0 +1,172 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 03-11-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   07-10-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <div class="slds-is-relative">
+        <!--SPINNER SECTION-->
+        <template if:true={spinner}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+        <div class="slds-modal__header">
+            <h1 class="slds-modal__title slds-hyphenate">
+                Re-Assign Meter Reading Orders
+            </h1>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-2 slds-p-around--small">
+                    <c-custom-lookup-component obj-name="Meter_Reading_Schedule__c"
+                        input-label="Current Meter Reading Schedule" onlookupselected={handleMRSSelection}
+                        disabled={disableLookup} onnolookupselected={handleMRSSelection} default-name={selectedMRSName}
+                        search-field-name="MRS_Custom_Name__c">
+                    </c-custom-lookup-component>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-p-around--small"></div>
+                <div class="slds-col slds-size_1-of-1 slds-p-around--small">
+                    <article class="slds-card slds-card_boundary" style="overflow: auto;"
+                        if:true={screens.selectWorkOrders}>
+                        <div
+                            class="slds-border--bottom slds-card__header slds-grid slds-p-bottom--x-small slds-theme--shade">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <lightning-icon icon-name="standard:account" size="small"
+                                        alternative-text="account">
+                                    </lightning-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        Work Orders ({recordCount})
+                                    </h2>
+                                </div>
+                                <div class="slds-no-flex slds-p-left--small" style="display: flex;">
+                                    <lightning-input type="search" placeholder="Search the list" onchange={handleSearch}
+                                        variant="label-hidden">
+                                    </lightning-input>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-1 slds-p-around--x-small">
+                                    <c-custom-multi-select-component label="Filter By Building" options={buildingOptions}
+                                        onchangevalue={handleBuildingFilter}>
+                                    </c-custom-multi-select-component>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-p-around--x-small" if:false={getShowTable}>
+                                    <c-illustration-component message="No Work Orders Found!!">
+                                    </c-illustration-component>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-p-around--x-small table-container"
+                                    if:true={getShowTable}>
+                                    <lightning-datatable key-field="Id" data={workOrderRecords}
+                                        columns={workOrderColumns} is-loading={isLoading}
+                                        onrowselection={getSelectedName}>
+                                    </lightning-datatable>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="slds-card slds-card_boundary" if:true={screens.selectReassignPage}>
+                        <div
+                            class="slds-border--bottom slds-card__header slds-grid slds-p-bottom--x-small slds-theme--shade">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <lightning-icon icon-name="standard:account" size="small"
+                                        alternative-text="account">
+                                    </lightning-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        Selected Meter Reading Orders ({selectedRecords.length})
+                                    </h2>
+                                </div>
+                                <!-- <div class="slds-no-flex slds-p-left--small">
+                                    <lightning-input type="search" placeholder="Search the list" onchange={handleSearch}
+                                        variant="label-hidden">
+                                    </lightning-input>
+                                </div> -->
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <div class="slds-grid slds-wrap" style="width: 100%;">
+                                <div class="slds-col slds-size_1-of-2 slds-p-around--small">
+                                    <c-custom-lookup-component obj-name="ServiceTerritory" input-label="Select Agency"
+                                        filter={agencyFilter} onlookupselected={handleAgencyChange}
+                                        onnolookupselected={handleAgencyChange} default-name={agencyName}>
+                                    </c-custom-lookup-component>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-p-around--small">
+                                    <c-custom-lookup-component obj-name="ServiceTerritoryMember"
+                                        input-label="Select Agent" search-field-name="ServiceResourceName__c"
+                                        required="true" data-field-name="agent" onlookupselected={handleAgentChange}
+                                        onnolookupselected={handleAgentChange} filter={agentFilter}>
+                                    </c-custom-lookup-component>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-p-around--small">
+                                    <c-custom-lookup-component obj-name="Meter_Reading_Schedule__c"
+                                        input-label="Select Schedule" onlookupselected={handleMRSChange}
+                                        onnolookupselected={handleMRSChange} data-field-name="schedule"
+                                        filter={mrsFilter} search-field-name="MRS_Custom_Name__c" disabled={disableMRS}
+                                        default-name={mrsName}>
+                                    </c-custom-lookup-component>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 slds-p-around--small slds-align_absolute-center">
+                                    <div class="slds-media slds-media_center">
+                                        <div class="slds-media__figure">
+                                            <lightning-input type="checkbox-button" label="New Schedule" name="input1"
+                                                onchange={handleNewSchedule}>
+                                            </lightning-input>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h2>New Schedule</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <template if:true={newSchedule}>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around--small">
+                                        <c-custom-input-field-component input-label="Start Date" input-type="date"
+                                            input-active=true data-field-name="startDate" required=true
+                                            onchange={handleFieldChange} min-date={minDate}>
+                                        </c-custom-input-field-component>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-p-around--small">
+                                        <c-custom-input-field-component input-label="End Date" input-type="date"
+                                            input-active=true data-field-name="endDate" required=true
+                                            onchange={handleFieldChange} min-date={minDate}>
+                                        </c-custom-input-field-component>
+                                    </div>
+                                </template>
+                                <!-- <div class="slds-col slds-size_1-of-1 slds-p-around--small slds-align_absolute-center">
+                                    <p class="slds-text-color_error">{errorMessage}</p>
+                                </div> -->
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+        <footer class="slds-card__footer" style="justify-content: space-between;">
+            <div>
+                <h1 class="slds-text-heading_small">{selectedMRORecCount}</h1>
+            </div>
+            <div if:true={screens.selectWorkOrders}>
+                <lightning-button variant="neutral" label="Cancel" onclick={handleCancel}></lightning-button>
+                <lightning-button variant="brand" label="Next" onclick={handleNext} class="slds-m-left_x-small">
+                </lightning-button>
+            </div>
+            <div if:true={screens.selectReassignPage}>
+                <lightning-button variant="neutral" label="Back" onclick={handleBack}></lightning-button>
+                <lightning-button variant="brand" label="Save" class="slds-m-left_x-small" disabled={disableSubmit}
+                    onclick={handleSubmit}>
+                </lightning-button>
+            </div>
+        </footer>
+    </div>
+</template>

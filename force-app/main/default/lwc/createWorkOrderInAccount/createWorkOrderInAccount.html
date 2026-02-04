@@ -1,0 +1,15 @@
+<template>
+    <div class="slds-p-around_medium">
+        <template if:true={workOrderId}>
+            <p class="slds-text-color_success">
+                ✅ Work Order Created: {workOrderId}
+            </p>
+        </template>
+
+        <template if:true={error}>
+            <p class="slds-text-color_error">
+                ⚠️ {error}
+            </p>
+        </template>
+    </div>
+</template>

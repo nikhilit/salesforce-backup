@@ -1,0 +1,553 @@
+<template>
+
+<lightning-card>
+
+     <div class="slds-grid slds-wrap">
+
+          <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+
+                     <h2>{workOrderLineItemName}</h2>   
+
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small" style="margin-top:-1rem;">
+
+            <template if:true={showCheckBox}> 
+
+                                <template if:true={showCustomerAvailability}>
+                <div class="slds-m-top_medium slds-p-around_medium">
+                    <lightning-radio-group name="customerAvailability"
+                        label="Is Riser Painting possible?"
+                        options={availabilityOptions}
+                        value={customerAvailability}
+                        type="radio"
+                        onchange={handleAvailabilityChange}>
+                    </lightning-radio-group>
+                </div>
+            </template>
+
+                                </template>
+                      </div>
+
+  <template if:true={customerNotAvailableDetails} >
+
+                      <div class="slds-col slds-size_1-of-1 slds-p-around_small" style="margin-top:-1.5rem;">
+
+
+        <lightning-textarea label="Remarks" value={paintingNotPossibleValue} onchange={handleNotPossibleChange} required class="slds-m-top_medium">
+    
+        </lightning-textarea>
+
+                      </div>
+
+
+                       <div style="margin-top:1rem; margin-left:5rem;">
+
+                    
+                    <lightning-button label="Back" onclick={handleBack} variant="brand">
+                                                        </lightning-button> &nbsp;&nbsp;
+
+
+                    <lightning-button label="Save" onclick={handlePaintingNotPossible} variant="brand">
+                                                        </lightning-button>
+
+                </div>   
+
+
+       </template>        
+
+
+                                 <template if:true={customerAvilable} >     
+
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                               
+
+                               
+                                <div>
+                                    
+                                    <c-o_-m-camera-upload-comp image-list={photoUploadSlots} onchange={handleFile}>
+                                    </c-o_-m-camera-upload-comp>
+                                </div>
+
+                            </div>
+
+
+                         
+
+                    <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                               
+                                <lightning-combobox label="Riser Category" name="riserCategory"
+                                    value={riserPainting.riserCategory} options={mainOrApproachRiserOptions}
+                                    onchange={handleRiserPaintingDetail} >
+                                </lightning-combobox>
+                            </div>
+
+
+                    <template if:true={showHeightOfRiser}>
+                        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Height of riser floor wise"
+                               checked={heightofriserfloorwise} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>                                
+                                 
+                            </div>                        
+
+                            <template if:true={heightofriserfloorwise}>
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input label="Floor Number" name="floorNumber" type="text"
+                        value={riserPainting.floorNumber} onchange={handleRiserPaintingDetail}>
+                    </lightning-input>
+                            </div>
+
+                              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                              <lightning-input label="Riser Height" name="riserHeight" type="text" 
+                        value={riserPainting.riserHeight} onchange={handleRiserPaintingDetail}>
+                    </lightning-input>
+                            </div>                   
+
+
+                 <!-- code commented 1-10-2025
+                    <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                     <template for:each={floorNumberAndRiserHeight} for:item="floor" for:index="index">
+        <div key={floor.rowNumber} class="slds-box slds-m-bottom_small">
+
+            <div class="slds-grid slds-wrap slds-gutters">
+                
+                <div class="slds-col slds-size_2-of-3">
+                    <lightning-input label="Floor Number" name="floorNumber" type="text" data-rownumber={floor.rowNumber}
+                        value={floor.floorNumber} onchange={handlefloorNumberAndRiserHeightChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_2-of-3">
+
+                   
+                    <lightning-input label="Riser Height" name="riserHeight" type="text" data-rownumber={floor.rowNumber}
+                        value={floor.riserHeight} onchange={handlefloorNumberAndRiserHeightChange}>
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-3 slds-text-align_right" style="margin-top:1.5rem;">
+                    <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove"
+                        data-rownumber={floor.rowNumber} onclick={removefloorNumberAndRiserHeightRow} class="slds-m-top_small">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <lightning-button icon-name="utility:add" label="Add Floor" onclick={addfloorNumberAndRiserHeightRow}
+        class="slds-m-top_medium">
+    </lightning-button>
+
+                          
+
+
+           
+
+                            </div> -->
+
+
+                            </template>
+
+                    </template>
+
+
+
+
+
+
+
+
+                          
+                       <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                        <lightning-input type="checkbox" label="Clamp Replacement"
+                               checked={clampReplacement} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>                                
+                                 
+                            </div>
+
+
+                        <template if:true={clampReplacement}>
+
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="number" label="No Of Clamps Replaced" name="noOfClampsReplaced"
+                                    value={riserPainting.noOfClampsReplaced} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>
+                            </div>
+
+                        </template>
+
+
+                       <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                          <lightning-input type="checkbox" label="Epoxy Paint Primer"
+                               checked={epoxyPaintPrimer} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>                                
+                                 
+                            </div>
+
+
+                        <template if:true={epoxyPaintPrimer}>
+
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="text" label="Length Painted Primer" name="lengthPaintedPrimer"
+                                         value={riserPainting.lengthPaintedPrimer} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="text" label="DFT Reading Primer" name="dFTReadingPrimer"
+                                     
+                                   value={riserPainting.dFTReadingPrimer} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>
+                            </div>
+
+
+                        </template>
+
+
+                         <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Coat 2 Paint Yellow"
+                               checked={coat2PaintYellow} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>                                
+                                 
+                            </div>
+
+
+                        <template if:true={coat2PaintYellow}>
+
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="text" label="Length Painted Yellow" name="lengthPaintedYellow"
+                        value={riserPainting.lengthPaintedYellow} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="text" label="DFT Reading Yellow" name="dFTReadingYellow"
+                        value={riserPainting.dFTReadingYellow} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>
+                            </div>
+
+
+                        </template>
+
+
+                         <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Coat 3 Paint Yellow"
+                               checked={coat3PaintYellow} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>                                
+                                 
+                            </div>
+
+
+                        <template if:true={coat3PaintYellow}>
+
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="text" label="Length Painted Yellow 3" name="lengthPaintedYellow3"
+                        value={riserPainting.lengthPaintedYellow3} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="text" label="DFT Reading Yellow 3" name="dFTReadingYellow3"
+                        value={riserPainting.dFTReadingYellow3} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>
+                            </div>
+
+
+                        </template>
+
+
+                         <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Leakage Rectification"
+                               checked={leakageRectification} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>                                
+                                 
+                            </div>
+
+                          
+
+                            <template if:true={leakageRectification}>
+
+                                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input label="No Of Leakages" name="noOfLeakages" type="text"
+                        value={riserPainting.noOfLeakages} onchange={handleRiserPaintingDetail}>
+                    </lightning-input>
+                            </div>
+
+                              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                              <lightning-input label="Leakage Locations" name="leakageLocations" type="text" 
+                        value={riserPainting.leakageLocations} onchange={handleRiserPaintingDetail}>
+                    </lightning-input>
+                            </div>
+
+                 <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                     <template for:each={noOfLeakagesLeakageLocations} for:item="leakage" for:index="index">
+        <div key={leakage.rowNumber} class="slds-box slds-m-bottom_small">
+
+            <div class="slds-grid slds-wrap slds-gutters">
+                
+                <div class="slds-col slds-size_2-of-3">
+                    <lightning-input label="No Of Leakages" name="noOfLeakages" type="text" data-rownumber={leakage.rowNumber}
+                        value={leakage.noOfLeakages} onchange={handlenoOfLeakagesLeakageLocationsChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_2-of-3">
+
+                  
+                    <lightning-input label="Leakage Locations" name="leakageLocations" type="text" data-rownumber={leakage.rowNumber}
+                        value={leakage.leakageLocations} onchange={handlenoOfLeakagesLeakageLocationsChange}>
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-3 slds-text-align_right" style="margin-top:1.5rem;">
+                    <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove"
+                        data-rownumber={leakage.rowNumber} onclick={removenoOfLeakagesLeakageLocationsRow} class="slds-m-top_small">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <lightning-button icon-name="utility:add" label="Add Leakage" onclick={addnoOfLeakagesLeakageLocationsRow}
+        class="slds-m-top_medium">
+    </lightning-button>
+
+         
+
+                            </div> -->
+
+
+                            </template>
+
+
+
+
+          
+
+            <template if:true={mainRiserSelected}>
+
+            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                         <lightning-input type="checkbox" label="Crimp Guard Replacement"
+                               checked={crimpGuardReplacement} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>                                
+                                 
+                            </div>
+
+
+                        <template if:true={crimpGuardReplacement}>
+
+                            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                                <lightning-input type="number" label="No of Crimp Guards Replaced" name="noofCrimpGuardsReplaced"
+                        value={riserPainting.noofCrimpGuardsReplaced} onchange={handleRiserPaintingDetail}>
+                                </lightning-input>
+                            </div>
+
+                        </template>
+
+            </template>
+
+                          <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+    <h3 class="slds-text-heading_small slds-m-bottom_small">Material Consumption Report</h3>
+
+    <template for:each={materialList} for:item="material" for:index="index">
+        <div key={material.rowNumber} class="slds-box slds-m-bottom_small">
+
+            <div class="slds-grid slds-wrap slds-gutters">
+                <!-- Item Code -->
+                <!-- <div class="slds-col slds-size_1-of-1">
+                  
+                      <lightning-combobox label="Item Code" name="itemCode" data-rownumber={material.rowNumber}
+
+                        value={material.itemCode} options={itemCodeOptions}
+                        onchange={handleMaterialChange}>
+                    </lightning-combobox>
+                </div> -->
+
+                <!-- Item Description -->
+                <div class="slds-col slds-size_1-of-1">
+                    <!-- <lightning-combobox label="Item Description" name="itemDescription" data-rownumber={material.rowNumber}
+
+                        value={material.itemDescription} options={itemDescriptionOptions}
+                        onchange={handleMaterialChange}>
+                    </lightning-combobox> -->
+
+                      <lightning-input type="search" 
+                            label="Item Description"
+                            data-rownumber={material.rowNumber}
+                            value={material.itemDescription}
+                            placeholder="Type to search..."
+                            onchange={handleKeyChange}>
+                        </lightning-input>
+
+                        <template if:true={material.showDropdown}>
+                            <div class="slds-box slds-m-top_x-small slds-scrollable_y" style="max-height:200px;">
+                                <template for:each={material.filteredMaterials} for:item="mat">
+                                    <div key={mat.code}
+                                        class="slds-p-around_x-small slds-border_bottom hoverable"
+                                        data-code={mat.code}
+                                        data-description={mat.description}
+                                        data-rownumber={material.rowNumber}
+                                        onclick={handleSelect}>
+                                        {mat.description}
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                </div>
+
+               <!-- Item Code -->
+                <div class="slds-col slds-size_1-of-1">
+                   
+                        <!-- Selected item code -->
+                        <lightning-input label="Item Code" value={material.itemCode} disabled></lightning-input>
+
+                </div>
+
+                <!-- Quantity -->
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Quantity" name="quantity" type="number" data-rownumber={material.rowNumber}
+
+                        value={material.quantity} onchange={handleMaterialChange}>
+                    </lightning-input>
+                </div>
+
+                <!-- Delete Icon -->
+                <div class="slds-col slds-size_1-of-2 slds-text-align_right" style="margin-top:24px;">
+                    <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove"
+                     data-rownumber={material.rowNumber} onclick={removeMaterialRow} class="slds-m-top_small">
+                    </lightning-button-icon>
+
+                
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <lightning-button icon-name="utility:add" label="Add Material" onclick={addMaterialRow}
+        class="slds-m-top_medium">
+    </lightning-button>
+
+
+
+                 <!--material consumption ---->
+
+       <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+    <h3 class="slds-text-heading_small slds-m-bottom_small">Material Consumption Report</h3>
+
+    <template for:each={materialList} for:item="material" for:index="index">
+        <div key={material.itemCode} class="slds-box slds-m-bottom_small">
+
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-1">
+                  
+                      <lightning-combobox label="Item Code" name="itemCode" data-index={index}
+                        value={material.itemCode} options={itemCodeOptions}
+                        onchange={handleMaterialChange}>
+                    </lightning-combobox>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1">
+                    <lightning-combobox label="Item Description" name="itemDescription" data-index={index}
+                        value={material.itemDescription} options={itemDescriptionOptions}
+                        onchange={handleMaterialChange}>
+                    </lightning-combobox>
+                </div>
+
+               
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Quantity" name="quantity" type="number" data-index={index}
+                        value={material.quantity} onchange={handleMaterialChange}>
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-2 slds-text-align_right" style="margin-top:24px;">
+                    <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove"
+                        data-index={index} onclick={removeMaterialRow} class="slds-m-top_small">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <lightning-button icon-name="utility:add" label="Add Material" onclick={addMaterialRow}
+        class="slds-m-top_medium">
+    </lightning-button> -->
+
+    <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Instrument Type & Range" name="instrumentTypeRange"
+                        value={riserPainting.instrumentTypeRange} onchange={handleRiserPaintingDetail} ></lightning-input>
+                </div>
+
+                  <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Calibration Certificate No" name="calibrationCertificateNo"
+                        value={riserPainting.calibrationCertificateNo} onchange={handleRiserPaintingDetail} >
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="Date" label="Calibration Date" name="calibrationDate" value={riserPainting.calibrationDate}
+                        onchange={handleRiserPaintingDetail} ></lightning-input>
+                </div>
+
+               
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                  <lightning-input type="Date" label="Calibration Due Date" name="calibrationDueDate"
+                        value={riserPainting.calibrationDueDate} onchange={handleRiserPaintingDetail} >
+                    </lightning-input>
+                </div> 
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Instrument Serial Number " name="instrumentSerialNumber"
+                        value={riserPainting.instrumentSerialNumber} onchange={handleRiserPaintingDetail}></lightning-input>
+                </div> -->
+
+
+       <div>
+                                    
+                                    <c-o_-m-camera-upload-comp image-list={afterPaintingPhotoUploadSlots} onchange={handleAfterPaintingFile}>
+                                    </c-o_-m-camera-upload-comp>
+                                </div>
+
+
+</div>     
+
+
+
+
+                  
+
+
+                        
+
+        
+
+         <div style="margin-top:1rem; margin-left:5rem;">
+
+                    
+ <lightning-button label="Back" onclick={handleBack} variant="brand">
+                                    </lightning-button> &nbsp;&nbsp;
+
+
+ <lightning-button label="Save" onclick={handleSave} variant="brand">
+                                    </lightning-button>
+
+
+                </div>    
+
+
+       </template>
+
+     </div>
+</lightning-card>
+
+
+</template>

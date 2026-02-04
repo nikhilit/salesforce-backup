@@ -1,0 +1,178 @@
+/* Base container */
+.custom-wrapper {
+  background-color:#f0f7ff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Flex container for all sections */
+.custom-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  gap: 0;
+}
+
+/* Card styling with proper gaps */
+.custom-card {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding: 0 12px;
+}
+
+/* Vertical divider with gap at top and bottom */
+.custom-card:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 20px;
+  bottom: -2px;
+  width: 1px;
+  background-color: #e0e0e0;
+}
+
+/* Section header styling with gap */
+.card-header {
+  display: flex;
+  align-items: center;
+  
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e0e0e0; /* Added horizontal line under header */
+}
+
+/* Icon styling */
+.header-icon lightning-icon {
+  --slds-c-icon-color-foreground: currentColor;
+  --slds-c-icon-color-background: transparent;
+  margin-right: 8px;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 14px;
+  color: inherit;
+}
+
+/* Section-specific header colors */
+.contact-header {
+  color: #1a73e8;
+  border-bottom-color: #1a73e8;
+}
+.address-header {
+  color: #34a853;
+  border-bottom-color: #34a853;
+}
+.actreg-header {
+  color: #a142f4;
+  border-bottom-color: #a142f4;
+}
+.payment-header {
+  color: #ea4335;
+  border-bottom-color: #ea4335;
+}
+.metering-header {
+  color: #00bfa5;
+  border-bottom-color: #00bfa5;
+}
+
+/* Card body styling */
+.card-body {
+  
+  display: flex;
+  flex-direction: column;
+}
+
+/* Field row styling with horizontal dividers */
+.field-row {
+  display: flex;
+  justify-content: space-between;
+  
+  font-size: 13px;
+  min-height: 24px;
+  border-bottom: 1px solid #e7e2e2; /* Light horizontal divider */
+}
+
+.field-row:last-child {
+  border-bottom: none; /* Remove divider from last row */
+}
+
+/* Label styling */
+.label {
+  color: 000000;
+  flex: 0 0 45%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Value styling */
+.value {
+  color: #202124;
+  text-align: right;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 400;
+}
+
+.value.bold {
+  font-weight: 600;
+}
+
+/* Add this to your CSS */
+.status-badge {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: lowercase;
+    display: inline-block;
+}
+
+.status-badge.active {
+    background-color: #0d84d9; /* Light blue background */
+    color: #ffffff; /* Dark blue text */
+    border-radius: 12px;
+}
+
+.status-badge.inactive {
+    background-color: #fdecea; /* Light red background */
+    color: #d93025; /* Dark red text */
+}
+
+/* Responsive handling */
+@media screen and (max-width: 1200px) {
+  .custom-grid {
+    flex-wrap: wrap;
+  }
+
+  .custom-card {
+    flex: 0 0 50%;
+    padding: 0 16px;
+    margin-bottom: 16px;
+  }
+  
+  .custom-card:nth-child(2n)::after {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .custom-card {
+    flex: 0 0 100%;
+    padding: 0;
+  }
+  
+  .custom-card::after {
+    display: none;
+  }
+  
+  .card-header {
+    padding-top: 16px;
+  }
+}

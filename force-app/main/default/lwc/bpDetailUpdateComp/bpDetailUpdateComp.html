@@ -1,0 +1,276 @@
+<template>
+
+  <lightning-card>
+
+     <div class="slds-grid slds-wrap">
+
+          <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <strong>Customer Name :</strong> 
+                {accountDetails.FirstName__c} {accountDetails.LastName__c}
+            </div>
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <strong>BP Number :</strong> 
+                {accountDetails.BP_Number__c}
+            </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+
+             <lightning-combobox label="Meter Shifted" name="meterShifted" value={meterShifted}
+                     options={riserPaintingOptions}
+                        onchange={handleMeterShifted}>
+                    </lightning-combobox>
+
+                </div>
+
+
+                 <template if:true={showcoppermlclength}>
+
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                 <lightning-input 
+                label="Copper length/MLC length" 
+                name="copperlengthmlclength"
+                value={copperlengthMLClength} 
+                type="text"
+
+                onchange={handlecopperlengthMLClengthChange}>
+            </lightning-input>
+
+
+            <!-- <lightning-input 
+                type="text"
+                label="Copper/Mlc length" 
+                 name="copper/mlglength"
+                 value={coppermlclength}
+                 onchange={handleCopperMlcChange}>
+            </lightning-input> -->
+
+              </div>
+
+                </template>
+
+
+               <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+
+
+            <lightning-input 
+                type="text"
+                label="Meter Number" 
+                name="meterNumber"
+                value={meterNumber}
+                onchange={handleMeterNumberChange}>
+            </lightning-input>
+
+               </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+
+            <lightning-input 
+
+               type="text"
+                label="Meter Reading" 
+                name="meterReading"
+                value={meterReading} 
+                onchange={handleMeterReadingChange}>
+            </lightning-input>
+
+                </div>
+
+             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+
+            <lightning-input 
+
+                type="text"
+                label="Regulator Make" 
+                name="regulatorMake" 
+                value={regulatorMake} 
+                onchange={handleRegulatorMakeChange}>
+            </lightning-input>
+
+             </div>
+
+               <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+
+             <lightning-input 
+                label="GI Length" 
+                name="giLength"
+                value={gILength} 
+              type="text"
+
+                onchange={handleGiLengthChange}>
+            </lightning-input>
+
+
+            </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+
+            <lightning-combobox
+                label="Connection Done?"
+                name="connectionDone"
+                placeholder="Select Status"
+                options={connectionOptions}
+                value={connectionDone}
+                onchange={handleConnectionDoneChange}>
+            </lightning-combobox>
+
+
+                </div>
+
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+             <lightning-combobox
+                label="Leakage Test Done"
+                name="leakageTestDone"
+                value={leakageTestDone}
+                placeholder="Select Status"
+                options={connectionOptions}
+                onchange={handleLeakageTestDoneChange}>
+            </lightning-combobox>
+
+            </div>
+
+           <!--material consumption ---->
+
+        <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+    <h3 class="slds-text-heading_small slds-m-bottom_small">Material Consumption Report</h3>
+
+    <template for:each={materialList} for:item="material" for:index="index">
+        <div key={material.rowNumber} class="slds-box slds-m-bottom_small">
+
+            <div class="slds-grid slds-wrap slds-gutters">
+              
+
+                <!-- Item Description -->
+                <div class="slds-col slds-size_1-of-1">
+                  
+                  <!-- Item description code piclist value old code -->
+                    <!-- <lightning-combobox label="Item Description" name="itemDescription" data-rownumber={material.rowNumber}
+                        value={material.itemDescription} options={itemDescriptionOptions}
+                        onchange={handleMaterialChange}>
+                    </lightning-combobox> -->
+
+                    <!-- Search item desciption code -->
+                    
+                      <lightning-input type="search" 
+                            label="Item Description"
+                            data-rownumber={material.rowNumber}
+                            value={material.itemDescription}
+                            placeholder="Type to search..."
+                            onchange={handleKeyChange}>
+                        </lightning-input>
+
+                        <template if:true={material.showDropdown}>
+                            <div class="slds-box slds-m-top_x-small slds-scrollable_y" style="max-height:200px;">
+                                <template for:each={material.filteredMaterials} for:item="mat">
+                                    <div key={mat.code}
+                                        class="slds-p-around_x-small slds-border_bottom hoverable"
+                                        data-code={mat.code}
+                                        data-description={mat.description}
+                                        data-rownumber={material.rowNumber}
+                                        onclick={handleSelect}>
+                                        {mat.description}
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                </div>
+
+
+               
+
+                <!-- Search item desciption code -->
+
+
+
+              <!-- Item Code -->
+                <div class="slds-col slds-size_1-of-1">
+                   
+                      <!-- <lightning-combobox label="Item Code" name="itemCode" data-rownumber={material.rowNumber}
+                        value={material.itemCode} options={itemCodeOptions}
+                        onchange={handleMaterialChange}>
+                    </lightning-combobox> -->
+
+                       <!-- Selected item code -->
+            <!-- <lightning-input label="Item Code" value={selectedItemCode} disabled> </lightning-input> -->
+                        <lightning-input label="Item Code" value={material.itemCode} disabled></lightning-input>
+
+                </div>
+
+
+          
+
+
+
+                <!-- Unit -->
+                <!-- <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Unit" name="unit" data-index={index}
+                        value={material.unit} onchange={handleMaterialChange}>
+                    </lightning-input>
+                </div> -->
+
+                <!-- Quantity -->
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input label="Quantity" name="quantity" type="number" data-rownumber={material.rowNumber}
+                        value={material.quantity} onchange={handleMaterialChange}>
+                    </lightning-input>
+                </div>
+
+                <!-- Delete Icon -->
+                <div class="slds-col slds-size_1-of-2 slds-text-align_right" style="margin-top:24px;">
+                    <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove"
+                        data-rownumber={material.rowNumber} onclick={removeMaterialRow} class="slds-m-top_small">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <lightning-button icon-name="utility:add" label="Add Material" onclick={addMaterialRow}
+        class="slds-m-top_medium">
+    </lightning-button>
+</div>
+
+
+          
+
+             <div class="slds-col slds-size_1-of-1" style="margin-top:1rem;">
+
+                <!-- photoBPUploadSlots -->
+                               
+                                <div>
+                                    <c-o_-m-camera-upload-comp  image-list={photoBPUploadSlots}  onchange={handleBPFile}>
+                                    </c-o_-m-camera-upload-comp>
+                                </div>
+
+             </div>                                
+
+                 
+      <div style="margin-top:1rem; margin-left:5rem;">
+
+                    
+ <lightning-button label="Back" onclick={handleBack} variant="brand">
+                                    </lightning-button> &nbsp;&nbsp;
+
+
+ <lightning-button label="Save" onclick={handleSave} variant="brand">
+                                    </lightning-button>
+
+                </div>            
+
+
+     </div>
+
+  </lightning-card>
+
+</template>

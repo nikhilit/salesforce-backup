@@ -1,0 +1,47 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 13-11-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   27-10-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <template if:true={isButtonView}>
+  
+     
+
+         <!--O&M WorkOrder List view buttons -->
+
+        <template if:true={ipdDMCAICUsers}>
+            <lightning-button label="Create O&M WorkOrders" onclick={showCreateWorkOrder} ></lightning-button>
+        </template>
+         <template if:true={bdAICUsers}>
+            <lightning-button label="Create BD Work Orders" onclick={showBDCreateWorkOrder} ></lightning-button>
+        </template>
+
+         <!-- <template if:true={afterSalesAICUsers}>
+            <lightning-button label="Create O&M WorkOrders" onclick={showCreateAfterSalesWorkOrder} ></lightning-button>
+        </template> -->
+       
+      
+
+    </template> 
+
+    <!--O&M Components -->
+
+ <template if:true={showBDCreateWorkOrderComp}>
+        <c-create-demolitions-work-orders reactive-value={idsList}></c-create-demolitions-work-orders>
+    </template>
+    <template if:true={showCreateWorkOrderComp}>
+        <c-create-work-orders-from-case reactive-value={idsList}></c-create-work-orders-from-case>
+    </template>
+
+    <!-- <template if:true={showCreateWorkOrderAfterSalesComp}>
+        <c-create-work-orders-from-case reactive-value={idsList}></c-create-work-orders-from-case>
+    </template> -->
+
+   
+</template>

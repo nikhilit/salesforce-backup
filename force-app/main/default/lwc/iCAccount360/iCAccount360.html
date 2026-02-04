@@ -1,0 +1,82 @@
+<!--
+  @description       : 
+  @author            : Shashank.shekhar@appstrail.com
+  @group             : 
+  @last modified on  : 06-25-2025
+  @last modified by  : Shashank.shekhar@appstrail.com
+-->
+<template>
+    <template if:true={accountView}>
+        <lightning-card>
+            <template if:true={account}>
+                <div class="account-container">
+                    <!-- Contact Info -->
+                    <div class="section">
+                        <h3>Customer Information</h3>
+                        <div class="row"><span class="label">Name:</span> <span class="value">{workOrder.Customer_Name__c}</span></div>
+                        <div class="row"><span class="label">Phone:</span> <span class="value">{workOrder.New_Mobile_Number__c}</span></div>
+                        <div class="row"><span class="label">BP Number:</span> <span class="value">{workOrder.Customer_BP_Number__c}</span></div>
+                        <div class="row"><span class="label">CA Number:</span> <span class="value">{workOrder.CA_Number__c}</span></div>
+                        <!-- <div class="row"><span class="label">Portion and MRU:</span> <span class="value">{workOrder.Billing_portion__c}, {workOrder.MRU__c}</span></div>
+                        <div class="row"><span class="label">Meter Number:</span> <span class="value">{workOrder.Meter_No_SR__c}</span></div> -->
+                        <!-- <div class="row"><span class="label">Address:</span> <span class="value">{workOrder.New_Road_Name__c}, {workOrder.New_Landmark__c}, {workOrder.New_Location__c}</span></div> -->
+                        <div class="row"><span class="label">Address:</span> <span class="value"><div class="appt-summary">{detailAccountSummary}</div></span></div> 
+                    </div>
+ 
+                    <div class="section"> 
+                        <h3>Billing Information</h3>
+                        <template if:true={workOrder}>
+                            <div class="row">
+                                <span class="label">Payment Collection Status</span>
+                                <span class="value">{getPaymentCollection}</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">Total Due Amount:</span>
+                                <span class="value">₹{workOrder.Due_Amount__c}</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">Amount Received:</span>
+                                <span class="value">₹{workOrder.Amount_Received__c}</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">Bill Generated Date:</span>
+                                <span class="value">{formattedBillDate}</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">Payment Mode:</span>
+                                <span class="value">{workOrder.Payment_Mode__c}</span>
+                            </div>
+                        </template>
+                    </div>
+
+                    <div class="section">
+                        <h3>Follow-Up History:</h3>
+                        <template if:true={workOrder}>
+                            <div class="row">
+                                <span class="label">Follow-Up Date:</span>
+                                <span class="value">{formattedFollowUpDate}</span>
+                            </div>
+                        
+                            <div class="row">
+                                <span class="label">Reason for Follow-Up:</span>
+                                <span class="value">{workOrder.Follow_up_Remarks__c}</span>
+                            </div>
+                        </template>
+                    </div>
+                    <!-- Action Buttons -->
+                    <!-- <div class="button-container"> -->
+                        <!-- <lightning-button label="Collect Payment" onclick={handleTakeReading} class="slds-m-right_small" variant="brand"></lightning-button> -->
+                        <!-- <lightning-button label="Update Customer" onclick={handleUpdateCustomer}></lightning-button> -->
+                    <!-- </div> -->
+                    
+                </div>
+            </template>
+
+            <template if:true={error}>
+                <div class="slds-text-color_error slds-m-around_medium">
+                    Error loading customer details: {errorMessage}
+                </div>
+            </template>
+        </lightning-card>
+    </template>
+</template>

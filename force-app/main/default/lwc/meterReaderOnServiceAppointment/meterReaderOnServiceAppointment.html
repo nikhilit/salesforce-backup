@@ -1,0 +1,32 @@
+<template>
+    <template if:true={profileData}>
+        <div class="account-container slds-p-around_small">
+            <div class="section">
+                <h3>Customer Profile</h3>
+                <div class="row"><span class="label">Customer Name:</span> <span class="value">{profileData.customerName}</span></div>
+                <div class="row"><span class="label">BP Number:</span> <span class="value">{profileData.bpNumber}</span></div>
+                <div class="row"><span class="label">CA Number:</span> <span class="value">{profileData.caNumber}</span></div>
+                <div class="row"><span class="label">Dispenser Number:</span> <span class="value">{profileData.dispenserNumber}</span></div>
+                <div class="row"><span class="label">Location:</span> <span class="value">{profileData.location}</span></div>
+            </div>
+        </div>
+        <!-- <div class="card">
+            <div class="header">
+                <h2>Customer Profile</h2>
+                <template if:true={isOffline}>
+                    <span class="offline-tag">Offline Mode</span>
+                </template>
+            </div>
+            <div class="info">
+                <p><strong>Customer Name:</strong> {profileData.customerName}</p>
+                <p><strong>BP Number:</strong> {profileData.bpNumber}</p>
+                <p><strong>CA Number:</strong> {profileData.caNumber}</p>
+                <p><strong>Dispenser Number:</strong> {profileData.dispenserNumber}</p>
+                <p><strong>Location:</strong> {profileData.location}</p>
+            </div>
+        </div> -->
+    </template>
+    <template if:false={profileData}>
+        <p>Loading customer profile...</p>
+    </template>
+</template>

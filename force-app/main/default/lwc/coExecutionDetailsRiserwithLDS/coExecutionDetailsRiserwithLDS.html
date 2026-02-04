@@ -1,0 +1,33 @@
+<template>
+
+  <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+        <lightning-card class="slds-card" >
+
+                <div class="slds-p-around_medium" style="margin-top:-2.5rem;">
+                    <template if:true={showRiserMaintenance} >
+                      <p style="color:black;"> RiserMaintenance </p>
+<c-co-execution-details-riser-maintenance-l-d-s
+    record-id={recordId}
+    service-appointment-id={serviceAppointmentId}>
+</c-co-execution-details-riser-maintenance-l-d-s>
+
+                    </template>
+
+
+                      <template if:true={showRiserReplacement}>
+
+                    </template>
+
+                     <template if:true={showRiserPainting}>
+
+                    </template>
+
+                    <template if:true={shownoworktypefound}>
+                      <p>{showworktypemessage}</p>
+                    </template>
+                </div>
+            </lightning-card>
+</template>

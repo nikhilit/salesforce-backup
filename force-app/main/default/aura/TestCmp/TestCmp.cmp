@@ -1,0 +1,3 @@
+<aura:component implements="lightning:isUrlAddressable,force:hasSObjectName" access="global" >
+    <c:asUpdateWorkOrderEndDate>	</c:asUpdateWorkOrderEndDate>
+</aura:component>

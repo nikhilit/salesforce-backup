@@ -1,0 +1,42 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 08-07-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   08-07-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <article class="slds-card slds-card_boundary">
+        <div class="slds-border--bottom slds-card__header slds-grid slds-m-around--none slds-theme--shade">
+            <header class="slds-has-flexi-truncate slds-media slds-media_center slds-p-bottom--x-small">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-account" title="account">
+                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                            <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#account"></use>
+                        </svg>
+                        <span class="slds-assistive-text">account</span>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>Image Preview</span>
+                    </h2>
+                </div>
+                <div class="slds-no-flex">
+                    <button class="slds-button slds-button_neutral" onclick={handleRefresh}>Refresh</button>
+                </div>
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <img src={imageUrl} alt="Image Preview" class="slds-image slds-image_small slds-align_absolute-center" />
+        </div>
+        <!-- <footer class="slds-card__footer">
+            <a class="slds-card__footer-action" href="javascript:void(0);">View All
+                <span class="slds-assistive-text">Accounts</span>
+            </a>
+        </footer> -->
+    </article>
+</template>

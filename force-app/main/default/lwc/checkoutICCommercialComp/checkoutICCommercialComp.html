@@ -1,0 +1,53 @@
+<template>
+     <div style="padding-top: 2%;
+    background-color: white;
+    border-radius: 13px;">
+    <lightning-card >
+        <!-- title="Check-Out" -->
+        <!-- SPINNER -->
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Processing Check-Out..." size="medium">
+            </lightning-spinner>
+        </template>
+
+        <!-- MAP -->
+        <template if:true={showMap}>
+             <template if:true={isOnline}>
+            <lightning-map
+                map-markers={lstMarkers}
+                zoom-level="15" style="width: 100%;border-radius: 6px;overflow: overlay;">
+            </lightning-map>
+             </template>
+              <template if:false={isOnline}>
+                <div style="padding: 1%;text-align: center;font-size: 14px;font-weight: bold;padding-top: 6%;padding-bottom: 6%;">
+                      <p> Map unavailable in offline mode</p>
+                </div>
+            </template>
+              <template if:false={showSuccessMessage}>
+        <lightning-button 
+    label="Check Out"
+    variant="brand"
+    onclick={handleCheckOut} style="display: flex;
+    flex-direction: row-reverse;
+    padding: 1%;">
+    </lightning-button>
+      </template>
+        </template>
+        
+        <!-- GPS disabled -->
+        <template if:true={showEnableMessage}>
+            <div class="slds-text-color_error slds-p-around_small">
+                Please enable GPS to continue.
+            </div>
+        </template>
+
+        <!-- SUCCESS MESSAGE -->
+        <template if:true={showSuccessMessage}>
+            <div class="success-box slds-p-around_small slds-m-around_small">
+                ✔ You have successfully checked Out!
+            </div>
+        </template>
+
+    </lightning-card>
+     </div>
+</template>

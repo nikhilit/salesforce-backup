@@ -1,0 +1,19 @@
+<template>
+    <div class="slds-theme_default slds-p-around_medium slds-m-around_medium slds-rounded_large slds-shadow_small">
+        <lightning-input
+            type="text"
+            label="Remarks"
+            placeholder="Please Enter Remarks"
+            value={remarks}
+            onchange={handleRemarksChange}
+            class="slds-m-bottom_small">
+        </lightning-input>
+
+        <lightning-button
+            variant="brand"
+            label="Assign"
+            onclick={handleAssignBack}
+            class="slds-m-top_small">
+        </lightning-button>
+    </div>
+</template>

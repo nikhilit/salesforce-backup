@@ -1,0 +1,128 @@
+<template>
+
+     <lightning-card>
+
+         <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+                     
+
+        <div class="slds-grid slds-wrap" style="margin-top:-4rem;">
+
+
+
+            <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <lightning-input type="number" label="Total Number of Risers" value={risersNumber}
+                    onchange={handleRiserChange}  min="1" max="20" required="true" disabled={isReadOnly}>
+
+                </lightning-input>
+
+            </div>
+
+             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                <lightning-combobox name="picklist" label="Type Of Riser" value={riserPickListValue}
+                     options={typeOfRiserOptions} onchange={handlePicklistChange} required="true" disabled={isReadOnly}>
+                </lightning-combobox>
+
+            </div>
+
+           
+
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <lightning-input type="number" label="Number of Floors" value={risersFloors}
+                    onchange={handleFloorChange}   required="true" disabled={isReadOnly}>
+
+                </lightning-input>
+
+            </div>
+
+             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                <lightning-combobox name="picklist" label="Customer found using gas without BP number?" value={havingBPValue}
+                     options={havingBPOptions} onchange={handleHavingBPChange} required="true"  disabled={isReadOnly}>
+                </lightning-combobox>
+
+            </div>
+
+            <template if:true={showEnterCustomerDetails}>
+             <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-textarea  label="Enter Details" name="customerDetails" placeholder="Enter Name, Flat Number and Phone Number"
+                        value={customerDetails} onchange={handleCustomerDetailChange} required="true"  disabled={isReadOnly}></lightning-textarea>
+                </div>
+            </template>
+
+
+            
+
+
+      
+
+
+              <!-- <template if:true={risersNumber}>
+
+                <template if:true={showBeforeImage}>
+
+              <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                               
+
+                               
+                                <div>
+                                    
+                                    <c-o_-m-camera-upload-comp image-list={photoUploadSlots} onchange={handleFile}>
+                                    </c-o_-m-camera-upload-comp>
+                                </div>
+
+                            </div>
+
+                </template>
+
+            </template> -->
+            
+
+          
+          
+
+
+
+
+
+
+         <template if:true={showSaveButton}>
+
+            <div class="slds-p-around_medium" style="margin-left:7.3rem;">
+
+                <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+
+            </div>
+        </template>
+
+
+                </div>
+
+
+       
+
+        
+
+         
+
+        
+          <!-- <template if:true={showWorkOrderLineItems}>
+
+          <c-work-order-l-item-riser-replacement-comp record-id={recordId} oncancel={handleCancel}></c-work-order-l-item-riser-replacement-comp> 
+
+            
+
+        </template>  -->
+
+
+       
+
+
+        </lightning-card>
+
+      
+
+</template>

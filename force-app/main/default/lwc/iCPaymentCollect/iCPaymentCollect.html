@@ -1,0 +1,148 @@
+<!--
+  @description       : 
+  @author            : Shashank.shekhar@appstrail.com
+  @group             : 
+  @last modified on  : 07-13-2025
+  @last modified by  : Shashank.shekhar@appstrail.com
+-->
+<template> 
+
+    <template if:true={showEnableMessage}>
+        <div class="slds-modal__header">
+            <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate"></h1>
+        </div>
+
+        <div class="slds-modal__content slds-is-relative" id="modal-content-id-1" style="font-size: larger;">
+            <div class="slds-p-around_large slds-box slds-theme_default">
+                <h1 class="slds-text-align_center slds-m-bottom_large">{message}</h1>
+            </div>
+        </div>
+    </template>
+
+    <template if:false={showEnableMessage}>
+
+        <c-as-acc-validator-utility work-order-id={recordId}></c-as-acc-validator-utility> 
+
+        <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+        
+        <div class="slds-box slds-theme_default">
+
+            <template if:true={showPaymentOption}>
+                
+                <lightning-button label="Back" onclick={handleBackFromPayment}></lightning-button>
+
+                <div class="payment-methods">
+                    <template lwc:if={showPaymentRequestQRcode}>
+                        <c-as-payment-request record-id={recordId} pay-type="QR Code"></c-as-payment-request>
+                        <div class="slds-m-bottom_medium slds-align_absolute-center">
+                            <lightning-button label="Payment Received" onclick={confirmQRPayment} varaiant="brand"></lightning-button>
+                        </div>
+                    </template>
+
+                    <template lwc:if={showPdc}>
+                        <c-as-pdc-requested 
+                            record-id={recordId} 
+                            is-field-sense = true
+                            onpayreceived = {handlePayReceived}
+                            onshowparent = {handleShowParent}
+                            pay-type="PDC">
+                        </c-as-pdc-requested>
+                    </template>       
+                </div>
+                    
+            </template>
+
+            <template if:true={showPaymentReceived}>
+                <div class="modal-container">
+                    <div class="modal">
+
+                        <lightning-button label="Back" onclick={handleBackFromPayment}></lightning-button>
+
+                        <div class="slds-p-around_medium">
+                            <p class="slds-text-heading_medium slds-text-color_success">
+                                Payment received.
+                            </p>
+                            <p class="slds-text-body_regular">
+                                <strong>Amount Paid:</strong> ₹{paymentReceived}
+                            </p>
+                            <p class="slds-text-body_regular">
+                                <strong>Payment Mode:</strong> {payType}
+                            </p>
+                            <template if:true={pdfReceiptUrl}>
+                                <lightning-formatted-url
+                                    value={pdfReceiptUrl}
+                                    label="Tap here to view Receipt"
+                                    target="_blank">
+                                </lightning-formatted-url>
+                            </template>
+                        </div>
+                        <div>
+                            <lightning-input 
+                                type="text" 
+                                value={accountAlternatePhone} 
+                                onkeydown={handleKeyDown} 
+                                onchange={handleInput} 
+                                style="margin-top: 14px;"
+                                label="Alternate Mobile no">
+                            </lightning-input>
+                            </br>
+                            <lightning-button label="Send SMS To Customer" onclick={sendPayMsg} varaiant="brand"></lightning-button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            
+            <template if:false={showPaymentOption}>
+                <!-- First Image Upload -->
+                <div class="slds-m-bottom_medium">
+                    <!-- <c-r-t-camer-uploadcomp image-list={photoUploadSlots} onchange={handleFile}></c-r-t-camer-uploadcomp> -->
+                    <c-as-camera image-list={photoUploadSlots} onchange={handleFile}></c-as-camera>
+                </div>
+
+                <div class="slds-m-bottom_medium slds-align_absolute-center">
+                    <lightning-button 
+                        variant="brand" 
+                        label="UPI Payment" 
+                        onclick={handleUpiPayment}>
+                    </lightning-button>
+                    <lightning-button 
+                        variant="brand" 
+                        label="Cheque Payment" 
+                        class="slds-m-left_small"
+                        onclick={handleChequePayment}>
+                    </lightning-button>
+                </div>
+
+                <c-as-signature-pad></c-as-signature-pad>
+
+                <!-- Remarks Text Area -->
+                <lightning-textarea 
+                    name="remarks" 
+                    label="Remarks" 
+                    value={remarks} 
+                    onchange={handleRemarksChange}
+                    placeholder="Enter your remarks here">
+                </lightning-textarea>
+
+                <!-- <c-ic-account-update
+                    record-id={recordId}
+                    object-api-name="Account" 
+                    onchildsaved={handleChildSaved}>
+                </c-ic-account-update> -->
+
+                <!-- Save Button -->
+                <div class="slds-m-top_medium slds-align_absolute-center">
+                    <lightning-button 
+                        variant="brand" 
+                        label="Save" 
+                        onclick={handleChildSaved}>
+                    </lightning-button>
+                </div>
+            </template>
+
+        </div>
+    </template>
+
+</template>

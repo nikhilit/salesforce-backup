@@ -1,0 +1,46 @@
+<template>
+    <template if:true={isLoading}>
+        <div class="spinner-container">
+            <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+        </div>
+    </template>
+    <template if:false={isLoading}>
+    <template if:true={showSearch}>
+        <div class="card">
+            <h2 class="slds-m-bottom_small">Search CNG/LNG Customers</h2>
+
+            <lightning-input label="Location" value={location} onchange={handleInputChange}
+                data-id="location"></lightning-input>
+            <lightning-input label="Outlet Name" value={outlet} onchange={handleInputChange}
+                data-id="outlet"></lightning-input>
+            <lightning-input label="Representative Company" value={company} onchange={handleInputChange}
+                data-id="company"></lightning-input>
+            <lightning-input label="Zone" value={zone} onchange={handleInputChange} data-id="zone"></lightning-input>
+
+            <lightning-button label="Search" onclick={searchCustomers} class="slds-m-top_small"></lightning-button>
+
+            <template if:true={workOrders}>
+                <div class="slds-m-top_small">
+                    <template for:each={workOrders} for:item="wo">
+                        <div key={wo.Id} data-id={wo.Id} onclick={handleResultClick}>
+                            <p><strong>{wo.Account.Name}</strong></p>
+                            <p>Address: {wo.Account.BillingStreet}, {wo.Account.BillingCity}</p>
+                            <p>Outlet: {wo.Outlet_Name__c}</p>
+                            <p>Contact: {wo.Account.Phone}</p>
+                            <hr style="margin: 5px 0px 5px 0px">
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <template if:true={noResults}>
+                <p class="slds-m-top_small">No matching work orders found.</p>
+            </template>
+        </div>
+    </template>
+    </template>
+
+    <template if:true={selectedWorkOrder}>
+        <c-cng-customer-visit work-order={selectedWorkOrder}></c-cng-customer-visit>
+    </template>
+</template>

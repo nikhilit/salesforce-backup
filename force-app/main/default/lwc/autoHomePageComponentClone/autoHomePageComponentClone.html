@@ -1,0 +1,152 @@
+<!--
+  @description       : 
+  @author            : Shashank.shekhar@appstrail.com
+  @group             : 
+  @last modified on  : 07-25-2025
+  @last modified by  : Shashank.shekhar@appstrail.com
+-->
+
+<template>  
+
+    <template if:true={showSpinner}>
+        <lightning-spinner alternative-text="Loading..." size="small"></lightning-spinner>
+    </template>
+
+    <template if:true={openMainPage}>
+        <div style="background-color: white;">
+            <div style="height: 170px;">
+                <div class="backgroundImage" style={backgroundStyle}>
+                    <span class="slds-align_absolute-center" style="padding-top: 25px;">
+                        <div class="smallcircle">
+                            <img src={Logo} alt="User Logo" style="border-radius: 50%; height: 70px; width: 70px;" class="slds-align_absolute-center" />
+                        </div>
+                    </span>
+                    <div></div>
+                    <p style="color: rgb(0, 0, 0); font-weight: 500; font-size: 16px; margin-top: 6px;" class="slds-align_absolute-center">{greeting}</p>
+                    <p style="color: rgb(0, 0, 0); font-weight: 400; font-size: 14px; margin-top: -4px;" class="slds-align_absolute-center">Let's get started!</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="header-bar">
+            <h2 class="left-title">My KPI</h2>
+            <h2 class="right-title">R&amp;T</h2>
+        </div>
+ 
+        <!-- Total button -->
+        <div class="slds-border_bottom slds-grid" onclick={onTotalClick} style="border-bottom:1px solid lightgrey; background-color: white;">
+                <div class="slds-col slds-size_1-of-7  slds-align_absolute-center slds-var-m-around_small">
+                    <div>
+                    <lightning-icon icon-name="utility:locker_service_api_viewer" alternative-text="Total" size="small"></lightning-icon>
+                    </div>
+                </div>
+            <div class="slds-col slds-size_4-of-7 slds-var-p-around_x-small slds-align-middle">
+                <p style="color: black;font-size:15px;">Total</p>
+            </div>
+            <div class="slds-col slds-size_2-of-7  slds-var-p-around_x-small slds-align_absolute-center" >
+                <div class="round slds-align--absolute-center"> <b>{kpis.total}</b></div>
+            </div>
+        </div> 
+
+        <template for:each={kpisResult} for:item="kpi"> 
+            <div key={kpi.label} data-card={kpi.label} class="slds-border_bottom slds-grid" onclick={onCardCLick} style={kpi.cardColor}>
+                <div class="slds-col slds-size_1-of-7  slds-align_absolute-center slds-var-m-around_small">
+                    <div>
+                    <lightning-icon icon-name={kpi.iconUrl} alternative-text={kpi.label} size="small"></lightning-icon>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_4-of-7 slds-var-p-around_x-small slds-align-middle">
+                <p style="color: black;font-size:15px;">{kpi.label}</p>
+                </div>
+                <div class="slds-col slds-size_2-of-7  slds-var-p-around_x-small slds-align_absolute-center" >
+                <div class="round slds-align--absolute-center"> <b>{kpi.count}</b></div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Follow-Up button -->
+        <div class="slds-border_bottom slds-grid" onclick={onFollowUpClick} style="border-bottom:1px solid lightgrey; background-color: white;">
+                <div class="slds-col slds-size_1-of-7  slds-align_absolute-center slds-var-m-around_small">
+                    <div>
+                    <lightning-icon icon-name="utility:add" alternative-text="Total" size="small"></lightning-icon>
+                    </div>
+                </div>
+            <div class="slds-col slds-size_4-of-7 slds-var-p-around_x-small slds-align-middle">
+                <p style="color: black;font-size:15px;">Follow-Up Visits</p>
+            </div>
+            <div class="slds-col slds-size_2-of-7  slds-var-p-around_x-small slds-align_absolute-center" >
+                <div class="round slds-align--absolute-center"> <b>{kpis.followup}</b></div>
+            </div>
+        </div>   
+
+        <!-- Overdue Payments to be Collected for the Day: -->
+        <div class="slds-border_bottom slds-grid" style="border-bottom:1px solid lightgrey; background-color: white;">
+                <div class="slds-col slds-size_1-of-7  slds-align_absolute-center slds-var-m-around_small">
+                    <div>
+                    <lightning-icon icon-name="utility:moneybag" alternative-text="Total" size="small"></lightning-icon>
+                    </div>
+                </div>
+            <div class="slds-col slds-size_3-of-7 slds-var-p-around_x-small slds-align-middle">
+                <p style="color: black;font-size:15px;">Payments to Collect:</p>
+            </div>
+            <div class="slds-col slds-size_3-of-7 slds-var-p-around_x-small slds-align_absolute-center" >
+                <div> <b>₹ {paymentToCollect}</b></div>
+            </div>
+        </div>
+
+        <!-- Overdue Payments Collected: -->
+        <div class="slds-border_bottom slds-grid" style="border-bottom:1px solid lightgrey; background-color: white;">
+                <div class="slds-col slds-size_1-of-7  slds-align_absolute-center slds-var-m-around_small">
+                    <div>
+                    <lightning-icon icon-name="utility:money" alternative-text="Total" size="small"></lightning-icon>
+                    </div>
+                </div>
+            <div class="slds-col slds-size_3-of-7 slds-var-p-around_x-small slds-align-middle">
+                <p style="color: black;font-size:15px;">Payments Collected:</p>
+            </div>
+            <div class="slds-col slds-size_3-of-7 slds-var-p-around_x-small slds-align_absolute-center" >
+                <div> <b>₹ {totalAmountReceived}</b></div>
+            </div>
+        </div> 
+
+        <!-- Direct button -->
+        <div class="slds-border_bottom slds-grid" onclick={onDirectClick} style="border-bottom:1px solid lightgrey; background-color: white;">
+                <div class="slds-col slds-size_1-of-7  slds-align_absolute-center slds-var-m-around_small">
+                    <div>
+                    <lightning-icon icon-name="utility:payment_gateway" alternative-text="Direct" size="small"></lightning-icon>
+                    </div>
+                </div>
+            <div class="slds-col slds-size_4-of-7 slds-var-p-around_x-small slds-align-middle">
+                <p style="color: black;font-size:15px;">Direct Payment</p>
+            </div>
+            <div class="slds-col slds-size_2-of-7  slds-var-p-around_x-small slds-align_absolute-center" >
+                <div class="slds-align--absolute-center"> <b>{kpis.direct}</b></div>
+            </div>
+        </div> 
+
+        <!-- Random button -->
+        <div class="slds-border_bottom slds-grid" onclick={onRandomClick} style="border-bottom:1px solid lightgrey; background-color: white;">
+                <div class="slds-col slds-size_1-of-7  slds-align_absolute-center slds-var-m-around_small">
+                    <div>
+                    <lightning-icon icon-name="utility:signpost" alternative-text="Total Random" size="small"></lightning-icon>
+                    </div>
+                </div>
+            <div class="slds-col slds-size_4-of-7 slds-var-p-around_x-small slds-align-middle">
+                <p style="color: black;font-size:15px;">Total Random Visits</p>
+            </div> 
+            <div class="slds-col slds-size_2-of-7  slds-var-p-around_x-small slds-align_absolute-center" >
+                <div class="slds-align--absolute-center"> <b>{kpis.random}</b></div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Child Component -->
+    <template if:true={showChild}>
+        <c-rt-appointment-list-view-clone 
+            selected-status={selectedStatus} 
+            second-page={secondPage} 
+            onchildevent={handleChildEvent} 
+            selected-type={selectedType} >
+        </c-rt-appointment-list-view-clone>
+    </template>
+</template>

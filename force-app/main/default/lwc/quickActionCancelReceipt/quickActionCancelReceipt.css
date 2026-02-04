@@ -1,0 +1,13 @@
+.slds-fade-in-open {
+    visibility: hidden !important;
+   }
+.slds-modal__content {
+    background-color: transparent !important;
+}
+.slds-modal__container{
+    background-color: transparent !important;
+}
+ .slds-spinner_container{
+    background-color: transparent !important;
+    background: transparent !important;
+   }

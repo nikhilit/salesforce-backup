@@ -1,0 +1,131 @@
+<template>
+
+    <lightning-card >
+
+        <template if:true={isload}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+<!-- <template if:true={showUploadFile}>
+      
+<lightning-input type="file" label="Select File" accept="*/*"
+                     onchange={handleFileChange}></lightning-input>
+ 
+    <template if:true={fileName}>
+        <p style="margin-left: 20px;">File Name: {fileName}</p>
+       </template>  
+
+    <div style="margin-top:1.4rem; margin-left:2rem;">
+        <lightning-button  label="Save" variant="brand" onclick={handleSaveFile} >
+        </lightning-button>
+
+    </div>
+
+</template> -->
+       
+
+    <!-- <template if:true={showPreviewButton}>
+        <div style="margin-left:15rem;">
+            <lightning-button  label="Preview" variant="brand" onclick={handlePreviewPDF} >
+        </lightning-button>
+        </div>
+    </template> -->
+        <template if:true={showRubberHoseReplFields}>
+            <div class="slds-grid slds-wrap">
+                
+                <!-- <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="text" label="Meter Number " name="meterNumber"
+                        value={serviceReport.meterNumber} onchange={handleServiceReportDetails} required></lightning-input>
+                </div> -->
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="The Work Done" name="workDone" value={serviceReport.workDone}
+                        onchange={handleServiceReportDetails} required></lightning-input>
+                </div>
+
+                 <!-- <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                    <lightning-input type="Date" label="Rubber Hose Expiry Date " name="rubberHoseExpiryDate"
+                        value={serviceReport.rubberHoseExpiryDate} onchange={handleServiceReportDetails} required>
+                    </lightning-input>
+                </div> -->
+
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+                <lightning-combobox name="satisfactoryNotSatisfactory" label="Satisfactory Not Satisfactory" value={serviceReport.satisfactoryNotSatisfactory}
+                    options={SatisfactoryNotSatisfactoryOptions} onchange={handleServiceReportDetails} required>
+                </lightning-combobox>
+                </div>
+
+            
+
+
+                <!-- <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input type="text" label="Meter Reading" name="meterReading"
+                        value={serviceReport.meterReading} onchange={handleServiceReportDetails} required></lightning-input>
+                </div> -->
+
+              
+            </div>
+
+            <div class="slds-p-around_medium" style="margin-left:8.7rem;">
+
+                <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+
+            </div>
+
+        </template>
+
+        
+
+          <template if:true={showMeterReplacementFields}>
+
+            <c-meter-replacement-m-r-j-c-comp record-id={recordId} oncancel={handleCancel}></c-meter-replacement-m-r-j-c-comp>
+
+        </template> 
+
+           <template if:true={showIANDCFields}>
+
+            <c-o_-m-i_-c-comp record-id={recordId} oncancel={handleCancel}></c-o_-m-i_-c-comp>
+
+        </template>
+
+        
+          <template if:true={showRiserMaintenenceFields}>
+
+            <c-riser-maintenence-service-report-comp record-id={recordId} oncancel={handleCancel}></c-riser-maintenence-service-report-comp>
+
+        </template>
+
+          <template if:true={showRiserReplacementFields}>
+
+            <c-riser-replacement-service-report-comp record-id={recordId} oncancel={handleCancel}></c-riser-replacement-service-report-comp>
+
+        </template>  
+
+        <!---Need to deploy -->
+
+
+         <!-- <template if:true={showRiserReplacementFields}>
+
+            <c-riser-replacement-service-report-comp record-id={recordId} oncancel={handleCancel}></c-riser-replacement-service-report-comp>
+
+        </template> 
+
+
+         <template if:true={showRiserMaintenenceFields}>
+
+            <c-riser-maintenence-service-report-comp record-id={recordId} oncancel={handleCancel}></c-riser-maintenence-service-report-comp>
+
+        </template> -->
+
+        <template if:true={showDomesticMeterChecking}>
+    <c-domestic-meter-checking record-id={recordId} oncancel={handleCancel}></c-domestic-meter-checking>
+</template>
+ <template if:true={showIPDMeterChecking}>
+    <c-ipd-meter-checking record-id={recordId} oncancel={handleCancel}></c-ipd-meter-checking>
+</template>
+
+       
+    </lightning-card>
+
+</template>

@@ -1,0 +1,68 @@
+:host {
+    display: block;
+    padding: 1rem;
+    background-color: #f4f6f9;
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+}
+
+/* Card Styling */
+lightning-card {
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Section spacing */
+.section {
+    margin-bottom: 1.5rem;
+}
+
+/* Buttons */
+lightning-button {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+lightning-button.variant-brand {
+    background-color: #0070d2;
+    color: white;
+}
+
+/* Inputs */
+lightning-combobox,
+lightning-input,
+lightning-textarea {
+    max-width: 500px;
+    margin-bottom: 1rem;
+}
+
+/* Upload Section */
+.image-upload-section {
+    border: 1px dashed #d8dde6;
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+}
+
+.image-upload-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: #16325c;
+}
+
+/* Preview layout from camera component */
+.upload-preview {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.upload-preview img {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}

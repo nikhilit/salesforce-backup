@@ -1,0 +1,604 @@
+<!--
+  @description       : 
+  @author            : Shashank.shekhar@appstrail.com
+  @group             : 
+  @last modified on  : 13-11-2025
+  @last modified by  : Kartik Patkar, Appstrail
+-->
+<template>
+
+    <template if:true={mainPage}>
+
+        <template if:true={accountView}>
+            <lightning-card title="Customer Information" icon-name="standard:account" class="slds-is-relative">
+                <template if:true={account}>
+                    <div class="account-container slds-p-around_small slds-is-relative">
+
+                        <template if:true={load}>
+                            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+                        </template>
+                        <!-- Contact Info -->
+                        <div class="section">
+                            <h3>Customer View</h3>
+                            <div class="row"><span class="label">Name:</span> <span
+                                    class="value">{account.Full_Name__c}</span>
+                            </div>
+                            <!-- <div class="row"><span class="label">Phone:</span> <span class="value">{account.Phone}</span></div> -->
+                            <div class="row"><span class="label">BP Number:</span> <span
+                                    class="value">{account.BP_Number__c}</span></div>
+                            <!-- <div class="row"><span class="label">MRU Code:</span> <span class="value">{account.MRU_Code__c}</span></div> -->
+                            <div class="row"><span class="label">Meter Number:</span> <span
+                                    class="value">{account.Meter_Number__c}</span></div>
+                            <div class="row"><span class="label">CA Number:</span> <span
+                                    class="value">{account.CA_Number__c}</span></div>
+                            <div class="row"><span class="label">Contact No. (Mob):</span> <span
+                                    class="value">{account.Phone__c}</span></div>
+                            <div class="row"><span class="label">Contact No. (Home):</span> <span
+                                    class="value">{account.Secondary_Phone__c}</span></div>
+                            <div class="row"><span class="label">Contact No.(Office):</span> <span
+                                    class="value">{account.Customer_Contact_No_Office__c}</span></div>
+                            <div class="row"><span class="label">Email Id:</span> <span
+                                    class="value">{account.Account_Email__c}</span></div>
+                            <!-- <div class="row"><span class="label">Previous Meter Reading:</span> <span class="value"></span>
+                        </div> -->
+
+                        </div>
+
+                        <!-- Address Info -->
+                        <div class="section">
+                            <h3>Address Information</h3>
+                            <div class="row"><span class="label">Flat:</span> <span
+                                    class="value">{account.Flat__c}</span>
+                            </div>
+                            <div class="row"><span class="label">Floor:</span> <span
+                                    class="value">{account.Floor__c}</span>
+                            </div>
+                            <div class="row"><span class="label">Plot:</span> <span
+                                    class="value">{account.Plot__c}</span>
+                            </div>
+                            <div class="row"><span class="label">Wing:</span> <span
+                                    class="value">{account.Wing__c}</span>
+                            </div>
+                            <div class="row"><span class="label">Building Name:</span> <span
+                                    class="value">{account.Building_name__c}</span></div>
+                            <div class="row"><span class="label">Colony:</span> <span
+                                    class="value">{account.Colony__c}</span></div>
+                            <div class="row"><span class="label">Society Name:</span> <span
+                                    class="value">{account.Society_Name__c}</span></div>
+                            <div class="row"><span class="label">Road Name:</span> <span
+                                    class="value">{account.Road_name__c}</span></div>
+                            <div class="row"><span class="label">Landmark :</span> <span
+                                    class="value">{account.Landmark__c}</span></div>
+                            <div class="row"><span class="label">Location :</span> <span
+                                    class="value">{account.Location__c}</span></div>
+                            <div class="row"><span class="label">City:</span> <span
+                                    class="value">{account.City__c}</span>
+                            </div>
+                            <div class="row"><span class="label">Street:</span> <span
+                                    class="value">{account.Street__c}</span></div>
+                            <div class="row"><span class="label">Postal Code:</span> <span
+                                    class="value">{account.Postal_Code__c}</span></div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="button-container footer-section">
+                            <lightning-button label="Take Meter Reading" onclick={handleGetLocation}
+                                class="slds-m-right_small" variant="brand"></lightning-button>
+                            <!-- <lightning-button label="Update Customer" onclick={handleUpdateCustomer}></lightning-button> -->
+                        </div>
+
+                    </div>
+                </template>
+
+                <template if:true={error}>
+                    <div class="slds-text-color_error slds-m-around_medium">
+                        Error loading account details: {errorMessage}
+                    </div>
+                </template>
+            </lightning-card>
+        </template>
+
+
+        <!-- Meter reader page -->
+        <template if:true={meterReadingPage}>
+            <article class="slds-card slds-is-relative">
+                <template if:true={load}>
+                    <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+                </template>
+                <div class="slds-card__header slds-grid slds-p-around--x-small slds-m-around_none slds-border_bottom">
+                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name='standard:record' alternative-text='record' size='small'
+                                title='record'>
+                            </lightning-icon>
+                        </div>
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <span>Enter Details</span>
+                            </h2>
+                        </div>
+                    </header>
+                </div>
+                <div class="slds-card__body slds-card__body_inner slds-p-around--small slds-m-around_none">
+
+                    <!-- FIRST FORM PAGE -->
+                    <div class="slds-grid slds-wrap" if:true={formFirstPage}>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <c-custom-input-field-component input-label="Group" data-field-name="Group"
+                                input-type="option" options={groupMasterOptions} input-value={groupMasterValue}
+                                onchange={handleGroupMasterChange}>
+                            </c-custom-input-field-component>
+                            <!-- <template if:false={isOnline}>
+                        <p> The Group Options are : {groupMasterOptions}</p>
+                        <template if:true={groupMasterOptions}>
+                            <template for:each={groupMasterOptions} for:item="opt">
+                                <div key={opt.value} class="slds-p-around_small slds-border_bottom">
+                                    <p><b>Label:</b> {opt.label}</p>
+                                    <p><b>Value:</b> {opt.value}</p>
+                                    <p><b>Default:</b> {opt.record.Default__c}</p>
+                                </div>
+                            </template>
+                        </template>
+                        </template> -->
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <c-custom-input-field-component input-label="Code" data-field-name="Code"
+                                input-type="option" options={groupCodeOptions} input-value={groupCodeValue}
+                                onchange={handleGroupCodeChange}>
+                            </c-custom-input-field-component>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <c-custom-input-field-component input-label="Message From Reader" data-field-name="Code"
+                                input-type="option" options={groupMessageOptions} input-value={groupMessageValue}
+                                onchange={handleGroupMessageChange}>
+                            </c-custom-input-field-component>
+                        </div>
+                        <template if:true={showMeterReading}>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                <c-custom-input-field-component input-label="Current Meter Reading" input-type="number"
+                                    data-field-name="meterReading" onchange={handleChange} input-value={meterReading}>
+                                </c-custom-input-field-component>
+                            </div>
+                            <template if:true={nonMRS}>
+                                <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                    <lightning-radio-group label="Is Seal Installed:" options={yesNoOptions}
+                                        type="button" name="isSealInstalled" onchange={handleFieldChange}>
+                                    </lightning-radio-group>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small"
+                                    if:true={isSealInstalled}>
+                                    <lightning-radio-group label="Seal Number Visible:" options={yesNoOptions}
+                                        type="button" name="sealNumberVisible" onchange={handleFieldChange}>
+                                    </lightning-radio-group>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small"
+                                    if:true={sealNumberVisible}>
+                                    <c-custom-input-field-component input-label="Seal Number" input-type="number"
+                                        data-field-name="sealReading" onchange={handleChange} input-value={sealReading}>
+                                    </c-custom-input-field-component>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                    <lightning-radio-group label="AMR Device Installed:" options={yesNoOptions}
+                                        type="button" name="amrInstalled" onchange={handleFieldChange}>
+                                    </lightning-radio-group>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small" if:true={isAmrInstalled}>
+                                    <lightning-radio-group label="Is AMR reading Visible:" options={yesNoOptions}
+                                        type="button" name="amrDeviceInstalled" onchange={handleFieldChange}>
+                                    </lightning-radio-group>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small"
+                                    if:true={amrDeviceInstalled}>
+                                    <c-custom-input-field-component input-label="AMR Reading" input-type="number"
+                                        data-field-name="amrReading" onchange={handleChange} input-value={amrReading}>
+                                    </c-custom-input-field-component>
+                                </div>
+                            </template>
+                        </template>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <c-custom-input-field-component input-label="Enter Remarks" input-type="textarea"
+                                data-field-name="remarks" onchange={handleChange} input-value={remarks}>
+                            </c-custom-input-field-component>
+                        </div>
+                        <template if:true={showFollowUp}>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                <!-- <label class="custom-checkbox">
+                                <input type="checkbox" name="finalAttempt" checked={finalAttempt}
+                                    onchange={handleCheckBoxChange} />
+                                <span class="checkmark"></span>
+                                Final Attempt
+                            </label> -->
+                                <lightning-radio-group label="Final Attempt" options={yesNoOptions} type="button"
+                                    name="finalAttempt" onchange={handleCheckBoxChange}>
+                                </lightning-radio-group>
+                            </div>
+                            <template if:true={finalAttemptData}>
+                                <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                    <c-custom-input-field-component input-label="Follow Up Date" input-type="date"
+                                        input-active=true data-field-name="followUpDate" onchange={handleChange}
+                                        input-value={followUpDate} min-date={todayDate}>
+                                    </c-custom-input-field-component>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                    <c-custom-input-field-component input-label="Follow Up Remarks"
+                                        input-type="textarea" data-field-name="followUpRemarks" onchange={handleChange}
+                                        input-value={followUpRemarks}>
+                                    </c-custom-input-field-component>
+                                </div>
+                            </template>
+                        </template>
+                        <div
+                            class="slds-col slds-size_1-of-1 slds-p-vertical_x-small slds-align_absolute-center footer-section-extra">
+                            <lightning-button label="Back" variant="neutral" class="slds-m-right_small"
+                                onclick={handleCaptureMeterBack}>
+                            </lightning-button>
+                            <lightning-button label="Next" variant="brand" onclick={handleDetailNext}>
+                            </lightning-button>
+                        </div>
+                    </div>
+
+                    <!-- SECOND FORM PAGE (IMPLAUSIBLE PAGE) -->
+                    <div class="slds-grid slds-wrap" if:true={formSecondPage}>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <!-- <label class="custom-checkbox"> -->
+                            <lightning-radio-group label="Meter serial number visible?" options={yesNoOptions}
+                                type="button" name="meterSerialNoVisible" onchange={handleFieldChange}>
+                            </lightning-radio-group>
+                            <!-- <input type="checkbox" name="meterSerialNoVisible" onchange={handleFieldChange} /> -->
+                            <!-- <span class="checkmark"></span> -->
+
+                            <!-- </label> -->
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small"
+                            if:true={showMeterSerialNumberCorrect}>
+                            <!-- <label class="custom-checkbox"> -->
+                            <lightning-radio-group label="Meter serial number correct?" options={yesNoOptions}
+                                type="button" name="serialNumberCorrect" onchange={handleCheckBoxChange}>
+                            </lightning-radio-group>
+                            <!-- <input type="checkbox" name="serialNumberCorrect" onchange={handleCheckBoxChange} /> -->
+                            <!-- <span class="checkmark"></span> -->
+
+                            <!-- </label> -->
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <!-- <label class="custom-checkbox"> -->
+                            <lightning-radio-group label="Premise Correct?" options={yesNoOptions} type="button"
+                                name="premiseCorrect" onchange={handleFieldChange}>
+                            </lightning-radio-group>
+                            <!-- <input type="checkbox" name="premiseCorrect" onchange={handleFieldChange} /> -->
+                            <!-- <span class="checkmark"></span> -->
+
+                            <!-- </label> -->
+                        </div>
+                        <template if:true={showMoreDetails}>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                <c-custom-input-field-component input-label="Re-Enter Meter Reading"
+                                    data-field-name="meterReading" onchange={handleChange}>
+                                </c-custom-input-field-component>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                <c-custom-input-field-component input-label="Code" data-field-name="Code"
+                                    input-type="option" options={groupCodeOptions} input-value={groupCodeValue}
+                                    onchange={handleGroupCodeChange} disabled=true>
+                                </c-custom-input-field-component>
+                                <!-- <p class="slds-text-color_destructive">
+                                Last Meter Reading taken on:
+                                <lightning-formatted-date-time value="1547250828000" year="numeric" month="numeric"
+                                    day="numeric">
+                                </lightning-formatted-date-time>
+                            </p> -->
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                <c-custom-input-field-component input-label="Message From Reader" data-field-name="Code"
+                                    input-type="option" options={groupMessageOptions} input-value={groupMessageValue}
+                                    onchange={handleGroupMessageChange}>
+                                </c-custom-input-field-component>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small" if:true={showLPGSupplier}>
+                                <c-custom-input-field-component input-label="LPG Supplier" data-field-name="lpgSupplier"
+                                    input-type="option" options={lpgSupplierOptions} input-value={lpgSupplierValue}
+                                    onchange={handleLpgSupplierChange}>
+                                </c-custom-input-field-component>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                <c-custom-input-field-component input-label="Enter Remarks" input-type="textarea"
+                                    data-field-name="remarks" onchange={handleChange} input-value={remarks}>
+                                </c-custom-input-field-component>
+                            </div>
+                        </template>
+                        <div
+                            class="slds-col slds-size_1-of-1 slds-p-vertical_x-small slds-align_absolute-center footer-section-extra">
+                            <lightning-button label="Back" variant="neutral" class="slds-m-right_small"
+                                onclick={handleCancelPhotoUpload}>
+                            </lightning-button>
+                            <lightning-button label="Next" variant="brand" onclick={handleFormSecondPageNext}>
+                            </lightning-button>
+                        </div>
+                    </div>
+
+                    <!-- THRID FORM PAGE (ZERO CONSUMPTION PAGE)-->
+                    <div class="slds-grid slds-wrap" if:true={formThirdPage}>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <lightning-radio-group label="MGL gas burning possible?" options={yesNoOptions}
+                                type="button" name="mglGasBurningPossible" onchange={handleFieldChange}>
+                            </lightning-radio-group>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small" if:true={mglGasBurningPossible}>
+                            <lightning-radio-group label="MGL gas burnt. Meter status:"
+                                options={gasBurntMeterStatusOptions} type="button" name="mglGasBurntMeterStatus"
+                                onchange={handleFieldChange}>
+                            </lightning-radio-group>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <div style="font-weight: 700;">Condition:</div>
+                            <div>{conditionRemark}</div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <c-custom-input-field-component input-label="Code" data-field-name="Code"
+                                input-type="option" options={groupCodeOptions} input-value={groupCodeValue}
+                                onchange={handleGroupCodeChange}>
+                            </c-custom-input-field-component>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <c-custom-input-field-component input-label="Message From Reader" data-field-name="Code"
+                                input-type="option" options={groupMessageOptions} input-value={groupMessageValue}
+                                onchange={handleGroupMessageChange}>
+                            </c-custom-input-field-component>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <c-custom-input-field-component input-label="Enter Remarks" input-type="textarea"
+                                data-field-name="remarks" onchange={handleChange} input-value={remarks}>
+                            </c-custom-input-field-component>
+                        </div>
+                        <div
+                            class="slds-col slds-size_1-of-1 slds-p-vertical_x-small slds-align_absolute-center footer-section-extra">
+                            <lightning-button label="Back" variant="neutral" class="slds-m-right_small"
+                                onclick={handleCancelPhotoUpload}>
+                            </lightning-button>
+                            <lightning-button label="Next" variant="brand" onclick={handleFormThirdPageNext}>
+                            </lightning-button>
+                        </div>
+                    </div>
+
+                    <!-- Image Upload Section -->
+                    <div class="slds-grid slds-wrap" if:true={imageUploadPage}>
+                        <div class="slds-col slds-size_1-of-1">
+                            <!-- <template for:each={photoUploadSlots} for:item="slot">
+                            <div key={slot.id}
+                                class="slds-m-bottom_small custom-upload-slot slds-grid slds-align-center">
+                                <div class="slds-grid slds-grid_vertical-align-center slds-wrap">
+                                    <lightning-file-upload name={slot.name} accept=".jpg,.jpeg,.png"
+                                        record-id={serviceAppointmentId} onuploadfinished={handleUploadFinished}
+                                        class="custom-file-upload" label={slot.label}>
+                                    </lightning-file-upload>
+                                </div>
+                            </div>
+                        </template> -->
+
+                            <div>
+                                <c-camera-upload-component image-list={photoUploadSlots} onchange={handleFile}>
+                                </c-camera-upload-component>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="slds-m-top_medium slds-align_absolute-center footer-section-extra">
+                                <lightning-button variant="neutral" label="Back" onclick={handleCancelPhotoUpload}
+                                    class="slds-m-right_small">
+                                </lightning-button>
+                                <lightning-button variant="brand" label="Next" onclick={handlePreview}>
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <template if:true={showAlert}>
+                    <section class="slds-popover slds-popover_error alert-section">
+                        <header class="slds-popover__header">
+                            <div class="slds-media slds-media_center slds-has-flexi-truncate ">
+                                <div class="slds-media__figure">
+                                    <lightning-icon icon-name="utility:error" variant="inverse" size="small">
+                                    </lightning-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-truncate slds-text-heading_medium" title="Alert!">
+                                        Alert!
+                                    </h2>
+                                </div>
+                            </div>
+                        </header>
+                        <div class="slds-popover__body">
+                            <p if:false={checkForZeroReading}>
+                                Please re-verify Meter number and enter the proper Meter reading.
+                            </p>
+                            <p if:true={checkForZeroReading}>
+                                {zeroConsumptionMessage}
+                            </p>
+                        </div>
+                        <footer class="slds-popover__footer">
+                            <div class="slds-grid slds-grid_vertical-align-center">
+                                <button class="slds-button slds-button_brand slds-col_bump-left"
+                                    onclick={handleAlertOk}>
+                                    Ok
+                                </button>
+                            </div>
+                        </footer>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </template>
+            </article>
+
+        </template>
+
+        <!-- Preview Page -->
+        <template if:true={showPreviewPage}>
+            <lightning-card title="Preview Entered Data" icon-name="standard:document_preview">
+                <div class="slds-p-around_small slds-grid slds-wrap slds-is-relative">
+                    <template if:true={load}>
+                        <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+                    </template>
+
+                    <!-- Contact Info -->
+                    <div class="section slds-col slds-size_1-of-1">
+                        <h3>Customer Data</h3>
+                        <div class="row"><span class="label">Name:</span> <span
+                                class="value">{account.Full_Name__c}</span></div>
+                        <div class="row"><span class="label">Phone:</span> <span class="value">{account.Phone}</span>
+                        </div>
+                        <div class="row"><span class="label">BP Number:</span> <span
+                                class="value">{account.BP_Number__c}</span></div>
+                        <div class="row"><span class="label">CA Number:</span> <span
+                                class="value">{account.CA_Number__c}</span></div>
+                        <div class="row"><span class="label">Building Name:</span> <span
+                                class="value">{account.Building_name__c}</span></div>
+                        <div class="row"><span class="label">Floor:</span> <span class="value">{account.Floor__c}</span>
+                        </div>
+                        <div class="row"><span class="label">Flat:</span> <span class="value">{account.Flat__c}</span>
+                        </div>
+                        <!-- <div class="row"><span class="label">Current Reading:</span> <span
+                            class="value">{currentMeterReading}</span></div> -->
+                        <!-- <div class="row"><span class="label">Follow-Up Remarks:</span> <span class="value">
+                            {followUpRemarks}</span></div> -->
+                        <!-- <div class="row"><span class="label">Final Attempt:</span> <span class="value">{finalAttempt}</span>
+                    </div> -->
+                    </div>
+                    <div class="section slds-col slds-size_1-of-1" if:false={workOrderCompleted}>
+                        <h3>Photos</h3>
+                        <c-camera-upload-component image-list={photoUploadSlots} onchange={handleFile} disabled="true">
+                        </c-camera-upload-component>
+                    </div>
+                    <div class="section slds-col slds-size_1-of-1 slds-grid slds-wrap">
+                        <h3>Details</h3>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <c-custom-input-field-component input-label="Group" data-field-name="Group"
+                                input-type="option" options={groupMasterOptions} input-value={groupMasterValue}
+                                disabled=true>
+                            </c-custom-input-field-component>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <c-custom-input-field-component input-label="Code" data-field-name="Code"
+                                input-type="option" options={groupCodeOptions} input-value={groupCodeValue}
+                                disabled=true>
+                            </c-custom-input-field-component>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <c-custom-input-field-component input-label="Message From Reader" data-field-name="Code"
+                                input-type="option" options={groupMessageOptions} input-value={groupMessageValue}
+                                disabled=true>
+                            </c-custom-input-field-component>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small" if:true={showLPGSupplier}>
+                            <c-custom-input-field-component input-label="LPG Supplier" data-field-name="lpgSupplier"
+                                input-type="option" options={lpgSupplierOptions} input-value={lpgSupplierValue}
+                                onchange={handleLpgSupplierChange} disabled=true>
+                            </c-custom-input-field-component>
+                        </div>
+                        <template if:true={showMeterReading}>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                <c-custom-input-field-component input-label="Current Meter Reading" disabled=true
+                                    input-value={meterReading} input-type="number">
+                                </c-custom-input-field-component>
+                            </div>
+                            <!-- <template if:true={nonMRS}>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small" if:true={amrDeviceInstalled}>
+                                <c-custom-input-field-component input-label="AMR Reading" input-type="number"
+                                    disabled=true input-value={amrReading}>
+                                </c-custom-input-field-component>
+                            </div>
+                        </template> -->
+                        </template>
+                        <template if:true={finalAttemptData}>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                <c-custom-input-field-component input-label="Follow Up Date" input-type="date"
+                                    data-field-name="followUpDate" disabled=true input-value={followUpDate}
+                                    input-active="true">
+                                </c-custom-input-field-component>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                <c-custom-input-field-component input-label="Follow Up Remarks" input-type="textarea"
+                                    data-field-name="followUpRemarks" disabled=true input-value={followUpRemarks}>
+                                </c-custom-input-field-component>
+                            </div>
+                        </template>
+                        <template if:true={nonMRS}>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                <lightning-radio-group label="Is Seal Installed:" options={yesNoOptions} type="button"
+                                    name="isSealInstalled" disabled=true value={isSealInstalledDisplay}>
+                                </lightning-radio-group>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small" if:true={isSealInstalled}>
+                                <lightning-radio-group label="Seal Number Visible:" options={yesNoOptions} type="button"
+                                    name="sealNumberVisible" onchange={handleFieldChange} disabled=true
+                                    value={sealNumberVisibleDisplay}>
+                                </lightning-radio-group>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small" if:true={sealNumberVisible}>
+                                <c-custom-input-field-component input-label="Seal Number" input-type="number"
+                                    data-field-name="sealReading" input-value={sealReading} disabled=true>
+                                </c-custom-input-field-component>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                                <lightning-radio-group label="AMR Device Installed:" options={yesNoOptionsDisplay}
+                                    type="button" name="amrInstalled" disabled value={isAmrInstalled}>
+                                </lightning-radio-group>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small" if:true={isAmrInstalled}>
+                                <lightning-radio-group label="Is AMR reading Visible:" options={yesNoOptionsDisplay}
+                                    type="button" name="amrDeviceInstalled" disabled value={amrDeviceInstalled}>
+                                </lightning-radio-group>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small" if:true={amrDeviceInstalled}>
+                                <c-custom-input-field-component input-label="AMR Reading" input-type="number"
+                                    data-field-name="amrReading" input-value={amrReading} disabled=true>
+                                </c-custom-input-field-component>
+                            </div>
+                        </template>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                            <c-custom-input-field-component input-label="Enter Remarks" input-type="textarea"
+                                data-field-name="remarks" input-value={remarks} disabled=true>
+                            </c-custom-input-field-component>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="slds-col slds-size_1-of-1 slds-m-top_medium slds-align_absolute-center footer-section-extra"
+                        if:false={workOrderCompleted}>
+                        <lightning-button label="Back" variant="neutral" class="slds-m-right_small"
+                            onclick={handleBack}>
+                        </lightning-button>
+                        <lightning-button label="Save" variant="brand" onclick={handleGetLocation}></lightning-button>
+                    </div>
+                </div>
+            </lightning-card>
+        </template>
+
+        <template if:true={showOkModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 class="slds-text-heading_medium">Confirm</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <p class="slds-align--absolute-center">
+                            Record has been saved successfully.
+                        </p>
+                    </div>
+                    <div class="slds-modal__footer">
+                        <lightning-button variant="brand" label="OK" onclick={handleSaveClick}></lightning-button>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+    </template>
+
+    <template if:false={mainPage}>
+        <c-metering-appointment-list-view-component appointments-list={appointments}></c-metering-appointment-list-view-component>
+    </template>
+
+    <!-- <template if:true={updateCustomer}>
+        <c-update-customer-component record-id={recordId} update-customer={updateCustomer}>
+        </c-update-customer-component>
+    </template> -->
+</template>

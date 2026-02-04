@@ -1,0 +1,298 @@
+<template>
+    <!--SPINNER SECTION-->
+
+    <lightning-card>
+        <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+        <template if:true={accountView}>
+            <lightning-card title="Customer Information" icon-name="standard:account">
+                <template if:true={account}>
+                    <div class="account-container slds-p-around_small">
+                        <!-- Contact Info -->
+                        <div class="section">
+                            <h3>Customer View</h3>
+                            <div class="row"><span class="label">Name:</span> <span class="value">{account.Name}</span>
+                            </div>
+                            <!-- <div class="row"><span class="label">Phone:</span> <span class="value">{account.Phone}</span></div> -->
+                            <div class="row"><span class="label">BP Number:</span> <span
+                                class="value">{account.BP_Number__c}</span></div>
+                            <!-- <div class="row"><span class="label">MRU Code:</span> <span class="value">{account.MRU_Code__c}</span></div> -->
+                            <div class="row"><span class="label">Meter Number:</span> <span
+                                class="value">{account.Meter_Number__c}</span></div>
+                            <div class="row"><span class="label">CA Number:</span> <span
+                                class="value">{account.CA_Number__c}</span></div>
+                            <div class="row"><span class="label">Contact No. (Mob):</span> <span
+                                class="value">{account.Customer_Contact_no__c}</span></div>
+                            <div class="row"><span class="label">Contact No. (Home):</span> <span
+                                class="value">{account.Secondary_Telephone__c}</span></div>
+                            <div class="row"><span class="label">Contact No.(Office):</span> <span
+                                class="value">{account.Phone}</span></div>
+                            <div class="row"><span class="label">Email Id:</span> <span
+                                class="value">{account.Account_Email__c}</span></div>
+                            <div class="row"><span class="label">Due Date:</span> <span
+                                class="value">{dueDate}</span></div>
+
+                        </div>
+
+                        <!-- Address Info -->
+                        <div class="section">
+                            <h3>Address Information</h3>
+                            <div class="row"><span class="label">Flat:</span>
+                                <span class="value">{account.Flat__c}</span>
+                            </div>
+                            <div class="row"><span class="label">Floor:</span>
+                                <span class="value">{account.Floor__c}</span>
+                            </div>
+                            <div class="row"><span class="label">Plot:</span>
+                                <span class="value">{account.Plot__c}</span>
+                            </div>
+                            <div class="row"><span class="label">Wing:</span>
+                                <span class="value">{account.Wing__c}</span>
+                            </div>
+                            <div class="row"><span class="label">Building Name:</span> <span
+                                class="value">{account.Building_name__c}</span></div>
+                            <div class="row"><span class="label">Colony:</span> <span
+                                class="value">{account.Colony__c}</span></div>
+                            <div class="row"><span class="label">Society Name:</span> <span
+                                class="value">{account.Society_Name__c}</span></div>
+                            <div class="row"><span class="label">Road Name:</span> <span
+                                class="value">{account.Road_name__c}</span></div>
+                            <div class="row"><span class="label">Location :</span> <span
+                                class="value">{account.Location__c}</span></div>
+                            <div class="row"><span class="label">City:</span>
+                                <span class="value">{account.City__c}</span>
+                            </div>
+                            <div class="row"><span class="label">Street:</span> <span
+                                class="value">{account.Postal_Code__c}</span></div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="button-container">
+                            <lightning-button label="Start Work Job" onclick={handleCaptureRiser}
+                                class="slds-m-right_small" variant="brand" disabled={ishandleCaptureRiserDisabled}></lightning-button>
+                            <!-- <lightning-button label="Update Customer" onclick={handleUpdateCustomer}></lightning-button> -->
+                        </div>
+
+                    </div>
+                </template> 
+
+                <template if:true={error}>
+                    <div class="slds-text-color_error slds-m-around_medium">
+                        Error loading account details: {errorMessage}
+                    </div>
+                </template>
+
+
+
+            </lightning-card>
+        </template>
+
+        <template if:true={showCaptureRiserDetails}>
+
+            <lightning-card class="slds-card">
+                <div class="slds-p-around_medium" style="margin-top:-3rem;">
+
+
+                    <!-- <template if:true={showCheckBox}>
+
+                        <div class="slds-m-bottom_medium">
+
+                            <lightning-radio-group name="customerAvailability"
+                                label="Is the customer available in location?" options={availabilityOptions}
+                                value={customerAvailability} type="radio" onchange={handleAvailabilityChange}
+                                style="margin-left:1rem;">
+                            </lightning-radio-group>
+                           
+                        </div>
+                    </template> -->
+
+                    <template if:true={showMaintenanceEntry}>
+
+                        <c-o_-m-riser-execution-details-comp record-id={recordId} oncancel={handleCancel}></c-o_-m-riser-execution-details-comp>
+
+                    </template>
+
+                    <template if:true={showRubberHose}>
+
+                     <c-o_-m-rubber-hose-detail-comp record-id={recordId} oncancel={handleCancel}></c-o_-m-rubber-hose-detail-comp>
+
+                    </template>
+
+                    <template if:true={meterReplacement}>
+
+                     <c-meter-replacement-form record-id={recordId} oncancel={handleCancel}></c-meter-replacement-form>
+
+                    </template>
+
+                      <template if:true={riserReplacementForm}>
+
+                     <c-riser-replacement-form record-id={recordId} oncancel={handleCancel}></c-riser-replacement-form>
+
+                    </template>
+
+                     <template if:true={riserPaintingSiteInfo}>
+
+                     <c-riser-painting-site-info record-id={recordId} oncancel={handleCancel}></c-riser-painting-site-info>
+
+                    </template>
+
+                     <template if:true={individualDisconnection}>
+
+                     <c-ip-disconnection-appointment-execution record-id={recordId} oncancel={handleCancel}></c-ip-disconnection-appointment-execution>
+
+                    </template>
+
+                       <template if:true={domesticMeterChecking}>
+
+                     <c-domestic-meter-checking record-id={recordId} oncancel={handleCancel}></c-domestic-meter-checking>
+
+                    </template>
+
+                     <template if:true={buildingDemolitionAppointmentExecution}>
+
+                     <c-building-demolition-appointment-execution record-id={recordId} oncancel={handleCancel}></c-building-demolition-appointment-execution>
+
+                    </template>
+
+                      <template if:true={afterSalesAppointmentExecution}>
+
+                     <c-after-sales-appointment-execution record-id={recordId} oncancel={handleCancel}></c-after-sales-appointment-execution>
+
+                    </template>
+
+                    
+                <!-- Riser maintenence No part -->
+
+                    <template if:true={rMReasonForUnavailability}>
+                        <div class="slds-grid slds-wrap slds-p-around_medium">
+                            <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+                                <lightning-combobox name="reason" label="Reason for Unavailability"
+                                    value={unavailability} options={reasonUnavailability}
+                                    onchange={handlereasonForUnavailability}>
+                                </lightning-combobox>
+
+                            </div>
+
+                             <template if:true={otherRemark}>
+
+                              <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+                                <lightning-input type="Text" label="Remark"
+                                    value={otherRemarkValue} onchange={handleOtherRemark} required="true">
+                                </lightning-input>
+
+                            </div>
+
+                            </template>
+
+
+                        </div>
+                        <template if:true={showNext}>
+                            <lightning-button label="Next" title="Next" onclick={handleImageCapturePage}
+                                class="slds-m-top_medium" variant="brand" style="margin-left:9rem;">
+                            </lightning-button>
+                        </template>
+
+
+                        <div class="slds-grid slds-wrap" if:true={imageUploadPage}>
+                            <div class="slds-col slds-size_1-of-1">
+                                <!-- <template for:each={photoUploadSlots} for:item="slot">
+                            <div key={slot.id}
+                                class="slds-m-bottom_small custom-upload-slot slds-grid slds-align-center">
+                                <div class="slds-grid slds-grid_vertical-align-center slds-wrap">
+                                    <lightning-file-upload name={slot.name} accept=".jpg,.jpeg,.png"
+                                        record-id={serviceAppointmentId} onuploadfinished={handleUploadFinished}
+                                        class="custom-file-upload" label={slot.label}>
+                                    </lightning-file-upload>
+                                </div>
+                            </div>
+                        </template> -->
+
+                                <div>
+                                    <c-o_-m-camera-upload-comp image-list={photoUploadSlots} onchange={handleFile}>
+                                    </c-o_-m-camera-upload-comp>
+                                </div>
+
+                                  <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+                                <lightning-input type="Text" label="Closer Remark"
+                                    value={rMCloserRemark} onchange={handleRMCloserRemark} required="true">
+                                </lightning-input>
+
+                            </div>
+
+                                <!-- Buttons -->
+                                <div class="slds-m-top_medium slds-align_absolute-center">
+                                    <!-- <lightning-button variant="neutral" label="Back" onclick={handleCancelPhotoUpload}
+                                class="slds-m-right_small">
+                            </lightning-button> -->
+                                    <!-- <lightning-button variant="brand" label="Preview" onclick={handlePreview}>
+                            </lightning-button> -->
+                                    <lightning-button variant="brand" label="Save" onclick={handleFinalSave}>
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--</div> -->
+
+                        <!-- <template class="slds-grid slds-wrap" if:true={imageUploadPage}>
+                    <div class="slds-col slds-size_1-of-1">
+
+                            <div>
+                                <c-o_-m-camera-upload-comp image-list={photoUploadSlots} onchange={handleFile}>
+                                </c-o_-m-camera-upload-comp>
+                                
+                            </div>
+
+                    </div>
+                        </template> -->
+
+
+                    </template>
+
+                <template if:true={rHRReasonForUnavailability}>
+
+                    <c-rh-not-done-form record-id={recordId} oncancel={handleCancel}></c-rh-not-done-form>
+
+                </template>
+
+                 <template if:true={mRReasonForUnavailability}>
+                     <c-meter-replacement-not-done record-id={recordId} oncancel={handleCancel}></c-meter-replacement-not-done> 
+
+                </template>
+
+                 <template if:true={rRReasonForUnavailability}>
+
+                <c-customer-not-available-riser-painting record-id={recordId} oncancel={handleCancel}></c-customer-not-available-riser-painting>
+                </template>
+
+                 <template if:true={rPReasonForUnavailability}>
+
+                    <c-cna-riser-Painting record-id={recordId} oncancel={handleCancel}></c-cna-riser-Painting>
+                </template>
+
+                 <template if:true={cnaIPDisconnection}>
+
+                    <c-cna-i-p-disconnection record-id={recordId} oncancel={handleCancel}></c-cna-i-p-disconnection>
+                </template>
+
+                 <template if:true={cnaDomesticMeter}>
+
+                    <c-cna-domestic-meter record-id={recordId} oncancel={handleCancel}></c-cna-domestic-meter>
+                </template>
+
+
+
+
+                </div>
+
+            </lightning-card>
+        </template>
+
+    </lightning-card>
+
+
+</template>

@@ -1,0 +1,93 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-around_medium">
+            <div class="slds-grid slds-wrap slds-gutters">
+
+                <!-- Origin Field (1/4 width) -->
+                <div class="slds-col slds-size_1-of-4">
+                    <lightning-combobox
+                        name="origin"
+                        label="Origin"
+                        value={selectedOrigin}
+                        placeholder="Select Origin"
+                        options={originOptions}
+                        onchange={handleOriginChange}>
+                    </lightning-combobox>
+                </div>
+                <!-- Call Received From (shown only for specific origins) -->
+                <template if:true={showCallReceivedFrom}>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-input
+                            label="Call Received From"
+                            name="Call_Received_From__c"
+                            placeholder="Enter Phone Number"
+                            value={callReceivedFrom}
+                            onchange={handleCallReceivedFromChange}
+                            required>
+                        </lightning-input>
+                    </div>
+                </template>
+
+
+
+                <div class="slds-col slds-size_1-of-4">
+                    <lightning-combobox
+                        name="contactDirection"
+                        label="Contact Direction"
+                        value={selectedContactDirection}
+                        placeholder="Select Contact Direction"
+                        options={contactDirectionOptions}
+                        onchange={handleContactDirectionChange}>
+                    </lightning-combobox>
+                </div>
+
+                 <!-- Contacted By Field (1/4 width) -->
+                <div class="slds-col slds-size_1-of-4">
+                    <lightning-input
+                        label="Contacted By"
+                        value={contactedBy}
+                        onchange={handleContactedByChange}
+                        placeholder="Enter Contacted By">
+                    </lightning-input>
+                </div>
+
+                <!-- Relationship to Owner Field (1/4 width) -->
+                <div class="slds-col slds-size_1-of-4">
+                    <lightning-input
+                        label="Relationship to Owner"
+                        value={relationshipToOwner}
+                        onchange={handleRelationshipToOwnerChange}
+                        placeholder="Enter Relationship Owner">
+                    </lightning-input>
+                </div>
+                 
+
+                <!-- Remarks Field (3/4 width) -->
+                <div class="slds-col slds-size_4-of-4">
+                    <lightning-textarea
+                        label="Repeat Remarks"
+                        value={internalComment}
+                        onchange={handleCommentChange}>
+                    </lightning-textarea>
+                </div>
+            </div>
+
+            <!-- Submit Button Centered Below -->
+            <div class="slds-m-top_medium slds-align_absolute-center">
+                <lightning-button
+                    label="Submit"
+                    variant="brand"
+                    onclick={handleSubmit}
+                    disabled={isLoading}>
+                </lightning-button>
+            </div>
+
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <div class="slds-m-top_medium slds-align_absolute-center">
+                    <lightning-spinner alternative-text="Processing..." size="small"></lightning-spinner>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,70 @@
+.profile-card {
+  background: linear-gradient(to bottom, #2893c4, #0078a0);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  font-family: 'Salesforce Sans', Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.location {
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin-top: 2px;
+  font-weight: bold;
+}
+
+.info {
+  margin-top: 1rem;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-bottom: 0.6rem;
+}
+
+.icon {
+  margin-right: 0.5rem;
+  --slds-c-icon-color-foreground-default: white;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  color: #cfe8f3;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.value {
+  margin-left: 1rem;
+  text-align: right;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.divider {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 10px 0;
+}
+
+.bold {
+  font-weight: bold;
+}

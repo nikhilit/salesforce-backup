@@ -1,0 +1,37 @@
+<apex:page standardController="Dispenser_Point__c" showHeader="false" sidebar="false" applyHtmlTag="false" docType="html-5">
+    <html>
+        <head>
+            <title>Replace Dispenser</title>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <style>
+                body {
+                    margin: 0;
+                    padding: 20px;
+                    font-family: Salesforce Sans, Arial, sans-serif;
+                    background-color: #f3f3f3;
+                }
+                #lwc-container {
+                    max-width: 600px;
+                    margin: 0 auto;
+                }
+            </style>
+        </head>
+        <body>
+            <div id="lwc-container"></div>
+
+            <script src="/resource/lightning_web_components"></script>
+            <script>
+                (function() {
+                    const recordId = '{!Dispenser_Point__c.Id}';
+                    console.log('VF Page - recordId:', recordId);
+                    
+                    // Create LWC element
+                    const dispenserElement = document.createElement('c-dispenser-replace');
+                    dispenserElement.recordId = recordId;
+                    document.getElementById('lwc-container').appendChild(dispenserElement);
+                })();
+            </script>
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,31 @@
+<template>
+    <div class="confirm-box">
+        <p style="font-size: 18px;padding-bottom: 1%;">Are you sure you want to withdraw?</p>
+
+        <div class="btn-row">
+            <button class="cancel-btn" onclick={handleCancel}>Cancel</button>
+            <button class="withdraw-btn" onclick={handleWithdraw}>Withdraw</button>
+        </div>
+    </div>
+
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Processing..." size="medium"></lightning-spinner>
+    </template>
+
+    <template if:true={successMessage}>
+        <div class="success-msg" style="color:black;font-weight:bold">
+            {successMessage}
+        </div>
+    </template>
+
+       <template if:true={errorMessage}>
+        <div class="error-msg" style="color:black;font-weight:bold">
+            {errorMessage}
+        </div>
+    </template>
+    <template if:true={cancelMessage}>
+    <p class="cancel-msg" style="color:black;font-weight:bold">{cancelMessage}</p>
+</template>
+
+    
+</template>

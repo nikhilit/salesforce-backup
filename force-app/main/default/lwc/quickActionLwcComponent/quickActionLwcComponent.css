@@ -1,0 +1,213 @@
+/* Card Styles */
+.card {
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border: none;
+}
+/* Add to your existing CSS */
+.disabled-location-box {
+    width: 100%;
+    border: 1px solid #dddbda;
+    border-radius: 0.25rem;
+    background-color: #f3f3f3;
+    padding: 0.5rem 1rem;
+    min-height: calc(1.875rem + (1px * 2));
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 18px;
+}
+
+.disabled-location-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.location-icon {
+    margin-right: 0.5rem;
+    color: #706e6b;
+}
+
+.location-text {
+    color: #080707;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+
+/* Header Section */
+.header-section {
+    
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-left: 22px;
+	margin-top: -6px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+}
+
+.purple-icon {
+    --sds-c-icon-color-foreground-default: #7c3aed;
+}
+
+/* Quick Action Items */
+.action-item {
+    display: flex;
+    border-top: 1px solid #f3f4f6;
+        margin-left: 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+	border-bottom: 1px solid #e5e7eb;
+}
+
+.action-item:hover {
+    background: #f3f4f6;
+}
+
+.icon-container {
+    width: 40px;
+    height: 40px;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin-right: 12px;
+}
+
+.action-label {
+    font-size: 13px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.action-description {
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* Attendance Component Styles */
+.attendance-container {
+    padding: 16px;
+    border-top: 1px solid #f3f4f6;
+}
+
+.welcome-text, .displaytime {
+    font-size: 17px;
+    color: #1b5297;
+    font-weight: bold;
+    margin: 0;
+}
+
+.header-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+	margin-top: -11px;
+}
+
+.displaytime {
+    text-align: right;
+}
+
+.custom-combobox {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    display: block;
+}
+/* Button container */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Space between buttons */
+    height: 100%;
+	
+}
+
+/* Button Styles */
+.custom-button {
+    width: 100%;
+    text-align: center;
+       padding: 4px;
+    border-radius: 0.5rem;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    font-size: 1rem;
+    white-space: nowrap;
+    border: none;
+    transition: opacity 0.2s;
+}
+
+.custom-button:hover {
+    opacity: 0.9;
+}
+
+.checkin-bg {
+    background-color: #077e05;
+}
+
+.checkout-bg {
+    background-color: #ba0517;
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Dropdown Fixes */
+lightning-combobox .slds-dropdown {
+    max-height: none !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    transform: none !important;
+    width: 100% !important;
+    top: 100% !important;
+    left: 0 !important;
+    z-index: 9000 !important;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .header-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .displaytime {
+        text-align: left;
+        margin-top: 0.5rem;
+    }
+
+    .slds-col.slds-medium-size_1-of-4 {
+        justify-content: flex-start;
+        margin-top: 1rem;
+    }
+
+    .custom-button {
+        padding: 0.6rem;
+    }
+}
+/* Add to your CSS file */
+.attendance-container {
+   border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 16px;
+    margin-bottom: 8px;
+
+}

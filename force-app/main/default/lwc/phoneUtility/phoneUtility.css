@@ -1,0 +1,82 @@
+.utility-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.phone-display {
+    width: 200px;
+    height:45px;
+    font-size: 1.8rem;
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #0070d2;
+    text-align: center;
+}
+
+.dial-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.dial-button {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    border: none;
+    background-color: #f4f6f9;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.dial-button:hover {
+    background-color: #dbe5f1;
+}
+
+.placeholder {
+    width: 60px;
+    height: 60px;
+}
+
+.action-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.backspace {
+    font-size: 1.2rem;
+    padding: 0.4rem 0.4rem;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.call-icon {
+    cursor: pointer;
+    --slds-c-icon-color-foreground-default: green;
+}
+.phone-inline-input {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+    font-size: 1.5rem;
+    background: transparent;
+    text-align: center;
+    width: 200px;
+    max-width: 300px; /* Prevents stretching on large screens */
+    padding: 0.25rem 0;
+    margin: 0 auto 1rem auto; /* Centered + bottom spacing */
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.phone-inline-input:focus {
+    border-bottom: 2px solid #0070d2;
+}

@@ -1,0 +1,98 @@
+<template>
+    <div class="slds-modal__container">
+        <div class="slds-modal__header">
+            <h2 class="slds-modal__title slds-hyphenate">Replace Dispenser</h2>
+        </div>
+
+        <div class="slds-modal__content slds-p-around_medium">
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </template>
+
+            <!-- Form Content -->
+            <template if:false={isLoading}>
+                <!-- Dispenser Name Display -->
+                <div class="slds-m-bottom_large">
+                    <div class="dispenser-header">
+                        <span class="dispenser-title">{dispenserNameDisplay}</span>
+                    </div>
+                </div>
+
+                <!-- Opening Reading -->
+                <div class="slds-form-element slds-m-bottom_medium">
+                    <label class="slds-form-element__label" for="opening-reading">
+                        <abbr class="slds-required" title="required">*</abbr>
+                        Opening Reading
+                    </label>
+                    <div class="slds-form-element__control">
+                        <input
+                            class="slds-input"
+                            id="opening-reading"
+                            type="number"
+                            placeholder="Enter opening reading"
+                            value={openingReading}
+                            onchange={handleOpeningReadingChange}
+                            step="0.01"
+                        />
+                    </div>
+                </div>
+
+                <!-- Closing Reading -->
+                <div class="slds-form-element slds-m-bottom_medium">
+                    <label class="slds-form-element__label" for="closing-reading">
+                        <abbr class="slds-required" title="required">*</abbr>
+                        Closing Reading
+                    </label>
+                    <div class="slds-form-element__control">
+                        <input
+                            class="slds-input"
+                            id="closing-reading"
+                            type="number"
+                            placeholder="Enter closing reading"
+                            value={closingReading}
+                            onchange={handleClosingReadingChange}
+                            step="0.01"
+                        />
+                    </div>
+                </div>
+
+                <!-- Difference (Read-only) -->
+                <div class="slds-form-element slds-m-bottom_large">
+                    <label class="slds-form-element__label" for="difference">
+                        Difference
+                    </label>
+                    <div class="slds-form-element__control">
+                        <input
+                            class="slds-input"
+                            id="difference"
+                            type="number"
+                            placeholder="0"
+                            value={difference}
+                            readonly
+                            disabled
+                        />
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="slds-modal__footer">
+            <button
+                class="slds-button slds-button_neutral"
+                onclick={handleCancel}
+                disabled={isLoading}
+            >
+                Cancel
+            </button>
+            <button
+                class="slds-button slds-button_brand"
+                onclick={handleSave}
+                disabled={isLoading}
+            >
+                Save
+            </button>
+        </div>
+    </div>
+</template>

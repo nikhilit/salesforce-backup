@@ -1,0 +1,139 @@
+<template>
+
+    <!--INPUT FIELD SECTION START-->
+    <template if:false={comboBox}>
+        <div class="input-box" style="position: relative;" title={inputLabel}>
+            <!--FIELD LABEL SECTION-->
+            <label class="input-label" title={inputLabel}>
+                <abbr class="slds-required" if:true={required}>*</abbr>{inputLabel}
+                <span class="slds-assistive-text">{inputLabel}</span>
+            </label>
+
+            <!--CURRENCY FIELD SECTION-->
+            <template if:true={currency}>
+                <span class="currency-symbol">₹</span>
+                <input type="number" class="input-1 field currency-input" onfocus={setFocusTrue}
+                    onblur={unsetFocusFalse} value={inputValueTemp} disabled={disabled} onkeyup={handleChange}
+                    onchange={handleChange} placeholder={placeholder} />
+            </template>
+
+            <!--TEXT FIELD SECTION-->
+            <template if:true={text}>
+                <input type={inputType} class="input-1 field" onfocus={setFocusTrue} onblur={unsetFocusFalse}
+                    value={inputValueTemp} disabled={disabled} onchange={handleChange} placeholder={placeholder} />
+                <!--onchange={handleChange} -->
+                <div class="icon-container" if:true={verified}>
+                    <img src={verifiedIcon} title="Verified" class="verified-icon" />
+                </div>
+            </template>
+
+            <template if:true={search}>
+                <div class="input-1" style="display: flex;">
+                    <lightning-icon icon-name="utility:search" size="xx-small" alternative-text="Search"
+                        style="margin-top: 2px;">
+                    </lightning-icon>
+                    <input type={inputType} class="search-input field" onfocus={setFocusTrue} onblur={unsetFocusFalse}
+                        value={inputValueTemp} disabled={disabled} onkeyup={handleChange} placeholder={placeholder} />
+                </div>
+            </template>
+
+            <template if:true={number}>
+                <input type="number" class="input-1 field" onfocus={setFocusTrue} onblur={unsetFocusFalse}
+                    value={inputValueTemp} disabled={disabled} onkeyup={handleChange} onchange={handleChange}
+                    placeholder={placeholder} />
+                <!-- <div class="icon-container" if:true={verified}>
+                    <img src={verifiedIcon} title="Verified" class="verified-icon" />
+                </div> -->
+            </template>
+
+            <!--TEXT AREA SECTION-->
+            <template if:true={textarea}>
+            <textarea
+                class="field"
+                value={inputValueTemp}
+                placeholder={placeholder}
+                rows={row}
+                disabled={disabled}
+                oninput={handleChange}
+                onfocus={setFocusTrue}
+                onblur={unsetFocusFalse}
+            ></textarea>
+            </template>
+        </div>
+    </template>
+    <!--INPUT FIELD SECTION END-->
+
+    <!--COMBO BOX SECTION START-->
+    <template if:true={comboBox}>
+        <div style="position: relative;">
+            <div class="input-box slds-is-relative" title={inputLabel}>
+                <!--LABEL SECTION-->
+                <label class="input-label slds-truncate">
+                    <abbr class="slds-required" if:true={required}>*</abbr>{inputLabel}
+                    <span class="slds-assistive-text">{inputLabel}</span>
+                </label>
+
+                <div onclick={handleShowOption}>
+                <button type="button" class="slds-input_faux input-1 field combo-box"
+                    disabled={disabled} style="height: auto;">
+                    <span style="width: 90%;">{inputValueLabel}</span>
+                </button>
+
+                <!--ICON SECTION-->
+                <div style="position: absolute; right: 10px; top: 10px;" if:false={disabled}>
+                    <lightning-icon icon-name="utility:down" size="x-small" disabled={disabled}></lightning-icon>
+                </div>
+                </div>
+            </div>
+
+            <!--DROPDOWN SECTION START-->
+            <!-- <template if:false={disabled}>
+                <div class="slds-dropdown slds-dropdown_fluid" if:true={showOptions}
+                    style="max-height: 15rem; overflow-x: auto;" tabindex="0" onblur={handleBlur}>
+                    style="left: 95px;"
+                    <ul class="slds-listbox slds-listbox_vertical">
+                        <template for:each={options} for:item="option">
+                            <li class="slds-listbox__item" key={option.value} onclick={handleOptionSelect}
+                                data-name={option.value} data-label={option.label}>
+                                <div
+                                    class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small">
+                                    <span class="slds-media__figure slds-listbox__option-icon"></span>
+                                    <span class="slds-media__body">
+                                        <span title={option.label}>{option.label}</span>
+                                    </span>
+                                </div>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </template> -->
+            <!--DROPDOWN SECTION END-->
+            <template if:false={disabled}>
+    <div class="slds-dropdown slds-dropdown_fluid" if:true={showOptions}
+        style="max-height: 15rem; overflow-x: auto;" tabindex="0"
+        onblur={handleBlur}
+        onkeydown={handleKeyDown}
+        onfocus={handleFocus}>
+        
+        <ul class="slds-listbox slds-listbox_vertical">
+            <template for:each={filteredOptions} for:item="option">
+                <li class="slds-listbox__item" key={option.value} onclick={handleOptionSelect}
+                    data-name={option.value} data-label={option.label}>
+                    <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small">
+                        <span class="slds-media__figure slds-listbox__option-icon"></span>
+                        <span class="slds-media__body">
+                            <span title={option.label}>{option.label}</span>
+                        </span>
+                    </div>
+                </li>
+            </template>
+        </ul>
+    </div>
+</template>
+
+        </div>
+        
+    </template>
+    <!--COMBO BOX SECTION END-->
+    
+</template>

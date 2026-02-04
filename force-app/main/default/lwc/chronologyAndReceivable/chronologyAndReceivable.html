@@ -1,0 +1,236 @@
+<template>
+     <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+        </template>
+    <div class="card">
+        <div class="receivables-tabs">
+            <div class="tab-header">
+                <div class={receivablesTabClass} onclick={selectReceivablesTab}>Receivables</div>
+                <div class={chronologyTabClass} onclick={selectChronologyTab}>Chronology</div>
+            </div>
+            <div class="tab-content">
+                <template if:true={isReceivablesTabActive}>
+    <div class="sap-table-wrapper">
+        <table class="sap-table">
+            <thead>
+                <tr>
+                    <th>Doc Number</th>
+                    <th>Amount</th>
+                    <th>Business Partner</th>
+                    <th>Contract Account</th>
+                    <th>Currency</th>
+                    <th>Net Due Date</th>
+                    <th>Text</th>
+                    <th>Document Date</th>
+                    <th>Posting Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={receivableRows} for:item="row">
+                    <tr key={row.Id}>
+                        <td>{row.DOC_NO}</td>
+                        <td>{row.Amount__c}</td>
+                        <td>{row.businessPartnerName}</td>
+                        <td>{row.CONT_ACCT}</td>
+                        <td>{row.CurrencyCode}</td>
+                        <td>
+                            <lightning-formatted-date-time value={row.NET_DATE} 
+                                year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>{row.HTEXT}</td>
+                        <td>
+                            <lightning-formatted-date-time value={row.BLDAT} 
+                                year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>
+                            <lightning-formatted-date-time value={row.BUDAT} 
+                                year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+           <tfoot>
+                                <tr>
+                                    <td colspan="1" style="background:#fff9b0; font-weight:bold;">Receivables Total INR
+                                    </td>
+                                    <td style="background:#fff9b0; font-weight:bold; text-align:right;">
+                                        {receivablesTotalFormatted}
+                                    </td>
+                                    <td colspan="7"></td>
+                                </tr>
+                            </tfoot>
+        </table>
+    </div>
+</template>
+
+<template if:true={isChronologyTabActive}>
+    <div class="sap-table-wrapper">
+        <table class="sap-table">
+            <thead>
+                <tr>
+                    <th>Due date</th>
+                    <th>Text</th>
+                    <th>Cur</th>
+                    <th>Debit</th>
+                    <th>CreditMemo</th>
+                    <th>Current Balance</th>
+                    <th>Down Pymt</th>
+                    <th>Posting Date</th>
+                    <th>Document Date</th>
+                    <th>Cheque Number</th>
+                    <th>Cheque Date</th>
+                    <th>Cheque Rec Date</th>
+                    <th>Source Of Pay</th>
+                    <th>Return Reason</th>
+                    <th>Additional Quantity</th>
+                    <th>Unit</th>
+                    <th>Offset GPart</th>
+                    <th colspan="3">Business Transaction Process</th>
+                </tr>
+            </thead>
+
+            <!-- PAST RECORDS -->
+            <tbody>
+                <template for:each={pastChronologyRows} for:item="row">
+                    <tr key={row.Id}>
+                        <td>
+                            <lightning-formatted-date-time value={row.NET_DATE} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>{row.HTEXT}</td>
+                        <td>{row.CURRENCYCODE}</td>
+                        <td>{row.Debit_Amt__c}</td>
+                        <td>{row.Credit_Amt__c}</td>
+                        <td>{row.Current_Balance__c}</td>
+                        <td>{row.Down_Payment__c}</td>
+
+                        <td>
+                            <lightning-formatted-date-time value={row.BLDAT} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>
+                            <lightning-formatted-date-time value={row.BUDAT} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>{row.CHCKN}</td>
+                        <td>
+                            <lightning-formatted-date-time value={row.Z_CH_DATE} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>
+                            <lightning-formatted-date-time value={row.Z_CH_REC_DATE} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>{row.ZSOP_TEXT}</td>
+                        <td>{row.RTEXT}</td>
+                        <td>{row.MENGE}</td>
+                        <td>{row.MEINS}</td>
+                        <td>{row.OFFSET_GPART}</td>
+                        <td>{row.HVORG}</td>
+                        <td>{row.TVORG}</td>
+                        <td>{row.TXT30}</td>
+                    </tr>
+                </template>
+            </tbody>
+
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td style="font-weight:bold;">As on {todayFormatted}</td>
+                    <td>INR</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyPastDebitTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyPastCreditTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyPastBalanceTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyPastDownPymtTotalFormatted}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+
+            <!-- FUTURE RECORDS -->
+            <tbody>
+                <template for:each={futureChronologyRows} for:item="row">
+                    <tr key={row.Id}>
+                        <td>
+                            <lightning-formatted-date-time value={row.NET_DATE} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>{row.HTEXT}</td>
+                        <td>{row.CURRENCYCODE}</td>
+                        <td>{row.Debit_Amt__c}</td>
+                        <td>{row.Credit_Amt__c}</td>
+                        <td>{row.Current_Balance__c}</td>
+                        <td>{row.Down_Payment__c}</td>
+            
+                        <td>
+                            <lightning-formatted-date-time value={row.BLDAT} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>
+                            <lightning-formatted-date-time value={row.BUDAT} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time>
+                        </td>
+                        <td>{row.CHCKN}</td>
+                        <td><lightning-formatted-date-time value={row.Z_CH_DATE} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time></td>
+                        <td><lightning-formatted-date-time value={row.Z_CH_REC_DATE} year="numeric" month="2-digit" day="2-digit">
+                            </lightning-formatted-date-time></td>
+                        <td>{row.ZSOP}</td>
+                        <td>{row.RTEXT}</td>
+                        <td>{row.MENGE}</td>
+                        <td>{row.MEINS}</td>
+                        <td>{row.OFFSET_GPART}</td>
+                        <td>{row.HVORG}</td>
+                        <td>{row.TVORG}</td>
+                        <td>{row.TXT30}</td>
+                    </tr>
+                </template>
+            </tbody>
+
+            <!-- OVERALL TOTAL -->
+            <tfoot>
+                <tr>
+                    <td style="font-weight:bold;">*</td>
+                    <td></td>
+                    <td>INR</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyDebitTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyCreditTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyBalanceTotalFormatted}</td>
+                    <td style="background:#fff9b0; font-weight:bold;">{chronologyDownPymtTotalFormatted}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</template>
+
+            </div>
+        </div>
+    </div>
+</template>

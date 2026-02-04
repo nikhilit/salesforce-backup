@@ -1,0 +1,67 @@
+<template>
+    <lightning-card title="Random Payment Collection">
+        <div class="slds-p-around_medium slds-is-relative">
+            <lightning-record-edit-form object-api-name="WorkOrder" onsubmit={handleSubmit}>
+                
+                <!-- If NOT FieldSense (normal logic) -->
+                <template if:false={isFieldSense}>
+                    <!-- BP Number Search -->
+                    <lightning-input label="BP Number" name="BPNumber" value={formData.BPNumber}
+                        onchange={handleBPNumberChange}>
+                    </lightning-input>
+
+                    <!-- Auto-filled Fields -->
+                    <template if:true={isCaNumber}>
+                        <lightning-input label="CA Number" value={formData.CANumber} readonly>
+                        </lightning-input>
+                    </template>
+
+                    <template if:true={isAccountName}>
+                        <lightning-input label="Customer Name" value={formData.AccountName} readonly>
+                        </lightning-input>
+                    </template>
+                </template>
+
+                <!-- If FieldSense (user input required) -->
+                <template if:true={isFieldSense}>
+                    <!-- Enter CA Number Manually -->
+                    <lightning-input label="CA Number" name="CANumber" type="number" value={formData.CANumber}
+                        onchange={handleInput}>
+                    </lightning-input>
+
+                    <!-- Enter Account Name Manually -->
+                    <lightning-input label="Customer Name" type="text" name="AccountName" value={formData.AccountName}
+                        onchange={handleInput}>
+                    </lightning-input>
+
+                    <lightning-combobox name="WorkType" label="Work Type" value={formData.WorkType}
+                        options={workTypeOptions} onchange={handleInput}></lightning-combobox>
+
+                </template>
+
+                <!-- Payment Fields -->
+                <lightning-input type="number" name="PaymentAmount" label="Payment Amount" onchange={handleInput}>
+                </lightning-input>
+
+                <lightning-input label="Remarks" type="text" name="Remark" onchange={handleInput}>
+                </lightning-input>
+
+                <div class="slds-m-top_medium slds-align_absolute-center">
+                    <lightning-button type="submit" label="Create Random Payment" variant="brand">
+                    </lightning-button>
+                </div>
+
+            </lightning-record-edit-form>
+        </div>
+    </lightning-card>
+
+    <template if:true={load}>
+        <div class="slds-is-relative">
+
+            <div class="slds-spinner_container slds-is-fixed">
+                <lightning-spinner alternative-text="Processing..." size="medium"></lightning-spinner>
+            </div>
+
+        </div>
+    </template>
+</template>

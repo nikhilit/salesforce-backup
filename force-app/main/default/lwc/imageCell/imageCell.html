@@ -1,0 +1,13 @@
+<template>
+    <template if:true={hasImage}>
+        <div class="img-btn" onclick={handleClick}>
+            <img
+                src={value}
+                alt="Image"
+                class="clickable-image"
+                style="height: 200px; max-width: 200px; cursor: pointer;"
+                onerror={hideOnError}
+            />
+        </div>
+    </template>
+</template>

@@ -1,0 +1,563 @@
+<apex:page renderAs="pdf" applyBodyTag="false" standardStylesheets="false" lightningStylesheets="false" showHeader="false" applyHtmlTag="true">
+<head>
+    <style>
+        @page {
+            size: A4 vertical;
+            margin-top: 0.5cm;
+            margin-bottom: 0.5 cm;
+            margin-right: 1cm;
+            margin-left: 1cm;
+                         
+            @top-center {
+            content: element(header);
+            }
+            
+            @bottom-left {
+            content: element(footer);
+            }
+            }
+     
+        div.header {
+           position: running(header);
+                   }
+       .footer {
+   		 position: fixed;
+   		 bottom: 0cm;
+    	 left: 0;
+         right: 0;
+       	 text-align: left; /* or center */
+         font-size: 13px;
+  			}
+	.pagenumber:before {
+    	content: counter(page);
+		}
+
+    }
+
+    </style>
+    </head>
+    
+<body>
+    
+     <div class="footer">
+    <span class="pagenumber"></span> | Page
+    <br/>
+    Title: NRO for 4” A/G NB Steel Valve Replacement at Jogeshwari petrol supply.
+</div>
+
+    <!-- PAGE 1 -->
+    <!--<div style="page-break-after: always;">-->
+    <table style="width:100%;">
+    <tr>
+        <td style="text-align:left; font-weight:bold;">
+            Title: Non-Routine Operation
+        </td>
+        <td style="text-align:right; font-weight:bold;">
+            Record No.: AIQ RE 134
+        </td>
+    </tr>
+</table>  
+    <p><b >(A) Non-Routine Operation </b> </p>
+      <!--<p ><b>Title: Non-Routine Operation</b> <br/>  </p><p><b>Record No.: AIQ RE 134</b></p>-->
+    <table style="width:100%; border-collapse: collapse;border: 1px solid #000;font-size:15px;margin-top:0.5cm;">
+        <tr><th style="border: 1px solid #000;width:30%;padding-left:5px;" >Non-Routine Operation No.</th><td style="border: 1px solid #000;padding-left:5px;padding-left:5px;" colspan="3"> O&amp;M / 2024-2025 / VR / 08</td></tr>
+        <tr><th style="border: 1px solid #000;padding-left:5px;">Brief Description of Work</th><td style="border: 1px solid #000;padding-left:5px;" colspan="3">NRO for 4” A/G NB Steel Valve Replacement at Jogeshwari petrol supply.</td></tr>
+        <tr><th style="border: 1px solid #000;padding-left:5px;">Location</th><td style="border: 1px solid #000;padding-left:5px;" colspan="3">Swami Vivekanand Road, Opp. Post Office Jogeshwari (W), Mumbai</td></tr>
+        <tr><th style="border: 1px solid #000;border-bottom:none;padding-left:5px;">Responsible Engineers:</th><td colspan="3" style="border-left: 1px solid #000;border-right: 1px solid #000;padding-left:5px;"></td></tr>
+        <tr><td style="border-left: 1px solid #000;padding-left:5px;">Authorizing Engineer(Line Manager):</td><td colspan="3" style="border-left: 1px solid #000;border-right: 1px solid #000;padding-left:5px;">Siddhesh Mayekar / Sunil Gajare</td></tr>
+        <tr><td style="border-left: 1px solid #000;padding-left:5px;">Competent Engineer(Engineer In-Charge):</td><td colspan="3" style="border-left: 1px solid #000;border-right: 1px solid #000;padding-left:5px;">Akshay Katkar / Swapnil Gawde</td></tr>
+        <tr><td style="border-left: 1px solid #000;padding-left:5px;">Other Engineers at Site:</td><td colspan="3" style="border-left: 1px solid #000;border-right: 1px solid #000;padding-left:5px;">Balwant Mohite</td></tr>
+        <tr><td style="border-left: 1px solid #000;border-bottom: 1px solid #000;padding-left:5px;">Competent Technician at Site:</td><td colspan="3" style="border-left: 1px solid #000;border-bottom: 1px solid #000;border-right: 1px solid #000;padding-left:5px;">Jaydeep Kesarkar</td></tr>
+        <tr>
+            <th style="border: 1px solid #000;padding-left:4px;width:20%"> Prepared by:</th>
+            <td style="border: 1px solid #000;padding-left:4px;width:20%;text-align:center;"><br/>Sign: ....................... <br/>Name: Mr. Akshay Katkar <br/>(Dy. Manager – O&amp;M) </td>
+            <td style="border: 1px solid #000;padding-left:4px;width:60%;text-align:center;" colspan="3"><br/>Sign: ....................... <br/>Name: Mr.Siddhesh Mayekar<br/>(Manager – O&amp;M) </td>
+        </tr>
+
+        <tr>
+            <th style="border: 1px solid #000;padding-left:4px;width:20%;" rowspan="2">Checked by:</th>
+            <td style="border: 1px solid #000;padding-left:4px;width:26.66%;text-align:center;">
+    Sign: .......................<br/>
+    Name: Mr. Swapnil Gawde<br/>
+    (Sr. Manager – O&amp;M)
+</td>
+
+            <td style="border: 1px solid #000;padding-left:4px;width:22%;text-align:center;"><br/>Sign: .......................<br/>Name: Mr. Sunil Gajare <br/> (Ch. Manager – O&amp;M)</td>
+            <td style="border: 1px solid #000;padding-left:4px;width:31.34%;text-align:center;"><br/>Sign: ....................... <br/>Name: Mr. Viraj Kulkarni<br/> (Ch. Manager – GIS)</td>
+      
+        </tr>
+
+        <tr>
+             <td style="border: 1px solid #000;padding-left:4px;width:20%;text-align:center;"><br/>Sign: .......................<br/>Name: Mr. Sachin Ghuge<br/> (DGM – HSE) </td>
+            <td style="border: 1px solid #000;padding-left:4px;width:50%;text-align:center;" colspan="3"><br/>Sign: ....................... <br/>Name: Mr. Sanjay Gawade <br/>(DGM – AI&amp;GIS) </td>
+
+        </tr>
+
+        <tr>
+            <th style="border: 1px solid #000;padding-left:4px;width:20%;" rowspan="3"> Reviewed by</th>
+             <td style="border: 1px solid #000;padding-left:4px;width:20%;text-align:center;"><br/>Sign: .......................<br/>Mr. Ajay Patki <br/>(GM – HSE) </td>
+            <td style="border: 1px solid #000;padding-left:4px;width:50%;text-align:center;" colspan="3"><br/>Sign: ....................... <br/>Mr. Aman Mallik <br/> (GM – O&amp;M) </td>
+        </tr>
+        <tr>
+             <td style="border: 1px solid #000;padding-left:4px;width:50%;text-align:center;" colspan="4"><br/>Sign: ....................... <br/>Mr. Pratap Ayrekar <br/> (GM – O&amp;M) </td>
+        </tr>
+        <tr>
+                <td style="border: 1px solid #000;padding-left:4px;width:50%;text-align:center;" colspan="4"><br/>Sign: ....................... <br/>Mr. Naveen Gupta <br/> (AVP – AI, GIS)</td>
+        </tr>
+        <tr>
+            <th  style="border: 1px solid #000;padding-left:4px;width:20%;" rowspan="1">Authorized by:</th>
+                <td style="border: 1px solid #000;padding-left:4px;width:50%;text-align:center;" colspan="4"><br/>Sign: ....................... <br/>Mr. Sitanshu Roychowdhury<br/> (VP – O&amp;M) </td>
+      
+        </tr>
+		  <tr>
+            <th  style="border: 1px solid #000;padding-left:4px;width:20%;">Circulation List:</th>
+              <td style="border: 1px solid #000;padding-left:4px;width:30%;text-align:center;" colspan="1"><br/>• HSE <br/>• Asset Integrity </td>
+      		 <td style="border: 1px solid #000;padding-left:4px;width:40%;text-align:center;" colspan="2"><br/>• DIC <br/>• Control Room </td>
+      
+        </tr>
+    </table>
+        <div style="page-break-after: always;font-size:13px;margin-top:0.3cm">
+         </div>
+   
+
+    <!-- PAGE 2 (Communication List) -->	
+      <div style="page-break-after: always;">
+     <table style="width:100%;">
+    <tr>
+        <td style="text-align:left; font-weight:bold;">
+            Title: Non-Routine Operation
+        </td>
+        <td style="text-align:right; font-weight:bold;">
+            Record No.: AIQ RE 134
+        </td>
+    </tr>
+         <p>(B) <b style="border-bottom: 1px solid #000; font-weight: bold;">Communication</b></p>
+</table>  
+    <table style="width:95%; border-collapse: collapse;border: 1px solid #000;font-size:15px;margin-top:1cm;">
+        <tr><th style="border: 1px solid #000; font-weight: bold; text-align:center;height: 18px;">Sr. No.</th><th style="border: 1px solid #000; font-weight: bold; text-align:center;">Contact Person</th><th style="border: 1px solid #000; font-weight: bold; text-align:center;">Phone Number</th></tr>
+        <tr ><td style="border: 1px solid #000;text-align:center;height: 25px;">1</td><td style="border: 1px solid #000;">Sitanshu Roy Chowdhury</td><td style="border: 1px solid #000;text-align:center;">8657112265</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">2</td><td style="border: 1px solid #000;">Aman Malik</td><td style="border: 1px solid #000;text-align:center;">9324941160</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">3</td><td style="border: 1px solid #000;">Pratap Ayrekar</td><td style="border: 1px solid #000;text-align:center;">9324941208</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">4</td><td style="border: 1px solid #000;">Dilip Martha</td><td style="border: 1px solid #000;text-align:center;">9324941225</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">5</td><td style="border: 1px solid #000;">Sunil Gajare</td><td style="border: 1px solid #000;text-align:center;">9324941186</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">6</td><td style="border: 1px solid #000;">Siddhesh Mayekar</td><td style="border: 1px solid #000;text-align:center;">9167905090</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">7</td><td style="border: 1px solid #000;">Swapnil Gawde</td><td style="border: 1px solid #000;text-align:center;">9329405432</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">8</td><td style="border: 1px solid #000;">Akshay Katkar</td><td style="border: 1px solid #000;text-align:center;">8291866847</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">9</td><td style="border: 1px solid #000;">Balwant Mohite</td><td style="border: 1px solid #000;text-align:center;">9324941153</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">10</td><td style="border: 1px solid #000;">Swapnil Gole</td><td style="border: 1px solid #000;text-align:center;">8425873704</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">11</td><td style="border: 1px solid #000;">Jaydeep Kesarkar</td><td style="border: 1px solid #000;text-align:center;">8879590016</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">12</td><td style="border: 1px solid #000;">Parag Thakur</td><td style="border: 1px solid #000;text-align:center;">8879677660</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">13</td><td style="border: 1px solid #000;">Emergency Control Room</td><td style="border: 1px solid #000;text-align:center;">022-24012400</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">14</td><td style="border: 1px solid #000;">Emergency Response Services (Jeevan Ambulance)</td><td style="border: 1px solid #000;text-align:center;">8850010377</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">15</td><td style="border: 1px solid #000;">Nearest Hospital: City Hospital</td><td style="border: 1px solid #000;text-align:center;">022-2226799938</td></tr>
+        <tr><td style="border: 1px solid #000;text-align:center;height: 25px;">16</td><td style="border: 1px solid #000;">Nearest Fire Station: Jogeshwari</td><td style="border: 1px solid #000;text-align:center;">022-226781234</td></tr>
+    </table>
+
+    <p><b>MGL personnel at site:</b></p>
+    <p style="padding-left:15px">
+        1.&nbsp;  Swapnil Gawde<br/>
+        2.&nbsp;  Balwant Mohite<br/>
+        3.&nbsp;  Jaydeep Kesarkar<br/>
+        4.&nbsp;  Akshay Katkar<br/>
+    </p>
+
+	
+      
+         </div>
+    <div style="page-break-after: always;">
+        
+    <!-- PAGE 3 (Preparatory Steps) -->
+         <table style="width:100%;">
+    <tr>
+        <td style="text-align:left; font-weight:bold;">
+            Title: Non-Routine Operation
+        </td>
+        <td style="text-align:right; font-weight:bold;">
+            Record No.: AIQ RE 134
+        </td>
+    </tr>
+</table>  
+	 <p > (C) <b style="border-bottom: 1px solid #000; font-weight: bold;">Preparatory Steps</b></p>
+
+    <table  style="width:95%; border-collapse: collapse;border: 1px solid #000;font-size:15px;margin-top:1cm;">
+        <tr >
+            <th style="border: 1px solid #000; font-weight: bold; text-align:center;height: 18px;width:8%;">Sr. No.</th><th style="border: 1px solid #000; font-weight: bold; text-align:center;height: 18px;">Preparatory Work</th><th style="border: 1px solid #000; font-weight: bold; text-align:center;height: 18px;width:8%;">Action By</th><th style="border: 1px solid #000; font-weight: bold; text-align:center;height: 18px;width:8%;">Check</th>
+        </tr>
+        <tr><td style="border: 1px solid #000;height: 25px;text-align:center;">1</td><td style="border: 1px solid #000;">Ensure compliance to all MGL Life Saving Rules &amp; COP requirements.
+Conduct Site specific HIRA at site. Ensure all the valves are operating correctly and accessible to be operated and in correct position at the start of NRO.</td><td style="border: 1px solid #000;text-align:center;height: 25px;">O&amp;M Engineer</td><td style="border: 1px solid #000;"></td></tr>
+        <tr><td style="border: 1px solid #000;height: 25px;text-align:center;">2</td><td style="border: 1px solid #000;">Ensure that all the personnel involved in the shutdown operation are briefed regarding the sequence of the operation and are aware of the valve positions., 
+            Social distancing, Body temperature, Moitoring periodic hand sanitization, etc. 
+            as per GOM guidelines. Ensure availability of adequate quantity of hand sanitizer face mask
+            thermometer etc. for the site team.</td><td style="border: 1px solid #000;">O&amp;M Engineer</td><td style="border: 1px solid #000;"></td></tr>
+        <tr><td style="border: 1px solid #000;height: 25px;text-align:center;">3</td><td style="border: 1px solid #000;">Ensure No smoking/ No Naked flames signs are on site. Ensure compliance to all MGL Life Saving Rules and COP requirements.</td><td style="border: 1px solid #000;">O&amp;M Engineer</td><td style="border: 1px solid #000;"></td></tr>
+        <tr><td style="border: 1px solid #000;height: 25px;text-align:center;">4</td><td style="border: 1px solid #000;">Ensure that dully calibrated Gascoseeker and Oxygen meter is available on site &amp; are in proper working conditions.</td><td style="border: 1px solid #000;">O&amp;M Engineer</td><td style="border: 1px solid #000;"></td></tr>
+        <tr ><td style="border: 1px solid #000;height: 25px;text-align:center;">5</td><td style="border: 1px solid #000;">Ensure appropriate 5 nos. of fire extinguishers (9 Kgs. each) and Non-Sparking tools are available at Site.</td><td style="border:1px solid #000;">O&amp;M Engineer</td><td style="border: 1px solid #000;"></td></tr>
+        <tr><td style="border: 1px solid #000;height: 25px;text-align:center;">6</td><td style="border: 1px solid #000;">Ensure the fabrication &amp; testing of Valves is completed in all respects.
+Refer COP: Section 051 &amp; 054</td><td>O&amp;M Engineer</td><td style="border: 1px solid #000;"></td></tr>
+        <tr><td style="border: 1px solid #000;height: 25px;text-align:center;">7</td><td style="border: 1px solid #000;">Ensure all emergency fittings are available on site.</td><td style="border: 1px solid #000;height: 25px;">O&amp;M Engineer</td><td style="border: 1px solid #000;"></td></tr>
+        <tr><td style="border: 1px solid #000;height: 25px;text-align:center;">8</td><td style="border: 1px solid #000;">Ensure lock out and tag out for valves to be closed during the NRO. Also ensure application of clamp as suitable before operation of valve.</td><td style="border: 1px solid #000;height: 25px;">O&amp;M Engineer</td><td style="border: 1px solid #000;"></td></tr>
+        <tr><td style="border: 1px solid #000;height: 25px;text-align:center;">9</td><td style="border: 1px solid #000;"> Ensure proper Earthing of the vent hose during the venting operation.</td><td style="border: 1px solid #000;height: 25px;">O&amp;M Engineer</td><td style="border: 1px solid #000;"></td></tr>
+        <tr><td style="border: 1px solid #000;height: 25px;text-align:center;">10</td><td style="border: 1px solid #000;">Switched off TR unit before hot work on Steel Pipeline.</td><td style="border: 1px solid #000;height: 25px;">O&amp;M Engineer</td><td style="border: 1px solid #000;"></td></tr>
+        <tr><td style="border: 1px solid #000;height: 25px;text-align:center;">11</td><td style="border: 1px solid #000;"> Ensure that all personnel involved in cold work &amp; hot work are with their recommended PPE’s.
+Refer COP: Section 01 (Clause no. 6 - Personal Protective Equipment)</td><td style="border: 1px solid #000;height: 25px;">O&amp;M Engineer</td><td style="border: 1px solid #000;"></td></tr>
+        <tr><td style="border: 1px solid #000;height: 25px;text-align:center;">12</td><td style="border: 1px solid #000;">Ensure usage of fire retardant suits for personnel involved in valve rectification work.</td><td style="border: 1px solid #000;height: 25px;">O&amp;M Engineer</td><td style="border: 1px solid #000;"></td></tr>
+        <tr><td style="border: 1px solid #000;height: 25px;text-align:center;">13</td><td style="border: 1px solid #000;">Intimate Jogeshwari Petrol Supply regarding closure of gas supply in (As per Annexure III)</td><td style="border: 1px solid #000;height: 25px;">O&amp;M Engineer</td><td style="border: 1px solid #000;"></td></tr>
+    </table>
+        <div>
+            <p>Note:<br/>Valves V03 was inspected on 22.10.2024 and found to be OK.</p>
+            <p><b>Valve operation:<br/>MGL trained technicians will operate the valves. FIrst anti-rust WD-40 iwll be applied on the valves and after that valves will be carefully operated by the technicians after application of clamp as suitable.
+                <br/>  Refer:WI: O &amp; M WI 105</b></p>
+        </div>  
+      
+
+    <br/><br style="page-break-after:always"/>
+
+    </div>
+    <div style="page-break-after: always;">
+    <!-- PAGE 4 -->
+        
+         <table style="width:100%;">
+    <tr>
+        <td style="text-align:left; font-weight:bold;">
+            Title: Non-Routine Operation
+        </td>
+        <td style="text-align:right; font-weight:bold;">
+            Record No.: AIQ RE 134
+        </td>
+    </tr>
+</table>  
+        
+    <p >(D) <b style="border-bottom: 1px solid #000; font-weight: bold;">Status Before Operation</b></p>
+
+   <table style="width:95%; border-collapse: collapse; border: 1px solid #000; font-size:15px; margin-top:1cm;">
+    <tr>
+        <th style="border: 1px solid #000; font-weight: bold; text-align:center; height: 18px; width:8%;">Sr. No.</th>
+        <th style="border: 1px solid #000; font-weight: bold; text-align:center; height: 18px;">Valve No.</th>
+        <th style="border: 1px solid #000; font-weight: bold; text-align:center; height: 18px; width:12%;">Status</th>
+        <th style="border: 1px solid #000; font-weight: bold; text-align:center; height: 18px; width:8%;">Check</th>
+    </tr>
+
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">1</td><td style="border: 1px solid #000;text-align:center;">V1</td><td style="border: 1px solid #000; text-align:center;">OPEN</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">2</td><td style="border: 1px solid #000; text-align:center;">V2</td><td style="border: 1px solid #000; text-align:center;">CLOSE</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">3</td><td style="border: 1px solid #000;text-align:center;">V3</td><td style="border: 1px solid #000; text-align:center;">OPEN</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">4</td><td style="border: 1px solid #000;text-align:center;">V4</td><td style="border: 1px solid #000; text-align:center;">CLOSE</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">5</td><td style="border: 1px solid #000;text-align:center;">V5</td><td style="border: 1px solid #000; text-align:center;">OPEN</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">6</td><td style="border: 1px solid #000;text-align:center;">V6</td><td style="border: 1px solid #000; text-align:center;">CLOSE</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">7</td><td style="border: 1px solid #000;text-align:center;">V7</td><td style="border: 1px solid #000; text-align:center;">CLOSE</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">8</td><td style="border: 1px solid #000;text-align:center;">V8</td><td style="border: 1px solid #000; text-align:center;">OPEN</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">9</td><td style="border: 1px solid #000;text-align:center;">V9</td><td style="border: 1px solid #000; text-align:center;">CLOSE</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">10</td><td style="border: 1px solid #000;text-align:center;">AG1</td><td style="border: 1px solid #000; text-align:center;">OPEN</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">11</td><td style="border: 1px solid #000;text-align:center;">AG2</td><td style="border: 1px solid #000; text-align:center;">CLOSE</td><td style="border: 1px solid #000;"></td></tr>
+</table>
+
+
+    </div>
+
+    <!-- PAGE 4 -->
+     <table style="width:100%;">
+    <tr>
+        <td style="text-align:left; font-weight:bold;">
+            Title: Non-Routine Operation
+        </td>
+        <td style="text-align:right; font-weight:bold;">
+            Record No.: AIQ RE 134
+        </td>
+    </tr>
+</table>  
+<p >(E) <b style="border-bottom: 1px solid #000; font-weight: bold;">Status After Operation</b></p>
+
+
+   <table style="width:95%; border-collapse: collapse; border: 1px solid #000; font-size:15px; margin-top:1cm;">
+    <tr>
+        <th style="border: 1px solid #000; font-weight: bold; text-align:center; height: 18px; width:8%;">Sr. No.</th>
+        <th style="border: 1px solid #000; font-weight: bold; text-align:center; height: 18px;">Valve No.</th>
+        <th style="border: 1px solid #000; font-weight: bold; text-align:center; height: 18px; width:12%;">Status</th>
+        <th style="border: 1px solid #000; font-weight: bold; text-align:center; height: 18px; width:8%;">Check</th>
+    </tr>
+
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">1</td><td style="border: 1px solid #000;text-align:center;">V1</td><td style="border: 1px solid #000; text-align:center;">OPEN</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">2</td><td style="border: 1px solid #000; text-align:center;">V2</td><td style="border: 1px solid #000; text-align:center;">CLOSE</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">3</td><td style="border: 1px solid #000;text-align:center;">V3</td><td style="border: 1px solid #000; text-align:center;">OPEN</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">4</td><td style="border: 1px solid #000;text-align:center;">V4</td><td style="border: 1px solid #000; text-align:center;">CLOSE</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">5</td><td style="border: 1px solid #000;text-align:center;">V5</td><td style="border: 1px solid #000; text-align:center;">OPEN</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">6</td><td style="border: 1px solid #000;text-align:center;">V6</td><td style="border: 1px solid #000; text-align:center;">CLOSE</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">7</td><td style="border: 1px solid #000;text-align:center;">V7</td><td style="border: 1px solid #000; text-align:center;">CLOSE</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">8</td><td style="border: 1px solid #000;text-align:center;">V8</td><td style="border: 1px solid #000; text-align:center;">OPEN</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">9</td><td style="border: 1px solid #000;text-align:center;">V9</td><td style="border: 1px solid #000; text-align:center;">CLOSE</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">10</td><td style="border: 1px solid #000;text-align:center;">AG1</td><td style="border: 1px solid #000; text-align:center;">OPEN</td><td style="border: 1px solid #000;"></td></tr>
+    <tr><td style="border: 1px solid #000; height:25px; text-align:center;">11</td><td style="border: 1px solid #000;text-align:center;">AG2</td><td style="border: 1px solid #000; text-align:center;">CLOSE</td><td style="border: 1px solid #000;"></td></tr>
+</table>
+	     <div style="page-break-after: always;">
+    </div>
+    
+     <table style="width:100%;">
+    <tr>
+        <td style="text-align:left; font-weight:bold;">
+            Title: Non-Routine Operation
+        </td>
+        <td style="text-align:right; font-weight:bold;">
+            Record No.: AIQ RE 134
+        </td>
+    </tr>
+</table> 
+  <p>
+(F) <b style="border-bottom: 1px solid #000; font-weight: bold;">Normal Operation Procedure</b></p>
+
+<table style="width:95%; border-collapse: collapse;border: 1px solid #000;font-size:15px;margin-top:1cm;">
+    <tr>
+        <th style="border: 1px solid #000; font-weight: bold; text-align:center;height: 18px;width:8%;">Sr. No.</th>
+        <th style="border: 1px solid #000; font-weight: bold; text-align:center;height: 18px;">Operation Procedure</th>
+        <th style="border: 1px solid #000; font-weight: bold; text-align:center;height: 18px;width:8%;">Action By</th>
+        <th style="border: 1px solid #000; font-weight: bold; text-align:center;height: 18px;width:8%;">Check</th>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">1</td>
+        <td style="border: 1px solid #000;">Ensure compliance with MGL Life Saving Rules and COP requirements. Conduct site specific HIRA.</td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp; M Engineer</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">2</td>
+        <td style="border: 1px solid #000;">Inform Emergency control room about commencement of NRO.</td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Engineer</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">3</td>
+        <td style="border: 1px solid #000;">Check for any potential sources of ignition in the vicinity of Valve V04 (size 3/4th) AG2 (size 3/4th) &amp; remove if found.</td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Engineer</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">4</td>
+        <td style="border: 1px solid #000;">Issue work permit for confined space entry for entering steel valve chambers.</td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp; M Engineer</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">5</td>
+        <td style="border: 1px solid #000;">Close the valve V03 (size 4”) completely &amp; ensure Lockout &amp; Tagout of valve. Allow Jogeshwari Petrol Supply compressor to run till it trips at low suction pressure.</td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Technician</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">6</td>
+        <td style="border: 1px solid #000;">
+            Connect Vent Stack and Flame arrestor at Valve AG2. Open Valve AG2 and vent the residual gas in the pipeline using a vent stack and flame arrestor.<br/>
+            <b>Refer COP: Section 08 (Clause no. 3 - Purging &amp; commissioning of mains)</b>
+        </td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Technician</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">7</td>
+        <td style="border: 1px solid #000;">
+            Disconnect the Flexible Hose (A-B) connected to the Jogeshwari Petrol Supply compressor. Install Blind Flange (BLRF) at point B and install Blind Flange (BLRF) with Nipple arrangement along with Vent Valve at Point A.
+        </td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Technician</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">8</td>
+        <td style="border: 1px solid #000;">
+            Connect the nitrogen hose at V04, start Nitrogen purging by opening Valve V04 and venting from Valve AG2 &amp; Vent Valve at Point A using vent stacks with flame arrestors.<br/><br/>
+        </td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Technician</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">9</td>
+        <td style="border: 1px solid #000;">
+            Issue hot work permit. Allow construction team to cut pipeline Valve AG1 (Size 4) by cold cutting (Hacksaw). Check for trace of black powder and report appropriately.<br/>
+            <b>Refer: PTW system.</b>
+        </td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Engineer</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">10</td>
+        <td style="border: 1px solid #000;">Complete the connectivity of new valve AG1 (size 4).</td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Technician</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">11</td>
+        <td style="border: 1px solid #000;">
+            Continue purging till 95% GIA is achieved at Valve AG2 &amp; Vent Valve at Point A and close Valve AG2 &amp; then put Blind Flange.
+        </td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Technician</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">12</td>
+        <td style="border: 1px solid #000;">
+            Now, Close Valve AG1 and vent from Point A with Vent Stack &amp; flame arrestor. After venting, reconnect Flexible hose A-B by disconnecting Blind Flanges at both ends.
+        </td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Technician</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">13</td>
+        <td style="border: 1px solid #000;">
+            Then Open Valve V03 completely &amp; recommission the line.<br/>
+            Refer: WI: O&amp;M WI 102
+        </td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Technician</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">14</td>
+        <td style="border: 1px solid #000;">Check all flanged joints for leakages with soap solution &amp; Gasco seeker.</td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Technician</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+
+    <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">15</td>
+        <td style="border: 1px solid #000;">Close all work permits and inform Emergency Control Room about completion of NRO.</td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Engineer</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+     <tr>
+        <td style="border: 1px solid #000;text-align:center;height: 25px;">16</td>
+        <td style="border: 1px solid #000;"> Check % of gas at valves AG2 &amp; Vent Valve at Point A. Stop Nitrogen Purging when safe limit (0 PPM) is achieved at all vent points.<br/>
+            <b>Refer COP: Section 08 (Clause no. 3 - Purging &amp; commissioning of mains)</b></td>
+        <td style="border: 1px solid #000;text-align:center;">O&amp;M Engineer</td>
+        <td style="border: 1px solid #000;"></td>
+    </tr>
+  
+</table>
+
+      <div style="page-break-after: always;">
+    </div>
+     <table style="width:100%;">
+    <tr>
+        <td style="text-align:left; font-weight:bold;">
+            Title: Non-Routine Operation
+        </td>
+        <td style="text-align:right; font-weight:bold;">
+            Record No.: AIQ RE 134
+        </td>
+    </tr>
+</table>  
+    <p>(G) <b style="border-bottom: 1px solid #000; font-weight: bold;">Contingency Action Plan:</b></p>
+   
+    <p> <b style="color:red;">Passing of valve V03</b><br/>Incase of passing of Valve V03, we will need to close the Valves V01 &amp; V08 which will result into disconnection of Looping network. So in case of passing of Valve V03, inform the Emergency Control Room and abandoned the NRO and restore the valve as per the given NRO procedure.
+After the NRO abandoned, downstream load will be assessed, accordingly suitable action plan will be prepared for the supply continuity. New NRO will be prepared to execute the Steel Valve Replacement AG1 mentioned in the NRO drawing.</p>
+    
+      <div style="page-break-after: always;">
+    </div>
+    
+     <table style="width:100%;">
+    <tr>
+        <td style="text-align:left; font-weight:bold;">
+            Title: Non-Routine Operation
+        </td>
+        <td style="text-align:right; font-weight:bold;">
+            Record No.: AIQ RE 134
+        </td>
+    </tr>
+</table> 
+    <p> <b>(H)</b> </p>
+
+    <!-- Annexure I -->
+    <p style="text-decoration: underline;"><b>Annexure I: DRS – PRS Connectivity arrangements to be done during NRO Activity</b></p>
+
+    <table style="width:95%; border-collapse: collapse;border: 1px solid #000;font-size:15px;margin-top:1cm;">
+        <tr>
+            <th style="border: 1px solid #000; height:25px; text-align:center;">DRS</th>
+            <th style="border: 1px solid #000; height:25px; text-align:center;">Area</th>
+            <th style="border: 1px solid #000; height:25px; text-align:center;">Domestic Load</th>
+            <th style="border: 1px solid #000; height:25px; text-align:center;">PRS to be connected (Yes/No)</th>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #000; height:25px; text-align:center;"></td>
+            <td style="border: 1px solid #000; height:25px; text-align:center;"></td>
+            <td style="border: 1px solid #000; height:25px; text-align:center;"></td>
+            <td style="border: 1px solid #000; height:25px; text-align:center;">No</td>
+        </tr>
+    </table>
+
+    <!-- Annexure II -->
+    <p  style="font-weight:bold;text-decoration: underline;">
+        Annexure II: Commercial &amp; Industrial Customers likely to be affected during NRO Activity
+    </p>
+
+    <table style="width:95%; border-collapse: collapse;border: 1px solid #000;font-size:15px;margin-top:1cm;">
+        <tr>
+            <th style="border: 1px solid #000; height:25px; text-align:center;">DRS no</th>
+            <th style="border: 1px solid #000; height:25px; text-align:center;">Industrial A</th>
+            <th style="border: 1px solid #000; height:25px; text-align:center;">Industrial B</th>
+            <th style="border: 1px solid #000; height:25px; text-align:center;">Others</th>
+            <th style="border: 1px solid #000; height:25px; text-align:center;">Shutdown Plan</th>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #000; height:25px; text-align:center;"></td>
+            <td style="border: 1px solid #000; height:25px; text-align:center;">-</td>
+            <td style="border: 1px solid #000; height:25px; text-align:center;">-</td>
+            <td style="border: 1px solid #000; height:25px; text-align:center;">-</td>
+            <td style="border: 1px solid #000; height:25px; text-align:center;">-</td>
+        </tr>
+    </table>
+
+    <!-- Annexure III (Normal Operation) -->
+    <p style="font-weight:bold;text-decoration: underline;">
+        Annexure III: CNG Stations to be affected in Normal operation during NRO Activity
+    </p>
+
+    <table style="width:95%; border-collapse: collapse;border: 1px solid #000;font-size:15px;margin-top:1cm;">
+        <tr>
+            <th style="border: 1px solid #000; height:25px; text-align:center;">Sr. No.</th>
+            <th style="border: 1px solid #000; height:25px; text-align:center;">Retail Outlet Name</th>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #000; height:25px; text-align:center;">1</td>
+            <td style="border: 1px solid #000; height:25px; text-align:center;">Jogeshwari Petrol Supply</td>
+        </tr>
+    </table>
+
+    <p>
+        Above mentioned CNG Outlet is SCADA Enabled. Same can be shut down from SCADA Control Room.
+    </p>
+
+    <!-- Annexure III (Contingency) -->
+  <p style="font-weight:bold; text-decoration: underline;">
+    Annexure III: CNG Stations to be affected in Contingency operation during NRO Activity – <b>NIL</b>
+</p>
+
+
+    <!-- Annexure III (DRS Contingency) -->
+    <p style="font-weight:bold;text-decoration: underline;">
+        Annexure III: DRS to be affected in Contingency operation during NRO Activity – <b>NIL</b>
+    </p>
+    
+      <div style="page-break-after: always;">
+    </div>
+ <table style="width:100%;">
+    <tr>
+        <td style="text-align:left; font-weight:bold;">
+            Title: Non-Routine Operation
+        </td>
+        <td style="text-align:right; font-weight:bold;">
+            Record No.: AIQ RE 134
+        </td>
+    </tr>
+</table>  
+    <p style="font-weight:bold;text-decoration: underline;"><b >Review by HSE,AI,Planning etc. as applicable</b></p>
+    <p>(In case of urgencies,comments may be given telephonically;A "NIL RETURN" to be sent in case <br/> of no comments i.e. mention No Comment</p>
+    </body>
+</apex:page>

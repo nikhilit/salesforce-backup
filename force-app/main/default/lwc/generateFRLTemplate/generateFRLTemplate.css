@@ -1,0 +1,98 @@
+/* Preview modal container — wider to fit A4 comfortably */
+.preview-modal__container {
+    max-width: 1100px !important;
+    width: 1100px !important;
+}
+
+/* Header close alignment */
+.preview-modal__header {
+    position: relative;
+    padding-right: 3rem;
+}
+.preview-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+/* The scrollable area where A4 page(s) render */
+.preview-modal__content .preview-scroll {
+    display: flex;
+    justify-content: center;
+    /* set a max-height so modal scroll appears */
+    max-height: calc(100vh - 200px);
+    overflow: auto;
+    background: transparent;
+}
+
+/* Outer A4 wrapper (visual) */
+.a4-page {
+    width: 794px;           /* A4 width (96 DPI) */
+    min-height: 1123px;     /* A4 height (96 DPI) */
+    margin: 20px 0;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+}
+
+/* Actual inner page that holds header/body/footer and simulates margins */
+.a4-page-inner {
+    width: 100%;
+    min-height: 1123px;
+    background: #fff;
+    border: 1px solid #cfcfcf;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    position: relative;
+    font-family: "Times New Roman", serif;
+    color: #111;
+    overflow: hidden;
+}
+
+/* Header block placed after top margin (visual spacer inserted in HTML) */
+.vf-header {
+    box-sizing: border-box;
+}
+
+/* Body area — left/right margins are applied via inline styles from JS or use this class */
+.a4-body {
+    box-sizing: border-box;
+}
+
+/* Footer styling */
+.vf-footer {
+    box-sizing: border-box;
+}
+
+/* Logo placeholder (when static resource not present) */
+.logo-box {
+    width: 100px;
+    height: 60px;
+    background: #f3f3f3;
+    border: 1px dashed #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+}
+
+/* Editor area */
+.message-editor {
+    min-height: 200px;
+    padding: 10px;
+    border: 1px solid #d8dde6;
+    font-family: "Times New Roman", serif;
+    font-size: 14px;
+}
+
+/* Toolbar */
+.formatting-toolbar {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* Make modal backdrop and layout consistent */
+.preview-modal .slds-modal__header,
+.preview-modal .slds-modal__footer {
+    z-index: 5;
+}

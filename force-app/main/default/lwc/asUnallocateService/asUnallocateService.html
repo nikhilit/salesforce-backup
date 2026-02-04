@@ -1,0 +1,26 @@
+<template>
+    <lightning-card title="To unallocate the service appointment, add remarks">
+        <div class="slds-p-around_medium">
+
+            <template if:false={unAllocated}>
+                <lightning-textarea
+                    label="Add Remarks"
+                    value={remarks}
+                    onchange={handleRemarksChange}>
+                </lightning-textarea>
+
+                <div class="slds-m-top_medium">
+                    <lightning-button variant="brand" label="Submit" onclick={handleSubmit}></lightning-button>
+                    <!-- <lightning-button variant="neutral" label="Cancel" onclick={handleCancel} class="slds-m-left_small"></lightning-button> -->
+                </div>
+            </template>
+
+            <template if:true={unAllocated}>
+                <div class="slds-text-color_success slds-m-top_medium">
+                    Withdrawn allocations successfully.
+                </div>
+            </template>
+            
+        </div>
+    </lightning-card>
+</template>

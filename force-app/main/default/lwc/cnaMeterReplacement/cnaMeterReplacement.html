@@ -1,0 +1,175 @@
+<template>
+
+     <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+
+    <template if:true={showForm}>
+        <lightning-card title="Unsuccessful Visit Details">
+            <lightning-combobox
+                label="Reason for Unsuccessful Visit"
+                value={selectedReason}
+                options={reasonOptions}
+                onchange={handleReasonChange}
+                required>
+            </lightning-combobox>
+
+            <template if:true={showRemarks}>
+    <lightning-textarea
+        label="Remarks"
+        value={notes}
+        onchange={handleNotesChange}
+        required
+        class="slds-m-top_medium">
+    </lightning-textarea>
+</template>
+
+
+
+            <!-- <template if:true={imageUploadPage}>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1">
+            <c-o_-m-camera-upload-comp
+                image-list={photoUploadSlots}
+                onchange={handleFile}>
+            </c-o_-m-camera-upload-comp>
+        </div> 
+    </div>
+</template> -->
+<!-- 📸 MULTI-PHOTO UPLOAD BLOCK (same style as DataCaptureBD) -->
+<template if:true={imageUploadPage}>
+
+    <div class="section-header slds-p-around_small slds-grid slds-justify_between slds-align_absolute-center">
+        <h3 class="slds-section__title slds-theme_shade slds-p-around_x-small section-header">
+             <span class="slds-text-heading_small">Photos for {selectedReason}</span>
+        <!-- <p class="slds-text-title_caps">Photos for {selectedReason}</p> -->
+
+        <!-- Upload icon -->
+        <lightning-icon icon-name="utility:upload"
+                        alternative-text="Upload"
+                        title="Upload Photo"
+                        size="small"
+                        class="upload-icon"
+                        data-input="unsuccFileInput"
+                        onclick={triggerFileUpload}>
+        </lightning-icon>
+        </h3>
+
+        <!-- Hidden file input -->
+        <!-- <input type="file"
+               multiple
+               accept="image/*,.pdf"
+               capture="camera"
+               data-input="unsuccFileInput"
+               style="display:none"
+               onchange={handleFilesInputChange}/>
+    </div> -->
+
+    <!-- Hidden file input -->
+     <div class="file-upload-container">
+<input type="file"
+       multiple
+       accept="image/*,application/pdf"
+       class="hidden-file-input"
+       data-input="unsuccFileInput"
+       style="display:none"
+       onchange={handleFilesInputChange}/>
+
+       </div>
+
+       </div>
+
+
+    <!-- preview list -->
+        <div class="slds-col slds-size_1-of-1 preview-list slds-p-top_small">
+            <template for:each={photoUploadSlots} for:item="slot">
+                <div key={slot.id} class="preview-item slds-m-bottom_x-small">
+                    <span class="slds-m-right_small">{slot.fileName}</span>
+                    <template if:true={slot.previewUrl}>
+                        <lightning-button-icon
+                            icon-name="utility:preview"
+                            alternative-text="Preview"
+                            title="Preview"
+                            size="small"
+                            onclick={openPreviewModal}
+                            data-url={slot.previewUrl}
+                            data-name={slot.fileName}>
+                        </lightning-button-icon>
+                    </template>
+                </div>
+            </template>
+        </div>
+    
+    
+</template>
+
+<!-- Modal for Preview -->
+<template if:true={showPreviewModal}>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+
+            <header class="slds-modal__header">
+                <h2 class="slds-text-heading_medium">{previewFileName}</h2>
+            </header>
+
+            <div class="slds-modal__content">
+                <template if:true={isPreviewImage}>
+                    <img src={previewUrl} class="modal-img"/>
+                </template>
+
+                <template if:true={isPreviewPdf}>
+                    <iframe src={previewUrl} width="100%" height="400px"></iframe>
+                </template>
+            </div>
+
+            <footer class="slds-modal__footer">
+                <lightning-button variant="brand" label="Close" onclick={closePreviewModal}></lightning-button>
+            </footer>
+
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+
+
+<template if:true={showFollowUpDate}>
+    <div>
+    <!-- <lightning-input
+        type="date"
+        label="Follow-Up Visit Date"
+        value={followUpDate}
+        onchange={handleFollowUpDateChange}
+        required
+        class="slds-m-top_medium">
+    </lightning-input> -->
+     <lightning-input
+                type="datetime"
+                name="startDate"
+                label="Follow-Up Visit Date"
+                value={selectedDateTime}
+                onchange={handleDateTimeChange} 
+                required>
+
+     </lightning-input>
+    </div>
+</template>
+
+
+       
+
+
+        <!-- <div style="margin-left:4rem; margin-top:1.5rem;"> -->
+            <div class="slds-m-top_medium slds-align_absolute-center">
+            <lightning-button
+                label="Submit Unsuccessful Visit"
+                onclick={handleSubmit}
+                class="slds-m-top_medium"
+                variant="brand">
+            </lightning-button>
+
+        </div>
+        </lightning-card>
+    </template>
+</template>

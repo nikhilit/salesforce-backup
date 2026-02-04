@@ -1,0 +1,25 @@
+.THIS .flexipage-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.THIS .highlight-panel {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 0.25rem;
+}
+
+.THIS .main-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.THIS .sidebar-left {
+    width: 25%;
+}
+
+.THIS .content-area {
+    flex-grow: 1;
+}

@@ -1,0 +1,911 @@
+<apex:page renderAs="pdf" applyBodyTag="false" standardStylesheets="false" lightningStylesheets="false" applyHtmlTag="false"
+           showHeader="false">
+    <head>
+        <style>
+            @page {
+                size: A4;
+                margin-top: 3cm;
+                margin-bottom: 3cm;
+                margin-left: 1cm;
+                margin-right: 1cm;
+            }
+            
+            @page {
+            @bottom-left {
+                content: element(pageFooter);
+            }
+             @top-center {
+        content: element(pageHeader);
+    }
+        }
+
+        #pageFooter {
+            position: running(pageFooter);    
+            text-align: left;
+            font-size: 12px;
+        }
+         #pageHeader {
+            position: running(pageHeader);    
+            text-align: left;
+            font-size: 12px;
+        }
+
+            .pagenumber:before {
+                content: counter(page);
+            }
+           table {
+    		width: 95%;
+    		border-collapse: collapse;
+    		margin: 0 auto;
+    		font-size: 15px;
+            border-spacing: 0;
+            -fs-table-paginate: paginate;
+			}
+
+            tr {
+                  page-break-inside: avoid; 
+                            break-inside: avoid;
+            }
+
+
+            td,th {
+                border: 1px solid #000;
+                text-align: center;
+                height: 35px;
+                border-collapse: collapse;
+                    vertical-align: middle;
+                         padding-bottom:0px;
+            }
+            
+            th {
+                font-weight: bold;
+            }
+            
+            .title-page {
+                page-break-after: always;
+            }
+                        
+             .table-wrapper {
+                page-break-inside: avoid;
+            }
+           .note {
+                        margin: 10px auto 0 auto;
+                        font-family: Arial, sans-serif;
+                        font-size: 11pt;
+            }
+            .note b {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+       <div id="pageFooter">
+            <p>
+                <span class="pagenumber"></span> | Page <br/>
+                Title: NRO for Installation &amp; Testing of Electrical Actuator with Gear Box Assembly on Existing Ball Valves at all CGS terminals             </p>
+        </div>
+    
+    <div id="pageHeader">
+    <table style="width:100%;">
+        <tr>
+            <td style="text-align:left; font-weight:bold; border:none;">
+                Title: Non-Routine Operation
+            </td>
+            <td style="text-align:right; font-weight:bold; border:none;">
+                Record No.: AIQ RE 134
+            </td>
+        </tr>
+    </table>
+</div>
+
+    <body>
+                  <div  class="title-page">
+          
+            <p style="text-align:center;font-weight:bold;">Index</p>
+              <table cellpadding="15">
+            <tr>
+                <th>Sr. No.</th>
+                <th>Particulars</th>
+                <th>Page No.</th>
+            </tr>
+            <tr><td>A</td><td>Non Routine Operation</td><td>2-3</td></tr>
+            <tr><td>B</td><td>Communication List</td><td>4-5</td></tr>
+            <tr><td>C</td><td>Preparatory Steps</td><td>6-7</td></tr>
+            <tr><td>D</td><td>Status of valves before operation</td><td>8</td></tr>
+            <tr><td>E</td><td>Normal Operation Procedure (For Installation of Electric Actuator)</td><td>9</td></tr>
+            <tr><td>F</td><td>Normal Operation Procedure (For Testing of Electric Actuator)</td><td>10-12</td></tr>
+            <tr><td>G</td><td>Status of valves after operation</td><td>13</td></tr>
+            <tr><td>H</td><td>Contingency Action Plan</td><td>14</td></tr>
+            <tr><td>I</td><td>Annexures</td><td>15</td></tr>
+            <tr><td>J</td><td>References</td><td>16</td></tr>
+            <tr><td>K</td><td>Review/Comments</td><td>17</td></tr>
+            <tr><td>L</td><td>Schematic Sketch</td><td>18</td></tr>
+            <tr><td>L</td><td>P&amp;ID of All CGS terminal </td><td>19-23</td></tr>
+        </table>
+        </div>
+        
+                    <div  class="title-page">
+      
+            <p style="text-align:left;font-weight:bold;text-decoration:underline;"> A) Non-Routine Operation</p>
+                 <table cellpadding="1">
+    <tr>
+        <th style="width:30%;">Non-Routine Operation No.</th>
+        <td colspan="3"> O&amp;M / 2025-2026 / 07</td>
+    </tr>
+    <tr>
+        <th>Brief Description of Work</th>
+        <td colspan="3">
+          Installation &amp; Testing of Electric Actuator Assembly on existing Inlet Ball Valve at CGS terminal </td>
+    </tr>
+    <tr>
+        <th>Location</th>
+        <td colspan="3">CGS Sion</td>
+    </tr>
+    <tr>
+        <th style="border:none;border-left:1px solid #000;">Responsible Engineers:</th>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;"  colspan="3"></td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;">Authorizing Engineer (Line Manager):</td>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;"  colspan="3">Jyotish Badiyani / Dilip Martha</td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;">Competent Engineer (Engineer In-Charge):</td>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;" colspan="3">Kalpak Harname / Vinayak Mhamane</td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;" >Other Engineers at Site:</td>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;"  colspan="3">Nitin Pednekar / Pratik Gupta  </td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;" >Competent Technician at Site:</td>
+        <td style="border-top:none;border-right:1px solid #000;" colspan="3">Jaydeep Kesarkar</td>
+    </tr><tr>
+            <th > Prepared by:</th>
+            <td ><br/>Sign: ....................... <br/>Name: Kalpak Harname<br/>DM(O&amp;M) </td>
+            <td colspan="2"><br/>Sign: ....................... <br/>Name: Jyotish Badiyani  <br/>(Terminal In Charge-CGS Sion) </td>
+        </tr>
+
+        <tr>
+            <th rowspan="3">Checked by:</th>
+            <td ><br/>Sign: .......................<br/>Name: Shashank Pradhan  <br/> (CM-O&amp;M) </td>
+            <td colspan="2"><br/>Sign: ....................... <br/>Name: Hemant Awate <br/> (CM - O&amp;M)</td>
+        </tr>
+             <tr>
+             <td ><br/>Sign: .......................<br/>Name: Viraj Kulkarni<br/> (CM-O&amp;M)</td>
+            <td colspan="2"><br/>Sign: ....................... <br/>Name: Vinayak Mhamane  <br/>(DGM-O&amp;M) </td>   
+             </tr>
+           <tr>
+              <td><br/>Sign: ....................... <br/>Name: Sanjay Gawde <br/>(DGM-AI&amp;GIS) </td>
+              <td colspan="2" ><br/>Sign: ....................... <br/>Name: Sachin Ghuge <br/> (DGM-HSE) </td>
+        </tr>
+           
+        <tr>
+            <th rowspan="3"> Reviewed by</th>
+            <td ><br/>Sign: ....................... <br/>Name: Sanjay Gawde  <br/>DGM(AI&amp;GIS </td>
+            <td colspan="2"><br/>Sign: ....................... <br/>Name: Sachin Ghuge <br/>(DGM-HSE)  </td>        </tr>
+     
+         <tr>
+             <td colspan="3" ><br/>Sign: .......................  <br/>Name: Sachin Gumaste   <br/>(GM-O&amp;M) </td>
+        </tr>
+                     <tr>
+             <td colspan="3" ><br/>Sign: .......................  <br/>Name:Ajay Patki  <br/> (AVP - AI&amp;GIS) </td>
+        </tr>
+        <tr>
+             <th rowspan="1"> </th>
+             <td  colspan="3"><br/>Sign: .......................  <br/>Name:Pratap Ayarekar  <br/> (GM-O&amp;M)  </td>
+        </tr>
+         <tr >
+              <th rowspan="1"> </th>
+             <td  colspan="3"><br/>Sign: .......................  <br/><br/> (AVP - AI&amp;GIS) </td>
+        </tr>
+          <tr>
+               <th >Authorized by:</th>
+             <td colspan="3"><br/>Sign: ...................... <br/> (VP - O&amp;M )</td>
+        </tr>
+             <tr>
+               <th >Circulation list</th>
+              <td style="border: 1px solid #000;padding-left:4px;width:30%;text-align:center;" colspan="1"><br/>• HSE <br/>• DIC </td>
+      		 <td style="border: 1px solid #000;padding-left:4px;width:40%;text-align:center;" colspan="2"><br/>• Asset Integrity <br/>• Control Room </td>
+      
+        </tr>
+
+          </table>
+             
+        </div>
+        <div  class="title-page">
+  
+         <p>(B) <b style="border-bottom: 1px solid #000; font-weight: bold;">Communication List:</b></p>
+<table style="width:100%; border-collapse:collapse;">
+    <tr>
+        <th style="width:8%;">Sr. No.</th>
+        <th style="width:57%;">Contact Person</th>
+        <th style="width:35%;">Phone Number</th>
+    </tr>
+
+    <tr><td align="center">1</td ><td style="text-align:left;">Sitanshu Roy Chowdhury</td><td>8657112265</td></tr>
+    <tr><td align="center">2</td><td style="text-align:left;">Pratap Ayarekar</td><td>9324941208</td></tr>
+    <tr><td align="center">3</td><td style="text-align:left;">Sachin Gumaste</td><td>9833941206</td></tr>
+    <tr><td align="center">4</td><td style="text-align:left;">GAIL Control Room</td><td>9819894443</td></tr>
+    <tr><td align="center">5</td><td style="text-align:left;">Dilip Martha</td><td>9324941225</td></tr>
+    <tr><td align="center">6</td><td style="text-align:left;">Vinayak Mhamane</td><td>8424030148</td></tr>
+    <tr><td align="center">7</td><td style="text-align:left;">Dinkar Atkari</td><td>9167841217</td></tr>
+    <tr><td align="center">8</td><td style="text-align:left;">Hemant Awate</td><td>9324905019</td></tr>
+    <tr><td align="center">9</td><td style="text-align:left;">Sunil Gajare</td><td>9324941186</td></tr>
+    <tr><td align="center">10</td><td style="text-align:left;">Shashank Pradhan</td><td>9322862664</td></tr>
+    <tr><td align="center">11</td><td style="text-align:left;">Amrut Chaugule</td><td>9167910587</td></tr>
+    <tr><td align="center">12</td><td style="text-align:left;">Mahesh Kore</td><td>9167997939</td></tr>
+
+    <tr>
+        <td align="center">13</td>
+        <td style="text-align:left;">
+            CGS Sion<br />
+            - Jyotish Badiyani (Terminal In Charge – CGS Sion)<br />
+            - Nearest Hospital: K.J. Somaiya Hospital &amp; Research Center<br />
+            - Nearest Fire Station: Chembur Fire Brigade
+        </td>
+        <td>
+            <br/>
+            8425873716<br />
+            022 5095 4700<br />
+            022 2522 4824
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center">14</td>
+        <td style="text-align:left;">
+            CGS Mahape<br />
+            - Satish Khengare (Terminal In Charge – CGS Mahape)<br />
+            - Nearest Hospital: Divine Multispeciality Hospital<br />
+            - Nearest Fire Station: MIDC Fire Brigade, Koparkhairane
+        </td>
+        <td>
+            <br/>
+            9324941144<br />
+            9820795366<br />
+            022 27780207
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center">15</td>
+        <td style="text-align:left;">
+            CGS Ambernath<br />
+            - Swapnil Mundhe (Terminal In Charge – CGS Ambernath)<br />
+            - Nearest Hospital: Chikhloli Multispeciality Hospital<br />
+            - Nearest Fire Station: MIDC Fire Station, Ambernath
+        </td>
+        <td>
+            <br/>
+            8291391570<br />
+            9972569663<br />
+            0251 2621354
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center">16</td>
+        <td style="text-align:left;">
+            CGS Taloja<br />
+            - Durgesh Gavali (Terminal In Charge – CGS Taloja)<br />
+            - Nearest Hospital: Caladrius Multispeciality Hospital<br />
+            - Nearest Fire Station: Taloja Fire Brigade
+        </td>
+        <td>
+            <br/>
+            8291960811<br />
+            9029609601<br />
+            022 27411432
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center">17</td>
+        <td style="text-align:left;">
+            CGS Savroli<br />
+            - Dalbir Singh (Terminal In Charge – CGS Savroli)<br />
+            - Nearest Hospital: More Hospital and ICU<br />
+            - Nearest Fire Station: MIDC Fire Station, Patalganga
+        </td>
+        <td>
+            <br/>
+            8657982578<br />
+            02192 264466<br />
+            0219 2250151 / 2250161
+        </td>
+    </tr>
+
+    <tr><td align="center">18</td><td style="text-align:left;">Kalpak Harname</td><td>8691091320</td></tr>
+    <tr><td align="center">19</td><td style="text-align:left;">Gorav Gupta</td><td>8291644172</td></tr>
+    <tr><td align="center">20</td><td style="text-align:left;">Pratik Gupta</td><td>8879648662</td></tr>
+    <tr><td align="center">21</td><td style="text-align:left;">Nitin Pednekar</td><td>9324941142</td></tr>
+    <tr><td align="center">22</td><td style="text-align:left;">Pratap Parab</td><td>9324941158</td></tr>
+    <tr><td align="center">23</td><td style="text-align:left;" >Siddhant Jaybhaye</td><td>8657896178</td></tr>
+    <tr><td align="center">24</td><td style="text-align:left;">Jaydeep Kesarkar</td><td>8879590016</td></tr>
+
+    <tr>
+        <td align="center">25</td>
+        <td style="text-align:left;">Emergency Control Room</td>
+        <td>022 24012400 /<br />1800 266 9944</td>
+    </tr>
+
+    <tr><td align="center">26</td><td style="text-align:left;">SCADA Control Room</td><td>022 69836868</td></tr>
+    <tr><td align="center">27</td><td style="text-align:left;">Emergency Response Services (Jeevan Ambulance)</td><td>8850110377</td></tr>
+
+    <tr>
+        <td align="center">28</td>
+        <td style="text-align:left;">Emergency Response Services (BesideU Ambulance Service)</td>
+        <td>7304442525 /<br />1800 220 777</td>
+    </tr>
+</table>
+
+            <p><b>MGL personnel at Site</b></p>
+            <ul>
+        <li>Respective Terminal In Charge </li>
+        <li>Kalpak Harname</li>
+        <li>Gorav Gupta</li>
+        <li>Nitin Pednekar</li>
+        <li>Pratik Gupta</li>
+         <li>Pratap Parab </li>
+                <li>Jaydeep Kesarkar </li>
+    </ul>
+        </div>
+        
+                <div  class="title-page">
+ 
+      <p>(C) <b style="border-bottom: 1px solid #000; font-weight: bold;text-decoration:underline;">Preparatory Steps:</b></p>
+  <table cellpadding="2">
+
+        <tr style="font-weight:bold; text-align:center;">
+      <th style="width:6%;">Sr. No.</th>
+            <th style="width:61%;">Preparatory Work</th>
+            <th style="width:15%;">Action by</th>
+            <th style="width:8%;">Check</th>
+        </tr>
+
+        <tr>
+            <td align="center">1</td>
+            <td style="text-align : left">
+                Ensure compliance to all MGL Life Saving Rules &amp; COP requirements. Conduct Site specific HIRA at site.  
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">2</td>
+            <td style="text-align : left">
+                Ensure all the valves are operating correctly and accessible to be operated and in correct position at the start of NRO. 
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">3</td>
+            <td style="text-align : left">
+                Ensure No smoking / No Naked flames signs are on site
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">4</td>
+            <td style="text-align : left">
+               Ensure that all the personnel involved in the NRO activity are briefed
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+		 <tr>
+            <td align="center">5</td>
+            <td style="text-align : left">
+               Ensure appropriate rating’s crane is available at site and necessary crane related checks are done and documents are checked.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td align="center">6</td>
+            <td style="text-align : left">
+                Ensure GAIL control room has been briefed regarding Electric Actuator Assembly installation &amp; testing work  
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">7</td>
+            <td style="text-align : left">
+                Ensure sufficient gas allocation received from GAIL to accommodate contingency if any 
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">8</td>
+            <td style="text-align : left">
+                Ensure all Sectionalizing Valves Between Steel Network of CGS Sion, Mahape, Taloja &amp; Savroli are in fully open condition &amp; looping is intact. 
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">9</td>
+            <td style="text-align : left">
+               Before commencing NRO at CGS Ambernath terminal, please ensure CTV-PRS arrangements are in place at strategic locations to cater to domestic customers, as CGS Ambernath downstream steel network is not in loop with other CGS. 
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">10</td>
+            <td style="text-align : left">
+                Ensure existing Inlet Ball Valve (V1) at all CGS Terminal is checked for operational condition prior to start of NRO 
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">11</td>
+            <td style="text-align : left">
+              Ensure that Electric Actuator assembly has been duly tested and kept ready for installation &amp; commissioning 
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">12</td>
+            <td style="text-align : left">
+                Ensure Electrical and instrumentation connections from local control panel &amp; SCADA to Electric Actuator Assembly are already carried out. (Required for operation from Local Control Panel and SCADA respectively) 
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">13</td>
+            <td style="text-align : left">
+                Ensure that duly calibrated Gascoseeker and Oxygen meter is available on site &amp; are in proper working conditions. 
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">14</td>
+            <td style="text-align : left">
+                Ensure appropriate 5 nos. of fire extinguishers (9 Kgs. each) and non-sparking tools are available at Site.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+      
+       <tr>
+            <td align="center">15</td>
+            <td style="text-align : left">
+              Ensure that all availability of non-sparking emergency tools &amp; tackles are available on site.</td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">16</td>
+            <td style="text-align : left">
+              Ensure lock out and tag out (LOTO) for valves operated if any during the NRO.
+            </td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td align="center">17</td>
+            <td style="text-align : left">
+                Ensure that all personnel involved in the NRO work are using their recommended PPEs. 
+            <br/>   Refer COP: Section 01 (Clause no. 6 - Personal Protective Equipment) </td>
+            
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+       <tr>
+            <td align="center">18</td>
+            <td style="text-align : left">Ensure usage of fire-retardant suits for technicians involved in NRO activity</td>
+            <td align="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+    </table>
+         <p style="margin-left:0; padding-left:4em; text-indent:-4em;">
+             Note:<br/>
+    All Valves of CGS Sion terminal inspected on 06.03.2025 &amp; found ok.<br />
+    All Valves of CGS Mahape terminal inspected on 20.04.2025 &amp; found ok.<br />
+    All Valves of CGS Ambernath terminal inspected on 09.07.2025 &amp; found ok.<br />
+    All Valves of CGS Taloja terminal inspected on 28.04.2025 &amp; found ok.<br />
+    All Valves of CGS Savroli terminal inspected on 23.03.2025 &amp; found ok.
+</p>
+
+
+                    <p><b>Valve operation:<br/>
+MGL trained technicians will operate the valves. First anti-rust WD - 40 will be applied on the valves and after that valves will be carefully operated by the technicians after application of clamp as suitale.Refer:WI:O&amp; WI 105</b></p>         
+        </div>
+        
+    <div  class="title-page">
+               <p>(D) <b style="border-bottom: 1px solid #000; font-weight: bold;">Status Before operation:</b></p>
+       <table>
+		
+        <tr>
+            <th>Sr. No.</th>
+            <th>Valve No.</th>
+            <th>Status</th>
+            <th>Check</th>
+        </tr>
+
+           <tr><td align="center">1</td><td align="center">G/V1</td><td align="center">OPEN</td><td></td></tr>
+           <tr><td align="center">2</td><td align="center">G/V2</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">3</td><td align="center">V1</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">4</td><td align="center">V2</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">5</td><td align="center">V3</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">6</td><td align="center">V4</td><td align="center">CLOSE</td><td></td></tr>
+        </table>
+        </div>
+        
+          <div  class="title-page">
+               <p>(E) <b style="border-bottom: 1px solid #000; font-weight: bold;">Normal Operation Procedure (For Installation of Electrical Actuator):</b></p>
+              <table cellpadding="2">
+                
+    <tr>
+         <th style="width:6%;">Sr. No.</th>
+            <th style="width:61%;">Operation Procedure</th>
+            <th style="width:15%;">Action by</th>
+            <th style="width:8%;">Check</th>
+    </tr>
+
+    <tr>
+        <td>1</td>
+        <td style="text-align:left;">
+            Ensure compliance with MGL Life Saving Rules and COP requirements. Conduct site specific HIRA. 
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>2</td>
+        <td  style="text-align:left;">
+            Inform Emergency control room about commencement of NRO.
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>3</td>
+        <td  style="text-align:left;">
+           Inform GAIL control room regarding start of NRO 
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>4</td>
+        <td  style="text-align:left;"> 
+            Ensure all personnel working on valve are in Fire-retardant suit &amp; having non-sparking tools with them. 
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>5</td>
+        <td  style="text-align:left;">
+             Check gas percentage before start of work &amp; issue Hot work/Cold work permit after ensuring 0 ppm.
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>6</td>
+        <td  style="text-align:left;">
+            Removal of existing gearbox from the existing Inlet Ball Valve (V1).         </td>
+        <td>O&amp;M Engineer &amp; Sukan Engineering (Contractor) </td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>7</td>
+        <td  style="text-align:left;"> 
+            Install Electric Actuator assembly on the existing Inlet Ball Valve V1 with the help of necessary lifting equipment <br/>
+            <b>(Follow OCP for Lifting operation) </b>
+        </td>
+        <td>O&amp;M Engineer &amp; Sukan Engineering (Contractor) </td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>8</td>
+        <td  style="text-align:left;"> 
+            Ensure proper mounting &amp; tightening of Electric Actuator assembly and check gas leakage if any with gascoseeker and soap solution. 
+        </td>
+        <td>O&amp;M Engineer &amp; Sukan Engineering (Contractor) </td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>9</td>
+        <td  style="text-align:left;">
+            Check fitment of bush by operating the Electrical Actuator upto 5% 
+        </td>
+        <td>O&amp;M Engineer &amp; Sukan Engineering (Contractor) </td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>10</td>
+        <td  style="text-align:left;">
+            If the valve movement is as desired, close the activity. Else, remove the actuator, reinstall the old gear box and proceed for rectification of bush.
+        </td>
+        <td>O&amp;M Engineer &amp; Sukan Engineering (Contractor) </td>
+        <td></td>
+    </tr>
+
+    
+</table>
+        </div>
+          <div  class="title-page">
+               <p>(F) <b style="border-bottom: 1px solid #000; font-weight: bold;">Normal Operation Procedure (For Testing of Electrical Actuator):</b></p>
+              <table cellpadding="2">
+                
+    <tr>
+         <th style="width:6%;">Sr. No.</th>
+            <th style="width:61%;">Operation Procedure</th>
+            <th style="width:15%;">Action by</th>
+            <th style="width:8%;">Check</th>
+    </tr>
+
+    <tr>
+        <td>1</td>
+        <td style="text-align:left;">
+            Ensure compliance with MGL Life Saving Rules and COP requirements. Conduct site specific HIRA. 
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>2</td>
+        <td  style="text-align:left;">
+            Inform Emergency control room about commencement of NRO.
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>3</td>
+        <td  style="text-align:left;">
+           Inform GAIL control room regarding start of NRO 
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>4</td>
+        <td  style="text-align:left;"> 
+            Ensure all personnel working on valve are in Fire-retardant suit &amp; having non-sparking tools with them. 
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>5</td>
+        <td  style="text-align:left;">
+             Check gas percentage before start of work &amp; issue Hot work/Cold work permit after ensuring 0 ppm.
+        </td>
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>6</td>
+        <td  style="text-align:left;">
+            Start monitoring of CGS Downstream network pressure</td> 
+        <td>O&amp;M Engineer</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>7</td>
+        <td  style="text-align:left;"> 
+            Close Ball Valve (V1) 100% manually using newly installed electric actuator assembly 
+        </td>
+        <td>O&amp;M Engineer &amp; Sukan Engineering (Contractor) </td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>8</td>
+        <td  style="text-align:left;"> 
+            Close Valve V2   
+        </td>
+        <td>O&amp;M Engineer &amp; Sukan Engineering (Contractor) </td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>9</td>
+        <td  style="text-align:left;">
+            Ensure Vent Stack is available at Valve V4, then open Valve V4 slowly and vent the residual gas from the pipeline.<br/>  
+            <b>Follow work instruction O&amp;M WI: 102 </b>        </td>
+        <td>O&amp;M Engineer &amp; Sukan Engineering (Contractor) </td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>10</td>
+        <td  style="text-align:left;">
+            Ensure complete closing of valve V1 by checking gas flow at Valve V4 Vent stack, if found any gas flow at valve V4 vent stack then carry out necessary alignment &amp; calibration in Electric Actuator Assembly to ensure complete closing of Valve V1 
+        </td>
+        <td>O&amp;M Engineer &amp; Sukan Engineering (Contractor) </td>
+        <td></td>
+    </tr>
+<tr>
+        <td>11</td>
+        <td  style="text-align:left;">
+            After Ensuring complete closure of Ball valve V1. Close Valve V4 
+        </td>
+        <td>O&amp;M Engineer &amp; Sukan Engineering (Contractor) </td>
+        <td></td>
+    </tr>
+    
+</table>
+        </div>
+         <div  class="title-page">
+               <p>(F) <b style="border-bottom: 1px solid #000; font-weight: bold;">Status After operation:</b></p>
+            <table>
+		
+        <tr>
+            <th>Sr. No.</th>
+            <th>Valve No.</th>
+            <th>Status</th>
+            <th>Check</th>
+        </tr>
+
+                <tr><td align="center">1</td><td align="center">G/V1</td><td align="center">OPEN</td><td></td></tr>
+                <tr><td align="center">2</td><td align="center">G/V2</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">3</td><td align="center">V1</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">4</td><td align="center">V2</td><td align="center">OPEN</td><td></td></tr>
+        <tr><td align="center">5</td><td align="center">V3</td><td align="center">CLOSE</td><td></td></tr>
+        <tr><td align="center">6</td><td align="center">V4</td><td align="center">CLOSE</td><td></td></tr>
+        </table>     
+        </div>
+        
+         <div  class="title-page">
+ <p> <b style="border-bottom: 1px solid #000; font-weight: bold;">(G) Contingency Action Plan:</b></p>
+    <p><b style="text-decoration:underline;color:red"> In case of Passing of Valve V04:</b> </p>
+ <table>	
+        <tr>
+            <th style="width:10%;">Sr. No.</th>
+            <th>Description of work</th>
+            <th>Responsibility</th>
+        </tr>
+     <tr><td colspan="3" style="background-color:gray;"><b>Action Steps in case of Contingency</b></td></tr>
+        <tr><td>1</td><td> Give information to the Emergency control room about the Passing of Valve V04.</td><td >O&amp;M Engineer </td></tr>
+     <tr><td>2</td><td> Inform CNG stations regarding shutdown as <b>per Annexure - IV</b></td><td>O&amp;M Engineer </td></tr>
+		<tr><td>3</td><td>Check for any potential sources of ignition in the vicinity of valve V08 (Size 2”) and remove if found. </td><td>O&amp;M Engineer </td></tr>
+     <tr><td>4</td><td> Close valve V02 &amp; open valve V07</td><td>O&amp;M Technician </td></tr>
+     <tr><td>5</td><td>Connect vent stack and flame arrestor at Valve V08. Open Valve V08 and vent the residual gas in the pipeline using a vent stack and flame arrestor. If still gas is found passing, then abandon the NRO and inform the emergency control room. <b>Refer COP: Section 08 (Clause no. 3- Purging &amp; commissioning of mains)</b> </td><td>O&amp;M Technician &amp; O&amp;M Engineer </td></tr>
+     <tr><td>6</td><td>If gas is not passing then carry out the work as per the normal operation procedure, ensuring pre and post purging as per the sections isolated in conformance with COP <b>Section 08 (Clause no. 3- Purging &amp; commissioning of mains)</b> </td><td>O&amp;M Engineer </td></tr>
+     <tr><td>7</td><td> Restore the valves to its original positions that are prior to the start of the NRO. </td><td>O&amp;M Engineer </td></tr>
+     <tr><td>8</td><td> Inform Emergency control Room about completion of NRO.</td><td>O&amp;M Engineer </td></tr>
+        </table> 
+             
+              <p><b style="text-decoration:underline;color:red"> In case of Passing of Valve V03:</b> </p>
+      
+      <table>	
+        <tr>
+            <th  style="width:10%;">Sr. No.</th>
+            <th>Description of work</th>
+            <th>Responsibility</th>
+        </tr>
+     <tr><td colspan="3" style="background-color:gray;"><b>Action Steps in case of Contingency</b></td></tr>
+        <tr><td>1</td><td> If Valve V03 is found passing, then abandon the NRO and inform the emergency control room .</td><td >O&amp;M Engineer </td></tr>
+        </table>     
+    
+        </div>
+       <div  class="title-page">
+               <p>(H) <b style="border-bottom: 1px solid #000; font-weight: bold;text-align:center;">ANNEXURES:</b></p>
+             <p style="text-decoration:underline; font-weight: bold;"> Annexure I: CNG Stations to be affected due to Normal operation during NRO Activity</p>
+           <table>	
+        <tr>
+            <th style="background-color:gray;">Sr. No.</th>
+            <th style="background-color:gray;">Retail Outlet Name</th>
+            <th style="background-color:gray;">Action Point</th>
+        </tr>
+               <tr><td>1</td><td> Mumbai Central Depot </td><td rowspan="7">Prior Intimation regarding shutdown <br/> will be given by Mktg Department to respective CNG pump dealers. </td></tr>
+     <tr><td>2</td><td> Royal Auto, Bhendi Bazar </td></tr>
+		<tr><td>3</td><td>Chhagan Mitha CNG Station </td></tr>
+     <tr><td>4</td><td> Kausar Auto, Agripada</td></tr>
+     <tr><td>5</td><td>Patel Brothers, Byculla </td></tr>
+     <tr><td>6</td><td>New Modern CNG Station </td></tr>
+     <tr><td>7</td><td>AD Adjania CNG Station </td></tr>
+  </table>     
+           <br/>
+
+        <div class="note">
+            Above-mentioned CNG Outlets are SCADA Enabled. Same can be shut down from SCADA Control Room <br/>
+        </div>
+             <p style="text-decoration:underline; font-weight: bold;text-align:center;"> Annexure II: DRS/MRS to be affected due to normal operation during NRO Activity:</p>
+                 <table>	
+        <tr>
+            <th  style="width:15%;">DRS</th>
+            <th>Domestic Customers</th>
+            <th>Commercial A/B/C Customers</th>
+             <th>Industrial Customers</th>
+            <th>CTV-PRS connectivity<br/> required (YES/NO)</th>
+        </tr>
+      <tr><td>DRS-32</td><td>6931  </td><td>26 </td><td>0</td><td>YES</td></tr>
+     <tr><td>DRS-33</td><td>5580 </td><td> 86</td><td>0</td><td>YES</td></tr>
+     <tr><td>DRS-40</td><td>0</td><td>0 </td><td>0</td><td>NO</td></tr>
+  </table>  
+           
+     <p style="text-decoration:underline; font-weight: bold;text-align:center;"> Annexure III: MRS to be affected due to normal operation during NRO Activity:</p>
+         <table>	
+        <tr>
+            <th style="background-color:gray;">Sr. No.</th>
+            <th style="background-color:gray;">MRS Name</th>
+        </tr>
+    <tr><td>1</td><td>Trident, Nariman Point</td></tr>
+  <tr><td>2</td><td>Taj Vivanta, Cuffe Parade </td></tr>
+	<tr><td>3</td><td> Hotel Taj Mahal, Fort</td></tr>
+  </table>   
+           
+   <p style="text-decoration:underline; font-weight: bold;text-align:center;"> Annexure IV: CNG Stations to be affected due to normal operation during NRO Activity</p>
+         <table>	
+        <tr>
+            <th style="background-color:gray;">Sr. No.</th>
+            <th style="background-color:gray;">Retail Outlet Name</th>
+             <th style="background-color:gray;">Action Point</th>
+        </tr>
+             <tr><td>1</td><td>Sonal Super CNG Station</td><td rowspan="3">Prior Intimation regarding shutdown will be<br/> given by Mktg Department to respective CNG pump dealers.</td></tr>
+             <tr><td>2</td><td>Gujrat Service Station, Arthor Road</td></tr>
+  </table>     
+           
+           <p>Above mentioned CNG Outlets are SCADA Enabled. Same can be shut down from SCADA Control Room. <br/> </p>
+        </div>
+       
+         <div  class="title-page">
+               <p>(I) <b style="border-bottom: 1px solid #000; font-weight: bold;">REFERENCE:</b></p>
+             <p style="font-weight: bold;"> Applicable MGL Standard/SOP's</p>
+                    <ol>
+        <li>COP Section 01: Safety Specific requirement</li>
+        <li>COP Section 03: Excavation &amp; Deep Excavation</li>
+        <li>COP Section 08: Purging &amp; commissioning</li>
+        <li>COP Section 051: Steel pipeline laying works</li>
+        <li>COP Section 52: Welding &amp; Associated works</li>
+        <li>COP Section 53: Protective Coating on steel pipeline</li>
+        <li>COP Section 54: Hydro testing of Steel Pipeline and Valve Assembly</li>
+        <li>SCO: Procedure for Non routine operations</li>
+        <li>HIRA Format- ISO 45001</li>              
+        <li>SCO 02: Permit to Work</li>
+        <li>O&amp;M WI : 102 (Work instruction for Commissioning &amp; Maintenance of steel pipeline)</li>
+         <li>O&amp;M WI : 110 (Work instruction for Maintenance of DRS)</li>
+    </ol>
+             
+        </div>
+         <p>(J) <b style="border-bottom: 1px solid #000; font-weight: bold;">Review by HSE,AI,Planning etc. as applicable</b></p>
+        <p>
+        In case of urgencies, comments may be given telephonically; A “NIL RETURN” to be sent in case of no comments i.e. mention “No Comments” in the space below and return
+        </p>
+        
+    </body>
+</apex:page>

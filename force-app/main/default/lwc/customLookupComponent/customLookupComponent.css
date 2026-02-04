@@ -1,0 +1,193 @@
+.pillSize{
+    width : 100%
+}
+
+lightning-radio-group .slds-radio_faux {
+    margin-right: 10px;
+}
+
+.slds-modal__content{
+    overflow: initial;
+}
+
+.slds-pill{
+    padding: 4px;
+    width: 100%;
+    line-height: 26px;
+}
+
+.slds-pill__label{
+    max-width: none;
+    width: calc(100% - 55px);
+}
+
+.slds-pill__remove{
+    margin-right: 5px;
+    margin-left: 0px;
+}
+
+.inputClass{
+    line-height: var(--lwc-lineHeightButton,1.875rem);
+    /* min-height: calc(2.125rem + 2px); */
+}
+
+/* CUSTOM INPUT FIELD */
+input,
+button {
+    background: #fff;
+}
+
+input:disabled {
+    /* background-color: #eee; */
+    cursor: not-allowed;
+}
+
+button:disabled{
+    cursor: not-allowed;
+}
+
+.input-box.active-grey .input-1 {
+    border: 1px solid #dadce0;
+}
+
+.input-box.active-grey .input-label {
+    color: #80868b;
+    top: -8px;
+    background: #fff;
+    font-size: 11px;
+    transition: 250ms;
+}
+
+.input-box.active-grey .input-label svg {
+    position: relative;
+    width: 11px;
+    height: 11px;
+    top: 2px;
+    transition: 250ms;
+}
+
+.input-box {
+    position: relative;
+    /* margin: 10px 0; */
+}
+
+.input-box .input-label {
+    position: absolute;
+    color: #80868b;
+    font-size: 14px;
+    font-weight: 400;
+    max-width: calc(100% - (2 * 8px));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    left: 8px;
+    top: 7px;
+    padding: 0 8px;
+    transition: 250ms;
+    user-select: none;
+    pointer-events: none;
+}
+
+.input-box .input-label svg {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    top: 2px;
+    transition: 250ms;
+}
+
+.input-box .input-1 {
+    box-sizing: border-box;
+    height: 35px;
+    width: 100%;
+    border-radius: 4px;
+    color: #202124;
+    border: 1px solid #dadce0;
+    padding: 10px;
+    transition: 250ms;
+    --sds-c-pill-color-background-hover:white;
+}
+
+.input-box .input-1:focus {
+    outline: none;
+    border: 2px solid rgb(114, 126, 140);/*#1a73e8;*/
+    transition: 250ms;
+}
+
+.input-box.error .input-label {
+    color: #f44336;
+    top: -8px;
+    background: #fff;
+    font-size: 11px;
+    transition: 250ms;
+}
+
+.input-box.error .input-1 {
+    border: 2px solid #f44336;
+}
+
+.input-box.focus .input-label,
+.input-box.active .input-label {
+    color: rgb(114, 126, 140);/*#1a73e8;*/
+    top: -8px;
+    background: #fff;
+    font-size: 11px;
+    transition: 250ms;
+}
+
+.input-box.focus .currency-symbol,
+.input-box.active .currency-symbol {
+    display: block;
+}
+
+.input-box.focus .input-label svg,
+.input-box.active .input-label svg {
+    position: relative;
+    width: 11px;
+    height: 11px;
+    top: 2px;
+    transition: 250ms;
+}
+
+.input-box.active .input-1 {
+    border: 2px solid rgb(114, 126, 140);/*#1a73e8;*/
+}
+
+.input-option {
+    padding: 0.5rem 0.75rem;
+}
+
+.input-option:hover {
+    background-color: #f3f3f3;
+}
+
+/*CURRENCY*/
+.currency-input {
+    padding-left: 22px !important;
+}
+
+.currency-symbol {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 12px;
+    font-size: 13px;
+    display: none;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.icon-container {
+    right: 5px;
+    position: absolute;
+    top: 10px;
+}
+
+.verified-icon {
+    height: 15px;
+    width: 15px;
+}

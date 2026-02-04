@@ -1,0 +1,174 @@
+<template>
+    <lightning-card title="Work Order List View" icon-name="standard:work_order">
+        <div class="slds-p-around_x-small">
+
+            <!-- Section 1: Filters -->
+            <section class="slds-box slds-m-bottom_x-small">
+                <!-- <div class="slds-text-heading_small slds-m-bottom_small">Filters</div> -->
+                 <div style="display: flex;justify-content:end;gap:10px">
+                <div >
+                    <lightning-button label="Filter" onclick={toggleCart} variant="brand"></lightning-button>
+                </div>
+                <div >
+                    <lightning-button label="Assign Agency" onclick={toggleAssignCart} variant="brand"></lightning-button>
+                </div>
+                </div>
+            </section>
+
+            <!-- Section 2: DataTable -->
+            <section class="slds-box slds-m-bottom_medium">
+                <div class="slds-text-heading_small slds-m-bottom_small">Work Orders</div>
+
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </template>
+
+                <template if:true={selectedCount}>
+                    <div class="slds-m-bottom_small">
+                        <strong>{selectedCount}</strong> Work Order(s) selected
+                    </div>
+                </template>
+                
+                <lightning-datatable
+                    data={pagedData}
+                    columns={columns}
+                    key-field="Id"
+                    onrowselection={handleRowSelection}
+                    selected-rows={selectedWorkOrderIds}>
+                </lightning-datatable>
+
+                
+                <div class="slds-m-top_small slds-grid slds-grid_align-spread slds-align_absolute-center">
+                    <lightning-button 
+                        label="Previous" 
+                        onclick={handlePrevPage} 
+                        disabled={isPrevDisabled}>
+                    </lightning-button>
+                    <p>Total {totalSize} |  Page {pageNumber} of {totalPages}</p>
+                    <lightning-button 
+                        label="Next" 
+                        onclick={handleNextPage} 
+                        disabled={isNextDisabled}>
+                    </lightning-button>
+
+                </div>
+            </section>
+
+            <!-- Section 3: Assignment Panel -->
+            <!-- <section class="slds-box">
+               
+            </section> -->
+
+        </div>
+        <div class={cartSidebarClass}>
+        <div class="cart-header">
+            <!-- <h3>Shopping Cart</h3> -->
+            <div class="cart-header-right">
+                <!-- <span class="cart-count">Warehouse List</span> -->
+                <button class="close-button" onclick={closeCart}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="cart-items slds-scrollable slds-var-m-around--small">
+            <div class="slds-grid slds-wrap slds-gutters">
+                    <!-- <div class="slds-col slds-size_1-of-4">
+                        <lightning-input type="text" label="Invoice From" value={invoiceFrom} data-name="invoiceFrom" onchange={handleFilterChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-4">
+                        <lightning-input type="text" label="Invoice To" value={invoiceTo} data-name="invoiceTo" onchange={handleFilterChange}></lightning-input>
+                    </div> -->
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input label="Location" value={location} data-name="location" onchange={handleFilterChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-combobox label="Status" value={status} options={statusOptions} data-name="status" onchange={handleFilterChange}></lightning-combobox>
+                    </div> 
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input label="Pin Code" value={pinCode} data-name="pinCode" onchange={handleFilterChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-combobox label="Agency" value={selectedAgencyFilter} options={agencyOptions} placeholder="All" data-name="agency" onchange={handleFilterChange}></lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-combobox label="Work Type" value={activityType} options={workTypeOptions} placeholder="All" data-name="activityType" onchange={handleFilterChange}></lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-combobox label="Agent" value={selectedAgentFilter} options={agentOptions} placeholder="All" data-name="agent" onchange={handleFilterChange}></lightning-combobox>
+                    </div>
+                </div>
+                <div class="slds-m-top_small">
+                    <lightning-button label="Search" variant="brand" onclick={applyFilters}></lightning-button>
+                    <lightning-button label="Clear" class="slds-m-left_small" onclick={clearFilters}></lightning-button>
+                </div>
+        </div>
+
+    </div>
+     <div class={cartSidebarAssignOrderClass}>
+        <div class="cart-header">
+            <!-- <h3>Shopping Cart</h3> -->
+            <div class="cart-header-right">
+                <!-- <span class="cart-count">Warehouse List</span> -->
+                <button class="close-button" onclick={closeAssignCart}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="cart-items slds-scrollable slds-var-m-around--small">
+             <div class="slds-text-heading_small slds-m-bottom_small">Assign Selected Work Orders</div>
+
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-combobox label="Select Agent" options={agentOptions} value={selectedAgentForAssign} placeholder="--Select--" onchange={handleAgentAssignChange}></lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-combobox label="Select Agency" options={agencyOptions} value={selectedAgencyForAssign} placeholder="--Select--" onchange={handleAgencyAssignChange}></lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-combobox label="Work Type" options={workTypeOptions} value={selectedWorkTypeForAssign} onchange={handleWorkTypeChange}></lightning-combobox>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-m-top_small">
+                        <!-- <lightning-input type="date" label="Start Date" value={startDateForAssign} onchange={handleStartDateChange}></lightning-input> -->
+                        <lightning-input 
+                            type="datetime-local" 
+                            label="Start Date & Time" 
+                            value={startDateForAssign} 
+                            onchange={handleStartDateChange}>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-m-top_small">
+                        <!-- <lightning-input type="date" label="End Date" value={endDateForAssign} min={startDateForAssign} onchange={handleEndDateChange}></lightning-input> -->
+                        <lightning-input 
+                            type="datetime-local" 
+                            label="End Date & Time" 
+                            value={endDateForAssign} 
+                            min={startDateForAssign} 
+                            onchange={handleEndDateChange}>
+                        </lightning-input>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1 slds-m-top_xx-large">
+                        <lightning-button label="Assign" variant="brand" onclick={handleAssign} disabled={isAssignDisabled}></lightning-button>
+                        <lightning-button label="Reset" class="slds-m-left_small" onclick={handleResetAssign}></lightning-button>
+                    </div>
+                </div>
+
+                <template if:true={isAssignLoading}>
+                    <div class="slds-m-top_small">
+                        <lightning-spinner alternative-text="Assigning..." size="medium"></lightning-spinner>
+                    </div>
+                </template>
+        </div>
+
+    </div>
+    </lightning-card>
+</template>

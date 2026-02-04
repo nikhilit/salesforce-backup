@@ -1,0 +1,178 @@
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    transition: right 0.3s ease;
+    z-index: 9001;
+    overflow-y: auto;
+}
+
+.cart-sidebar.open {
+    right: 0;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #dddbda;
+    background: #f8fafc;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-button:hover {
+    background: #e2e8f0;
+}
+
+.cart-items {
+    padding: 1rem;
+}
+
+/* Multi-select dropdown styling */
+.multi-select-container {
+    position: relative;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    cursor: pointer;
+    padding: 0.5rem 0;
+}
+
+.custom-checkbox {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #dddbda;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.custom-checkbox.checked {
+    background: #0070d2;
+    border-color: #0070d2;
+}
+
+.custom-checkbox.checked::after {
+    content: '✓';
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.checkbox-label {
+    flex: 1;
+    color: #181818;
+    font-size: 0.875rem;
+}
+
+.hidden-checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Dropdown styling */
+.slds-dropdown {
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.slds-dropdown__item {
+    padding: 0;
+    border-bottom: 1px solid #f3f2f2;
+}
+
+.slds-dropdown__item:last-child {
+    border-bottom: none;
+}
+
+.slds-dropdown__item:hover {
+    background: #f3f2f2;
+}
+
+/* Form element spacing */
+.slds-form-element {
+    margin-bottom: 1rem;
+}
+
+.slds-form-element__label {
+    font-weight: 600;
+    color: #181818;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Ensure proper spacing */
+.slds-gutters > .slds-col {
+    padding: 0.5rem;
+}/* Fix datatable width and prevent horizontal scroll */
+.slds-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+/* Make datatable container full width */
+.slds-table_container {
+    width: 100%;
+    overflow-x: hidden;
+}
+/* Display all badges side by side */
+.department-list {
+    display: flex;
+    flex-wrap: wrap;         /* wrap to next line if needed */
+    gap: 22px;              /* spacing between badges */
+}
+
+/* Badge style */
+.dept-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 20px;     /* pill shape */
+    border: 1px solid #0a0909;
+    font-size: 14px;
+}
+
+/* Emoji color square */
+.dept-color {
+    font-size: 16px;
+}
+
+/* Department name */
+.dept-name {
+    font-weight: 600;
+}
+
+/* Count number */
+.dept-count {
+    font-weight: 700;
+}

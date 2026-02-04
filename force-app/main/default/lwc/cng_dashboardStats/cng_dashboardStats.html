@@ -1,0 +1,90 @@
+<template>
+    <div class="page-header slds-p-around_small slds-grid slds-grid_align-spread">
+<div>
+            <p class="title-text">{stationName}</p>
+        </div>
+        <div class="slds-col_bump-left action-icon">
+            <lightning-icon
+                icon-name="utility:apps"
+                size="small"
+                onclick={toggleCart}
+                alternative-text="Open Quick Actions"
+                title="Quick Actions">
+            </lightning-icon>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Sales Quantity -->
+        <div class="card">
+            <div class="header">
+                <span class="title">Sales Quantity (in KG)</span>
+                <lightning-icon icon-name="utility:preview" size="x-small"></lightning-icon>
+            </div>
+
+            <div class="value">63,890</div>
+
+            <div class="meta">
+                <p>MTD AVG : 6,389 KG/Day</p>
+                <p>As on Date : 10-01-2026</p>
+            </div>
+        </div>
+
+        <!-- Sales Amount -->
+        <div class="card">
+            <div class="header">
+                <span class="title">Sales Amount (in ₹)</span>
+                <lightning-icon icon-name="utility:preview" size="x-small"></lightning-icon>
+            </div>
+
+            <div class="value">51,43,145</div>
+
+            <div class="meta">
+                <p>Received : 53,89,342</p>
+                <p>As on Date : 10-01-2026</p>
+            </div>
+        </div>
+
+        <!-- Commission Earned -->
+        <div class="card">
+            <div class="header">
+                <span class="title">Commission Earned (in ₹)</span>
+                <lightning-icon icon-name="utility:preview" size="x-small"></lightning-icon>
+            </div>
+
+            <div class="value">0</div>
+
+            <div class="meta">
+                <p>AVG : 0/Day</p>
+                <p>Note - Incl of Taxes</p>
+            </div>
+        </div>
+
+        <!-- STC Card Status -->
+        <div class="card">
+            <div class="header">
+                <span class="title">STC Card Status</span>
+                <lightning-icon icon-name="utility:preview" size="x-small"></lightning-icon>
+            </div>
+
+            <div class="value">0 | 0</div>
+
+            <div class="meta">
+                <p>Expired | Expiring (in Next 30 days)</p>
+            </div>
+        </div>
+    </div>
+     <div class={cartSidebarClass}>
+        <div class="cart-header slds-grid slds-grid_align-end">
+            <button
+                class="close-button"
+                onclick={closeCart}
+                title="Close">
+                ✕
+            </button>
+        </div>
+
+        <div class="cart-items slds-scrollable">
+            <c-portal-quick-action-component child-record-id={recordId}></c-portal-quick-action-component>
+        </div>
+    </div>
+</template>

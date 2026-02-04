@@ -1,0 +1,167 @@
+<template>
+    <lightning-card>
+        <!-- Spinner when loading -->
+        <template if:true={isLoading}>
+            <div class="slds-is-relative">
+                <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Status Message + Refresh + New -->
+        <template if:true={statusMessage}>
+            <div class="slds-grid slds-p-horizontal_medium slds-p-vertical_x-small slds-grid_align-end" style="gap:0.5rem;">
+                 <lightning-button 
+                    variant="brand-outline" 
+                    icon-name="utility:add" 
+                    label="New" 
+                    onclick={handleNew}>
+                </lightning-button>
+                <lightning-button 
+                    variant="brand-outline" 
+                    icon-name="utility:refresh" 
+                    label="Refresh" 
+                    onclick={handleRefresh}>
+                </lightning-button>
+            </div>
+        </template>
+
+        <!-- New Row Form -->
+        <template if:true={showNewRow}>
+            <div class="slds-grid slds-wrap slds-grid_align-spread slds-grid_vertical-align-center slds-p-bottom_medium" style="gap:1rem; align-items:center;">
+                <!-- Meter Reading Reason -->
+                <div class="slds-col slds-size_1-of-6">
+                    <lightning-input 
+                        type="text" 
+                        label="Meter Reading Reason" 
+                        value="09"
+                        data-field="reason"
+                        disabled=true>
+                    </lightning-input>
+                </div>
+
+                <!-- Meter Reading Type -->
+                <div class="slds-col slds-size_1-of-6">
+                    <lightning-input 
+                        type="text" 
+                        label="Meter Reading Type" 
+                        value="02"
+                        data-field="type"
+                        disabled=true>
+                    </lightning-input>
+                </div>
+
+                <!-- Meter Reading -->
+                <div class="slds-col slds-size_1-of-6">
+                    <lightning-input 
+                        type="number" 
+                        label="Meter Reading" 
+                        value={newRow.reading} 
+                        onchange={handleNewInputChange} 
+                        data-field="reading">
+                    </lightning-input>
+                </div>
+
+                <!-- MR Note -->
+                <!-- <div class="slds-col slds-size_1-of-6">
+                    <lightning-input 
+                        type="text" 
+                        label="MR Note" 
+                        value={newRow.note} 
+                        onchange={handleNewInputChange} 
+                        data-field="note">
+                    </lightning-input>
+                </div> -->
+
+                <!-- Save Button -->
+                <div class="slds-col slds-size_1-of-6" style="display:flex; align-items:flex-end; padding-top:1.5rem;">
+                    <lightning-button 
+                        variant="brand" 
+                        label="Save" 
+                        onclick={handleNewSave}>
+                    </lightning-button>
+                </div>
+            </div>
+        </template>
+
+        <!-- Data Table -->
+        <template if:true={sapData}>
+            <div class="slds-scrollable_x" style="max-height: 400px;">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered">
+                    <thead>
+                        <tr>
+                            <th>Device</th>
+                            <th>Meter Reading Date</th>
+                            <th>Meter Reading Reason</th>
+                            <th>Reason Text</th>
+                            <th>MA</th>
+                            <th>Meter Reading Type</th>
+                            <th>Type Text</th>
+                            <th>Meter Reading Status</th>
+                            <th>Status Text</th>
+                            <th>Meter Reading</th>
+                            <th>Scheduled MR Date</th>
+                            <th>Actual MR Date</th>
+                            <th>Actual MR Time</th>
+                            <th>Meter Reader</th>
+                            <th>Reader Name</th>
+                            <th>MR Note</th>
+                            <th>MR Note Text</th>
+                            <th>Installation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Existing rows (read-only) -->
+                        <template for:each={sapData} for:item="row">
+                            <tr key={row.key}>
+                                <td>{row.DEVICE}</td>
+                                <td>
+    <lightning-formatted-date-time 
+        value={row.MR_DATE}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+                                <td>{row.MR_RSN}</td>
+                                <td>{row.MR_RSN_TXT}</td>
+                                <td>{row.MULTIPLE}</td>
+                                <td>{row.MR_TYPE}</td>
+                                <td>{row.MR_TYPE_TXT}</td>
+                                <td>{row.MR_STATUS}</td>
+                                <td>{row.MR_STATUS_TXT}</td>
+                                <td>{row.MR_READING}</td>
+                                 <td>
+    <lightning-formatted-date-time 
+        value={row.SCH_MR_DATE}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+<td>
+    <lightning-formatted-date-time 
+        value={row.ACTUAL_MR_DATE}
+        year="numeric"
+        month="2-digit"
+        day="2-digit">
+    </lightning-formatted-date-time>
+</td>
+                                <td>{row.formattedTime}</td>
+                                <td>{row.METER_READER}</td>
+                                <td>{row.READER_NAME}</td>
+                                <td>{row.MR_NOTE}</td>
+                                <td>{row.MR_NOTE_TXT}</td>
+                                <td>{row.INSTALLATION}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+
+        <!-- Error -->
+        <template if:true={error}>
+            <p class="slds-text-color_error slds-p-around_medium">{error}</p>
+        </template>
+    </lightning-card>
+</template>

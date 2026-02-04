@@ -1,0 +1,14 @@
+:host {
+    position: relative !important;
+    z-index: 0 !important;
+}
+
+.content-wrapper {
+    position: relative !important;
+    z-index: 0 !important;
+}
+
+lightning-card {
+    position: relative !important;
+    z-index: 0 !important;
+}

@@ -1,0 +1,160 @@
+<template>
+<lightning-card class="slds-card">
+                <div class="slds-p-around_medium" >
+
+                     <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+
+                     <template if:true={showCheckBox}> 
+
+                        <div class="slds-m-bottom_medium" style="margin-top:-12px;">
+                            <lightning-radio-group name="customerAvailability"
+                                label="Is the customer available in location?" options={availabilityOptions}
+                                value={customerAvailability} type="radio" onchange={handleAvailabilityChange}
+                                style="margin-left:1rem;">
+                            </lightning-radio-group>
+
+                        </div>
+                     </template> 
+
+                    <template if:true={ReasonForUnavailability}>
+                        <div class="slds-grid slds-wrap slds-p-around_medium">
+                            <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+                                <lightning-combobox name="reason" label="Reason for Unavailability"
+                                    value={unavailability} options={reasonUnavailability}
+                                    onchange={handlereasonForUnavailability}>
+                                </lightning-combobox>
+                            </div>
+                        </div>
+
+                        <template if:true={isotherreason}>
+                              <div class="slds-grid slds-wrap slds-p-around_medium">
+                            <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+                                 <lightning-input type="Text" label="Please Enter Reason"
+                                    value={reasonentry} onchange={handleReasonEntry} required="true">
+                                </lightning-input>
+                                 </div>
+                        </div>
+                        </template>
+                
+<template if:true={fileuploading}>
+    <!-- Upload Images -->
+<h2 class="slds-text-heading_small slds-m-bottom_small">Upload Images</h2>
+
+<div class="slds-grid slds-wrap">
+    <template for:each={documentTypes} for:item="types">
+        <div key={types.label} class="slds-col slds-size_1-of-2 upload-box">
+
+            <p class="label">{types.label}</p>
+
+            <label class="preview-container">
+                <!-- if image uploaded-->
+                <template if:true={types.uploaded}>
+                    <img src={types.previewUrl} alt="Preview" class="image-preview" />
+
+                    <button class="remove-button"
+                            data-label={types.label}
+                            onclick={removeImage}>
+                    </button>
+                </template>
+
+                <!-- if image not uploaded -->
+                <template if:false={types.uploaded}>
+                    <input type="file"
+                        accept="image/*"
+                        data-label={types.label}
+                        onchange={handleImageUpload}
+                        class="file-input"/>
+
+                    <lightning-icon icon-name="utility:photo"
+                                    size="medium"
+                                    class="camera-icon">
+                    </lightning-icon>
+                </template>
+
+            </label>
+
+        </div>
+    </template>
+</div>
+
+
+<!-- 
+ <button
+            class="slds-button slds-button_brand slds-var-m-top_medium"
+            disabled={uploadingFile}
+            onclick={handleUploadClick}
+        >
+            <label>Upload</label>
+        </button> -->
+
+</template>
+
+   <!-- fileUpload.html -->
+<!-- <template if:true={fileuploading}>
+    <h1>File Upload</h1>
+
+    <div>
+        <lightning-input
+                type="file"
+                name="fileUploader"
+                label="Select file to upload"
+                multiple="false"
+                accept="image/*"
+                onchange={handleFilesInputChange}
+            >
+            </lightning-input>
+        </div>
+
+    <div if:true={fileName}>
+
+        <p>Selected file:</p>
+        <p>{fileName}</p>
+        
+        <div class="inputs">
+            <lightning-input
+                type="text"
+                label="Title"
+                value={titleValue}
+                onchange={handleTitleInputChange}
+            ></lightning-input>
+            <lightning-input
+                type="text"
+                label="Description"
+                value={descriptionValue}
+                onchange={handleDescriptionInputChange}
+            ></lightning-input>
+        </div>
+        <button
+            class="slds-button slds-button_brand slds-var-m-top_medium"
+            disabled={uploadingFile}
+            onclick={handleUploadClick}
+        >
+            <label>Upload</label>
+        </button>
+    </div>
+    <div if:true={errorMessage}>
+        <lightning-card title="Error">
+            <div class="card-body">{errorMessage}</div>
+        </lightning-card>
+    </div>
+</template> -->
+
+                    </template>
+
+                     <template if:true={customerAvilable}>
+
+                              <div class="button-container" style="margin-top:1rem; margin-left:7rem;">
+                            <lightning-button label="Save" onclick={handleCusAvilSave}
+                                class="slds-m-right_small" variant="brand"></lightning-button>
+                        </div>  
+                    </template>
+
+                </div>
+
+    </lightning-card>   
+</template>

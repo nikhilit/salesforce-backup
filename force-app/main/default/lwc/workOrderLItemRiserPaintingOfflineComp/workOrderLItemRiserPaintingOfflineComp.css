@@ -1,0 +1,43 @@
+.workorder-box {
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+}
+
+.workorder-box:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+.blue-utility-icon {
+    --sds-c-icon-color-foreground-default:skyblue;
+    --slds-c-icon-color-foreground: skyblue;
+}
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem;
+    border-bottom: 1px solid #d8dde6;
+    cursor: pointer;
+}
+
+.list-item:hover {
+    background-color: #f3f3f3;
+}
+
+.index {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.name {
+    flex: 1;
+}
+
+.arrow {
+    font-weight: bold;
+    color: #0176d3;
+}

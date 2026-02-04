@@ -1,0 +1,40 @@
+<template>
+    <div class="card">
+        <!-- Next Best Action Header -->
+        <div class="header-section">
+            <lightning-icon icon-name="utility:apps" size="small" variant="default" class="purple-icon"></lightning-icon>
+            <div class="title">Next Best Action</div>
+        </div>
+        
+        <!-- Quick Actions List -->
+        <div>
+            <div class="action-item" onclick={openAccountDisplay} data-name="View Receivables">
+                <div class="icon-container">
+                    <lightning-icon icon-name="utility:money" alternative-text="View Receivables" size="small" class="custom-icon"></lightning-icon>
+                </div>
+                <div class="action-content">
+                    <div class="action-label">View Ledgers</div>
+                    <div class="action-description">See outstanding receivables and down payments</div>
+                </div>
+            </div>
+            <div class="action-item" onclick={handleActionClick} data-name="View MR Result">
+                <div class="icon-container">
+                    <lightning-icon icon-name="utility:check" alternative-text="View MR Result" size="small" class="custom-icon"></lightning-icon>
+                </div>
+                <div class="action-content">
+                    <div class="action-label">View MR Result</div>
+                    <div class="action-description">See Meter Reading results</div>
+                </div>
+            </div>
+            <div class="action-item" onclick={handleActionClick} data-name="View Change History">
+                <div class="icon-container">
+                    <lightning-icon icon-name="utility:change_request" alternative-text="View Change History" size="small" class="custom-icon"></lightning-icon>
+                </div>
+                <div class="action-content">
+                    <div class="action-label">View Change History</div>
+                    <div class="action-description">View account change history</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

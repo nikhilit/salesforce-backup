@@ -1,0 +1,57 @@
+<template>
+    <template if:true={loading}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
+
+    <template if:false={loading}>
+        <template if:true={isApproved}>
+            <section class="slds-card slds-theme_success slds-m-around_medium">
+                <header class="slds-card__header slds-grid">
+                    <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <span>This record has been approved.</span>
+                            </h2>
+                        </div>
+                    </div>
+                </header>
+            </section>
+        </template>
+
+        <template if:true={isPending}>
+            <section class="slds-card slds-theme_alert-texture slds-m-around_medium">
+                <header class="slds-card__header slds-grid">
+                    <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <span>Approval process has been started for this record.</span>
+                            </h2>
+                        </div>
+                    </div>
+                </header>
+            </section>
+        </template>
+
+        <template if:true={isRejected}>
+            <section class="slds-card slds-theme_error slds-m-around_medium">
+                <header class="slds-card__header slds-grid">
+                    <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                        <div class="slds-media__body">
+                            <h2 class="slds-card__header-title">
+                                <span>This record has been rejected.</span>
+                            </h2>
+                        </div>
+                    </div>
+                </header>
+            </section>
+        </template>
+
+        <template if:true={isNone}>
+            <lightning-button
+                label="Submit for Approval"
+                onclick={handleClick}
+                variant="brand"
+            ></lightning-button>
+        </template>
+    </template>
+</template>

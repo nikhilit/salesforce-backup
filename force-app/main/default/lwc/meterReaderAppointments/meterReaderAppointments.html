@@ -1,0 +1,37 @@
+<template>
+  <template if:true={isLoading}>
+      <div class="spinner-container">
+          <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+      </div>
+  </template>
+  <template if:false={isLoading}>
+    <lightning-card title="Today's Visits">
+      <template if:true={appointments}>
+        <template if:true={appointments.length}>
+          <lightning-layout multiple-rows>
+            <template for:each={appointments} for:item="appt">
+              <lightning-layout-item key={appt.Id} size="12" class="slds-box slds-m-bottom_small">
+                <div>
+                  <!-- <p>{appt.Id}</p> -->
+                  <strong>{appt.CustomerName}</strong><br />
+                  📍 {appt.Address} <br />
+                  🕘 {appt.StartTime} - {appt.EndTime}<br />
+                  🏷️ Status: <strong>{appt.VisitStatus}</strong>
+                </div>
+              </lightning-layout-item>
+            </template>
+          </lightning-layout>
+        </template>
+        <template if:false={appointments.length}>
+          <p class="slds-p-around_medium">No appointments for today.</p>
+        </template>
+        <div class="button-container">
+          <lightning-button label="Refresh Appointments" onclick={handleRefresh}></lightning-button>
+        </div>
+      </template>
+      <template if:true={error}>
+        <p class="slds-text-color_error">Error: {error}</p>
+      </template>
+    </lightning-card>
+  </template>
+</template>

@@ -1,0 +1,48 @@
+<template>
+
+       <lightning-card class="slds-card" style="margin-top:-8rem;">
+
+                <div class="slds-p-around_medium" >
+
+
+
+                    <template if:true={showMaintenanceRiserExecution}>
+
+                    <!-- <c-work-order-line-item-component record-id={recordId} oncancel={handleCancel}></c-work-order-line-item-component>  -->
+                  
+                    <c-work-order-line-item-offline-component record-id={recordId} oncancel={handleCancel}></c-work-order-line-item-offline-component> 
+
+
+                    </template>
+
+
+                      <template if:true={riserReplacementRiserExecution}>
+
+                       
+                    <!-- <c-work-order-l-item-riser-replacement-comp record-id={recordId} oncancel={handleCancel}></c-work-order-l-item-riser-replacement-comp>  -->
+
+                    <c-work-orderl-item-riser-replacement-offline record-id={recordId} oncancel={handleCancel}></c-work-orderl-item-riser-replacement-offline> 
+
+                    </template>
+
+                     <template if:true={riserPaintingRiserExecution}>
+
+
+
+                 <!-- <c-work-order-l-item-riser-painting-Comp record-id={recordId} oncancel={handleCancel}></c-work-order-l-item-riser-painting-Comp>  -->
+
+                 <c-work-order-l-item-riser-painting-offline-comp record-id={recordId} oncancel={handleCancel}></c-work-order-l-item-riser-painting-offline-comp> 
+
+
+                    </template>
+
+                     
+
+                    
+                
+
+                </div>
+
+            </lightning-card>
+
+</template>

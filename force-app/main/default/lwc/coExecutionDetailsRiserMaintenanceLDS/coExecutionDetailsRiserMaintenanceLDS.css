@@ -1,0 +1,19 @@
+.lightning-studio{
+	color : blue;
+}
+.riser-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem;
+            border-bottom: 1px solid #d8dde6;
+            cursor: pointer;
+}
+
+        .riser-item:hover {
+            background-color: #f3f3f3;
+        }
+
+        .arrow {
+            font-weight: bold;
+            color: #0176d3;
+        }

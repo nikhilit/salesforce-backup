@@ -1,0 +1,203 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 19-09-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   08-08-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+	<template if:true={isLoading}>
+		<div class="spinner-container">
+			<lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+		</div>
+	</template>
+	<template if:false={isLoading}>
+		<lightning-card title="Dispenser Meter Readings" icon-name="standard:maintenance_work_order">
+			<div class="account-container slds-p-around_small">
+				<!-- Datatable View -->
+				<template if:false={isEditMode}>
+					<div class="section">
+						<h3>Summary</h3>
+						<div class="slds-grid slds-gutters slds-m-bottom_medium">
+							<div class="slds-col">
+								<lightning-input type="date" name="fromDate" label="From Date" value={fromDate}
+									onchange={handleDateChange} disabled>
+								</lightning-input>
+							</div>
+						</div>
+						<!-- <lightning-datatable key-field="Id" data={dispenserPoints} columns={columnsWithAction} hide-checkbox-column
+              onrowaction={handleRowAction}>
+            </lightning-datatable> -->
+						<lightning-layout multiple-rows>
+							<template for:each={dispenserPoints} for:item="disp">
+								<lightning-layout-item key={disp.Id} size="12" class="slds-p-bottom--x-small">
+									<div class="slds-card slds-p-bottom--x-small slds-box slds-theme_default"
+										style={disp.dispStyle}>
+										<div class="slds-grid slds-wrap slds-grid_align-spread">
+											<div>
+												<h3 class="slds-text-heading_small slds-m-bottom_x-small">
+													{disp.labelNew}
+												</h3>
+												<p><strong>Closing Reading:</strong> {disp.Closing_Reading__c}</p>
+												<p><strong>Live Reading:</strong> {disp.Live_Reading__c}</p>
+												<p><strong>Difference:</strong> {disp.Difference}</p>
+												<p><strong>Is Progressive:</strong> {disp.Is_Progressive__c}</p>
+												<p><strong>Progressive Remark:</strong> <br/>{disp.Progressive_Remark__c}</p>
+											</div>
+											<div>
+												<lightning-button-icon icon-name="utility:edit" variant="brand"
+													alternative-text="Edit" title="Edit" size="small"
+													onclick={handleEdit} data-id={disp.Id}>
+												</lightning-button-icon>
+											</div>
+										</div>
+									</div>
+								</lightning-layout-item>
+							</template>
+						</lightning-layout>
+						<!-- <div class="row slds-m-top_small"> -->
+							<!-- <span class="label">Total Dispensing Sale:</span>
+							<span class="value">{Total_Dispensing_Sale}</span> -->
+						<div class="slds-text-align_right slds-text-color_error slds-p-right--small slds-p-bottom--x-small">
+							<strong>Total Difference (kg): {Total_Dispensing_Sale}</strong>
+						</div>
+						<!-- </div> -->
+						<div class="button-container">
+							<lightning-button label="Save" variant="brand" onclick={handleEndVisit}></lightning-button>
+						</div>
+					</div>
+				</template>
+
+				<!-- Edit View -->
+				<template if:true={isEditMode}>
+					<div class="section">
+						<h3>Edit Dispenser: {selectedDispenser.labelNew}</h3>
+
+						<lightning-input type="number" label="Closing Reading" name="Closing_Reading__c"
+							value={selectedDispenser.Closing_Reading__c} onchange={handleSingleFieldChange} disabled>
+						</lightning-input>
+
+						<lightning-input type="number" label="Live Reading" name="Live_Reading__c"
+							value={selectedDispenser.Live_Reading__c} onchange={handleSingleFieldChange}>
+						</lightning-input>
+						<lightning-input type="number" label="Difference" name="Difference"
+							value={selectedDispenser.Difference} disabled>
+						</lightning-input>
+
+						<!-- Progressive Radio Buttons -->
+						<label class="slds-form-element__label slds-m-top_medium">Is Progressive</label>
+						<div class="slds-form-element__control">
+							<div class="slds-radio_button-group">
+								<span class="slds-button slds-radio_button">
+									<input type="radio" id="progressiveYes" name="Is_Progressive__c" value="Yes"
+										checked={isProgressiveYes} disabled onchange={handleSingleFieldChange} />
+									<label class="slds-radio_button__label button-disabled" for="progressiveYes">
+										<span class="slds-radio_faux">Yes</span>
+									</label>
+								</span>
+								<span class="slds-button slds-radio_button">
+									<input type="radio" id="progressiveNo" name="Is_Progressive__c" value="No"
+										checked={isProgressiveNo} disabled onchange={handleSingleFieldChange} />
+									<label class="slds-radio_button__label button-disabled" for="progressiveNo">
+										<span class="slds-radio_faux">No</span>
+									</label>
+								</span>
+							</div>
+						</div>
+
+						<lightning-input type="text" label="Progressive Remarks" name="Progressive_Remark__c"
+							value={selectedDispenser.Progressive_Remark__c} onchange={handleSingleFieldChange}
+							required={progressRequired}></lightning-input>
+
+						<!-- <lightning-input type="number" label="Calibration Qty" name="Calibration_Qty__c"
+              value={selectedDispenser.Calibration_Qty__c} onchange={handleSingleFieldChange}></lightning-input>
+
+            <lightning-input type="text" label="Calibration Reason" name="Calibration_Reason__c"
+              value={selectedDispenser.Calibration_Reason__c} onchange={handleSingleFieldChange}></lightning-input>
+
+            <lightning-input type="number" label="Jumping Qty" name="Jumping_Qty__c"
+              value={selectedDispenser.Jumping_Qty__c} onchange={handleSingleFieldChange}></lightning-input>
+
+            <lightning-input type="text" label="Jumping Reason" name="Jumping_Reason__c"
+              value={selectedDispenser.Jumping_Reason__c} onchange={handleSingleFieldChange}></lightning-input>
+
+            <lightning-input type="number" label="Other Qty" name="Other_Qty__c" value={selectedDispenser.Other_Qty__c}
+              onchange={handleSingleFieldChange}></lightning-input>
+
+            <lightning-input type="text" label="Other Reason" name="Other_Reason__c"
+              value={selectedDispenser.Other_Reason__c} onchange={handleSingleFieldChange}></lightning-input> -->
+
+						<div class="slds-m-top_medium">
+							<lightning-button label="Save" variant="brand" onclick={handleCheckProgressiveAlert}></lightning-button>
+							<lightning-button label="Cancel" variant="neutral" class="slds-m-left_small"
+								onclick={cancelEdit}>
+							</lightning-button>
+						</div>
+					</div>
+				</template>
+			</div>
+		</lightning-card>
+	</template>
+
+	<template if:true={showAlertScreen}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">Confirm</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p class="slds-align--absolute-center">
+                        {alertMessage}
+                    </p>
+                </div>
+                <div class="slds-modal__footer">
+                    <lightning-button variant="brand" label="Yes" onclick={handleSave} class="slds-p-right_x-small"></lightning-button>
+					<lightning-button variant="neutral" label="No" onclick={handleCloseAlert}></lightning-button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+	<template if:true={showProgressiveAlertScreen}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">Confirm</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p class="slds-align--absolute-center">
+                        {alertMessage}
+                    </p>
+                </div>
+                <div class="slds-modal__footer">
+                    <lightning-button variant="brand" label="Yes" onclick={handleSave} class="slds-p-right_x-small"></lightning-button>
+					<lightning-button variant="neutral" label="No" onclick={handleCloseAlert}></lightning-button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+	<template if:true={alertJointVisit}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">Alert</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p class="slds-align--absolute-center">
+                        {alertJointVisitMessage}
+                    </p>
+                </div>
+                <div class="slds-modal__footer">
+                    <lightning-button variant="brand" label="Go Back" onclick={handleGoBack} class="slds-p-right_x-small"></lightning-button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

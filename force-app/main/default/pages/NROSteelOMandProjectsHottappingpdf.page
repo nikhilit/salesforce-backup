@@ -1,0 +1,1262 @@
+<apex:page renderAs="pdf" applyBodyTag="false" standardStylesheets="false" lightningStylesheets="false" applyHtmlTag="false"
+           showHeader="false">
+    <head>
+        <style>
+            @page {
+                size: A4;
+                margin-top: 1cm;
+                margin-bottom: 3cm;
+                margin-left: 1cm;
+                margin-right: 1cm;
+            }
+            
+                @page {
+                @bottom-left {
+                    content: element(pageFooter);
+                }
+            }
+    
+            #pageFooter {
+                position: running(pageFooter);    
+                text-align: left;
+                font-size: 12px;
+            }
+
+            .pagenumber:before {
+                content: counter(page);
+            }
+            
+           table {
+            width: 95%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            font-size: 15px;
+            border-spacing: 0;
+            -fs-table-paginate: paginate;
+            }
+            tr {
+                  page-break-inside: avoid; 
+                            break-inside: avoid;
+            }
+            
+            
+            td, th {
+                border: 1px solid black;
+                text-align: center;
+                height: 35px;
+                border-collapse: collapse;
+                 vertical-align: middle;
+                         padding-bottom:0px;
+            }
+            
+            th {
+                font-weight: bold;
+            }
+            
+            .title-page {
+                page-break-after: always;
+            }
+                        
+                        .table-wrapper {
+                page-break-inside: avoid;
+            }
+                        
+
+        </style>
+    </head>
+    
+    <body>
+        <!-- ===================== First Page (Title Page) ===================== -->
+        <div class="title-page">
+            <div style="font-size: 150px; font-weight: 800; letter-spacing: 2px; margin-bottom: 20px; text-align:center; padding-top: 240px;">
+                NRO
+            </div>
+            <div style="font-size:30px; font-weight: 600; margin-bottom: 40px; text-align:center;">
+                MGL X-40 PLOT CNG
+            </div>
+            <div style="font-size: 22px; font-weight: 450; margin-bottom: 40px; text-align:center;">
+                GA2/STEEL/NM/2024-25/X-40 CNG
+            </div>
+            <div style="font-size: 19px; font-weight: 450; text-align:center;">
+                2” live welding and drilling (Hot Tap) connection to 8” NB steel pipeline and 
+                Commissioning of 6” NB steel pipeline for MGL X-40 plot CNG Station. 
+                Total length of steel pipeline is 70 meters approx.
+            </div>
+        </div>
+<div>
+		  <div id="pageFooter">
+            <p>
+                <span class="pagenumber"></span>| Page <br/>
+                Hook Up of 2" Hot Tapping on commissioned 8th steel pipeline and Commissioning of 6"NB steel pipeline 
+                for MGL X-40 plot CNG Station. Total length of steel pipeline is 70 meters approx.
+            </p>
+        </div>
+        
+        <div class="title-page">
+            <p style="text-decoration: underline;font-weight:bold;text-align:center;">MAHANAGAR GAS LIMITED</p>
+        <table style="width:100%;">
+            <tr>
+                <td style="text-align:left; font-weight:bold;border:none">
+                    Title: Non-Routine Operation
+                </td>
+                <td style="text-align:right; font-weight:bold;border:none">
+                    Record No.: AIQ RE 134 <br/>NRO No: GA2/STEEL/NM/2024-25/X-40 CNG
+                </td>
+            </tr>
+        </table>
+
+        <p style="text-align:center; padding-top:1cm; font-size:24px;"><b>Index</b></p>
+        <table>
+            <tr>
+                <th>Sr. No.</th>
+                <th>Particulars</th>
+                <th>Page No.</th>
+            </tr>
+            <tr><td>A</td><td>Non Routine Operation</td><td>2-3</td></tr>
+            <tr><td>B</td><td>Communication List</td><td>4</td></tr>
+            <tr><td>C</td><td>Preparatory Steps</td><td>5-6</td></tr>
+            <tr><td>D</td><td>Status of valves before and after Hot Tapping</td><td>6</td></tr>
+            <tr><td>E</td><td>Operation Procedure for Hot Tapping</td><td>7</td></tr>
+            <tr><td>F</td><td>Preparatory Steps for Commissioning for 6"B Steel Pipeline</td><td>8</td></tr>
+            <tr><td>G</td><td>Status of valves before and after commissioning</td><td>9</td></tr>
+            <tr><td>H</td><td>Operation Procedure for Commissioning</td><td>10</td></tr>
+            <tr><td>I</td><td>Contingency Action Plan</td><td>11</td></tr>
+            <tr><td>J</td><td>Schematic Diagram</td><td>12</td></tr>
+            <tr><td>K</td><td>Review/Comments</td><td>13</td></tr>
+            <tr><td>L</td><td>Annexure - Applicable MGL Stds/SOPs</td><td>14</td></tr>
+            <tr><td>M</td><td>Risk Assessment</td><td>15-16</td></tr>
+        </table>
+        </div>
+              <div>
+    </div> </div>
+        <div class="title-page">
+                <p style="text-decoration: underline;font-weight:bold;text-align:center;">MAHANAGAR GAS LIMITED</p>
+            <table style="width:100%;">
+            <tr>
+                <td style="text-align:left; font-weight:bold;border:none">
+                    Title: Non-Routine Operation
+                </td>
+                <td style="text-align:right; font-weight:bold;border:none">
+                    Record No.: AIQ RE 134 <br/>NRO No:  GA2/STEEL/NM/2024-25/X-40 CNG
+                </td>
+            </tr>
+        </table>
+            <p style="text-align:left;font-weight:bold;">(A) Non Routine Operation</p>
+      <div class="table-wrapper">
+           <table >
+    <tr>
+        <th style="width:30%;">Non-Routine Operation No.</th>
+        <td colspan="2"> GA2/STEEL/NM/2024-25/X-40 CNG</td>
+    </tr>
+    <tr>
+        <th>Brief Description of Work</th>
+        <td colspan="2">2” live welding and drilling (Hot Tap) connection to 8” NB steel pipeline and Commissioning of 6” NB steel pipeline for MGL X-40 plot CNG Station. Total length of steel pipeline is 70 meters approx..</td>
+    </tr>
+    <tr>
+        <th>Location</th>
+        <td colspan="2">X-40 plot CNG Station, Taloja MIDC</td>
+    </tr>
+    <tr>
+        <th style="border:none;border-left:1px solid #000;">Responsible Engineers:</th>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;"  colspan="2"></td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;">Authorizing Engineer (Line Manager):</td>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;"  colspan="2">Hemant Awate/Durgesh Gavali(DIC)</td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;">Competent Engineer (Engineer In-Charge):</td>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;" colspan="2">Niteshnandan Jha/Shikhar Gupta(AIC)</td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;" >Other Engineers at Site:</td>
+        <td style="border:none;border-right:1px solid #000;border-left:1px solid #000;"  colspan="2">Balwant Mohite</td>
+    </tr>
+    <tr>
+        <td style="border:none;border-left:1px solid #000;" >Competent Technician at Site:</td>
+        <td style="border-top:none;border-right:1px solid #000;" colspan="2">Jaydeep Kesarkar</td>
+    </tr><tr>
+            <th > Prepared by:</th>
+            <td ><br/>Sign: ....................... <br/>Name: Shikhar Gupta<br/>(AM - Projects) </td>
+            <td ><br/>Sign: ....................... <br/>Name: Durgesh Gavali <br/>(DM - O&amp;M) </td>
+        </tr>
+
+        <tr>
+            <th >Checked by:</th>
+            <td ><br/>Sign: .......................<br/>Name: Niteshnandan Jha <br/> (Manager - Projects)</td>
+            <td ><br/>Sign: ....................... <br/>Name: Hemant Awate <br/> (CM - O&amp;M)</td>
+      
+        </tr>
+
+        <tr>
+            <th  rowspan="4"> Reviewed by</th>
+             <td ><br/>Sign: .......................<br/>Name: Amrut Chaugule<br/> (Manager - AI) </td>
+            <td  ><br/>Sign: ....................... <br/>Name: Viraj Kulkarni <br/> (CM - GIS) </td>
+        </tr>
+        <tr>
+             <td  ><br/>Sign: ....................... <br/>Name: Dinesh P <br/>(CM - Projects) </td>
+              <td  ><br/>Sign: ....................... <br/>Name: Vinayak Mhamane <br/> (DGM - O&amp;M) </td>
+        </tr>
+          <tr>
+             <td  ><br/>Sign: ....................... <br/>Name: Sachin Ghuge <br/> (DGM - HSE) </td>
+              <td  ><br/>Sign: ....................... <br/>Name: Sanjay Gawde <br/> (DGM - AI &amp; GIS) </td>
+        </tr>
+           <tr>
+             <td  ><br/>Sign: ....................... <br/>Name: Dilip Martha <br/> (DGM - O&amp;M) </td>
+              <td  ><br/>Sign: ....................... <br/>Name: Ajay Patki <br/> (GM - HSE) </td>
+        </tr>
+               <tr>
+                     <th  > Reviewed by</th>
+             <td  ><br/>Sign: ....................... <br/>Name: Santosh Samant <br/> (GM - Steel &amp; CNG Projects) </td>
+              <td  ><br/>Sign: ....................... <br/>Name: Pratap Ayarekar <br/> (GM - O&amp;M) </td>
+        </tr>
+            <tr>
+                  <th> Reviewed by</th>
+             <td  ><br/>Sign: ....................... <br/>Name: Naveen Gupta <br/> (AVP - AI &amp; GIS) </td>
+              <td ><br/>Sign: ....................... <br/>Name: Gurvinder Singh <br/> (VP - Projects) </td>
+        </tr>
+        <tr>
+              <th> Reviewed by</th>
+             <td colspan="2"><br/>Sign: ....................... <br/>Name: Sitanshu Roychowdhury <br/>(VP - O&amp;M)</td>
+        </tr>
+          <tr>
+               <th >Authorized by:</th>
+             <td colspan="2"><br/>Sign: ....................... <br/>Name: Sanjay Shende <br/> (DMD)</td>
+        </tr>
+             <tr>
+               <th >Circulation list</th>
+                 <td colspan="2">• HSE<br/>
+                     • DIC<br/>
+• Asset Integrity<br/>
+• Engineers at Site<br/>
+• Control Room &amp; MCC</td>
+        </tr>
+
+          </table> </div>
+        </div>
+   
+        
+         <div  class="title-page">
+                 <p style="text-align:center;text-decoration: underline;font-weight:bold;">MAHANAGAR GAS LIMITED</p>
+    <table style="width:100%;">
+            <tr>
+                <td style="text-align:left; font-weight:bold;border:none">
+                    Title: Non-Routine Operation
+                </td>
+                <td style="text-align:right; font-weight:bold;border:none">
+                    Record No.: AIQ RE 134 <br/>NRO No:  GA2/STEEL/NM/2024-25/X-40 CNG
+                </td>
+            </tr>
+         <p>(B) <b style="border-bottom: 1px solid #000; font-weight: bold;">Communication List:</b></p>
+</table>  <table>
+        <tr>
+            <th style="width:8%;">Sr. No.</th>
+            <th style="width:52%;">Contact Person</th>
+            <th style="width:40%;">Phone Number</th>
+        </tr>
+
+        <tr ><td style="height: 25px;">1</td><td style="height: 25px;">Sitanshu Roy Chowdhury</td><td style="height: 25px;">8657112265</td></tr>
+        <tr><td style="height: 25px;">2</td><td style="height: 25px;">Gurvinder Singh</td><td style="height: 25px;">8699644000</td></tr>
+        <tr><td style="height: 25px;">3</td><td style="height: 25px;">Naveen Gupta</td><td style="height: 25px;">9324941237</td></tr>
+        <tr><td style="height: 25px;">4</td><td style="height: 25px;">Pratap Ayarekar</td><td style="height: 25px;">9324941208</td></tr>
+        <tr><td style="height: 25px;">5</td><td style="height: 25px;">Santosh Samant</td><td style="height: 25px;">9324941179</td></tr>
+        <tr><td style="height: 25px;">6</td><td style="height: 25px;">Ajay Patki</td><td style="height: 25px;">8657792302</td></tr>
+        <tr><td style="height: 25px;">7</td><td style="height: 25px;">Sanjay Gawde</td><td style="height: 25px;">9324941131</td></tr>
+        <tr><td style="height: 25px;">8</td><td style="height: 25px;">Sachin Ghuge</td><td style="height: 25px;">9324060377</td></tr>
+        <tr><td style="height: 25px;">9</td><td style="height: 25px;">Vinayak Mhamane</td><td style="height: 25px;">8424030148</td></tr>
+        <tr><td style="height: 25px;">10</td><td style="height: 25px;">Dilip Martha</td><td style="height: 25px;">9324941225</td></tr>
+        <tr><td style="height: 25px;">11</td><td style="height: 25px;">Hemant Awate</td><td style="height: 25px;">9324905019</td></tr>
+        <tr><td style="height: 25px;">12</td><td style="height: 25px;">Viraj Kulkarni</td><td style="height: 25px;">9322862709</td></tr>
+        <tr><td style="height: 25px;">13</td><td style="height: 25px;">Dinesh P.</td><td style="height: 25px;">9323825496</td></tr>
+        <tr><td style="height: 25px;">14</td><td style="height: 25px;">Durgesh Gavali</td><td style="height: 25px;">8291960811</td></tr>
+        <tr><td style="height: 25px;">15</td><td style="height: 25px;">Balwant Mohite</td><td style="height: 25px;">9324941153</td></tr>
+        <tr><td style="height: 25px;">16</td><td style="height: 25px;">Niteshnandan Jha</td><td style="height: 25px;">8879677632</td></tr>
+        <tr><td style="height: 25px;">17</td><td style="height: 25px;">Shikhar Gupta</td><td style="height: 25px;">8657712852</td></tr>
+        <tr><td style="height: 25px;">18</td><td style="height: 25px;">Jaydeep Kesarkar</td><td style="height: 25px;">8879590016</td></tr>
+        <tr><td style="height: 25px;">19</td><td style="height: 25px;">Emergency Control Room</td><td style="height: 25px;">022-24012400 / 68759400</td></tr>
+        <tr><td style="height: 25px;">20</td><td style="height: 25px;">ERS – Ambulance (Medicheck Ambulance Services)</td><td style="height: 25px;">8976147440 / 8108437005</td></tr>
+        <tr>
+            <td style="height: 25px;">21</td>
+            <td style="height: 25px;">Nearest Hospital – Shree Sai Multispeciality Hospital &amp; Trauma Care Center</td>
+            <td style="height: 25px;">08433724848</td>
+        </tr>
+        <tr>
+            <td style="height: 25px;">22</td>
+            <td style="height: 25px;">Nearest Fire Station – Taloja Fire Brigade</td>
+            <td style="height: 25px;">02227411432</td>
+        </tr>
+    </table>
+    
+    <p><b>MGL personnel at site:</b></p>
+    <p style="padding-left:15px">
+        1.&nbsp;  Shikhar Gupta<br/>
+        2.&nbsp; Niteshnandan Jha<br/>
+        3.&nbsp;  Durgesh Gavali<br/>
+        4.&nbsp;  Balwant Mohite<br/>
+        5.&nbsp; Jaydeep Kesarkar
+    </p>
+         </div>
+        <div  class="title-page">
+                <p style="text-align:center;text-decoration: underline;font-weight:bold;">MAHANAGAR GAS LIMITED</p>
+            <table style="width:100%;">
+            <tr>
+                <td style="text-align:left; font-weight:bold;border:none">
+                    Title: Non-Routine Operation
+                </td>
+                <td style="text-align:right; font-weight:bold;border:none">
+                    Record No.: AIQ RE 134 <br/>NRO No:  GA2/STEEL/NM/2024-25/X-40 CNG
+                </td>
+            </tr>
+        </table>
+            <p style="text-align:left;font-weight:bold;">(C) Preparatory Steps for Hot Tapping:</p>
+             <table cellpadding="2">
+        <tr>
+            <th style="width:6%;">Sr. No.</th>
+            <th style="width:60%;">Preparatory Work</th>
+            <th style="width:20%;">Action by</th>
+            <th style="width:14%;">Check</th>
+        </tr>
+
+        <tr>
+            <td class="center">1</td>
+            <td>
+                Ensure manual excavation is done for exposing charged steel pipeline.
+                Ensure HIRA is prepared for NRO and briefed to all concerned at site
+                (Refer COP Section 03 – Excavation &amp; Deep Excavation).
+            </td>
+            <td class="center">Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">2</td>
+            <td>
+                Ensure compliance to all related MGL Life Saving Rules and relevant
+                COPs before and during NRO.
+            </td>
+            <td class="center">Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">3</td>
+            <td>
+                Ensure valves V1 &amp; V4 along with vent valves are operating correctly
+                and accessible to be operated and in correct position at the start of NRO.
+            </td>
+            <td class="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">4</td>
+            <td>
+                Ensure NRO procedure is approved by Dy. MD and issued to concern
+                personnel at site.
+            </td>
+            <td class="center">Project Engineer /<br/>O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">5</td>
+            <td>
+                Ensure that all personnel involved in the NRO operation are briefed
+                regarding the sequence of the operation, aware of the valve positions
+                and control measures as mentioned in HIRA.
+            </td>
+            <td class="center">Project Engineer /<br/>O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">6</td>
+            <td>
+                Ensure proper earthing of the vent hose during the venting operation.
+            </td>
+            <td class="center">Project Engineer /<br/>O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">7</td>
+            <td>
+                Ensure the fabrication &amp; testing of valves &amp; pipeline are completed
+                in all respect. Refer COP: Section 051 &amp; 054.
+            </td>
+            <td class="center">Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">8</td>
+            <td>
+                Ensure No Smoking / No Naked Flame sign boards and barricading are
+                available at site. Issue testing, charging &amp; commissioning permit.
+            </td>
+            <td class="center">Project Engineer /<br/>O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">9</td>
+            <td>
+                Ensure that duly calibrated Gascoeker and Oxygen meter is available
+                on site &amp; are in proper conditions.
+            </td>
+            <td class="center">Project Engineer /<br/>O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">10</td>
+            <td>
+                Ensure 2 nos. of fire extinguishers (9 Kgs. each) and non-sparking
+                tools are available at site.
+            </td>
+            <td class="center">Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">11</td>
+            <td>
+                Ensure all appropriate emergency fittings are available at site.
+            </td>
+            <td class="center">Project Engineer /<br/>O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+         <tr>
+    <td class="center">12</td>
+    <td>
+        Ensure Cathodic protection system is isolated.
+    </td>
+    <td class="center">O&amp;M Engineer</td>
+    <td></td>
+</tr>
+
+<tr>
+    <td class="center">13</td>
+    <td>
+        Ensure air tightness test of uncommissioned steel pipeline is completed.
+    </td>
+    <td class="center">Project Engineer /<br/>O&amp;M Engineer</td>
+    <td></td>
+</tr>
+
+<tr>
+    <td class="center">14</td>
+    <td>
+        Ensure all personnel involved in NRO are wearing their recommended PPE
+        as per COP Section 01 – Safety specific requirement
+        (Clause no. 6.0 – Personal Protective Equipment).
+    </td>
+    <td class="center">Project Engineer /<br/>O&amp;M Engineer</td>
+    <td></td>
+</tr>
+
+<tr>
+    <td class="center">15</td>
+    <td>
+        Ensure fire resistant suit for contractor personnel involved in the hot work.
+    </td>
+    <td class="center">Project Engineer</td>
+    <td></td>
+</tr>
+
+<tr>
+    <td class="center">16</td>
+    <td>
+        Ensure qualified welder for carrying out welding operations at site.
+    </td>
+    <td class="center">Project Engineer</td>
+    <td></td>
+</tr>
+
+<tr>
+    <td class="center">17</td>
+    <td>
+        Ensure Lock out and Tag out of valves to be closed during NRO.
+        Also ensure application of clamp as suitable before operation of valve.
+    </td>
+    <td class="center">Project Engineer /<br/>O&amp;M Engineer</td>
+    <td></td>
+</tr>
+
+    </table>
+ </div>
+            <div  class="title-page">
+                    <p style="text-align:center;text-decoration: underline;font-weight:bold;">MAHANAGAR GAS LIMITED</p>
+            <table style="width:100%;">
+            <tr>
+                <td style="text-align:left; font-weight:bold;border:none">
+                    Title: Non-Routine Operation
+                </td>
+                <td style="text-align:right; font-weight:bold;border:none">
+                    Record No.: AIQ RE 134 <br/>NRO No:  GA2/STEEL/NM/2024-25/X-40 CNG
+                </td>
+            </tr>
+        </table>
+                            <div>
+         <p>   
+<b>Note:</b> Valve V1 was inspected on 05.08.2024 and found to be OK.<br/>
+             Valve V4 was inspected on 01.08.2024 and found to be OK.</p>
+            <p style="text-decoration: underline;font-weight:bold;">Valve operation:</p>
+            <p style="font-weight:bold;"> MGL trained technicians will operate the valves.First anti-rust WD-40 will be applied on the valves and after that valves will be carefully operated by the technicians after application of clamp as suitable.<br/> Refer: WI:O&amp;M WI 105</p>
+            </div>
+                
+                <p style="font-weight:bold; margin-top:20px;">
+    (D) Status of valves before Hot Tapping:
+</p>
+
+<table>
+    <tr>
+        <th style="width:10%;">Sr. No.</th>
+        <th style="width:20%;">Valve No</th>
+        <th style="width:20%;">Size</th>
+        <th style="width:20%;">Status</th>
+        <th style="width:30%;">Check</th>
+    </tr>
+
+    <tr>
+        <td class="center">1</td>
+        <td class="center">V1</td>
+        <td class="center">8"</td>
+        <td class="center">Open</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="center">2</td>
+        <td class="center">V2</td>
+        <td class="center">3/4"</td>
+        <td class="center">Close</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="center">3</td>
+        <td class="center">V3</td>
+        <td class="center">3/4"</td>
+        <td class="center">Close</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="center">4</td>
+        <td class="center">V4</td>
+        <td class="center">8"</td>
+        <td class="center">Open</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="center">5</td>
+        <td class="center">V5</td>
+        <td class="center">3/4"</td>
+        <td class="center">Close</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="center">6</td>
+        <td class="center">V6</td>
+        <td class="center">3/4"</td>
+        <td class="center">Close</td>
+        <td></td>
+    </tr>
+</table>
+                <p style="font-weight:bold; margin-top:30px;">
+    (E) Status of valves after Hot Tapping:
+</p>
+
+<table>
+    <tr>
+        <th style="width:10%;">Sr. No.</th>
+        <th style="width:20%;">Valve No</th>
+        <th style="width:20%;">Size</th>
+        <th style="width:20%;">Status</th>
+        <th style="width:30%;">Check</th>
+    </tr>
+
+    <tr>
+        <td class="center">1</td>
+        <td class="center">V1</td>
+        <td class="center">8"</td>
+        <td class="center">Open</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="center">2</td>
+        <td class="center">V2</td>
+        <td class="center">3/4"</td>
+        <td class="center">Close</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="center">3</td>
+        <td class="center">V3</td>
+        <td class="center">3/4"</td>
+        <td class="center">Close</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="center">4</td>
+        <td class="center">V4</td>
+        <td class="center">8"</td>
+        <td class="center">Open</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="center">5</td>
+        <td class="center">V5</td>
+        <td class="center">3/4"</td>
+        <td class="center">Close</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="center">6</td>
+        <td class="center">V6</td>
+        <td class="center">3/4"</td>
+        <td class="center">Open</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="center">7</td>
+        <td class="center">V7</td>
+        <td class="center">2"</td>
+        <td class="center">Close</td>
+        <td></td>
+    </tr>
+</table>
+
+
+        </div>
+            <div  class="title-page">
+            <p style="text-align:center;text-decoration: underline;font-weight:bold;">MAHANAGAR GAS LIMITED</p>
+            <table style="width:100%;">
+            <tr>
+                <td style="text-align:left; font-weight:bold;border:none">
+                    Title: Non-Routine Operation
+                </td>
+                <td style="text-align:right; font-weight:bold;border:none">
+                    Record No.: AIQ RE 134 <br/>NRO No:  GA2/STEEL/NM/2024-25/X-40 CNG
+                </td>
+            </tr>
+        </table>
+                <p style="font-weight:bold;">(E) Normal Operation Procedure for Hot tapping:</p>    
+                <table>
+        <tr>
+             <th style="width:6%;">Sr. No.</th>
+            <th style="width:60%;">Operation Procedure</th>
+            <th style="width:20%;">Action by</th>
+            <th style="width:14%;">Check</th>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td>Inform HOD (O&amp;M), HOD (Steel &amp; CNC Projects GA1 &amp; GA2) &amp; Emergency team about commencement of NRO.</td>
+            <td>Project Engineer &amp; O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>2</td>
+            <td>Ensure required Project/O&amp;M manpower is present at site.</td>
+            <td>O&amp;M/Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>3</td>
+            <td>Ensure compliance to all related MGL lifesaving rules before &amp; during NRO.</td>
+            <td>Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>4</td>
+            <td>Check communication facility with all personnel.</td>
+            <td>O&amp;M/Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>5</td>
+            <td>Ensure specific site risk assessment to be conducted before commencement of hot tapping activity by vendor.</td>
+            <td>O&amp;M/Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>6</td>
+            <td>Ensure no naked flame near location of hot tapping.</td>
+            <td>O&amp;M/Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>7</td>
+            <td>Issue Hot work permit.</td>
+            <td>O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>8</td>
+            <td>Give permission to Hot tapping vendor for hot tap operation to commence in accordance with their operations procedure at point A.</td>
+            <td>O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>9</td>
+            <td>Ensure MPT test after completion of weld.</td>
+            <td>Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>10</td>
+            <td>Carry out pneumatic test of the spool piece at working pressure of the pipeline.</td>
+            <td>Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>11</td>
+            <td>Carry out the drilling as per annexure-1 attached. Close valve V7 after drilling operation. Ensure zero ppm at V7.</td>
+            <td>Unique / Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>12</td>
+            <td>Install 2" blind flange on the valve spool after completion of job and perform leak test.</td>
+            <td>Unique / Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>13</td>
+            <td>Paint pipe work with epoxy paint.</td>
+            <td>Unique / Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>14</td>
+            <td>Maintain the valves position as per the table in Page no. 6 i.e. status of valves after Hot Tapping.</td>
+            <td>O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+           <tr>
+            <td>15</td>
+            <td>Inform HOD(O&amp;M), HOD (Steel &amp; CNG Projects GA1 &amp; GA2) &amp; Emergency team about completion of hot tapping</td>
+            <td>
+Project Engineer &amp; O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+                    <tr>
+            <td>16</td>
+            <td>Construct chamber for hot tapping valve.</td>
+            <td>Project Engineer </td>
+            <td></td>
+        </tr>
+
+    </table>
+        </div>
+          <div  class="title-page">
+              <p style="text-align:center;text-decoration: underline;font-weight:bold;">MAHANAGAR GAS LIMITED</p>
+            <table style="width:100%;">
+            <tr>
+                <td style="text-align:left; font-weight:bold;border:none">
+                    Title: Non-Routine Operation
+                </td>
+                <td style="text-align:right; font-weight:bold;border:none">
+                    Record No.: AIQ RE 134 <br/>NRO No:  GA2/STEEL/NM/2024-25/X-40 CNG
+                </td>
+            </tr>
+        </table>
+            <p style="text-align:left;font-weight:bold;">(F) Preparatory Steps for Commissioning for 6"NB Steel Pipeline</p>
+               <table  cellpadding="4">
+                <tr>
+                  
+                       <th style="width:6%;">Sr. No.</th>
+            <th style="width:60%;">Preparatory Work</th>
+            <th style="width:20%;">Action by</th>
+            <th style="width:14%;">Check</th>
+                </tr>
+           
+                <tr>
+                    <td>1</td>
+                    <td>Ensure compliance to MGL Life Saving Rules before &amp; during NRO.</td>
+                    <td>O&amp;M / Project Engineer</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Ensure valves V1, V4, V7 &amp; V9 along with vent valves are operating correctly and accessible to be operated and in correct position at the start of NRO.</td>
+                    <td>O&amp;M Engineer</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Ensure No smoking / no naked flame signs are on site.</td>
+                    <td>Project Engineer</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Ensure DULY calibrated Gaschecker and O2 meter available at site.</td>
+                    <td>O&amp;M / Project Engineer</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Ensure two fire extinguishers (9 Kgs.) and appropriate safety tools are at site.</td>
+                    <td>Project Engineer</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Ensure all emergency fittings are available on site.</td>
+                    <td>O&amp;M / Project Engineer</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Ensure construction, testing &amp; swabbing of pipeline completed as per MGL COP(51,52,53 &amp; 54).</td>
+                    <td>Project Engineer</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Ensure pre-commissioning audit of pipeline is completed.</td>
+                    <td>O&amp;M Engineer</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Ensure tightness test of pipeline is completed.</td>
+                    <td>O&amp;M / Project Engineer</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Ensure permit for testing and commissioning has been issued.</td>
+                    <td>O&amp;M Engineer</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>All personnel involved are wearing required PPEs especially hearing protection as per COP section 01-Safety specific requirement (clause no. 6.0- Personal Protective Equipment).</td>
+                    <td>Project Engineer</td>
+                    <td></td>
+                </tr>
+        </table>
+        </div>
+        
+          <div  class="title-page">
+             <p style="text-align:center;text-decoration: underline;font-weight:bold;">MAHANAGAR GAS LIMITED</p>
+            <table style="width:100%;">
+            <tr>
+                <td style="text-align:left; font-weight:bold;border:none">
+                    Title: Non-Routine Operation
+                </td>
+                <td style="text-align:right; font-weight:bold;border:none">
+                    Record No.: AIQ RE 134 <br/>NRO No:  GA2/STEEL/NM/2024-25/X-40 CNG
+                </td>
+            </tr>
+        </table>
+            <p style="text-align:center;font-weight:bold;">(G) Status of valves before Commissioning: </p>
+               <table>
+        <tr>
+            <th style="height: 25px;">Sr. No.</th>
+            <th style="height: 25px;">Valve No</th>
+            <th style="height: 25px;">Size</th>
+            <th style="height: 25px;">Status</th>
+            <th style="height: 25px;">Check</th>
+        </tr>
+        <tr><td style="height: 25px;">1</td><td style="height: 25px;">V1</td><td style="height: 25px;">8"</td><td style="height: 25px;">Open</td><td  style="height:25px;"></td></tr>
+        <tr><td  style="height:25px;">2</td><td  style="height:25px;">V2</td><td  style="height:25px;">3/4"</td><td  style="height:25px;">Close</td><td  style="height:25px;"></td></tr>
+        <tr><td  style="height:25px;">3</td><td  style="height:25px;">V3</td><td  style="height:25px;">3/4"</td><td  style="height:25px;">Close</td><td  style="height:25px;"></td></tr>
+        <tr><td  style="height:25px;">4</td><td  style="height:25px;">V4</td><td  style="height:25px;">8"</td><td  style="height:25px;">Open</td><td  style="height:25px;"></td></tr>
+        <tr><td  style="height:25px;">5</td><td  style="height:25px;">V5</td><td  style="height:25px;">3/4"</td><td  style="height:25px;">Close</td><td  style="height:25px;"></td></tr>
+        <tr><td  style="height:25px;">6</td><td  style="height:25px;">V6</td><td  style="height:25px;">3/4"</td><td  style="height:25px;">Close</td><td  style="height:25px;"></td></tr>
+        <tr><td  style="height:25px;">7</td><td  style="height:25px;">V7</td><td  style="height:25px;">2"</td><td  style="height:25px;">Close</td><td  style="height:25px;"></td></tr>
+        <tr><td  style="height:25px;">8</td><td  style="height:25px;">V8</td><td  style="height:25px;">3/4"</td><td  style="height:25px;">Close</td ><td  style="height:25px;"></td></tr>
+        <tr><td  style="height:25px;">9</td><td  style="height:25px;">V9</td><td  style="height:25px;">2"</td><td  style="height:25px;">Close</td><td  style="height:25px;"></td></tr>
+        <tr><td  style="height:25px;">10</td><td  style="height:25px;">V10</td><td  style="height:25px;">3/4"</td><td  style="height:25px;">Close</td><td  style="height:25px;"></td></tr>
+        <tr><td  style="height:25px;">11</td><td  style="height:25px;">V11</td><td  style="height:25px;">3/4"</td><td  style="height:25px;">Close</td><td  style="height:25px;"></td></tr>
+    </table>
+
+    <br/><br/>
+
+    <p style="text-align:center;font-weight:bold;">Status of valves after Commissioning</p>
+
+    <!-- Second Table -->
+    <table>
+        <tr  style="height:15px !important;">
+            <th  style="height:25px;">Sr. No.</th>
+            <th  style="height:25px;">Valve No</th>
+            <th  style="height:25px;">Size</th>
+            <th  style="height:25px;">Status</th>
+            <th  style="height:25px;">Check</th>
+        </tr>
+        <tr><td style="height:25px;">1</td><td style="height:25px;">V1</td><td style="height:25px;">8"</td><td style="height:25px;">Open</td><td style="height:25px;"></td></tr>
+        <tr><td style="height:25px;">2</td><td style="height:25px;">V2</td><td style="height:25px;">3/4"</td><td style="height:25px;">Close</td><td style="height:25px;"></td></tr>
+        <tr><td style="height:25px;">3</td><td style="height:25px;">V3</td><td style="height:25px;">3/4"</td><td style="height:25px;">Close</td><td style="height:25px;"></td></tr>
+        <tr><td style="height:25px;">4</td><td style="height:25px;">V4</td><td style="height:25px;">8"</td><td style="height:25px;">Open</td><td style="height:25px;"></td></tr>
+        <tr><td style="height:25px;">5</td><td style="height:25px;">V5</td><td style="height:25px;">3/4"</td><td style="height:25px;">Close</td><td style="height:25px;"></td></tr>
+        <tr><td style="height:25px;">6</td><td style="height:25px;">V6</td><td style="height:25px;">3/4"</td><td style="height:25px;">Close</td><td style="height:25px;"></td></tr>
+        <tr><td style="height:25px;">7</td><td style="height:25px;">V7</td><td style="height:25px;">2"</td><td style="height:25px;">Open</td><td style="height:25px;"></td></tr>
+        <tr><td style="height:25px;">8</td><td style="height:25px;">V8</td><td style="height:25px;">3/4"</td><td style="height:25px;">Close</td><td style="height:25px;"></td></tr>
+        <tr><td style="height:25px;">9</td><td style="height:25px;">V9</td><td style="height:25px;">2"</td><td style="height:25px;">Close</td><td style="height:25px;"></td></tr>
+        <tr><td style="height:25px;">10</td><td style="height:25px;">V10</td><td style="height:25px;">3/4"</td><td style="height:25px;">Close</td><td style="height:25px;"></td></tr>
+        <tr><td style="height:25px;">11</td><td style="height:25px;">V11</td><td style="height:25px;">3/4"</td><td style="height:25px;">Close</td><td style="height:25px;"></td></tr>
+    </table>
+        </div>
+          <div  class="title-page">
+            <p style="text-align:center;text-decoration: underline;font-weight:bold;">MAHANAGAR GAS LIMITED</p>
+            <table style="width:100%;">
+            <tr>
+                <td style="text-align:left; font-weight:bold;border:none">
+                    Title: Non-Routine Operation
+                </td>
+                <td style="text-align:right; font-weight:bold;border:none">
+                    Record No.: AIQ RE 134 <br/>NRO No:  GA2/STEEL/NM/2024-25/X-40 CNG
+                </td>
+            </tr>
+        </table>
+            <p style="text-align:left;font-weight:bold;">(H) Operation Procedure for Commissioning:</p>
+              <table cellpadding="4">
+        <tr>
+                                   <th style="width:6%;">Sr. No.</th>
+            <th style="width:60%;">Preparatory Work</th>
+            <th style="width:20%;">Action by</th>
+            <th style="width:14%;">Check</th>
+        </tr>
+
+        <tr>
+            <td class="center">1</td>
+            <td>
+                Inform HOD (O&amp;M), HOD (Steel &amp; CNG Projects GA1 &amp; GA2)
+                &amp; Emergency team about commencement of NRO.
+            </td>
+            <td class="center">O&amp;M Engineer &amp;<br/>Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">2</td>
+            <td>
+                Ensure O&amp;M and Project manpower is present on site at NRO location.
+            </td>
+            <td class="center">O&amp;M Engineer &amp;<br/>Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">3</td>
+            <td>Check communication facility with all personnel.</td>
+            <td class="center">O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">4</td>
+            <td>
+                Ensure compliance to all related MGL Life Saving Rules
+                before &amp; during NRO.
+            </td>
+            <td class="center">Project Engineer /<br/>O&amp;M Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">5</td>
+            <td>
+                Ensure specific site risk assessment to be conducted
+                before commencement of commissioning.
+            </td>
+            <td class="center">O&amp;M / Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">6</td>
+            <td>
+                Check for any potential sources of ignition in the vicinity
+                of valve V7 &amp; V9 and remove if found any.
+            </td>
+            <td class="center">O&amp;M Technician /<br/>Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">7</td>
+            <td>
+                Install vent stack and flame arrestor with earthing arrangement at V10.
+                Also install digital pressure gauge at vent valve V10.
+            </td>
+            <td class="center">O&amp;M / Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">8</td>
+            <td>
+                Remove BLRF of 2&quot; valve spool at location B using non-sparking tools.
+                Check for gas passing from valve V7 at location A.
+                If gas passing is observed, follow contingency procedure (page no. 11).
+            </td>
+            <td class="center">O&amp;M Technician /<br/>Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">9</td>
+            <td>
+                If gas is not passing through V7, connect 2&quot; WNRF of spur line
+                with vent valve spool piece using non-sparking tools.
+                Provide spade in 2&quot; WNRF assembly for positive isolation.
+            </td>
+            <td class="center">O&amp;M Technician /<br/>Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">10</td>
+            <td>
+                Issue hot work permit and complete welding of joint
+                in downstream of 2&quot; WNRF assembly at location C.
+                Carry out NDT and verify results.
+            </td>
+            <td class="center">O&amp;M / Project Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">11</td>
+            <td>
+                Take testing, charging and commissioning permit.
+                Remove spade and connect 2&quot; WNRF using non-sparking tools.
+                Provide copper jumper. Open V7 slowly.
+                Carry out leak test and start venting gas through V10.
+            </td>
+            <td class="center">O&amp;M Technician /<br/>Engineer</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td class="center">12</td>
+            <td>
+                Keep checking gas percentage at V10 using gas detector.
+                Continue purging till 95% gas is achieved as per O&amp;M WI-102.
+                Close valve V10. Start Cathodic Protection System.
+            </td>
+            <td class="center">O&amp;M Technician /<br/>Engineer</td>
+            <td></td>
+        </tr>
+                      <tr>
+            <td class="center">13</td>
+            <td>
+               Inform HOD (O&amp;M),HOD(Steel &amp; CNG Projects GA1 &amp; GA2) &amp; Emergency team about completion of NRO.)
+            </td>
+            <td class="center">O&amp;M Engineer /<br/>Engineer</td>
+            <td></td>
+        </tr>
+    </table>
+        </div>
+                  <div  class="title-page">
+            <p style="text-align:center;text-decoration: underline;font-weight:bold;">MAHANAGAR GAS LIMITED</p>
+            <table style="width:100%;">
+            <tr>
+                <td style="text-align:left; font-weight:bold;border:none">
+                    Title: Non-Routine Operation
+                </td>
+                <td style="text-align:right; font-weight:bold;border:none">
+                    Record No.: AIQ RE 134 <br/>NRO No:  GA2/STEEL/NM/2024-25/X-40 CNG
+                </td>
+            </tr>
+        </table>
+            <p style="text-align:left;font-weight:bold;">(I) Contingency Action Plan:</p>
+                      <p> If, Passing of Valve V7:-</p>
+                      
+              <table cellpadding="1">
+        <tr>
+            <th style="width:10%;">Sr. No</th>
+            <th style="width:80%;">Action Plan</th>
+            <th style="width:10%;">Responsibility</th>
+        </tr>
+
+        <tr>
+            <td class="center">1</td>
+            <td>Inform emergency team and control room about the passing of Valve V7.</td>
+            <td class="center">O&amp;M Engineer</td>
+        </tr>
+
+        <tr>
+            <td class="center">2</td>
+            <td>Close valves V1 (8&quot;) &amp; V4 (8&quot;).</td>
+            <td class="center">O&amp;M Engineer</td>
+        </tr>
+
+        <tr>
+            <td class="center">3</td>
+            <td>
+                Check source of ignition in vicinity of valve V3 &amp; V5, remove if found any.
+                Remove BLRF from V5 and connect vent stack with flame arrestor at V5.
+                Depressurize the line section by opening valve V5.
+            </td>
+            <td class="center">O&amp;M Technician / Engineer</td>
+        </tr>
+
+        <tr>
+            <td class="center">4</td>
+            <td>
+                Connect the nitrogen hose assembly at V3.
+                Open valve V3 &amp; start nitrogen purging from V5.
+            </td>
+            <td class="center">O&amp;M Technician / Engineer</td>
+        </tr>
+
+        <tr>
+            <td class="center">5</td>
+            <td>
+                Check percentage of gas at valve V5.
+                Stop nitrogen purging when the level falls below the safe limit and issue hot work permit.
+                Ensure 00 PPM.
+                If still gas passing is observed, abandon the NRO and inform HOD (O&amp;M),
+                emergency team and control room.
+            </td>
+            <td class="center">O&amp;M Technician / Engineer</td>
+        </tr>
+
+        <tr>
+            <td class="center">6</td>
+            <td>
+                If gas is not passing, cold cut the affected pipeline section by hacksaw
+                and weld prefabricated spool piece with 2&quot; valve.
+            </td>
+            <td class="center">O&amp;M Technician / Engineer</td>
+        </tr>
+
+        <tr>
+            <td class="center">7</td>
+            <td>Conduct NDT of weld joints. Close valves V5 &amp; V3.</td>
+            <td class="center">Project Engineer</td>
+        </tr>
+
+        <tr>
+            <td class="center">8</td>
+            <td>
+                Re-commission the network using bypass hoses (SS 300#) between valve V2 &amp; V3
+                (as per correct practice) and check the % of gas at V5 and V11 using vent stack
+                with flame arrestor arrangement.
+                Continue until obtaining three consecutive readings of gas percentage in excess of 95%,
+                as per COP section-8.
+            </td>
+            <td class="center">Project Engineer</td>
+        </tr>
+
+        <tr>
+            <td class="center">9</td>
+            <td>
+                Allow the section to get fully pressurized by monitoring through pressure gauge at V8.
+                Fully open the valves V1 &amp; V4.
+            </td>
+            <td class="center">O&amp;M Technician / Engineer</td>
+        </tr>
+
+        <tr>
+            <td class="center">10</td>
+            <td>
+                Install BLRF at valves V3, V5, V8 &amp; V11 and perform leak test.
+            </td>
+            <td class="center">O&amp;M Technician</td>
+        </tr>
+
+        <tr>
+            <td class="center">11</td>
+            <td>
+                Restore the valves to their original position as per table
+                "Status of valves after Commissioning" (page no. 9).
+            </td>
+            <td class="center">O&amp;M Technician</td>
+        </tr>
+
+        <tr>
+            <td class="center">12</td>
+            <td>
+                Ensure that all the valves operated during contingency are restored to
+                their original positions and commission the pipeline following appropriate
+                sequence of gas purging considering additional valves operated and sections
+                isolated for contingency in consultation of O&amp;M team.
+                Inform control room about completion of the NRO.
+            </td>
+            <td class="center">O&amp;M Engineer</td>
+        </tr>
+    </table>
+                      <p><b>Note:-<br/>
+List of affected CNGs/DRSs/MRSs during NRO:Nil<br/>
+List of affected CNGs during contingency operation: Nil<br/>
+List of affected DRS during Contingency:One(Near Exide Industries, Taloja)<br/>
+List of affected MRS during Contingency: One(Near Exide Industries,Taloja)
+</b></p>
+                      
+        </div>
+        
+               <div  class="title-page">
+            <p style="text-align:center;text-decoration: underline;font-weight:bold;">MAHANAGAR GAS LIMITED</p>
+            <table style="width:100%;">
+            <tr>
+                <td style="text-align:left; font-weight:bold;border:none">
+                    Title: Non-Routine Operation
+                </td>
+                <td style="text-align:right; font-weight:bold;border:none">
+                    Record No.: AIQ RE 134 <br/>NRO No:  GA2/STEEL/NM/2024-25/X-40 CNG
+                </td>
+            </tr>
+        </table>
+            <p style="text-align:center;font-weight:bold;">K. Review by HSE,AI,Planning etc. as applicable</p>
+                   <p style="text-align:center;">
+                   (In case of urgencies ,comments may be given telephonically;A "NIL RETURN" to be sent in case of no comments i.e. mention "No Comments" in the space below and return)
+                   </p>
+                   
+        </div>
+                    <div  >
+            <p style="text-align:center;text-decoration: underline;font-weight:bold;">MAHANAGAR GAS LIMITED</p>
+            <table style="width:100%;">
+            <tr>
+                <td style="text-align:left; font-weight:bold;border:none">
+                    Title: Non-Routine Operation
+                </td>
+                <td style="text-align:right; font-weight:bold;border:none">
+                    Record No.: AIQ RE 134 <br/>NRO No:  GA2/STEEL/NM/2024-25/X-40 CNG
+                </td>
+            </tr>
+        </table>
+                        <p style="text-align:center;font-weight:bold;">L.  Annexure-Applicable MGL Standard/SOP's</p>
+                          <ol>
+        <li>COP Section 01: Safety Specific requirement</li>
+        <li>COP Section 03: Excavation &amp; Deep Excavation</li>
+        <li>COP Section 08: Purging &amp; commissioning</li>
+        <li>COP Section 051: Steel pipeline laying works</li>
+        <li>COP Section 52: Welding &amp; Associated works</li>
+        <li>COP Section 53: Protective Coating on steel pipeline</li>
+        <li>SCO: Procedure for Non routine operations</li>
+        <li>HIRA Format: ISO 45001</li>
+        <li>SCO 02: Permit to Work</li>
+    </ol>
+             
+        </div>
+        </body>
+</apex:page>

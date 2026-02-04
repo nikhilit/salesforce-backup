@@ -1,0 +1,247 @@
+<template>
+    <lightning-card title="Work Order Assignment" icon-name="standard:work_order">
+        <div class="slds-p-around_x-small">
+
+            <!-- Section 1: Filters -->
+            <section class="slds-box slds-m-bottom_x-small">
+                <div class="slds-text-heading_small slds-m-bottom_small">Filters</div>
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-5">
+                        <lightning-input type="date" label="From Date" value={invoiceFrom} data-name="invoiceFrom" onchange={handleFilterChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-5">
+                        <lightning-input type="date" label="To Date" data-name="invoiceTo" value={invoiceTo} onchange={handleFilterChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-5">
+                        <label class="slds-form-element__label">From Time</label>
+                        <div class="slds-grid slds-gutters_small">
+                            <div class="slds-col">
+                                <select class="slds-select" data-name="fromHour" onchange={handleFilterChange}>
+                                    <option value="" disabled selected>-</option>
+                                    <template for:each={hours} for:item="hr">
+                                        <option key={hr} value={hr}>{hr}</option>
+                                    </template>
+                                </select>
+                                <div class="slds-text-body_small slds-m-top_xx-small">Hr</div>
+                            </div>
+                            <div class="slds-col">
+                                <select class="slds-select" data-name="fromMin" onchange={handleFilterChange}>
+                                    <option value="" disabled selected>-</option>
+                                    <template for:each={minutes} for:item="min">
+                                        <option key={min} value={min}>{min}</option>
+                                    </template>
+                                </select>
+                                <div class="slds-text-body_small slds-m-top_xx-small">Min</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-5">
+                        <label class="slds-form-element__label">Time To</label>
+                        <div class="slds-grid slds-gutters_small">
+                            <div class="slds-col">
+                                <select class="slds-select" data-name="toHour" onchange={handleFilterChange}>
+                                    <option value="" disabled selected>-</option>
+                                    <template for:each={hours} for:item="hr">
+                                        <option key={hr} value={hr}>{hr}</option>
+                                    </template>
+                                </select>
+                                <div class="slds-text-body_small slds-m-top_xx-small">Hr</div>
+                            </div>
+                            <div class="slds-col">
+                                <select class="slds-select" data-name="toMin" onchange={handleFilterChange}>
+                                    <option value="" disabled selected>-</option>
+                                    <template for:each={minutes} for:item="min">
+                                        <option key={min} value={min}>{min}</option>
+                                    </template>
+                                </select>
+                                <div class="slds-text-body_small slds-m-top_xx-small">Min</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-5">
+                        <lightning-input label="Meter Number" value={meterNumber} data-name="meterNumber" onchange={handleFilterChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input label="BP Number" value={bpNumber} data-name="bpNumber" onchange={handleFilterChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input label="CA Number" value={caNumber} data-name="caNumber" onchange={handleFilterChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input label="Installation No" value={installationNumber} data-name="installationNumber" onchange={handleFilterChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-combobox label="Status" value={status} options={statusOptions} data-name="status" onchange={handleFilterChange}></lightning-combobox>
+                    </div> 
+   
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-combobox label="Agency Name" value={selectedAgencyFilter} options={agencyOptions} placeholder="All" data-name="agency" onchange={handleFilterChange}></lightning-combobox>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input label="Device ID No" value={deviceNo}  data-name="deviceNo" onchange={handleFilterChange}></lightning-input>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-combobox label="Group By" options={groupMasterOptions} data-name="groupBy" onchange={handleGroupMasterChange}
+                                        value={groupMasterValue}>
+                                    </lightning-combobox>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-combobox label="MR Note" options={groupCodeOptions} data-name="mrNote" onchange={handleGroupCodeChange}
+                                        value={groupCodeValue}>
+                                    </lightning-combobox>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-combobox label="Message" options={groupMessageOptions} data-name="message" onchange={handleGroupMessageChange} value={groupMessageValue}></lightning-combobox></lightning-combobox>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-6">
+                        <lightning-input label="Portion" value={portion} data-name="portion" onchange={handleFilterChange}></lightning-input>
+                    </div>
+                    
+                </div>
+
+                <div class="slds-m-top_small">
+                    <lightning-button label="Search" variant="brand" onclick={applyFilters}></lightning-button>
+                    <lightning-button label="Reset" class="slds-m-left_small" onclick={clearFilters}></lightning-button>
+                    <lightning-button class="slds-m-left_small" icon-name="utility:download" label="Export as CSV" onclick={exportWorkOrdersAsCSV}></lightning-button>
+                    <lightning-button class="slds-m-left_small" icon-name="utility:download" label="Export as Excel" onclick={exportWorkOrdersAsExcel}></lightning-button>
+                    <lightning-button class="slds-m-left_small"  label="Withdraw Allocations" onclick={handleWithdrawal} disabled={disableWithdrawal}></lightning-button>
+                </div>
+            </section>
+
+            <!-- Section 2: DataTable -->
+            <section class="slds-box slds-m-bottom_medium">
+                <div class="slds-text-heading_small slds-m-bottom_small">Work Orders</div>
+
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </template>
+
+                <template if:true={selectedCount}>
+                    <div class="slds-m-bottom_small">
+                        <strong>{selectedCount}</strong> Work Order(s) selected
+                    </div>
+                </template>
+                
+                <div class="slds-p-around_medium">
+                    <!-- Top bar with multi-select aligned to right -->
+                    <div class="slds-grid slds-grid_align-end slds-m-bottom_small">
+                        
+                        <div class="slds-col slds-size_1-of-4">
+                            <c-data-table-column-selector
+                                label="Select Columns"
+                                options={columnOptions}
+                                selected-option={selectedOption}
+                                onchangevalue={handleColumns}
+                            >
+                            </c-data-table-column-selector>
+                        </div>
+                    </div>
+
+                    <!-- Datatable full width -->
+                    <!-- <lightning-datatable
+                        data={pagedData}
+                        columns={columns}
+                        key-field="Id"
+                        onrowselection={handleRowSelection}
+                        selected-rows={selectedWorkOrderIds}>
+                    </lightning-datatable> -->
+                    <div style={tableContainerHeight}>
+                        <c-custom-datatable
+                            style="height: 45vh;"
+                            data={pagedData}
+                            columns={columns}
+                            key-field="Id"
+                            onrowselection={handleRowSelection}
+                            onimageclick={handleImageClick}
+                            selected-rows={selectedWorkOrderIds}
+                        >
+                        </c-custom-datatable>
+                    </div>
+                </div>
+                
+                <div class="slds-m-top_small slds-grid slds-grid_align-spread slds-align_absolute-center">
+                    <lightning-button 
+                        label="Previous" 
+                        onclick={handlePrevPage} 
+                        disabled={isPrevDisabled}>
+                    </lightning-button>
+                    <p>Total {totalSize} |  Page {pageNumber} of {totalPages}</p>
+                    <lightning-button 
+                        label="Next" 
+                        onclick={handleNextPage} 
+                        disabled={isNextDisabled}>
+                    </lightning-button>
+
+                </div>
+            </section>
+
+            <!-- Section 3: Assignment Panel -->
+            <section class="slds-box">
+                <div class="slds-text-heading_small slds-m-bottom_small">Assign Selected Work Orders</div>
+
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-combobox label="Select Agent" options={agentOptions} value={selectedAgentForAssign} placeholder="--Select--" onchange={handleAgentAssignChange}></lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <lightning-combobox label="Select Agency" options={agencyOptions} value={selectedAgencyForAssign} placeholder="--Select--" onchange={handleAgencyAssignChange}></lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3">
+                        <!-- <lightning-combobox label="Work Type" options={workTypeOptions} value={selectedWorkTypeForAssign} onchange={handleWorkTypeChange}></lightning-combobox> -->
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-3 slds-m-top_small">
+                        <!-- <lightning-input type="date" label="Start Date" value={startDateForAssign} onchange={handleStartDateChange}></lightning-input> -->
+                        <lightning-input 
+                            type="datetime-local" 
+                            label="Start Date & Time" 
+                            value={startDateForAssign} 
+                            onchange={handleStartDateChange}>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-m-top_small">
+                        <!-- <lightning-input type="date" label="End Date" value={endDateForAssign} min={startDateForAssign} onchange={handleEndDateChange}></lightning-input> -->
+                        <lightning-input 
+                            type="datetime-local" 
+                            label="End Date & Time" 
+                            value={endDateForAssign} 
+                            min={startDateForAssign} 
+                            onchange={handleEndDateChange}>
+                        </lightning-input>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-3 slds-m-top_xx-large">
+                        <lightning-button label="Assign" variant="brand" onclick={handleAssign} disabled={isAssignDisabled}></lightning-button>
+                        <lightning-button label="Reset" class="slds-m-left_small" onclick={handleResetAssign}></lightning-button>
+                    </div>
+                </div>
+
+                <template if:true={isAssignLoading}>
+                    <div class="slds-m-top_small">
+                        <lightning-spinner alternative-text="Assigning..." size="medium"></lightning-spinner>
+                    </div>
+                </template>
+            </section>
+
+        </div>
+    </lightning-card>
+
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" class="slds-modal custom-image-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="image-preview-container">
+                    <img src={selectedImage} alt="Preview" class="preview-image" />
+                </div>
+                <button class="slds-button slds-modal__close custom-close-btn" onclick={handleCloseModal}>×</button>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+ 
+</template>
+
+</template>

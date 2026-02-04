@@ -1,0 +1,19 @@
+.spinner-message::after {
+    position: absolute;
+    content: 'Please Wait...';
+    width: 100%;
+    text-align: center;
+    top: calc(50% + 2em);
+}
+
+.table-container {
+    overflow: auto;
+    max-height: 50vh !important;
+}
+
+.table-container .slds-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: white; /* ensure header doesn't become transparent */
+}

@@ -1,0 +1,25 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 16-05-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   15-05-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+	<article class="slds-card slds-is-relative">
+		<!--SPINNER SECTION-->
+		<template if:true={load}>
+			<lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+		</template>
+
+		<div class="slds-card__body slds-card__body_inner">
+			<c-illustration-component message="MRO Scheduled. Go Back and Refresh!!"></c-illustration-component>
+		</div>
+		<footer class="slds-card__footer">
+			<lightning-button variant="brand" label="Go Back" onclick={handleGoBack}></lightning-button>
+		</footer>
+	</article>
+</template>

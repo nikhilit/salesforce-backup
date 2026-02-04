@@ -1,0 +1,6 @@
+.THIS .omni-container {
+    height: 100%;
+    padding: 10px;
+    background-color: #f4f6f9;
+    overflow-y: auto;
+}

@@ -1,0 +1,305 @@
+.success-badge {
+    background-color: #016fc8;
+    color: white;
+}
+
+.unsuccessful-badge {
+    background-color: #c62828;
+    /* Red */
+    color: white;
+}
+
+.building-card {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.7rem 8px;
+    background-color: #ffffff;
+    margin: 0;
+    cursor: pointer;
+}
+
+.building-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+.emoji-wrapper {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 32px; */
+}
+
+.building-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.building-name {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.building-address {
+    font-size: 14px;
+    color: #555;
+}
+
+.total-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.total-count span {
+    background-color: #1589ee;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-container {
+    height: 100vh;
+    background: #ffffff;
+    border-top: 1px solid #ddd;
+}
+
+.back-button-container {
+    padding-left: 1rem;
+}
+
+/* Custom Header Styling */
+.section-header {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.emoji-back-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.header-title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+    padding-right: 15px;
+
+}
+
+.back-icon-button {
+    margin-left: 0.5rem;
+}
+
+/* Section content styling (body of the list) */
+.custom-section {
+    border: 1px solid #ffffff;
+    border-top: none;
+    border-radius: 0 0 0.5rem 0.5rem;
+    background-color: #ffffff;
+}
+
+
+
+/* Styling for the building name and address */
+.building-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.building-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+/* Flexbox for spacing */
+.slds-grid_align-spread {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.building-card:hover {
+    background-color: #f8f8f8;
+}
+
+
+/* Margin and padding adjustments */
+.slds-m-top_medium {
+    margin-top: 5px;
+}
+
+.slds-m-bottom_small {
+    margin-bottom: 12px;
+}
+
+.slds-m-vertical_small {
+    margin: 8px 0;
+}
+
+/* Highlighted appointment header */
+.appointment-header {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 6px;
+}
+
+/* Make appointment block look clickable */
+.appointment-clickable {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.appointment-clickable:hover {
+    background-color: #e6f0ff;
+}
+
+.custom-white-icon lightning-primitive-icon {
+    --sds-c-icon-color-foreground-default: rgb(30, 28, 28);
+}
+
+
+.appointment-card {
+    padding: 0.7rem 8px;
+    /* border-radius: 8px; */
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.appt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.appt-account-name {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.appt-status {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 6px;
+    text-transform: capitalize;
+}
+
+.appt-subject {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.appt-summary {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.appt-datetime {
+    font-size: 13px;
+    color: #999;
+}
+
+.line-break {
+    border-bottom: 1px solid #ddd;
+    width: 90%;
+    margin: 8px auto;
+}
+
+.card {
+    padding: 5px;
+    border-radius: 15px;
+    /* margin: 0 5px; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    background-color: #1589ee;
+    border-radius: 0.5rem;
+    box-shadow: 0px 2px 3px 0px 2px 3px rgb(187 187 187 / 80%);
+}
+
+.card div {
+    display: flex;
+    flex-direction: column;
+    /* flex-basis: 70%; */
+    text-align: center;
+}
+
+.card .icon-section {
+    /* background: #ffffff21; */
+    /* color: #00a3cc; */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff42;
+    padding: 5px;
+    /* height: 50px;
+    width: 50px;
+    padding: 20px;
+    font-size: 25px; */
+}
+
+.card-label {
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.card * {
+    text-wrap: nowrap;
+}
+
+.card-total {
+    background-color: #1589ee;
+    /* width: 50px; */
+}
+.card-badge{
+    text-align: center;
+    width: 100%;
+}
+
+.circle-card {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #000000;
+    background-color: white;
+    color: rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.align-right {
+    display: flex;
+    justify-content: flex-end;
+}

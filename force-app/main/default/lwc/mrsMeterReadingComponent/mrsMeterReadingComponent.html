@@ -1,0 +1,351 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 23-12-2025
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   17-06-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <!--SPINNER SECTION-->
+    <!-- <template if:true={load}>
+        <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+    </template> -->
+
+    <template if:true={accountView}>
+        <!-- ref1 -->
+        <lightning-card title="Customer Information" icon-name="standard:account" class="slds-is-relative">
+            <template if:true={load}>
+                <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+            </template>
+            <template if:true={account}>
+                <div class="account-container slds-p-around_small">
+                    <!-- Contact Info -->
+                    <div class="section">
+                        <h3>Customer View</h3>
+                        <div class="row"><span class="label">Name:</span> <span class="value">{account.Name}</span>
+                        </div>
+                        <!-- <div class="row"><span class="label">Phone:</span> <span class="value">{account.Phone}</span></div> -->
+                        <div class="row"><span class="label">BP Number:</span> <span
+                                class="value">{account.BP_Number__c}</span></div>
+                        <!-- <div class="row"><span class="label">MRU Code:</span> <span class="value">{account.MRU_Code__c}</span></div> -->
+                        <div class="row"><span class="label">Meter Number:</span> <span
+                                class="value">{account.Meter_Number__c}</span></div>
+                        <div class="row"><span class="label">CA Number:</span> <span
+                                class="value">{account.CA_Number__c}</span></div>
+                        <div class="row"><span class="label">Contact No. (Mob):</span> <span
+                                class="value">{account.Customer_Contact_no__c}</span></div>
+                        <div class="row"><span class="label">Contact No. (Home):</span> <span
+                                class="value">{account.Secondary_Telephone__c}</span></div>
+                        <div class="row"><span class="label">Contact No.(Office):</span> <span
+                                class="value">{account.Phone}</span></div>
+                        <div class="row"><span class="label">Email Id:</span> <span
+                                class="value">{account.Account_Email__c}</span></div>
+
+
+                    </div>
+
+                    <!-- Address Info -->
+                    <div class="section">
+                        <h3>Address Information</h3>
+                        <div class="row"><span class="label">Flat:</span> <span class="value">{account.Flat__c}</span>
+                        </div>
+                        <div class="row"><span class="label">Floor:</span> <span class="value">{account.Floor__c}</span>
+                        </div>
+                        <div class="row"><span class="label">Plot:</span> <span class="value">{account.Plot__c}</span>
+                        </div>
+                        <div class="row"><span class="label">Wing:</span> <span class="value">{account.Wing__c}</span>
+                        </div>
+                        <div class="row"><span class="label">Building Name:</span> <span
+                                class="value">{account.Building_name__c}</span></div>
+                        <div class="row"><span class="label">Colony:</span> <span
+                                class="value">{account.Colony__c}</span></div>
+                        <div class="row"><span class="label">Society Name:</span> <span
+                                class="value">{account.Society_Name__c}</span></div>
+                        <div class="row"><span class="label">Road Name:</span> <span
+                                class="value">{account.Road_name__c}</span></div>
+                        <div class="row"><span class="label">Location :</span> <span
+                                class="value">{account.Location__c}</span></div>
+                        <div class="row"><span class="label">City:</span> <span class="value">{account.City__c}</span>
+                        </div>
+                        <div class="row"><span class="label">Street:</span> <span
+                                class="value">{account.Postal_Code__c}</span></div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="button-container footer-section">
+                        <lightning-button label="Take Meter Reading" onclick={handleGetLocation}
+                            class="slds-m-right_small" variant="brand">
+                        </lightning-button>
+                        <!-- <lightning-button label="Update Customer" onclick={handleUpdateCustomer}></lightning-button> -->
+                    </div>
+
+                </div>
+            </template>
+
+            <template if:true={error}>
+                <div class="slds-text-color_error slds-m-around_medium">
+                    Error loading account details: {errorMessage}
+                </div>
+            </template>
+        </lightning-card>
+    </template>
+
+    <template if:true={meterReadingPage}>
+        <article class="slds-card slds-is-relative">
+            <template if:true={load}>
+                <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+            </template>
+            <div
+                class="slds-card__header slds-grid slds-p-around--x-small slds-m-around_none slds-border_bottom slds-theme--shade">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name='standard:record' alternative-text='record' size='small'
+                            title='record'>
+                        </lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>Enter Details</span>
+                        </h2>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner slds-p-around--small slds-m-around_none">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                        <c-custom-input-field-component input-label="Analog Meter Reading" input-type="number"
+                            input-value={wrapperData.turbineMeterReading} onchange={handleFieldChange}
+                            data-field-name="turbineMeterReading" required=true suffix-label="(m³)">
+                        </c-custom-input-field-component>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                        <c-custom-input-field-component input-label="Pressure" input-value={wrapperData.pressure}
+                            data-field-name="pressure" onchange={handleFieldChange} input-type="number" required=true
+                            suffix-label="(bar)">
+                        </c-custom-input-field-component>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                        <c-custom-input-field-component input-label="Corrected Volume" input-type="number"
+                            input-value={wrapperData.correctedVolume} data-field-name="correctedVolume"
+                            onchange={handleFieldChange} required=true suffix-label="(Vb) (m³)">
+                        </c-custom-input-field-component>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                        <c-custom-input-field-component input-label="Uncorrected Volume" input-type="number"
+                            input-value={wrapperData.uncorrectedVolume} data-field-name="uncorrectedVolume"
+                            onchange={handleFieldChange} required=true suffix-label="(Vm) (m³)">
+                        </c-custom-input-field-component>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                        <c-custom-input-field-component input-label="Correction Factor" input-type="number"
+                            input-value={wrapperData.correctionFactor} data-field-name="correctionFactor"
+                            onchange={handleFieldChange} required=true>
+                        </c-custom-input-field-component>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                        <c-custom-input-field-component input-label="Temperature" input-type="number"
+                            input-value={wrapperData.temperature} data-field-name="temperature"
+                            onchange={handleFieldChange} required=true suffix-label="(°C)">
+                        </c-custom-input-field-component>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                        <c-custom-input-field-component input-label="Meter Image Remark" input-type="textarea"
+                            input-value={wrapperData.meterImageRemark} data-field-name="meterImageRemark"
+                            onchange={handleFieldChange}>
+                        </c-custom-input-field-component>
+                    </div>
+                    <!-- <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small slds-align_absolute-center">
+                        <lightning-button label="Back" variant="neutral" class="slds-m-right_small"
+                            onclick={handleStartMeteringBack}>
+                        </lightning-button>
+                        <lightning-button label="Next" variant="brand" onclick={handleStartMeteringNext}>
+                        </lightning-button>
+                    </div> -->
+                </div>
+            </div>
+            <div class="slds-card__header slds-grid slds-p-around--x-small slds-m-around_none slds-border_bottom slds-border_top
+                    slds-theme--shade">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name='standard:record' alternative-text='record' size='small'
+                            title='record'>
+                        </lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>Capture Images</span>
+                        </h2>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner slds-p-around--small slds-m-around_none">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                        <c-camera-upload-component image-list={listPhotos} onchange={handleFile}>
+                            <!--onchange={handleFile}-->
+                        </c-camera-upload-component>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small slds-align_absolute-center">
+                <lightning-button label="Back" variant="neutral" class="slds-m-right_small"
+                    onclick={handleCaptureMeterBack}>
+                </lightning-button>
+                <lightning-button label="Next" variant="brand" onclick={handleCaptureMeterNext}>
+                </lightning-button>
+            </div> -->
+            <div
+                class="slds-col slds-size_1-of-1 slds-p-vertical_x-small slds-align_absolute-center footer-section-extra">
+                <lightning-button label="Back" variant="neutral" class="slds-m-right_small"
+                    onclick={handleStartMeteringBack}>
+                </lightning-button>
+                <lightning-button label="Next" variant="brand" onclick={handleCaptureMeterNext}>
+                </lightning-button>
+            </div>
+        </article>
+    </template>
+
+    <!-- <template if:true={captureImagePage}>
+        <article class="slds-card slds-is-relative">
+            <div class="slds-card__header slds-grid slds-p-around--x-small slds-m-around_none slds-border_bottom">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name='standard:record' alternative-text='record' size='small'
+                            title='record'>
+                        </lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>Capture Images</span>
+                        </h2>
+                    </div>
+                </header>
+            </div>
+            <div class="slds-card__body slds-card__body_inner slds-p-around--small slds-m-around_none">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small">
+                        <c-camera-upload-component image-list={listPhotos}>
+                        </c-camera-upload-component>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small slds-align_absolute-center">
+                    <lightning-button label="Back" variant="neutral" class="slds-m-right_small"
+                        onclick={handleCaptureMeterBack}>
+                    </lightning-button>
+                    <lightning-button label="Next" variant="brand" onclick={handleCaptureMeterNext}>
+                    </lightning-button>
+                </div>
+            </div>
+        </article>
+    </template> -->
+
+    <!-- Preview Page -->
+    <template if:true={showPreviewPage}>
+        <lightning-card title="Preview Entered Data" icon-name="standard:document_preview">
+            <div class="slds-p-around_small slds-grid slds-wrap slds-is-relative">
+                <template if:true={load}>
+                    <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+                </template>
+
+                <!-- Contact Info -->
+                <div class="section slds-col slds-size_1-of-1">
+                    <h3>Customer Data</h3>
+                    <div class="row"><span class="label">Name:</span> <span class="value">{account.Name}</span></div>
+                    <div class="row"><span class="label">Phone:</span> <span class="value">{account.Phone}</span></div>
+                    <div class="row"><span class="label">BP Number:</span> <span
+                            class="value">{account.BP_Number__c}</span></div>
+                    <div class="row"><span class="label">CA Number:</span> <span
+                            class="value">{account.CA_Number__c}</span></div>
+                    <div class="row"><span class="label">Building Name:</span> <span
+                            class="value">{account.Building_name__c}</span></div>
+                    <div class="row"><span class="label">Floor:</span> <span class="value">{account.Floor__c}</span>
+                    </div>
+                    <div class="row"><span class="label">Flat:</span> <span class="value">{account.Flat__c}</span></div>
+                </div>
+
+                <div class="section slds-col slds-size_1-of-1 slds-grid slds-wrap">
+                    <h3>Details</h3>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-2 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                            <c-custom-input-field-component input-label="Analog Meter Reading"
+                                input-value={wrapperData.turbineMeterReading} disabled=true input-type="number"
+                                suffix-label="(m³)">
+                            </c-custom-input-field-component>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                            <c-custom-input-field-component input-label="Pressure" input-value={wrapperData.pressure}
+                                data-field-name="pressure" disabled=true input-type="number" suffix-label="(bar)">
+                            </c-custom-input-field-component>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                            <c-custom-input-field-component input-label="Corrected Volume" input-type="number"
+                                input-value={wrapperData.correctedVolume} data-field-name="correctedVolume"
+                                disabled=true suffix-label="(m³)">
+                            </c-custom-input-field-component>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                            <c-custom-input-field-component input-label="Uncorrected Volume" input-type="number"
+                                input-value={wrapperData.uncorrectedVolume} data-field-name="uncorrectedVolume"
+                                disabled=true suffix-label="(Vm) (m³)">
+                            </c-custom-input-field-component>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                            <c-custom-input-field-component input-label="Correction Factor" input-type="number"
+                                input-value={wrapperData.correctionFactor} data-field-name="correctionFactor"
+                                disabled=true>
+                            </c-custom-input-field-component>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                            <c-custom-input-field-component input-label="Temperature" input-type="number"
+                                input-value={wrapperData.temperature} data-field-name="temperature" disabled=true
+                                suffix-label="(°C)">
+                            </c-custom-input-field-component>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-p-vertical_x-small slds-p-horizontal_xx-small">
+                            <c-custom-input-field-component input-label="Meter Image Remark" input-type="textarea"
+                                input-value={wrapperData.meterImageRemark} data-field-name="meterImageRemark"
+                                disabled=true>
+                            </c-custom-input-field-component>
+                        </div>
+                    </div>
+                </div>
+                <div class="section slds-col slds-size_1-of-1" if:false={workOrderCompleted}>
+                    <h3>Photos</h3>
+                    <c-camera-upload-component image-list={listPhotos} disabled="true">
+                        <!--listPhotos-->
+                    </c-camera-upload-component>
+                </div>
+
+                <!-- Action Buttons -->
+                <div if:false={workOrderCompleted}
+                    class="slds-col slds-size_1-of-1 slds-m-top_medium slds-align_absolute-center footer-section-extra">
+                    <lightning-button label="Back" variant="neutral" class="slds-m-right_small"
+                        onclick={handlePreviewBack}>
+                    </lightning-button>
+                    <lightning-button label="Save" variant="brand" onclick={handleGetLocation}></lightning-button>
+                </div>
+            </div>
+        </lightning-card>
+    </template>
+    <template if:true={showOkModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">Confirm</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p class="slds-align--absolute-center">
+                        Record has been saved successfully.
+                    </p>
+                </div>
+                <div class="slds-modal__footer">
+                    <lightning-button variant="brand" label="OK" onclick={handleSaveClick}></lightning-button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

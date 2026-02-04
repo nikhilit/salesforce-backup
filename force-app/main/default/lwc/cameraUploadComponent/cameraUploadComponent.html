@@ -1,0 +1,209 @@
+<!--
+  @description       :
+  @author            : Kartik Patkar Appstrail
+  @group             :
+  @last modified on  : 21-01-2026
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   06-08-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <div class="step-container slds-grid slds-wrap slds-align--absolute-center">
+        <template for:each={steps} for:item="step">
+            <div class="step slds-col slds-size_1-of-2 slds-p-horizontal--x-small" key={step.id}>
+                <div class="step-content">
+                    <div class="step-label">{step.label}</div>
+
+                    <label class="upload-placeholder">
+                        <template if:true={step.uploaded}>
+                            <img src={step.previewUrl} alt="Uploaded Image" class="image-preview" />
+                            <button class="remove-button" onclick={removeImage} data-id={step.id}></button>
+                        </template>
+
+                        <template if:false={step.uploaded}>
+                            <button class="slds-button slds-button_icon" type="button" onclick={openCamera}
+                                data-id={step.id} disabled={disabled}>
+                                <lightning-icon icon-name="utility:photo" alternative-text="Open Camera" size="medium"
+                                    title="Camera"></lightning-icon>
+                            </button>
+                        </template>
+                    </label>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <!-- CAMERA POPOVER -->
+    <template if:false={desktop}>
+        <section class="camera-wrapper fullscreen-camera hide-camera-page">
+            <div class="camera-container">
+
+                <!-- Cancel/Close button at top-right -->
+                <div class="camera-close-button" onclick={closeCamera}>✖</div>
+
+                <div class="camera-header">
+                    <h2>Capture Image-{angleDisplay} | Rotation: {rotationAngle}°</h2>
+                </div>
+
+                <div class="camera-body">
+                    <!-- Canvas always available for rotation -->
+                    <canvas class="camera-canvas" style="display: none;"></canvas>
+                    
+                    <template if:false={cameraErrorMessage}>
+                        <template if:false={pictureTaken}>
+                            <div class="video-frame-wrapper">
+                                <video autoplay playsinline class="camera-view"></video>
+                            </div>
+                        </template>
+
+                        <template if:true={pictureTaken}>
+                            <img src={capturedBase64} alt="Captured" class="captured-image"
+                                style={imageRotationStyle} />
+                        </template>
+                    </template>
+
+                    <template if:true={cameraErrorMessage}>
+                        <div class="error-message">{cameraErrorMessage}</div>
+                    </template>
+                </div>
+
+                <!-- Zoom control -->
+                <template if:true={cameraTrack}>
+                    <!-- <div class="zoom-control" style="margin: 0.5rem 0;">
+                            <label for="zoomSlider">Zoom:</label>
+                          <input type="range" 
+                                id="zoomSlider" 
+                                min={minZoom} 
+                                max={maxZoom} 
+                                step="0.1" 
+                                value={currentZoom} 
+                                oninput={handleZoomChange} />
+                        </div> -->
+
+                    <div class="zoom-control">
+                        <lightning-button-icon icon-name="utility:dash" alternative-text="Zoom Out" title="Zoom Out"
+                            onclick={zoomOut}>
+                        </lightning-button-icon>
+
+                        <span class="zoom-label">{zoomDisplay}</span>
+
+                        <lightning-button-icon icon-name="utility:add" alternative-text="Zoom In" title="Zoom In"
+                            onclick={zoomIn}>
+                        </lightning-button-icon>
+                    </div>
+
+
+                </template>
+
+                <!-- Camera Controls -->
+                <div class="camera-footer">
+                    <template if:true={cameraErrorMessage}>
+                        <button class="circle-button retry" onclick={startCamera}>Retry</button>
+                    </template>
+
+                    <template if:false={cameraErrorMessage}>
+                        <template if:false={pictureTaken}>
+                            <div class="camera-controls-row">
+                                <!-- Flash Left -->
+                                <button class="slds-button slds-button_icon flash-icon-left" type="button"
+                                    onclick={toggleFlash} disabled={isFlashButtonDisabled} title={flashLabel}>
+                                    <lightning-icon icon-name={flashIconName} alternative-text="Toggle Flash"
+                                        size="medium">
+                                    </lightning-icon>
+                                </button>
+
+                                <!-- Rotate -->
+                                <button class="slds-button slds-button_icon flash-icon-left" type="button"
+                                    title="Rotate Camera" onclick={toggleCamera}>
+                                    <lightning-icon icon-name="utility:rotate" alternative-text="Rotate Camera"
+                                        size="medium">
+                                    </lightning-icon>
+                                </button>
+
+                                <!-- Capture Center -->
+                                <lightning-icon icon-name="action:add_photo_video" size="large" class="capture-icon"
+                                    onclick={takePicture}>
+                                </lightning-icon>
+                            </div>
+                        </template>
+
+                        <template if:true={pictureTaken}>
+                            <div class="action-buttons">
+                                <!-- <button class="circle-button" onclick={retakePicture}>
+
+                                </button> -->
+                                <lightning-icon icon-name="action:reset_password" size="large" onclick={retakePicture}
+                                    title="Retake Photo">
+                                </lightning-icon>
+                                <lightning-icon icon-name="utility:rotate" size="large" onclick={rotateImage}
+                                    title="Rotate 90°">
+                                </lightning-icon>
+                                <!-- <button class="circle-button" onclick={savePicture}>✓</button> -->
+                                <lightning-icon icon-name="action:approval" size="large" onclick={savePicture}
+                                    title="Save Photo">
+                                </lightning-icon>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template if:true={desktop}>
+        <section class="camera-wrapper slds-modal">
+            <div class="slds-modal__container" style="width: 100%; padding: 0;">
+                <div class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">Capture Image</h2>
+                </div>
+
+                <div class="slds-modal__content">
+                    <!-- Canvas always available for rotation -->
+                    <canvas class="camera-canvas" style="display: none;"></canvas>
+                    
+                    <template if:false={cameraErrorMessage}>
+                        <template if:false={pictureTaken}>
+                            <div class="video-frame-wrapper">
+                                <video autoplay playsinline class="camera-view full-height-video"
+                                    style="width: 100%; height: auto;"></video>
+                            </div>
+                        </template>
+
+                        <template if:true={pictureTaken}>
+                            <img src={capturedBase64} alt="Captured" style={desktopImageStyle} />
+                        </template>
+                    </template>
+
+                    <template if:true={cameraErrorMessage}>
+                        <div class="error-message slds-text-color_error slds-align_absolute-center"
+                            style="height: 10rem;text-align: center;">
+                            {cameraErrorMessage}
+                        </div>
+                    </template>
+
+                </div>
+
+                <div class="slds-modal__footer slds-grid slds-grid_align-end slds-p-around_small">
+                    <template if:true={cameraErrorMessage}>
+                        <button class="slds-button slds-button_neutral" onclick={startCamera}>Retry</button>
+                    </template>
+                    <template if:false={cameraErrorMessage}>
+                        <template if:false={pictureTaken}>
+                            <button class="slds-button slds-button_neutral" onclick={takePicture}>Take Picture</button>
+                        </template>
+
+                        <template if:true={pictureTaken}>
+                            <button class="slds-button slds-button_outline-brand"
+                                onclick={retakePicture}>Retake</button>
+                            <button class="slds-button slds-button_neutral" onclick={rotateImage}>Rotate 90°</button>
+                            <button class="slds-button slds-button_brand" onclick={savePicture}>Save</button>
+                        </template>
+                    </template>
+                    <button class="slds-button slds-button_destructive" onclick={closeCamera}>Cancel</button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" if:true={showCamera}></div>
+    </template>
+</template>

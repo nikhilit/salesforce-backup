@@ -1,0 +1,76 @@
+/* Container */
+.sf-container {
+    border: 1px solid #dddbda;
+    background: #ffffff;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Header */
+.sf-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    font-weight: 400;
+    font-size: 1rem;
+    color: #706e6b;
+}
+
+.sf-divider {
+    border-bottom: 1px solid #dddbda;
+}
+
+/* Required info */
+.sf-required-info {
+    text-align: right;
+    font-size: 0.75rem;
+    color: #706e6b;
+    margin: 0.5rem 1rem;
+}
+
+.sf-required-info abbr {
+    color: #c23934;
+}
+
+.sf-section-header {
+    background: #f3f3f3;
+    color:#706e6b;
+    padding: 0.5rem;
+    font-weight: 400;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+}
+
+/* Section Body */
+.sf-section-body {
+    padding: 1rem;
+}
+
+/* Row Layout */
+.sf-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    align-items: center;
+}
+
+/* Labels */
+.sf-label {
+    font-size: 0.875rem;
+    color: #3e3e3c;
+    font-weight: 700;
+}
+
+/* Required star */
+.sf-label.required::before {
+    content: "* ";
+    color: #c23934;
+}
+
+/* Footer */
+.sf-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 1px solid #dddbda;
+}

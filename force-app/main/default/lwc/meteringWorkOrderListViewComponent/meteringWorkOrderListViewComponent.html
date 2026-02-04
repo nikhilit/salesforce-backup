@@ -1,0 +1,336 @@
+<!--
+  @description       : 
+  @author            : Kartik Patkar Appstrail
+  @group             : 
+  @last modified on  : 27-01-2026
+  @last modified by  : Kartik Patkar, Appstrail
+  Modifications Log
+  Ver   Date         Author                     Modification
+  1.0   10-10-2025   Kartik Patkar, Appstrail   Initial Version
+-->
+<template>
+    <article class="slds-card slds-card_boundary main-card slds-scrollable_none slds-is-relative">
+        <template if:true={spinner}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+        <template if:true={isExporting}>
+            <div class="slds-notify_container slds-is-absolute">
+                <div class="slds-notify slds-notify_toast slds-theme_info" role="status">
+                    <span class="slds-assistive-text">info</span>
+                    <span
+                        class="slds-icon_container slds-icon-utility-info slds-m-right_small slds-no-flex slds-align-top"
+                        title="Description of icon when needed">
+                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                            <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#info">
+                            </use>
+                        </svg>
+                    </span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small">
+                            Preparing Excel...
+                        </h2>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style={progressWidth}></div>
+                        </div>
+                    </div>
+                    <div class="slds-notify__close">
+                        <button class="slds-button slds-button_icon slds-button_icon-inverse" onclick={handleStopExport}
+                            title="Close">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use
+                                    xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close">
+                                </use>
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <div class="slds-border--bottom slds-card__header slds-grid slds-p-bottom--x-small slds-theme--shade"
+            if:false={hideHeader}>
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <lightning-icon icon-name='action:new_contact' alternative-text='new_contact' size='x-small'
+                        title='new_contact'>
+                    </lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <div class="slds-page-header__name">
+                        <div class="slds-page-header__name-title" style="display: flex;">
+                            <h1>
+                                <span>Work Orders</span>
+                                <span class="slds-page-header__title slds-truncate" title={listViewLabel}>
+                                    {listViewLabel}
+                                </span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-no-flex slds-grid">
+    <!-- Filter toggle -->
+    <lightning-button-icon-stateful
+        icon-name="utility:filterList"
+        selected={likeState}
+        class="slds-p-around--xx-small"
+        onclick={toggleFilterSection}>
+    </lightning-button-icon-stateful>
+
+    <!-- Column selector -->
+    <lightning-button-icon
+        icon-name="utility:settings"
+        alternative-text="Select Columns"
+        class="slds-p-around--xx-small"
+        onclick={toggleColumnSelector}>
+    </lightning-button-icon>
+</div>
+
+            </header>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-1" if:true={likeState}>
+                    <article class="slds-card slds-card_boundary" if:true={filterCondition}>
+                        <div class="slds-card__body slds-card__body_inner">
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.fromDate}>
+                                    <lightning-input type="date" label="From Date" name="fromDate" onchange={handleInputChange}>
+                                    </lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.toDate}>
+                                    <lightning-input type="date" label="To Date" name="toDate" onchange={handleInputChange}>
+                                    </lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.meterNumber}>
+                                    <lightning-input label="Meter Number" name="meterNumber" onchange={handleInputChange}>
+                                    </lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.appointmentStatus}>
+                                    <lightning-combobox label="Appointment Status" options={appointmentStatusOptions}
+                                        name="appointmentStatus" onchange={handleInputChange}>
+                                    </lightning-combobox>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.agency}>
+                                    <lightning-record-picker label="Agency" placeholder="Search Agency..."
+                                        object-api-name="ServiceTerritory" icon-name="standard:service_territory"
+                                        name="agency" onchange={handleInputChange} value={agency}>
+                                    </lightning-record-picker>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.agent}>
+                                    <lightning-record-picker label="Agent" placeholder="Search Agent..."
+                                        object-api-name="ServiceResource" icon-name="standard:service_resource"
+                                        name="agent" onchange={handleInputChange} value={agent}>
+                                    </lightning-record-picker>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.bpNumber}>
+                                    <lightning-textarea label="BP Number" name="bpNumber" onchange={handleInputChange}>
+                                    </lightning-textarea>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.caNumber}>
+                                    <lightning-textarea label="CA Number" name="caNumber" onchange={handleInputChange}></lightning-textarea>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.group}>
+                                    <lightning-combobox label="Group" options={groupMasterOptions} onchange={handleGroupMasterChange}
+                                        value={groupMasterValue}>
+                                    </lightning-combobox>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.groupCode}>
+                                    <lightning-combobox label="MR Note" options={groupCodeOptions} onchange={handleGroupCodeChange}
+                                        value={groupCodeValue}>
+                                    </lightning-combobox>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.groupMessage}>
+                                    <lightning-combobox label="Message" options={groupMessageOptions} onchange={handleGroupMessageChange}
+                                        value={groupMessageValue}>
+                                    </lightning-combobox>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.mruCategoryValue}>
+                                    <lightning-combobox label="MRU Category" options={mruCategoryOptions} value={mruCategoryValue} onchange={handleMruCategoryChange}>
+                                    </lightning-combobox>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.approvalStatus}>
+                                    <lightning-combobox label="Approval Status" options={approvalStatusOptions} onchange={handleapprovalStatusChange}
+                                        value={approvalStatus}>
+                                    </lightning-combobox>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.area}>
+                                    <lightning-combobox label="Area" options={areaOptions} value={area} onchange={handleAreaChange}>
+                                    </lightning-combobox>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.gaWiseValue}>
+                                    <lightning-combobox label="GA Wise" options={gawiseOptions} value={gaWiseValue} onchange={handleGAWiseChange}>
+                                    </lightning-combobox>
+                                </div>
+                                <div class="slds-col slds-size_1-of-6 slds-p-horizontal--xx-small" if:true={filterCondition.locationValue}>
+                                    <lightning-combobox label="Location" options={locationOptions} value={locationValue} onchange={handleLocationChange}>
+                                    </lightning-combobox>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="slds-card__footer">
+                            <button class="slds-button slds-button_brand" onclick={handleSearch}>Search</button>
+                            <button class="slds-button slds-button_neutral" onclick={handleClear}>Clear</button>
+                            <!-- <button class="slds-button slds-button_neutral" onclick={exportWorkOrdersAsExcel} disabled={isExporting}>
+                                Export to Excel
+                            </button> -->
+                            <button class="slds-button slds-button_neutral" onclick={exportWorkOrdersAsCSV} disabled={isExporting}>
+                                Export to CSV
+                            </button>
+
+                            <button class="slds-button slds-button_neutral" onclick={showApprovalBtn}>Approve</button>
+
+                            <button if:true={getImageButton}
+                                class="slds-button slds-button_neutral" 
+                                onclick={handleGetImage}
+                                disabled={isBatchProcessing}>
+                                <template if:false={isBatchProcessing}>
+                                    Get Image
+                                </template>
+                                <template if:true={isBatchProcessing}>
+                                    Processing...
+                                </template>
+                            </button>
+                            
+                        </footer>
+                    </article>
+                </div>
+                <!-- COLUMN SELECTOR PANEL -->
+<!-- COLUMN SELECTOR MODAL -->
+<template if:true={showColumnSelector}>
+
+    <!-- Backdrop -->
+    <div class="slds-backdrop slds-backdrop_open"></div>
+
+    <!-- Modal -->
+    <section
+        role="dialog"
+        tabindex="-1"
+        aria-modal="true"
+        class="slds-modal slds-fade-in-open">
+
+        <div class="slds-modal__container column-selector-modal">
+
+            <!-- Modal Header -->
+            <header class="slds-modal__header">
+                <button
+                    class="slds-button slds-button_icon slds-modal__close"
+                    title="Close"
+                    onclick={handleCancel}>
+                    <lightning-icon
+                        icon-name="utility:close"
+                        alternative-text="Close"
+                        size="small">
+                    </lightning-icon>
+                </button>
+
+                <h2 class="slds-text-heading_medium">
+                    Select Columns
+                </h2>
+            </header>
+
+            <!-- Modal Body -->
+            <div class="slds-modal__content slds-p-around_medium">
+
+                <lightning-dual-listbox
+                    name="columns"
+                    source-label="Available Fields"
+                    selected-label="Visible Columns"
+                    options={fieldOptions}
+                    value={draftSelectedColumns}
+                    onchange={handleDraftColumnChange}>
+                </lightning-dual-listbox>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <footer class="slds-modal__footer slds-grid slds-grid_align-end">
+                <lightning-button
+                    label="Cancel"
+                    variant="neutral"
+                    onclick={handleCancel}
+                    class="slds-m-right_small">
+                </lightning-button>
+
+                <lightning-button
+                    label="Apply"
+                    variant="brand"
+                    onclick={handleApply}>
+                </lightning-button>
+            </footer>
+
+        </div>
+    </section>
+
+</template>
+<!-- INITIAL MESSAGE -->
+
+
+
+
+                <div class="slds-col slds-size_1-of-1">
+                    <article class="slds-card">
+                        <template if:true={showIllustration}>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1">
+            <c-illustration-component
+                message="Please apply filter and search.">
+            </c-illustration-component>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+            <lightning-button
+                label="View All"
+                onclick={handleViewAll}>
+            </lightning-button>
+        </div>
+    </div>
+</template>
+                        <template if:true={showTable}>
+                        <div style={tableContainerHeight} 
+                            class="slds-card__body slds-card__body_inner slds-p-around--none table-container table-scroll-wrapper">
+                            <c-custom-type-datatable key-field="Id" data={paginatedData} columns={columns}
+                                onimageclick={handleImageClick} show-row-number-column enable-infinite-loading
+                                default-sort-direction={defaultSortDirection} sorted-direction={sortDirection}
+                                sorted-by={sortedBy} onsort={onHandleSort} onrowselection={handleSelectRecords}
+                                selected-rows={visibleSelectedRecords} key={tableKey} onloadmore={handleNext}>
+                            </c-custom-type-datatable>
+                        </div>
+                        </template>
+
+                        <footer class="slds-card__footer" style="justify-content: space-between;">
+                            <div>
+                                <!-- Page {page} of {totalPages} &nbsp; | &nbsp; -->
+                                Total Records: {totalRecords}
+                            </div>
+
+                            <div if:false={lazyLoading}>
+                                <lightning-button label="Previous" onclick={handlePrev} disabled={isPrevDisabled}>
+                                </lightning-button>
+                                <lightning-button label="Next" onclick={handleNext} class="slds-p-left--small"
+                                    disabled={isNextDisabled}>
+                                </lightning-button>
+                            </div>
+                        </footer>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </article>
+    <template if:true={isApprovalBtnSelected}>
+                    <c-work-order-bulk-approval-component record-ids={selectedRecords} onclose={handleClose}
+                        redirect=true>
+                    </c-work-order-bulk-approval-component>
+                </template>
+
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" class="slds-modal custom-image-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="image-preview-container">
+                    <img src={selectedImage} alt="Preview" class="preview-image" />
+                </div>
+                <button class="slds-button slds-modal__close custom-close-btn" onclick={handleCloseModal}>×</button>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

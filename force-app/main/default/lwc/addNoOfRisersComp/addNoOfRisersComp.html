@@ -1,0 +1,38 @@
+<template>
+
+         <lightning-card>
+
+              <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+                    <div class="slds-grid slds-wrap">
+
+
+
+     <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+                <lightning-input type="number" label="Add Risers" value={risersNumber}
+                    onchange={handleRiserChange}  min="0" max="25" required="true" disabled={isReadOnly}>
+
+                </lightning-input>
+
+            </div>
+
+                    </div>
+
+
+              <div class="slds-p-around_medium" style="margin-left:7.3rem;">
+
+                
+        <!-- <lightning-button label="Back" onclick={handleBack} variant="brand">
+                                    </lightning-button> &nbsp;&nbsp; -->
+
+                <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+
+            </div>
+
+
+                 </lightning-card>
+
+
+</template>

@@ -1,0 +1,32 @@
+<template>
+    <!-- <lightning-card title="Domestic Meter Checking Report" icon-name="standard:work_order"> -->
+                <div class="slds-grid slds-wrap">
+
+        <!-- <div class="slds-p-around_medium"> -->
+             <template if:true={load}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+
+            </div>
+
+          <!--  <lightning-input label="Material Used" value={materialUsed} onchange={handleMaterialUsedChange} required></lightning-input>
+                        
+            <lightning-input label="Material Recovered" value={materialRecovered} onchange={handleMaterialRecoveredChange} required></lightning-input>
+
+             <lightning-input label="Remark" value={remark} onchange={handleRemarkChange} required></lightning-input>
+
+        -->
+
+                     <div class="slds-p-around_medium" style="margin-left:2.7rem;">
+
+            <!-- <div class="slds-align_absolute-center" style="margin-top:1.5rem;"> -->
+                <lightning-button
+                    label="Generate Service Report"
+                    variant="brand"
+                    onclick={handleSaveReport}
+                    >
+                </lightning-button>
+            </div>
+                
+    <!-- </lightning-card> -->
+</template>

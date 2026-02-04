@@ -1,0 +1,119 @@
+<template>
+    <lightning-card title="Upload Photos">
+        <div class="slds-p-around_small">
+ 
+            <!-- Online / Offline badge -->
+            <div class="slds-m-bottom_small">
+                <template if:true={isOnline}>
+                    <lightning-badge label="Online" class="slds-theme_success"></lightning-badge>
+                </template>
+                <template if:false={isOnline}>
+                    <lightning-badge label="Offline" class="slds-theme_error"></lightning-badge>
+                </template>
+            </div>
+ 
+            <!-- Upload buttons -->
+            <div class="slds-m-bottom_medium slds-grid slds-grid_vertical-align-center slds-wrap">
+                <lightning-button
+                    variant="brand"
+                    label="Select from Gallery"
+                    icon-name="utility:image"
+                    onclick={openFilePicker}>
+                </lightning-button>
+ 
+                <!-- <lightning-button
+                    class="slds-m-left_small"
+                    variant="neutral"
+                    label="Take Photo"
+                    icon-name="utility:camera"
+                    onclick={openCameraPicker}>
+                </lightning-button> -->
+ 
+                <!-- <span class="slds-m-left_small slds-text-color_weak">
+                    Files will be saved and uploaded when online.
+                </span> -->
+ 
+                <!-- Hidden file inputs -->
+                <!-- Gallery (multiple selection) -->
+                <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    data-source="gallery"
+                    style="display:none"
+                    onchange={handleFileChange} />
+ 
+                <!-- Camera (single photo capture) -->
+                <input
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    data-source="camera"
+                    style="display:none"
+                    onchange={handleFileChange} />
+            </div>
+ 
+            <!-- File queue -->
+            <template if:true={files}>
+                <div class="slds-grid slds-grid_vertical">
+                    <template for:each={files} for:item="file" for:index="idx">
+                        <template if:false={file.uploaded}>
+                            <div key={file.timestamp} class="slds-box slds-m-bottom_x-small slds-grid slds-grid_align-spread">
+ 
+                                <!-- Left: thumbnail preview -->
+                                <div class="slds-media slds-media_center" style="width:64px">
+                                    <div class="slds-media__figure">
+                                        <template if:true={file.previewUrl}>
+                                            <img src={file.previewUrl} alt="preview"
+                                                 style="width:64px;height:64px;object-fit:cover;border-radius:4px" />
+                                        </template>
+                                        <template if:false={file.previewUrl}>
+                                            <div style="width:64px;height:64px;background:#f3f6f9;border-radius:4px"></div>
+                                        </template>
+                                    </div>
+                                </div>
+ 
+                                <!-- Middle: file name and progress -->
+                                <div style="flex:1;padding-left:12px;">
+                                    <div class="slds-text-body_regular slds-truncate" title={file.name}>{file.name}</div>
+                                    <div class="slds-m-top_x-small">
+                                        <lightning-progress-bar
+                                            value={file.progress}
+                                            size="small">
+                                        </lightning-progress-bar>
+                                    </div>
+                                    <div class="slds-m-top_x-small slds-text-color_weak">
+                                        <template if:true={file.status}>
+                                            {file.status}
+                                        </template>
+                                    </div>
+                                </div>
+ 
+                                <!-- Right: actions -->
+                                <div style="margin-left:12px;text-align:right;">
+                                    <template if:true={isOnline}>
+                                        <template if:false={file.uploaded}>
+                                            <lightning-button
+                                                variant="neutral"
+                                                label="Retry"
+                                                data-index={idx}
+                                                onclick={handleRetry}
+                                                class="slds-m-bottom_x-small">
+                                            </lightning-button>
+                                        </template>
+                                    </template>
+                                    <lightning-button
+                                        variant="destructive"
+                                        label="Remove"
+                                        data-index={idx}
+                                        onclick={handleRemove}>
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

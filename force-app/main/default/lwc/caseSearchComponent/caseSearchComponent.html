@@ -1,0 +1,230 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+    </template>
+     <lightning-card>
+    <div style="background-color: white;">
+        <div class="slds-p-around_x-small">
+                <div class="slds-grid slds-gutters slds-border_bottom">
+                     <div class="slds-col custom-input field-with-border">
+    <label class="slds-form-element__label" for="postalCode">Case Number</label>
+    <div class="slds-form-element__control">
+        <input 
+            type="text" 
+            id="caseNumber"
+            name="caseNumber"
+            value={caseNumber}
+            onchange={handleInputChange}
+            onkeyup={handleKeyUp}
+            placeholder="click here...."
+            class="no-border-input"
+        />
+    </div>
+</div>
+    
+     <div class="slds-col custom-input field-with-border">
+ <label class="slds-form-element__label" for="firstName">First Name</label>
+    <div class="slds-form-element__control">
+        <input 
+            type="text" 
+            id="firstName"
+            name="firstName"
+            value={firstName}
+            onchange={handleInputChange}
+            onkeyup={handleKeyUp}
+            class="no-border-input"
+        />
+    </div>
+</div>
+
+                     
+                    <div class="slds-col custom-input field-with-border">
+    <label class="slds-form-element__label" for="lastName">Last Name</label>
+    <div class="slds-form-element__control">
+        <input 
+            type="text" 
+            id="lastName"
+            name="lastName"
+            value={lastName}
+            onchange={handleInputChange}
+            onkeyup={handleKeyUp}
+            placeholder=""
+            class="no-border-input"
+        />
+    </div>
+</div>
+                    <div class="slds-col custom-input field-with-border">
+    <label class="slds-form-element__label" for="caNumber">CA Number</label>
+    <div class="slds-form-element__control">
+        <input 
+            type="text" 
+            id="caNumber"
+            name="caNumber"
+            value={caNumber}
+            onchange={handleInputChange}
+            onkeyup={handleKeyUp}
+            placeholder=""
+            class="no-border-input"
+        />
+    </div>
+</div>
+                    <div class="slds-col custom-input field-with-border">
+    <label class="slds-form-element__label" for="bpNumber">BP Number</label>
+    <div class="slds-form-element__control">
+        <input 
+            type="text" 
+            id="bpNumber"
+            name="bpNumber"
+            value={bpNumber}
+            onchange={handleInputChange}
+            onkeyup={handleKeyUp}
+            placeholder=""
+            class="no-border-input"
+        />
+    </div>
+</div>
+ <div class="slds-col custom-input field-with-border">
+    <label class="slds-form-element__label" for="connection">Connection Object</label>
+    <div class="slds-form-element__control">
+        <input 
+            type="text" 
+            id="connection"
+            name="connection"
+            value={connection}
+            onchange={handleInputChange}
+            onkeyup={handleKeyUp}
+            placeholder=""
+            class="no-border-input"
+        />
+    </div>
+</div>   
+                    <div class="slds-col custom-input field-with-border">
+    <label class="slds-form-element__label" for="teleNumber">Phone Number</label>
+    <div class="slds-form-element__control">
+        <input 
+            type="text" 
+            id="teleNumber"
+            name="teleNumber"
+            value={teleNumber}
+            onchange={handleInputChange}
+            onkeyup={handleKeyUp}
+            placeholder=""
+            class="no-border-input"
+        />
+    </div>
+</div>
+         <div class="slds-col custom-input field-with-border">
+    <label class="slds-form-element__label" for="teleNumber">Email</label>
+    <div class="slds-form-element__control">
+        <input 
+            type="text" 
+            id="email"
+            name="email"
+            value={email}
+            onchange={handleInputChange}
+            onkeyup={handleKeyUp}
+            placeholder=""
+            class="no-border-input"
+        />
+    </div>
+</div>
+                 
+
+                   <div class="slds-col">
+    <lightning-button
+        variant="brand"
+        label="Search"
+        icon-name="utility:search"
+        size="small"
+        class="slds-m-bottom_small"
+        onclick={handleSearchClick}>
+    </lightning-button>
+    </div>
+    <div class="slds-col">
+    <lightning-button
+        variant="neutral"
+        label="Clear"
+        icon-name="utility:refresh"
+        size="small"
+        onclick={handleClearClick}>
+    </lightning-button>
+</div>
+
+                </div>
+                </div>
+                </div>
+     </lightning-card>
+
+                 <template if:true={showtable}>
+                  <template if:true={hascases}>
+         <lightning-card>
+            <div>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-table_fixed-layout slds-table_resizable-cols">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col"><div class="slds-truncate slds-p-around_x-small">Case Number</div></th>
+                            <th scope="col"><div class="slds-truncate">Customer Name</div></th>
+                            <th scope="col"><div class="slds-truncate">Category</div></th>
+                            <th scope="col"><div class="slds-truncate">Type</div></th>
+                            <th scope="col"><div class="slds-truncate">SubType</div></th>
+                            <th scope="col"><div class="slds-truncate">Flat</div></th>
+                            <th scope="col"><div class="slds-truncate">Status</div></th>
+                            <th scope="col"><div class="slds-truncate">Owner</div></th>
+                            <th scope="col"><div class="slds-truncate">Created Date</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={cases} for:item="casee">
+                            <tr key={casee.Id} data-key={casee.Id} onclick={handleRecordClick} style="cursor:pointer;">
+                                <td><div class="slds-truncate">{casee.Docket_Number__c}</div></td>
+                                <td>
+    <div class="slds-truncate">
+        <template if:true={casee.Account}>
+            {casee.Account.Name}
+        </template>
+        <template if:false={casee.Account}>
+            <template if:true={casee.Lead__r}>
+                {casee.Lead__r.FirstName} {casee.Lead__r.LastName}
+            </template>
+        </template>
+    </div>
+</td>
+                                <template if:false={casee.Account}></template></div></td>
+                                <td><div class="slds-truncate">{casee.Category__c}</div></td>
+                                <td><div class="slds-truncate">{casee.Type__c}</div></td>
+                                <td><div class="slds-truncate">{casee.Sub_Type__c}</div></td>
+<td>
+    <div class="slds-truncate">
+        <template if:true={casee.Account}>
+            {casee.Account.Room__c}
+        </template>
+    </div>
+</td>
+                                <td><div class="slds-truncate">{casee.Status}</div></td>
+                                 <td><div class="slds-truncate">{casee.Owner.Name}</div></td>
+                               <td>
+                                  <div class="slds-truncate">
+                                  <lightning-formatted-date-time
+                                   value={casee.CreatedDate}
+                                   year="numeric"
+                                   month="short"
+                                   day="2-digit"
+                                   hour="2-digit"
+                                   minute="2-digit"
+                                   hour12="true">
+                                   </lightning-formatted-date-time>
+                                   </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+              </lightning-card>
+        </template>
+               </template>
+
+                <template if:true={noResults}>
+                    <div class="slds-text-color_error slds-text-body_small slds-m-top_small">No record Matches</div>
+                </template>
+            </template>

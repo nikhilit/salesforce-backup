@@ -1,0 +1,146 @@
+.slds-p-around_medium {
+    padding: 1rem;
+}
+.slds-grid_vertical-align-center {
+    align-items: center;
+}
+.slds-m-bottom_small {
+    margin-bottom: 0.75rem;
+}
+.slds-size_2-of-12 {
+    width: 16.66667%;
+}
+.slds-size_8-of-12 {
+    width: 66.66667%;
+}
+.slds-size_10-of-12 {
+    width: 83.33333%;
+}
+.slds-text-align_right {
+    text-align: right;
+}
+.slds-form-element__label {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+.slds-form-element__help {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+.slds-m-top_medium {
+    margin-top: 1rem;
+}
+.slds-m-right_small {
+    margin-right: 0.75rem;
+}
+.slds-input-has-icon_right .slds-input__icon {
+    right: 0.75rem;
+}
+.slds-dropdown {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.slds-listbox__option {
+    padding: 0.5rem 0.75rem;
+}
+.slds-listbox__option:hover {
+    background-color: #f3f2f2;
+}
+.slds-listbox__option_plain {
+    cursor: pointer;
+}
+.slds-col strong {
+    color: #3e3e3c;
+}
+.slds-col:not(:first-child) {
+    padding-left: 0.5rem;
+}
+lightning-button-icon {
+    --sds-c-button-color-border: #dddbda;
+    --sds-c-button-color-background: white;
+}
+lightning-button-icon:hover {
+    --sds-c-button-color-border: #c7c7c7;
+    --sds-c-button-color-background: #f3f2f2;
+}
+@media (max-width: 480px) {
+    .slds-size_2-of-12,
+    .slds-size_8-of-12,
+    .slds-size_10-of-12 {
+        width: 100%;
+    }
+    .slds-grid {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .slds-col {
+        margin-bottom: 0.5rem;
+        padding-left: 0;
+    }
+    .slds-text-align_right {
+        text-align: left;
+    }
+}
+/* Make combobox full width */
+.wide-combobox {
+    width: 100% !important;
+}
+
+/* Ensure dropdown also expands full width */
+.wide-combobox .slds-combobox {
+    width: 100% !important;
+    min-width: 100% !important;
+}
+.slds-m-bottom_small,
+.slds-p-vertical_small {
+    margin-bottom: 0.25rem !important; /* reduced from 0.75rem */
+    padding-top: 0.12rem !important;
+    padding-bottom: 0.12rem !important;
+}
+
+/* Optional: Make the rows a bit tighter if using border-bottom */
+.slds-border_bottom {
+    margin-bottom: 0 !important;
+}
+
+/* You may also want to remove bottom margin from the last element */
+.slds-m-bottom_small:last-child {
+    margin-bottom: 0 !important;
+}
+.vertical-align-middle {
+    vertical-align: middle;
+}
+/* Make field labels slightly bigger and bolder */
+.slds-text-title {
+    font-size: 0.9rem;      /* default ~0.75rem, so this is a bit larger */
+}
+
+/* Make field values slightly bigger */
+.slds-text-body_regular {
+    font-size: 0.9rem;      /* match label size */
+    line-height: 1.5;       /* add vertical breathing space */
+         /* Salesforce standard text color */
+}
+
+/* Increase row spacing a little */
+.slds-grid.slds-p-vertical_small {
+    padding-top: 0.6rem;  
+    padding-bottom: 0.6rem;
+}
+/* Target SLDS SVG icons inside your custom class */
+.grey-icon .slds-icon {
+    fill: rgb(170, 170, 170) !important;
+    color: rgb(170, 170, 170) !important;
+}
+
+.readonly-input lightning-input {
+    pointer-events: none;
+}
+
+.readonly-input input {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid #d8dde6 !important;
+}

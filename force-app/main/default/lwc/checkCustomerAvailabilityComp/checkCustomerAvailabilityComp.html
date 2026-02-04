@@ -1,0 +1,265 @@
+<template>
+
+     <lightning-card class="slds-card">
+                <div class="slds-p-around_medium" >
+
+                     <template if:true={load}>
+            <lightning-spinner class="spinner-message" variant="brand"></lightning-spinner>
+        </template>
+
+
+                     <template if:true={showCheckBox}> 
+
+                        <div class="slds-m-bottom_medium" style="margin-top:-12px;">
+                      
+               
+             <!-- <lightning-combobox name="picklist" label="Activity" value={boardAvailable}
+                    placeholder="Choose an option" options={typeOfBoard} onchange={handleboardAvailableChange} required="true">
+                </lightning-combobox> -->
+
+              
+                            <lightning-radio-group name="customerAvailability"
+                                label="Riser Activity Possible Or Not?" options={availabilityOptions}
+                                value={customerAvailability} type="radio" onchange={handleAvailabilityChange}
+                                style="margin-left:1rem;">
+                            </lightning-radio-group>
+
+                            <template if:true={customerAvilable}>
+
+                              <div class="button-container" style="margin-top:1rem; margin-left:7rem;">
+                            <lightning-button label="Save" onclick={handleCusAvilSave}
+                                class="slds-m-right_small" variant="brand"></lightning-button>
+                        </div>  
+
+                            </template>
+
+                           
+                        </div>
+
+                     </template> 
+
+                       
+
+               <!--     <template if:true={customerNotAvilable}>
+
+                         <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+                                <lightning-input type="Text" label="Remark"
+                                    value={customerNotAvilableRemark} onchange={handleCustomerNotAvilableRemark} required="true">
+                                </lightning-input>
+
+                            </div>
+
+                             <div>
+                                    <c-o_-m-camera-upload-comp image-list={photoUploadSlots} onchange={handleFile}>
+                                    </c-o_-m-camera-upload-comp>
+                              </div>
+
+                            <div class="button-container" style="margin-top:1rem; margin-left:7rem;">
+                            <lightning-button label="Save" onclick={handleCustNotAvialSave}
+                                class="slds-m-right_small" variant="brand"></lightning-button>
+                        </div>  
+
+                    </template>  -->
+
+
+                      <!-- Riser maintenence No part -->
+
+                    <template if:true={ReasonForUnavailability}>
+                        <div class="slds-grid slds-wrap slds-p-around_medium">
+                            <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+                                <lightning-combobox name="reason" label="Reason for Cancellation"
+                                    value={unavailability} options={reasonUnavailability}
+                                    onchange={handlereasonForUnavailability}>
+                                </lightning-combobox>
+
+                            </div>
+
+                             <template if:true={yearOfAMC}>
+
+                              <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+                                <lightning-input type="Text" label="Maintenance already done-year of AMC"
+                                    value={maintenanceDoneYearOfAMC} onchange={handleChangeYearOfAMC} required="true">
+                                </lightning-input>
+
+                            </div>
+
+                            </template>
+
+                             <template if:true={otherRemark}>
+
+                              <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+                                <lightning-input type="Text" label="Remark"
+                                    value={otherRemarkValue} onchange={handleOtherRemark} required="true">
+                                </lightning-input>
+
+                            </div>
+
+                            </template>
+
+                            <template if:true={showEnterCustomerNameFlatNumber}>
+
+                 <div class="slds-col slds-size_1-of-1 slds-p-around_small">
+
+
+                  <template for:each={customerNameFlatNumberList} for:item="flat" for:index="index">
+        <div key={flat.index} class="slds-box slds-m-bottom_small">
+
+            <div class="slds-grid slds-wrap slds-gutters">
+               
+                <div class="slds-col slds-size_2-of-3">
+                    <lightning-input label="Customer Name" name="customerName" type="text" data-index={index}
+                        value={flat.customerName} onchange={handleCustomerNameFlatNumberChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_2-of-3">
+                    <lightning-input label="Flat Number" name="flatNumber" type="text" data-index={index}
+                        value={flat.flatNumber} onchange={handleCustomerNameFlatNumberChange}>
+                    </lightning-input>
+                </div>
+
+                <!-- Delete Icon -->
+                <div class="slds-col slds-size_1-of-3 slds-text-align_right" style="margin-top:1.5rem;">
+                    <lightning-button-icon icon-name="utility:delete" alternative-text="Remove" title="Remove"
+                        data-index={index} onclick={removeCustomerNameFlatNumberRow} class="slds-m-top_small">
+                    </lightning-button-icon>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <lightning-button icon-name="utility:add" label="Add Flat" onclick={addCustomerNameFlatNumberRow}
+        class="slds-m-top_medium">
+    </lightning-button>
+
+                            </div>
+
+
+                            </template>
+
+
+                        </div>
+                        <!-- <template if:true={showNext}>
+                            <lightning-button label="Next" title="Next" onclick={handleImageCapturePage}
+                                class="slds-m-top_medium" variant="brand" style="margin-left:9rem;">
+                            </lightning-button>
+                        </template> -->
+
+
+                        <div class="slds-grid slds-wrap" if:true={imageUploadPage}>
+                            <div class="slds-col slds-size_1-of-1">
+                              
+                                <!-- <div>
+                                    <c-o_-m-camera-upload-comp image-list={photoUploadSlots} onchange={handleFile}>
+                                    </c-o_-m-camera-upload-comp>
+                                </div> -->
+
+                                <!-- <div>
+
+                                        <c-o-m-upload-multiple-images-comp record-id={recordId}></c-o-m-upload-multiple-images-comp>
+
+                                </div> -->
+            <div style="margin-top:-2rem;">
+                            
+            <template for:each={documentTypes} for:item="types">
+                <div key={types.label} class="slds-p-around_small" data-label={types.label}>
+                    <div class="slds-grid" >
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_small">
+                        <p class="slds-text-heading_small">{types.label}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-8 slds-col_bump-left slds-p-around_small slds-text-align_right">
+
+                     <label class="upload-placeholder">
+
+                       
+                        <!-- <input type="file"  accept="image/*" multiple onchange={handleFileChange} data-label={types.label} disabled={isUploadDisabled} /> -->
+                    <input type="file"  accept="image/*,application/pdf" multiple onchange={handleFileChange} data-label={types.label} disabled={isUploadDisabled} />
+                         
+                            <lightning-icon icon-name="utility:upload" alternative-text="Upload"
+                                title="Upload Files" 
+                                size="small"  ></lightning-icon>
+
+                        </label>
+                    </div>
+                </div>
+                       <div class="slds-grid slds-box slds-m-bottom_medium"
+                        style="height: auto; display: block;">
+
+                     
+                        <template if:true={types.fileName}>
+                                <template for:each={types.fileName} for:item="name">
+
+                            <div key={name}
+                                style="font-size:12px; word-wrap: break-word; word-break: break-all; white-space: normal; margin-bottom: 4px;">{name}
+                            <lightning-button-icon icon-name="utility:close" alternative-text="Clear"
+                                class="slds-m-left_x-small" onclick={handleClearFile} data-label={types.label} data-name={name}
+                                variant="bare" size="small" disabled={isClearFile} >
+                            </lightning-button-icon>
+                        </div>
+                        </template>
+                        </template>
+                     
+                    </div>
+                </div>
+            </template>
+</div>
+
+            <!-- <template if:true={approvalStatus}>
+                <h2 style="margin-left: 1rem; font-size:1rem;">Approval Status : {approvalStatus}</h2>
+
+                <h2 style="margin-left: 1rem; font-size:1rem;">   {approvalComment}</h2>
+
+            </template>
+
+            <div class="slds-p-around_medium" style="margin-left:5.8rem;">
+
+                <lightning-spinner if:true={isLoading} alternative-text="Uploading..."></lightning-spinner>
+                <lightning-button label="Submit For Approval" variant="brand" onclick={handleUpload} disabled={isSubmitDisabled}></lightning-button>
+            </div> -->
+
+
+        
+
+    
+
+
+
+
+                                  <!-- <div class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
+
+                                <lightning-input type="Text" label="Closer Remark"
+                                    value={rMCloserRemark} onchange={handleRMCloserRemark} required="true">
+                                </lightning-input>
+
+                            </div> -->
+
+                                <!-- Buttons -->
+                                <div class="slds-m-top_medium slds-align_absolute-center">
+                           
+                                    <lightning-button variant="brand" label="Save" onclick={handleFinalSave}>
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--</div> -->
+
+                     
+
+
+                    </template>
+
+ <!-- <template if:true={rPReasonForUnavailability}>
+
+                    <c-cna-riser-Painting record-id={recordId} oncancel={handleCancel}></c-cna-riser-Painting>
+                </template> -->
+
+                    
+
+                </div>
+
+    </lightning-card>      
+
+</template>
